@@ -1,1 +1,3 @@
-This is a read me file
+#Software Engineering Methods
+
+Starring: Craig Gordon, Lukas Paling, Luke Scanlan and Marco De Luca

@@ -1,6 +1,6 @@
 # Software Engineering Methods
 
-Starring: Craig Gordon, Lukas Paling, Luke Scanlan and Marco De Lucas
+Starring: Craig Gordon, Lukas Paling, Luke Scanlan and Marco De Luca
 
 Build Status
 -

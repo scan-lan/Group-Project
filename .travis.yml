@@ -7,7 +7,7 @@ services:
 
 after_success:
   - docker network create --driver bridge se-methods
-    - docker pull mongo
-    - docker run -d --name mongo-dbserver --network se-methods mongo
-    - docker build -t sem_gp .
-    - docker run --network se-methods sem_gp
+  - docker pull mongo
+  - docker run -d --name mongo-dbserver --network se-methods mongo
+  - docker build -t sem_gp .
+  - docker run --network se-methods sem_gp

@@ -16,7 +16,7 @@ Primary task.
 
 ### Preconditions
 
-We know which continent.  Database contains population statistics that are as up to date as possible.
+We know which region.  Database contains population statistics that are as up to date as possible.
 
 ### Success End Condition
 
@@ -42,14 +42,15 @@ A request for population data from the organisation.
 
 ## MAIN SUCCESS SCENARIO
 
-1. The organisation requests information on all countries in a continent organised from largest to smallest.   
-2. System user captures the name of the continent to get the population information for.
-3. System user extracts population information of all countries in a continent ordered largest to smallest by population.
+1. The organisation requests information on all countries in a region organised from largest to smallest.   
+2. System user captures the name of the region to get the population information for.
+3. System user extracts population information of all countries in a region ordered largest to smallest by population.
 4. System user provides report to the organisation.
 
 ## EXTENSIONS
 
-N/A
+3. **Continent does not exist**:
+    1. System user informs the organisation that no such continent exists
 
 ## SUB-VARIATIONS
 

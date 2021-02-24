@@ -1,10 +1,10 @@
-# USE CASE: 1.2 Produce a report on the population of countries in a continent
+# USE CASE: 1.3 Produce a report on the population of countries in a region
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As a *System User* I want *to produce a report on all countries in a continent organised by largest population to smallest* so that *I can facilitate easy access to population information.*
+As a *System User* I want *to produce a report on all countries in a region organised by largest population to smallest* so that *I can facilitate easy access to population information.*
 
 ### Scope
 
@@ -49,8 +49,7 @@ A request for population data from the organisation.
 
 ## EXTENSIONS
 
-3. **Continent does not exist**:
-    1. System user informs the organisation that no such continent exists
+N/A
 
 ## SUB-VARIATIONS
 

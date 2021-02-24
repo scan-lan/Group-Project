@@ -1,4 +1,4 @@
-# USE CASE: 3.4 Produce a report on the population of cities in a district
+# USE CASE: 3.5 Produce a report on the population of cities in a district
 
 ## CHARACTERISTIC INFORMATION
 

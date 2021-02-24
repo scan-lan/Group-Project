@@ -1,4 +1,4 @@
-# USE CASE: 2.2 Produce a report on the top N populated cities in a continent where N is provided by the user.
+# USE CASE: 4.2 Produce a report on the top N populated cities in a continent where N is provided by the user.
 
 ## CHARACTERISTIC INFORMATION
 

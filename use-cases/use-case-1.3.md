@@ -49,8 +49,8 @@ A request for population data from the organisation.
 
 ## EXTENSIONS
 
-3. **Continent does not exist**:
-    1. System user informs the organisation that no such continent exists
+3. **Region does not exist**:
+    1. System user informs the organisation that no such region exists
 
 ## SUB-VARIATIONS
 

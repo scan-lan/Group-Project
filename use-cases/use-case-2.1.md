@@ -1,10 +1,10 @@
-# USE CASE: 1.3 Produce a report on the population of countries in a region
+# USE CASE: 2.1 Produce a report on the top N populated countries in the world where N is provided by the user.
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As a *System User* I want *to produce a report on all countries in a region organised by largest population to smallest* so that *I can facilitate easy access to population information.*
+As a *System User* I want *to produce a report on the top N populated countries in the world where N is provided by the user.* so that *I can facilitate easy access to population information.*
 
 ### Scope
 
@@ -16,7 +16,8 @@ Primary task.
 
 ### Preconditions
 
-We know which continent.  Database contains population statistics that are as up to date as possible.
+User is able to specify N.  N must be an integer.  
+Database contains population statistics that are as up to date as possible.
 
 ### Success End Condition
 
@@ -42,14 +43,14 @@ A request for population data from the organisation.
 
 ## MAIN SUCCESS SCENARIO
 
-1. The organisation requests information on all countries in a continent organised from largest to smallest.   
-2. System user captures the name of the continent to get the population information for.
-3. System user extracts population information of all countries in a continent ordered largest to smallest by population.
+1. The organisation requests information on the top N populated countries in the world where N is provided by the user.   
+2. System user captures the value of N.
+3. System user extracts population information of the top N populated countries in the world where N is provided by the user.
 4. System user provides report to the organisation.
 
 ## EXTENSIONS
 
-N/A
+
 
 ## SUB-VARIATIONS
 

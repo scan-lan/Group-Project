@@ -20,7 +20,13 @@ Database contains population statistics that are as up to date as possible.
 
 ### Success End Condition
 
-A report is successfully generated.
+A report is successfully generated that includes the following information about the countries:
+*Code,*
+*Name,*
+*Continent,*
+*Region,*
+*Population,*
+*Capital.*
 
 ### Failed End Condition
 

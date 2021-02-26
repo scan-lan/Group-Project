@@ -7,25 +7,20 @@ public class App
     public static void main(String[] args)
     {
         // Create new Application
-        App a = new App();
+        App app = new App();
 
         // Connect to database
-        a.connect();
-
-        // Test we have records
-        a.testQuery();
+        app.connect();
 
         // Disconnect from database
-        a.disconnect();
+        app.disconnect();
     }
 
-    /**
-     * Connection to MySQL database.
-     */
+    // Connection to MySQL database.
     private Connection con = null;
 
     /**
-     * Connect to the MySQL database.
+     * Connect to the MySQL world database.
      */
     public void connect()
     {
@@ -53,10 +48,10 @@ public class App
                 System.out.println("Successfully connected");
                 break;
             }
-            catch (SQLException sqle)
+            catch (SQLException e)
             {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
-                System.out.println(sqle.getMessage());
+                System.out.println("Failed to connect to database attempt " + i);
+                System.out.println(e.getMessage());
             }
             catch (InterruptedException ie)
             {
@@ -77,36 +72,10 @@ public class App
                 // Close connection
                 con.close();
             }
-            catch (Exception e)
+            catch (SQLException e)
             {
                 System.out.println("Error closing connection to database");
             }
-        }
-    }
-
-    public void testQuery()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect = "SELECT code, name, continent\n" +
-                               "FROM country\n" +
-                               "LIMIT 20";
-            // Execute SQL statement
-            ResultSet resultSet = stmt.executeQuery(strSelect);
-            while (resultSet.next())
-            {
-                System.out.println(resultSet.getString("code"));
-                System.out.println(resultSet.getString("name"));
-                System.out.println(resultSet.getString("continent"));
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get salary details");
         }
     }
 }

@@ -75,7 +75,7 @@ public class DAO
      * query.
      * @return An ordered list of countries in a specified continent sorted by descending population
      */
-    public ArrayList<Country> TopNCountriesContinent(Integer n, String continentName)
+    public ArrayList<Country> TopNCountriesContinent(Integer n,String continentName)
     {
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
@@ -89,14 +89,23 @@ public class DAO
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
 
+        return ExecuteCountryStatement(statementString);
+    }
 
-//        String statementString = "SELECT co.code, co.name, continent, region, co.population, ci.name AS capital \n" +
-//        "FROM country co \n"+
-//        "JOIN city ci ON co.code = ci.countrycode \n"+
-//        "AND co.capital = ci.id \n"+
-//        "WHERE continent = 'Europe' \n"+
-//        "ORDER BY population DESC \n"+
-//        "LIMIT " + n;
+    public ArrayList<Country> TopNCountriesRegion(Integer n,String regionName)
+    {
+        // Define the SQL query as a string
+        String statementString = "SELECT code, name, continent, region, population, (\n" +
+                "    SELECT name\n" +
+                "    FROM city ci\n" +
+                "    WHERE countrycode = co.code\n" +
+                "        AND ci.id = co.capital\n" +
+                "    ) AS capital\n" +
+                "FROM country co\n" +
+                "WHERE co.region = '"+regionName+"'\n" +
+                "ORDER BY population DESC\n" +
+                "LIMIT " + n;
+
         return ExecuteCountryStatement(statementString);
     }
 

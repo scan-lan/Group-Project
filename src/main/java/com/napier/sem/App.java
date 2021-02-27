@@ -26,7 +26,11 @@ public class App
         //ArrayList<Country> countries = dao.TopNCountries(10);
 
         // Run top N populated countries in specified continent query
-        ArrayList<Country> countries = dao.TopNCountriesContinent(5, "Asia");
+        //ArrayList<Country> countries = dao.TopNCountriesContinent(5,"Asia");
+
+        // Run top N populated countries in specified region query
+        ArrayList<Country> countries = dao.TopNCountriesRegion(5,"Eastern Asia");
+
 
         // Display results
         for (Country country : countries) System.out.println(country);

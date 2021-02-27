@@ -1,3 +1,3 @@
-SELECT *
+SELECT code, name, continent
 FROM country
-LIMIT 25;
+LIMIT 20;

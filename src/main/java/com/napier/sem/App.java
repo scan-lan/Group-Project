@@ -1,31 +1,39 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App
 {
+    // Connection to MySQL database.
+    private Connection connection = null;
+
     public static void main(String[] args)
     {
         // Create new Application
-        App a = new App();
+        App app = new App();
 
         // Connect to database
-        a.connect();
+        app.connect();
 
-        // Test we have records
-        a.testQuery();
+        // Create instance of the database access object
+        DAO dao = new DAO(app.connection);
+
+        // Run the test query
+        // dao.testQuery();
+
+        // Run top 10 countries query against database
+        ArrayList<Country> countries = dao.TopNCountries(10);
+
+        // Display results
+        for (Country country : countries) System.out.println(country);
 
         // Disconnect from database
-        a.disconnect();
+        app.disconnect();
     }
 
     /**
-     * Connection to MySQL database.
-     */
-    private Connection con = null;
-
-    /**
-     * Connect to the MySQL database.
+     * Connect to the MySQL world database.
      */
     public void connect()
     {
@@ -49,14 +57,14 @@ public class App
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://database:3306/world?useSSL=false", "root", "example");
+                connection = DriverManager.getConnection("jdbc:mysql://database:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
-            catch (SQLException sqle)
+            catch (SQLException e)
             {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
-                System.out.println(sqle.getMessage());
+                System.out.println("Failed to connect to database attempt " + i);
+                System.out.println(e.getMessage());
             }
             catch (InterruptedException ie)
             {
@@ -70,43 +78,17 @@ public class App
      */
     public void disconnect()
     {
-        if (con != null)
+        if (connection != null)
         {
             try
             {
                 // Close connection
-                con.close();
+                connection.close();
             }
-            catch (Exception e)
+            catch (SQLException e)
             {
                 System.out.println("Error closing connection to database");
             }
-        }
-    }
-
-    public void testQuery()
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect = "SELECT code, name, continent\n" +
-                               "FROM country\n" +
-                               "LIMIT 20";
-            // Execute SQL statement
-            ResultSet resultSet = stmt.executeQuery(strSelect);
-            while (resultSet.next())
-            {
-                System.out.println(resultSet.getString("code"));
-                System.out.println(resultSet.getString("name"));
-                System.out.println(resultSet.getString("continent"));
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get salary details");
         }
     }
 }

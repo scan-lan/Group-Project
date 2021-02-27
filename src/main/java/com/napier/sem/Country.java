@@ -41,7 +41,9 @@ public class Country
      */
     public String toString()
     {
-        return String.format("\n%s\t%s\t%s\n%s\t%s\t%s",
+        return String.format("Country code: %s | Name: %s | Continent: %s\n" +
+                        "Region: %s | Population: %s | Capital: %s\n" +
+                        "-------------------------------------------------------",
                 this.code,
                 this.name,
                 this.continent,

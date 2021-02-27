@@ -1,9 +1,13 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App
 {
+    // Connection to MySQL database.
+    private Connection connection = null;
+
     public static void main(String[] args)
     {
         // Create new Application
@@ -12,12 +16,21 @@ public class App
         // Connect to database
         app.connect();
 
+        // Create instance of the report object
+        Report report = new Report(app.connection);
+
+        // Run the test query
+        // report.testQuery();
+
+        // Run top 10 countries query against database
+        ArrayList<Country> countries = report.TopNCountries(10);
+
+        // Display results
+        for (Country country : countries) System.out.println(country);
+
         // Disconnect from database
         app.disconnect();
     }
-
-    // Connection to MySQL database.
-    private Connection con = null;
 
     /**
      * Connect to the MySQL world database.
@@ -44,7 +57,7 @@ public class App
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://database:3306/world?useSSL=false", "root", "example");
+                connection = DriverManager.getConnection("jdbc:mysql://database:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -65,12 +78,12 @@ public class App
      */
     public void disconnect()
     {
-        if (con != null)
+        if (connection != null)
         {
             try
             {
                 // Close connection
-                con.close();
+                connection.close();
             }
             catch (SQLException e)
             {

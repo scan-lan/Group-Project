@@ -16,14 +16,14 @@ public class App
         // Connect to database
         app.connect();
 
-        // Create instance of the report object
-        Report report = new Report(app.connection);
+        // Create instance of the database access object
+        DAO dao = new DAO(app.connection);
 
         // Run the test query
-        // report.testQuery();
+        // dao.testQuery();
 
         // Run top 10 countries query against database
-        ArrayList<Country> countries = report.TopNCountries(10);
+        ArrayList<Country> countries = dao.TopNCountries(10);
 
         // Display results
         for (Country country : countries) System.out.println(country);

@@ -6,12 +6,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Report
+/**
+ * The Data Access Object (DAO) is used for querying the database and returning
+ * the results in a usable manner.
+ */
+public class DAO
 {
     // Private properties
     private final Connection connection;
 
-    public Report(Connection connection)
+    public DAO(Connection connection)
     {
         this.connection = connection;
     }

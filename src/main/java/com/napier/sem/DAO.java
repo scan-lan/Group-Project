@@ -10,13 +10,13 @@ import java.util.ArrayList;
  * The Data Access Object (DAO) is used for querying the database and returning
  * the results in a usable manner.
  */
-public class DAO
-{
+public class DAO {
+
+
     // Private properties
     private final Connection connection;
 
-    public DAO(Connection connection)
-    {
+    public DAO(Connection connection) {
         this.connection = connection;
     }
 

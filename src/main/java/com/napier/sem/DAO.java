@@ -10,13 +10,13 @@ import java.util.ArrayList;
  * The Data Access Object (DAO) is used for querying the database and returning
  * the results in a usable manner.
  */
-public class DAO
-{
+public class DAO {
+
+
     // Private properties
     private final Connection connection;
 
-    public DAO(Connection connection)
-    {
+    public DAO(Connection connection) {
         this.connection = connection;
     }
 
@@ -42,8 +42,7 @@ public class DAO
             {
                 countries.add(new Country(resultSet));
             }
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println("Query TopNCountries failed");
             System.out.println(e.getMessage());
         }
@@ -53,20 +52,65 @@ public class DAO
     /**
      * Constructs the SQL query required and returns the result of the
      * query.
-     * @return An ordered list of countries sorted by descending population
+     *
+     * @return An ordered list of countries in the world sorted by descending population
      */
-    public ArrayList<Country> TopNCountries(Integer n)
-    {
+    public ArrayList<Country> allCountries() {
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
-                    "    SELECT name\n" +
-                    "    FROM city ci\n" +
-                    "    WHERE countrycode = co.code\n" +
-                    "        AND ci.id = co.capital\n" +
-                    "    ) AS capital\n" +
-                    "FROM country co\n" +
-                    "ORDER BY population DESC\n" +
-                    "LIMIT " + n;
+                "    SELECT name\n" +
+                "    FROM city ci\n" +
+                "    WHERE countrycode = co.code\n" +
+                "        AND ci.id = co.capital\n" +
+                "    ) AS capital\n" +
+                "FROM country co\n" +
+                "ORDER BY population DESC\n";
+//              "LIMIT 20";
+
+        return ExecuteCountryStatement(statementString);
+    }
+
+    /**
+     * Constructs the SQL query required and returns the result of the
+     * query.
+     *
+     * @return An ordered list of countries in the world sorted by descending population
+     */
+    public ArrayList<Country> allCountries(String areaFilter, String areaName) {
+        // Define the SQL query as a string
+        String statementString = "SELECT code, name, continent, region, population, (\n" +
+                "    SELECT name\n" +
+                "    FROM city ci\n" +
+                "    WHERE countrycode = co.code\n" +
+                "        AND ci.id = co.capital\n" +
+                "    ) AS capital\n" +
+
+                "FROM country co\n" +
+                "WHERE co." + areaFilter + " = '" + areaName + "'\n" +
+                "ORDER BY population DESC\n";
+//              "LIMIT 20";
+//
+        return ExecuteCountryStatement(statementString);
+    }
+
+    /**
+     * Constructs the SQL query required and returns the result of the
+     * query.
+     *
+     * @return An ordered list of countries sorted by descending population
+     */
+    public ArrayList<Country> TopNCountries(Integer n) {
+        // Define the SQL query as a string
+        String statementString = "SELECT code, name, continent, region, population, (\n" +
+                "    SELECT name\n" +
+                "    FROM city ci\n" +
+                "    WHERE countrycode = co.code\n" +
+                "        AND ci.id = co.capital\n" +
+                "    ) AS capital\n" +
+                "FROM country co\n" +
+                "WHERE co.population > 0\n " +
+                "ORDER BY population DESC\n" +
+                "LIMIT " + n;
         return ExecuteCountryStatement(statementString);
     }
 
@@ -85,15 +129,22 @@ public class DAO
                 "        AND ci.id = co.capital\n" +
                 "    ) AS capital\n" +
                 "FROM country co\n" +
-                "WHERE co.continent = '"+continentName+"'\n" +
+                "WHERE co.continent = '" + continentName + "'\n" +
+                "AND co.population > 0\n " +
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
 
         return ExecuteCountryStatement(statementString);
     }
 
-    public ArrayList<Country> TopNCountriesRegion(Integer n,String regionName)
-    {
+    /**
+     * Constructs the SQL query required and returns the result of the
+     * query.
+     *
+     * @return An ordered list of populated countries in a specified region sorted by descending population
+     */
+
+    public ArrayList<Country> TopNCountriesRegion(Integer n, String regionName) {
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
                 "    SELECT name\n" +
@@ -102,12 +153,14 @@ public class DAO
                 "        AND ci.id = co.capital\n" +
                 "    ) AS capital\n" +
                 "FROM country co\n" +
-                "WHERE co.region = '"+regionName+"'\n" +
+                "WHERE co.region = '" + regionName + "'\n" +
+                "AND co.population > 0\n " +
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
 
         return ExecuteCountryStatement(statementString);
     }
+
 
     /**
      * This is a sanity-check query just ensuring that the database can be accessed

@@ -3,13 +3,19 @@ package com.napier.sem;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class App
-{
+public class App {
+    // Report constants
+    private final String CONTINENT = "continent";
+    private final String REGION = "region";
+
+    // City report constants
+    private final String COUNTRY = "country";
+    private final String DISTRICT = "district";
+
     // Connection to MySQL database.
     private Connection connection = null;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Create new Application
         App app = new App();
 
@@ -22,14 +28,25 @@ public class App
         // Run the test query
         // dao.testQuery();
 
+        // Use-case 1.1
+        // produce a report on all countries in the world organised by largest population to smallest
+        // ArrayList<Country> countries = dao.allCountries();
+
+        // Use-cases 1.2 and 1.3
+        // produce a report on all countries in the world organised by largest population to smallest
+        ArrayList<Country> countries = dao.allCountries(app.REGION, "Southern and Central Asia");
+
+        // Use-case 2.1
         // Run top 10 countries query against database
-        //ArrayList<Country> countries = dao.TopNCountries(10);
+        // ArrayList<Country> countries = dao.TopNCountries(10);
 
+        // Use-case 2.2
         // Run top N populated countries in specified continent query
-        //ArrayList<Country> countries = dao.TopNCountriesContinent(5,"Asia");
+        // ArrayList<Country> countries = dao.TopNCountriesContinent(5,"Asia");
 
+        // Use-case 2.3
         // Run top N populated countries in specified region query
-        ArrayList<Country> countries = dao.TopNCountriesRegion(5,"Eastern Asia");
+        // ArrayList<Country> countries = dao.TopNCountriesRegion(5,"Eastern Asia");
 
 
         // Display results

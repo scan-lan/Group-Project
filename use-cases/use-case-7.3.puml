@@ -6,9 +6,9 @@ rectangle Database
 
 rectangle "Organisation" {
     usecase UC1 as "Get population, city population %,
-    non-city population % in continent"
+    non-city population % in country"
 
-    usecase UCa as "Print: continent name, continent population,
+    usecase UCa as "Print: country name, country population,
     city population % , non-city population %"
 }
     User - UC1

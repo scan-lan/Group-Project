@@ -94,8 +94,8 @@ public class DAO {
                 "        AND ci.id = co.capital\n" +
                 "    ) AS capital\n" +
                 "FROM country co\n" +
-                "ORDER BY population DESC\n";
-//              "LIMIT 20";
+                "ORDER BY population DESC\n" +
+                "LIMIT 20";
 
         return ExecuteCountryStatement(statementString);
     }
@@ -211,26 +211,6 @@ public class DAO {
         return ExecuteCityStatement(statementString);
     }
 
-    /**
-     * Constructs the SQL query required and returns the result of the
-     * query.
-     *
-     * @return An ordered list of cities in a continent sorted by descending population
-     */
-
-    public ArrayList<City> allCities(String areaFilter, String areaName) {
-        // Define the SQL query as a string
-        String statementString = "SELECT name, district, population,  (\n" +
-                "    SELECT name\n" +
-                "    FROM country co\n" +
-                "    WHERE code = ci.countrycode\n" +
-                "    ) AS country\n" +
-                "FROM city ci\n" +
-                "WHERE " + areaFilter + " = '" + areaName + "'\n" +
-                "ORDER BY population DESC\n" +
-                "LIMIT 2";
-        return ExecuteCityStatement(statementString);
-    }
 
     /**
      * This is a sanity-check query just ensuring that the database can be accessed

@@ -11,12 +11,12 @@ import java.sql.SQLException;
  */
 public class City {
     // Private properties
-
+    private String code;
     private String name;
     private String country;
     private String district;
-    private String region;
     private Integer population;
+
 
 
     /**
@@ -27,12 +27,12 @@ public class City {
      * @throws SQLException
      */
     public City(ResultSet result) throws SQLException {
-
+        code = result.getString("code");
         name = result.getString("name");
         country = result.getString("country");
         district = result.getString("district");
-        region = result.getString("region");
         population = result.getInt("population");
+
 
     }
 
@@ -44,6 +44,7 @@ public class City {
     public String toString() {
         return String.format("\n Name: %s |  Country: %s \n" +
                         "\n District: %s |  Population: %s\n" +
+
                         "-------------------------------------------------------",
 
                 this.name,

@@ -6,12 +6,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+// Constants that can be used as parameters when calling overloaded methods
+
+
 /**
  * The Data Access Object (DAO) is used for querying the database and returning
  * the results in a usable manner.
  */
-public class DAO
-{
+public class DAO {
+
     // Private properties
     private final Connection connection;
 
@@ -38,8 +41,7 @@ public class DAO
             // Execute the query
             ResultSet resultSet = statement.executeQuery(statementString);
             // Create Country object and add it to the list for each result in the query
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 countries.add(new Country(resultSet));
             }
         } catch (SQLException e) {
@@ -47,6 +49,34 @@ public class DAO
             System.out.println(e.getMessage());
         }
         return countries;
+    }
+
+    /**
+     * This takes an SQL query in the form of a string and executes it against
+     * the database.  It is only for use with statements that should return
+     * country records.  It will return the countries in a list of Country
+     * objects.
+     *
+     * @param statementString The SQL statement to be executed
+     * @return An ArrayList of country objects
+     */
+
+    private ArrayList<City> ExecuteCityStatement(String statementString) {
+        ArrayList<City> cities = new ArrayList<>();
+        try {
+            // Create the SQL statement object for sending statements to the database
+            Statement statement = connection.createStatement();
+            // Execute the query
+            ResultSet resultSet = statement.executeQuery(statementString);
+            // Create Country object and add it to the list for each result in the query
+            while (resultSet.next()) {
+                cities.add(new City(resultSet));
+            }
+        } catch (SQLException e) {
+            System.out.println("Query ExecuteCityStatement failed");
+            System.out.println(e.getMessage());
+        }
+        return cities;
     }
 
     /**
@@ -88,7 +118,7 @@ public class DAO
                 "FROM country co\n" +
                 "WHERE co." + areaFilter + " = '" + areaName + "'\n" +
                 "ORDER BY population DESC\n";
-//              "LIMIT 20";
+//              "LIMIT 2";
 //
         return ExecuteCountryStatement(statementString);
     }
@@ -117,10 +147,10 @@ public class DAO
     /**
      * Constructs the SQL query required and returns the result of the
      * query.
+     *
      * @return An ordered list of countries in a specified continent sorted by descending population
      */
-    public ArrayList<Country> TopNCountriesContinent(Integer n,String continentName)
-    {
+    public ArrayList<Country> TopNCountriesContinent(Integer n, String continentName) {
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
                 "    SELECT name\n" +
@@ -159,6 +189,26 @@ public class DAO
                 "LIMIT " + n;
 
         return ExecuteCountryStatement(statementString);
+    }
+
+    /**
+     * Constructs the SQL query required and returns the result of the
+     * query.
+     *
+     * @return An ordered list of countries in the world sorted by descending population
+     */
+    public ArrayList<City> allCities() {
+        // Define the SQL query as a string
+        String statementString = "SELECT name, district, population,  (\n" +
+                "    SELECT name\n" +
+                "    FROM country co\n" +
+                "    WHERE code = ci.countrycode\n" +
+                "    ) AS country\n" +
+                "FROM city ci\n" +
+                "ORDER BY population DESC\n";
+        //           "LIMIT 2";
+
+        return ExecuteCityStatement(statementString);
     }
 
 

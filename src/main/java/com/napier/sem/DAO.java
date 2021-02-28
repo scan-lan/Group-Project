@@ -92,6 +92,8 @@ public class DAO
         return ExecuteCountryStatement(statementString);
     }
 
+
+
     public ArrayList<Country> TopNCountriesRegion(Integer n,String regionName)
     {
         // Define the SQL query as a string
@@ -109,6 +111,23 @@ public class DAO
         return ExecuteCountryStatement(statementString);
     }
 
+    public ArrayList<Country> allCountries()
+    {
+        // Define the SQL query as a string
+        String statementString = "SELECT code, name, continent, region, population, (\n" +
+                "    SELECT name\n" +
+                "    FROM city ci\n" +
+                "    WHERE countrycode = co.code\n" +
+                "        AND ci.id = co.capital\n" +
+                "    ) AS capital\n" +
+                "FROM country co\n" +
+                "WHERE co.population > 0 " +
+//                "WHERE co.region = '"+regionName+"'\n" +
+                "ORDER BY population DESC\n";
+//                "LIMIT 20";
+
+        return ExecuteCountryStatement(statementString);
+    }
     /**
      * This is a sanity-check query just ensuring that the database can be accessed
      */

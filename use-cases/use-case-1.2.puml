@@ -5,7 +5,7 @@
 rectangle Database
 
 rectangle "Organisation" {
-    usecase UC as "Get countries in continent
+    usecase UC1 as "Get countries in continent
     by largest population to smallest"
 
     usecase UCa as "Print: Code, Name, Continent,

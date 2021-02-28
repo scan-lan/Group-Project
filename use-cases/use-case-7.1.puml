@@ -1,0 +1,19 @@
+@startuml
+
+
+
+rectangle Database
+
+rectangle "Organisation" {
+    usecase UC1 as "Get population, city population %,
+    non-city population % in continent"
+
+    usecase UCa as "Print: continent name, continent population
+    city population % , non-city population %"
+}
+    User - UC1
+    UC1 ..> UCa : include
+    UC1 - Database
+
+
+@enduml

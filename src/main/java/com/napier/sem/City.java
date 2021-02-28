@@ -15,6 +15,7 @@ public class City {
     private String name;
     private String country;
     private String district;
+    private String region;
     private Integer population;
 
 
@@ -30,6 +31,7 @@ public class City {
         name = result.getString("name");
         country = result.getString("country");
         district = result.getString("district");
+        region = result.getString("region");
         population = result.getInt("population");
 
     }

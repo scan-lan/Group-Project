@@ -34,7 +34,7 @@ public class App {
 
         // Use-cases 1.2 and 1.3
         // produce a report on all countries in the world organised by largest population to smallest
-        ArrayList<Country> countries = dao.allCountries("region", "Southern and Central Asia");
+        // ArrayList<Country> countries = dao.allCountries("region", "Southern and Central Asia");
 
         // Use-case 2.1
         // Run top 10 countries query against database
@@ -49,8 +49,13 @@ public class App {
         // ArrayList<Country> countries = dao.TopNCountriesRegion(5,"Eastern Asia");
 
         // Use-case 3.1
-        // Run top N populated countries in specified region query
-        ArrayList<City> cities = dao.allCities();
+        //produce a report on all cities in the world organised by largest population to smallest
+        //ArrayList<City> cities = dao.allCities();
+
+        // Use-case 3.2
+        //produce a report on all cities in a defined area organised by largest population to smallest
+        ArrayList<City> cities = dao.allCities("region", "Southern and Central Asia");
+
 
 
         // Display results

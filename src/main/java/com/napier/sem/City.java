@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Class representing a country record containing the data
- * we show when displaying a country.
+ * Class representing a city record containing the data
+ * we show when displaying a city.
  * This consists of:
- * code, name, continent, region, population, capital
+ * name, country, district, population.
  */
 public class City {
     // Private properties
-    private String code;
+
     private String name;
     private String country;
     private String district;
@@ -27,7 +27,7 @@ public class City {
      * @throws SQLException
      */
     public City(ResultSet result) throws SQLException {
-        code = result.getString("code");
+
         name = result.getString("name");
         country = result.getString("country");
         district = result.getString("district");

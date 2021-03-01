@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-// Constants that can be used as parameters when calling overloaded methods
-
 
 /**
  * The Data Access Object (DAO) is used for querying the database and returning
@@ -54,11 +52,11 @@ public class DAO {
     /**
      * This takes an SQL query in the form of a string and executes it against
      * the database.  It is only for use with statements that should return
-     * country records.  It will return the countries in a list of Country
+     * city records.  It will return the cities in a list of City
      * objects.
      *
      * @param statementString The SQL statement to be executed
-     * @return An ArrayList of country objects
+     * @return An ArrayList of city objects
      */
 
     private ArrayList<City> ExecuteCityStatement(String statementString) {

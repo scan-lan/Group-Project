@@ -9,7 +9,7 @@ rectangle "Organisation" {
 
     usecase UC2 as "Get top N populated capital cities in continent"
 
-    usecase UCa as "Name, Country, Population"
+    usecase UCa as "Print: Name, Country, Population"
 }
     User - UC1
     UC1 ..> UC2

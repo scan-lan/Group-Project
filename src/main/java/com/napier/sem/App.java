@@ -50,10 +50,12 @@ public class App {
 
         // Use-case 3.1
         //produce a report on all cities in the world organised by largest population to smallest
-          ArrayList<City> cities = dao.allCities();
+        ArrayList<City> cities = dao.allCities();
 
-        // Display results
+        // Display Country results
         //for (Country country : countries) System.out.println(country);
+
+        // Display City results
         for (City city : cities) System.out.println(city);
 
         // Disconnect from database

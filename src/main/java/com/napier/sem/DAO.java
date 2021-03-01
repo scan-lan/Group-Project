@@ -10,12 +10,13 @@ import java.util.ArrayList;
  * The Data Access Object (DAO) is used for querying the database and returning
  * the results in a usable manner.
  */
-public class DAO
-{
+public class DAO {
+
     // Private properties
     private final Connection connection;
 
-    public DAO(Connection connection) {
+    public DAO(Connection connection)
+    {
         this.connection = connection;
     }
 
@@ -51,11 +52,11 @@ public class DAO
     /**
      * This takes an SQL query in the form of a string and executes it against
      * the database.  It is only for use with statements that should return
-     * country records.  It will return the countries in a list of Country
+     * city records.  It will return the cities in a list of City
      * objects.
      *
      * @param statementString The SQL statement to be executed
-     * @return An ArrayList of country objects
+     * @return An ArrayList of city objects
      */
 
     private ArrayList<City> ExecuteCityStatement(String statementString) {
@@ -115,7 +116,7 @@ public class DAO
                 "FROM country co\n" +
                 "WHERE co." + areaFilter + " = '" + areaName + "'\n" +
                 "ORDER BY population DESC\n";
-//              "LIMIT 20";
+//              "LIMIT 2";
 //
         return ExecuteCountryStatement(statementString);
     }
@@ -144,6 +145,7 @@ public class DAO
     /**
      * Constructs the SQL query required and returns the result of the
      * query.
+     *
      * @return An ordered list of countries in a specified continent sorted by descending population
      */
     public ArrayList<Country> TopNCountriesContinent(Integer n, String continentName) {

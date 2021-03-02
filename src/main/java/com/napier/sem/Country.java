@@ -26,7 +26,8 @@ public class Country
      * @param result The result of a query with a country as a result
      * @throws SQLException
      */
-    public Country(ResultSet result) throws SQLException {
+    public Country(ResultSet result) throws SQLException
+    {
         code = result.getString("code");
         name = result.getString("name");
         continent = result.getString("continent");

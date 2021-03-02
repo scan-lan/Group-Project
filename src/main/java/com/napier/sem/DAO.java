@@ -221,15 +221,15 @@ public class DAO {
     public ArrayList<City> allCities(String areaFilter, String areaName)
     {
         // Define the SQL query as a string
-        String statementString = "SELECT city.name, city.district, city.population, (\n" +
+        String statementString = "SELECT ci.name, ci.district, ci.population, (\n" +
                 "    SELECT name\n" +
                 "    FROM country \n" +
-                "    WHERE code = city.countrycode\n" +
+                "    WHERE code = ci.countrycode\n" +
                 "    ) AS country\n" +
-                "FROM city\n" +
-                "Join country \n" +
-                "ON city.CountryCode=country.Code \n" +
-                "WHERE country." + areaFilter + "='" + areaName + "'\n" +
+                "FROM city ci\n" +
+                "   JOIN country co \n" +
+                "   ON ci.countrycode = co.code\n" +
+                "WHERE co." + areaFilter + " = '" + areaName + "'\n" +
                 "ORDER BY population DESC";
 
         return ExecuteCityStatement(statementString);
@@ -244,15 +244,15 @@ public class DAO {
     public ArrayList<City> allCities(String areaName)
     {
         // Define the SQL query as a string
-        String statementString = "SELECT city.name, city.district, city.population, (\n" +
+        String statementString = "SELECT ci.name, ci.district, ci.population, (\n" +
                 "    SELECT name\n" +
                 "    FROM country \n" +
-                "    WHERE code = city.countrycode\n" +
+                "    WHERE code = ci.countrycode\n" +
                 "    ) AS country\n" +
-                "FROM city\n" +
-                "Join country \n" +
-                "ON city.CountryCode=country.Code \n" +
-                "WHERE city.district ='" + areaName + "'\n" +
+                "FROM city ci\n" +
+                "Join country co\n" +
+                "ON ci.countrycode = co.code \n" +
+                "WHERE ci.district = '" + areaName + "'\n" +
                 "ORDER BY population DESC";
 
         return ExecuteCityStatement(statementString);

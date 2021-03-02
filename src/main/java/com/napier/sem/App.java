@@ -49,8 +49,8 @@ public class App {
         // ArrayList<Country> countries = dao.TopNCountriesRegion(5,"Eastern Asia");
 
         // Use-case 3.1
-        //produce a report on all cities in the world organised by largest population to smallest
-        //ArrayList<City> cities = dao.allCities();
+        // produce a report on all cities in the world organised by largest population to smallest
+        ArrayList<City> cities = dao.allCities();
 
         // Use-case 3.2 - 3.4
         // produce a report on all cities in a defined area organised by largest population to smallest
@@ -60,7 +60,7 @@ public class App {
         // produce a report on all cities in a district organised by largest population to smallest
         // We'll leave this for next sprint, but I think some readability is being sacrificed in
         // the way we're doing this:
-        ArrayList<City> cities = dao.allCities("Alagoas");
+        // ArrayList<City> cities = dao.allCities("Alagoas");
 
         // Display Country results
         //for (Country country : countries) System.out.println(country);

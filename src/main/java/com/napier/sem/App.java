@@ -9,7 +9,7 @@ public class App {
     private final String REGION = "region";
 
     // City report constants
-    private final String COUNTRY = "country";
+    private final String COUNTRY = "name";
     private final String DISTRICT = "district";
 
     // Connection to MySQL database.
@@ -34,7 +34,7 @@ public class App {
 
         // Use-cases 1.2 and 1.3
         // produce a report on all countries in the world organised by largest population to smallest
-        ArrayList<Country> countries = dao.allCountries("region", "Southern and Central Asia");
+        // ArrayList<Country> countries = dao.allCountries("region", "Southern and Central Asia");
 
         // Use-case 2.1
         // Run top 10 countries query against database
@@ -50,7 +50,15 @@ public class App {
 
         // Use-case 3.1
         //produce a report on all cities in the world organised by largest population to smallest
-        ArrayList<City> cities = dao.allCities();
+        //ArrayList<City> cities = dao.allCities();
+
+        // Use-case 3.2 - 3.4
+        // produce a report on all cities in a defined area organised by largest population to smallest
+        // ArrayList<City> cities = dao.allCities(app.CONTINENT, "Europe");
+
+        // Use-case 3.5
+        // produce a report on all cities in a district organised by largest population to smallest
+        ArrayList<City> cities = dao.allCities("Alagoas");
 
         // Display Country results
         //for (Country country : countries) System.out.println(country);

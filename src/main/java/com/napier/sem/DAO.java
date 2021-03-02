@@ -209,14 +209,60 @@ public class DAO {
         return ExecuteCityStatement(statementString);
     }
 
+    /**
+     * Constructs the SQL query required and returns the result of the
+     * query.
+     *
+     * @return An ordered list of cities in a defined area sorted by descending population
+     */
+
+    public ArrayList<City> allCities(String areaFilter, String areaName) {
+        // Define the SQL query as a string
+        String statementString = "SELECT city.name, city.district, city.population, (\n" +
+                "    SELECT name\n" +
+                "    FROM country \n" +
+                "    WHERE code = city.countrycode\n" +
+                "    ) AS country\n" +
+                "FROM city\n" +
+                "Join country \n" +
+                "ON city.CountryCode=country.Code \n" +
+                "WHERE country." + areaFilter + "='" + areaName + "'\n" +
+                "ORDER BY population DESC\n" +
+                "LIMIT 20";
+
+        return ExecuteCityStatement(statementString);
+    }
+
+    /**
+     * Constructs the SQL query required and returns the result of the
+     * query.
+     *
+     * @return An ordered list of cities in a district sorted by descending population
+     */
+
+    public ArrayList<City> allCities(String areaName) {
+        // Define the SQL query as a string
+        String statementString = "SELECT city.name, city.district, city.population, (\n" +
+                "    SELECT name\n" +
+                "    FROM country \n" +
+                "    WHERE code = city.countrycode\n" +
+                "    ) AS country\n" +
+                "FROM city\n" +
+                "Join country \n" +
+                "ON city.CountryCode=country.Code \n" +
+                "WHERE city.district ='" + areaName + "'\n" +
+                "ORDER BY population DESC\n" +
+                "LIMIT 20";
+
+        return ExecuteCityStatement(statementString);
+    }
+
 
     /**
      * This is a sanity-check query just ensuring that the database can be accessed
      */
-    public void testQuery()
-    {
-        try
-        {
+    public void testQuery() {
+        try {
             // Create an SQL statement
             Statement stmt = connection.createStatement();
             // Create string for SQL statement

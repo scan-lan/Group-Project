@@ -1,0 +1,24 @@
+@startuml
+
+
+
+rectangle Database
+
+rectangle "Organisation" {
+    usecase UC1 as "Get population, city population %,
+    non-city population % in region"
+
+    usecase UCa as "Print: region name, region population,
+    city population % , non-city population %"
+}
+    User - UC1
+    UC1 ..> UCa : include
+    UC1 - Database
+
+
+@enduml
+
+note "This note is connected\nto several objects." as N2
+(Start) .. N2
+N2 .. (Use)
+@enduml

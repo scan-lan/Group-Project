@@ -3,12 +3,11 @@ package com.napier.sem;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class App {
-    // Report constants
+public class App
+{
+    // Constants
     private final String CONTINENT = "continent";
     private final String REGION = "region";
-
-    // City report constants
     private final String COUNTRY = "name";
     private final String DISTRICT = "district";
 

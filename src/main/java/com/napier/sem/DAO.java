@@ -11,7 +11,8 @@ import java.util.ArrayList;
  * The Data Access Object (DAO) is used for querying the database and returning
  * the results in a usable manner.
  */
-public class DAO {
+public class DAO
+{
 
     // Private properties
     private final Connection connection;
@@ -39,10 +40,13 @@ public class DAO {
             // Execute the query
             ResultSet resultSet = statement.executeQuery(statementString);
             // Create Country object and add it to the list for each result in the query
-            while (resultSet.next()) {
+            while (resultSet.next())
+            {
                 countries.add(new Country(resultSet));
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             System.out.println("Query TopNCountries failed");
             System.out.println(e.getMessage());
         }
@@ -70,7 +74,9 @@ public class DAO {
             while (resultSet.next()) {
                 cities.add(new City(resultSet));
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             System.out.println("Query ExecuteCityStatement failed");
             System.out.println(e.getMessage());
         }
@@ -264,7 +270,8 @@ public class DAO {
      */
     public void testQuery()
     {
-        try {
+        try
+        {
             // Create an SQL statement
             Statement stmt = connection.createStatement();
             // Create string for SQL statement

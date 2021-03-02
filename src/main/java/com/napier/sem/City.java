@@ -9,9 +9,9 @@ import java.sql.SQLException;
  * This consists of:
  * name, country, district, population.
  */
-public class City {
+public class City
+{
     // Private properties
-
     private String name;
     private String country;
     private String district;
@@ -26,14 +26,12 @@ public class City {
      * @param result The result of a query with a city as a result
      * @throws SQLException
      */
-    public City(ResultSet result) throws SQLException {
-
+    public City(ResultSet result) throws SQLException
+    {
         name = result.getString("name");
         country = result.getString("country");
         district = result.getString("district");
         population = result.getInt("population");
-
-
     }
 
     /**
@@ -41,12 +39,11 @@ public class City {
      *
      * @return
      */
-    public String toString() {
-        return String.format("\n Name: %s |  Country: %s \n" +
-                        "\n District: %s |  Population: %s\n" +
-
+    public String toString()
+    {
+        return String.format("Name: %s |  Country: %s \n" +
+                        "District: %s |  Population: %s\n" +
                         "-------------------------------------------------------",
-
                 this.name,
                 this.country,
                 this.district,

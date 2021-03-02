@@ -9,9 +9,9 @@ import java.sql.SQLException;
  * This consists of:
  * name, country, district, population.
  */
-public class City {
+public class City
+{
     // Private properties
-
     private String name;
     private String country;
     private String district;

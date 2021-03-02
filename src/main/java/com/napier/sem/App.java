@@ -58,6 +58,8 @@ public class App {
 
         // Use-case 3.5
         // produce a report on all cities in a district organised by largest population to smallest
+        // We'll leave this for next sprint, but I think some readability is being sacrificed in
+        // the way we're doing this:
         ArrayList<City> cities = dao.allCities("Alagoas");
 
         // Display Country results
@@ -86,14 +88,14 @@ public class App {
             System.exit(-1);
         }
 
-        int retries = 10;
+        int retries = 30;
         for (int i = 0; i < retries; ++i)
         {
             System.out.println("Connecting to database...");
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(10000);
                 // Connect to database
                 connection = DriverManager.getConnection("jdbc:mysql://database:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");

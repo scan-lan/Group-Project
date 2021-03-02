@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
 /**
  * The Data Access Object (DAO) is used for querying the database and returning
  * the results in a usable manner.
@@ -38,8 +39,7 @@ public class DAO {
             // Execute the query
             ResultSet resultSet = statement.executeQuery(statementString);
             // Create Country object and add it to the list for each result in the query
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 countries.add(new Country(resultSet));
             }
         } catch (SQLException e) {

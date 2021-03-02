@@ -94,11 +94,11 @@ public class DAO
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
                 "    SELECT name\n" +
-                "    FROM city ci\n" +
-                "    WHERE countrycode = co.code\n" +
-                "        AND ci.id = co.capital\n" +
+                "    FROM city\n" +
+                "    WHERE countrycode = country.code\n" +
+                "        AND ci.id = country.capital\n" +
                 "    ) AS capital\n" +
-                "FROM country co\n" +
+                "FROM country\n" +
                 "ORDER BY population DESC\n" +
                 "LIMIT 20";
 
@@ -116,13 +116,13 @@ public class DAO
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
                 "    SELECT name\n" +
-                "    FROM city ci\n" +
-                "    WHERE countrycode = co.code\n" +
-                "        AND ci.id = co.capital\n" +
+                "    FROM city\n" +
+                "    WHERE countrycode = country.code\n" +
+                "        AND city.id = country.capital\n" +
                 "    ) AS capital\n" +
 
-                "FROM country co\n" +
-                "WHERE co." + areaFilter + " = '" + areaName + "'\n" +
+                "FROM country\n" +
+                "WHERE country." + areaFilter + " = '" + areaName + "'\n" +
                 "ORDER BY population DESC\n";
 
         return ExecuteCountryStatement(statementString);
@@ -139,12 +139,12 @@ public class DAO
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
                 "    SELECT name\n" +
-                "    FROM city ci\n" +
-                "    WHERE countrycode = co.code\n" +
-                "        AND ci.id = co.capital\n" +
+                "    FROM city\n" +
+                "    WHERE countrycode = country.code\n" +
+                "        AND city.id = country.capital\n" +
                 "    ) AS capital\n" +
-                "FROM country co\n" +
-                "WHERE co.population > 0\n " +
+                "FROM country\n" +
+                "WHERE country.population > 0\n " +
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
         return ExecuteCountryStatement(statementString);
@@ -161,13 +161,13 @@ public class DAO
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
                 "    SELECT name\n" +
-                "    FROM city ci\n" +
-                "    WHERE countrycode = co.code\n" +
-                "        AND ci.id = co.capital\n" +
+                "    FROM city\n" +
+                "    WHERE countrycode = country.code\n" +
+                "        AND city.id = country.capital\n" +
                 "    ) AS capital\n" +
-                "FROM country co\n" +
-                "WHERE co.continent = '" + continentName + "'\n" +
-                "AND co.population > 0\n " +
+                "FROM country\n" +
+                "WHERE country.continent = '" + continentName + "'\n" +
+                "AND country.population > 0\n " +
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
 
@@ -185,13 +185,13 @@ public class DAO
         // Define the SQL query as a string
         String statementString = "SELECT code, name, continent, region, population, (\n" +
                 "    SELECT name\n" +
-                "    FROM city ci\n" +
-                "    WHERE countrycode = co.code\n" +
-                "        AND ci.id = co.capital\n" +
+                "    FROM city\n" +
+                "    WHERE countrycode = country.code\n" +
+                "        AND city.id = country.capital\n" +
                 "    ) AS capital\n" +
-                "FROM country co\n" +
-                "WHERE co.region = '" + regionName + "'\n" +
-                "AND co.population > 0\n " +
+                "FROM country\n" +
+                "WHERE country.region = '" + regionName + "'\n" +
+                "AND country.population > 0\n " +
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
 
@@ -209,10 +209,10 @@ public class DAO
         // Define the SQL query as a string
         String statementString = "SELECT name, district, population,  (\n" +
                 "    SELECT name\n" +
-                "    FROM country co\n" +
-                "    WHERE code = ci.countrycode\n" +
+                "    FROM country\n" +
+                "    WHERE code = city.countrycode\n" +
                 "    ) AS country\n" +
-                "FROM city ci\n" +
+                "FROM city\n" +
                 "ORDER BY population DESC";
 
         return ExecuteCityStatement(statementString);
@@ -227,15 +227,15 @@ public class DAO
     public ArrayList<City> allCities(String areaFilter, String areaName)
     {
         // Define the SQL query as a string
-        String statementString = "SELECT ci.name, ci.district, ci.population, (\n" +
+        String statementString = "SELECT city.name, city.district, city.population, (\n" +
                 "    SELECT name\n" +
                 "    FROM country \n" +
-                "    WHERE code = ci.countrycode\n" +
+                "    WHERE code = city.countrycode\n" +
                 "    ) AS country\n" +
-                "FROM city ci\n" +
+                "FROM city\n" +
                 "   JOIN country co \n" +
-                "   ON ci.countrycode = co.code\n" +
-                "WHERE co." + areaFilter + " = '" + areaName + "'\n" +
+                "   ON city.countrycode = country.code\n" +
+                "WHERE country." + areaFilter + " = '" + areaName + "'\n" +
                 "ORDER BY population DESC";
 
         return ExecuteCityStatement(statementString);
@@ -250,15 +250,15 @@ public class DAO
     public ArrayList<City> allCities(String areaName)
     {
         // Define the SQL query as a string
-        String statementString = "SELECT ci.name, ci.district, ci.population, (\n" +
+        String statementString = "SELECT city.name, city.district, city.population, (\n" +
                 "    SELECT name\n" +
                 "    FROM country \n" +
-                "    WHERE code = ci.countrycode\n" +
+                "    WHERE code = city.countrycode\n" +
                 "    ) AS country\n" +
-                "FROM city ci\n" +
-                "Join country co\n" +
-                "ON ci.countrycode = co.code \n" +
-                "WHERE ci.district = '" + areaName + "'\n" +
+                "FROM city\n" +
+                "Join country\n" +
+                "ON city.countrycode = country.code \n" +
+                "WHERE city.district = '" + areaName + "'\n" +
                 "ORDER BY population DESC";
 
         return ExecuteCityStatement(statementString);

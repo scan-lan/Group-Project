@@ -1,11 +1,5 @@
 # All countries in the world organised by largest population to smallest.
-SELECT code, name, continent, region, population, (
-    SELECT name
-    FROM city ci
-    WHERE countrycode = co.code
-        AND ci.id = co.capital
-    ) AS capital
-FROM country co
-ORDER BY population DESC;
-
-
+SELECT code, country.name, region, country.population, city.name
+FROM country
+    JOIN city ON country.capital = city.id
+ORDER BY country.population DESC;

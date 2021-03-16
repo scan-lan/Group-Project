@@ -207,16 +207,16 @@ public class DAO
         switch (area)
         {
             case CONTINENT:
-                whereClause = "WHERE country.continent = '" + areaName + "'\n";
+                whereClause = "AND country.continent = '" + areaName + "'\n";
                 break;
             case REGION:
-                whereClause = "WHERE country.region = '" + areaName + "'\n";
+                whereClause = "AND country.region = '" + areaName + "'\n";
                 break;
             case COUNTRY:
-                whereClause = "WHERE country.name = '" + areaName + "'\n";
+                whereClause = "AND country.name = '" + areaName + "'\n";
                 break;
             case DISTRICT:
-                whereClause = "WHERE city.district = '" + areaName + "'\n";
+                whereClause = "AND city.district = '" + areaName + "'\n";
                 break;
             default:
                 whereClause = "";
@@ -224,11 +224,11 @@ public class DAO
         }
 
         // Define the SQL query as a string
-        String statementString = "SELECT ID, city.name, district, city.population, country.name AS country\n" +
+        String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
                 "FROM city\n" +
                 "    JOIN country ON city.countrycode = country.code\n" +
+                "WHERE city.population > 0 \n" +
                 whereClause +
-                "AND city.population > 0 \n" +
                 "ORDER BY city.population DESC \n" +
                 "LIMIT " + n;
 

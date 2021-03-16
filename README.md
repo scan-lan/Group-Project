@@ -1,6 +1,6 @@
 # Software Engineering Methods
 
-Starrin: Lukas Paling and Marco De Luca
+Starring: Lukas Paling and Marco De Luca
 
 With Craig Gordon as Scrum Master and Luke Scanlan as Product Owner
 

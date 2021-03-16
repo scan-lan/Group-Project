@@ -39,7 +39,7 @@ A request for population data from the organisation.
 
 ## MAIN SUCCESS SCENARIO
 
-1. The organisation requests information on the population of the worl
+1. The organisation requests information on the population of the world
 2. System user extracts population information of the population of the world
 3. System user provides report to the organisation.
 

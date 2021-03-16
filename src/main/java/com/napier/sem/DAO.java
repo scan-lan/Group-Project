@@ -224,12 +224,13 @@ public class DAO
         }
 
         // Define the SQL query as a string
-        String statementString = "SELECT ID, city.name, district, population, country.name AS country\n" +
+        String statementString = "SELECT ID, city.name, district, city.population, country.name AS country\n" +
                 "FROM city\n" +
                 "    JOIN country ON city.countrycode = country.code\n" +
                 whereClause +
+                "AND city.population > 0 \n" +
                 "ORDER BY city.population DESC \n" +
-                "LIMIT "+ n;
+                "LIMIT " + n;
 
         return ExecuteCityStatement(statementString);
     }

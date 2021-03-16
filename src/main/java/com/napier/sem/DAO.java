@@ -1,7 +1,5 @@
 package com.napier.sem;
 
-import sun.jvm.hotspot.code.Location;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +13,6 @@ import java.util.ArrayList;
  */
 public class DAO
 {
-
     // Private properties
     private final Connection connection;
     private static final String CONTINENT = "continent";

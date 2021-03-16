@@ -218,10 +218,10 @@ public class DAO
 
         switch (area) {
             case CONTINENT:
-                whereClause = "WHERE country.continent = '" + areaName + "'\n";
+                whereClause = "AND country.continent = '" + areaName + "'\n";
                 break;
             case REGION:
-                whereClause = "WHERE country.region = '" + areaName + "'\n";
+                whereClause = "AND country.region = '" + areaName + "'\n";
                 break;
             default:
                 whereClause = "";
@@ -232,8 +232,8 @@ public class DAO
         String statementString = "SELECT city.name, city.population, country.name AS country \n" +
                 "FROM city\n" +
                 "    JOIN country ON city.countrycode = country.code\n" +
+                "WHERE city.id = country.capital \n" +
                 whereClause +
-                "AND city.id = country.capital \n" +
                 "ORDER BY city.population DESC;";
 
         return ExecuteCapitalCityStatement(statementString);

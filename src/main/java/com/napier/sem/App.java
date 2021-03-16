@@ -47,11 +47,23 @@ public class App
         // Produce a report on all cities in a continent organised by largest population to smallest
         // ArrayList<City> cities = dao.allCitiesIn(CONTINENT, "Europe");
         // Produce a report on all cities in a region organised by largest population to smallest
-        ArrayList<City> cities = dao.allCitiesIn(REGION, "Caribbean");
+        // ArrayList<City> cities = dao.allCitiesIn(REGION, "Caribbean");
         // Produce a report on all cities in a country organised by largest population to smallest
         // ArrayList<City> cities = dao.allCitiesIn(COUNTRY, "India");
         // Produce a report on all cities in a district organised by largest population to smallest
         // ArrayList<City> cities = dao.allCitiesIn(DISTRICT, "Alagoas");
+
+        // Use-case 4.1-4.5
+        // Produce a report on the top N populated cities in the world where N is provided by the user
+         ArrayList<City> cities = dao.topNCitiesIn(WORLD, "", 5);
+        // Produce a report on the top N populated cities in a continent where N is provided by the user
+        // ArrayList<City> cities = dao.topNCitiesIn(CONTINENT, "Europe", 5);
+        // Produce a report on the top N populated cities in a region where N is provided by the user
+        // ArrayList<City> cities = dao.topNCitiesIn(REGION, "Caribbean", 5);
+        // Produce a report on the top N populated cities in a country where N is provided by the user
+        // ArrayList<City> cities = dao.topNCitiesIn(COUNTRY, "China", 5);
+        // Produce a report on the top N populated cities in a district where N is provided by the user
+        // ArrayList<City> cities = dao.topNCitiesIn(DISTRICT, "Scotland", 6);
 
         // Display Country results
         // for (Country country : countries) System.out.println(country);

@@ -193,6 +193,47 @@ public class DAO
 
         return ExecuteCityStatement(statementString);
     }
+
+    /**
+     * Use cases 4.1-4.5
+     * Constructs an SQL query to fetch the top N populated cities in a specific area, and executes the query.
+     *
+     * @return An ordered list of cities in a defined area sorted by descending population
+     */
+    public ArrayList<City> topNCitiesIn(String area, String areaName, Integer n)
+    {
+        String whereClause;
+
+        switch (area)
+        {
+            case CONTINENT:
+                whereClause = "AND country.continent = '" + areaName + "'\n";
+                break;
+            case REGION:
+                whereClause = "AND country.region = '" + areaName + "'\n";
+                break;
+            case COUNTRY:
+                whereClause = "AND country.name = '" + areaName + "'\n";
+                break;
+            case DISTRICT:
+                whereClause = "AND city.district = '" + areaName + "'\n";
+                break;
+            default:
+                whereClause = "";
+                break;
+        }
+
+        // Define the SQL query as a string
+        String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
+                "FROM city\n" +
+                "    JOIN country ON city.countrycode = country.code\n" +
+                "WHERE city.population > 0 \n" +
+                whereClause +
+                "ORDER BY city.population DESC \n" +
+                "LIMIT " + n;
+
+        return ExecuteCityStatement(statementString);
+    }
 }
 
 

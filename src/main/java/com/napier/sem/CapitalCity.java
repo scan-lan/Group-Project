@@ -35,7 +35,7 @@ public class CapitalCity {
      * @return
      */
     public String toString() {
-        return String.format("Name: %s |  Country: %s |  Population: %s\n" +
+        return String.format("Name: %s | Country: %s | Population: %s\n" +
                         "-------------------------------------------------------",
                 this.name,
                 this.country,

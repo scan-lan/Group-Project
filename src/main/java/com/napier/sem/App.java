@@ -55,7 +55,7 @@ public class App
 
         // Use-case 4.1-4.5
         // Produce a report on the top N populated cities in the world where N is provided by the user
-         ArrayList<City> cities = dao.topNCitiesIn(WORLD, "", 5);
+        // ArrayList<City> cities = dao.topNCitiesIn(WORLD, "", 5);
         // Produce a report on the top N populated cities in a continent where N is provided by the user
         // ArrayList<City> cities = dao.topNCitiesIn(CONTINENT, "Europe", 5);
         // Produce a report on the top N populated cities in a region where N is provided by the user

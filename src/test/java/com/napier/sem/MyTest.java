@@ -42,7 +42,6 @@ public class MyTest {
     void topNCitiesInResultsAreCorrect() {
         Integer N = 5;
         ArrayList<City> cities = dao.topNCitiesIn("continent", "europe", N);
-        assertTrue(cities.size() <= N);
         assertEquals(cities.get(0).name, "Moscow");
         assertEquals(cities.get(1).name, "London");
         assertEquals(cities.get(2).name, "St Petersburg");

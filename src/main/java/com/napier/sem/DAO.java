@@ -15,6 +15,7 @@ public class DAO
 {
     // Private properties
     private final Connection connection;
+    private static final String WORLD = "";
     private static final String CONTINENT = "continent";
     private static final String REGION = "region";
     private static final String COUNTRY = "country";
@@ -134,7 +135,9 @@ public class DAO
                 "ORDER BY country.population DESC";
 
         return ExecuteCountryStatement(statementString);
+
     }
+
 
     /**
      * Use case 2.1-2.3

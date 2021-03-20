@@ -13,7 +13,7 @@ public class MyTest {
     static App app;
 
     // Connection to MySQL database.
-    final static Connection connection = null;
+    final static Connection connection = null;  // Does not work in this classfile
 
     // Create instance of the database access object
     // For some reason this doesn't work, it has to be called from the App
@@ -29,9 +29,17 @@ public class MyTest {
         app.connect("localhost:33061");
     }
 
+    // Tests that the number of results is less than or equal to Integer N
     @Test
-    void topNCitiesInTest1()
-    {
+    void topNCitiesInArrayIsCorrectSize() {
+        Integer N = 5;
+        ArrayList<City> cities = dao.topNCitiesIn("continent", "europe", N);
+        assertTrue(cities.size() <= N);
+    }
+
+    // Tests that the returned results are correct and in order
+    @Test
+    void topNCitiesInResultsAreCorrect() {
         Integer N = 5;
         ArrayList<City> cities = dao.topNCitiesIn("continent", "europe", N);
         assertTrue(cities.size() <= N);
@@ -42,19 +50,19 @@ public class MyTest {
         assertEquals(cities.get(4).name, "Madrid");
     }
 
+    // Tests that an empty array is returned when Integer N is set to 0
     @Test
-    void topNCitiesInTest2()
-    {
+    void topNCitiesInArrayIsEmptyIntegerIsZero() {
         Integer N = 0;
         ArrayList<City> cities = dao.topNCitiesIn("world", "", N);
         assertEquals(cities.size(), 0);
     }
 
+    // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void topNCitiesInTest3()
-    {
+    void topNCitiesInArrayIsEmptyAreaFilterIsIncorrect() {
         Integer N = 10;
-        ArrayList<City> cities = dao.topNCitiesIn("region","delaware",N);
+        ArrayList<City> cities = dao.topNCitiesIn("region", "SmurfCity USA", N);
         assertEquals(cities.size(), 0);
     }
 }

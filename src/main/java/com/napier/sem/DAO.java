@@ -136,7 +136,6 @@ public class DAO
                 "ORDER BY country.population DESC";
 
         return ExecuteCountryStatement(statementString);
-
     }
 
     /**

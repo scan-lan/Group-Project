@@ -13,14 +13,15 @@ public class App
     private static final String DISTRICT = "district";
 
     // Connection to MySQL database.
-    private Connection connection = null;
+    // I had to change the access modifier to public static for the integration tests to run successfully
+    public static Connection connection = null;
 
     public static void main(String[] args) {
         // Create new Application
         App app = new App();
 
         // Connect to database
-        app.connect("localhost:3306");
+        app.connect("localhost:33061");
 
         // Create instance of the database access object
         DAO dao = new DAO(app.connection);

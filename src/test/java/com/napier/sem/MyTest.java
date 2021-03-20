@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MyTest {
+public class MyTest
+{
     static App app;
 
     // Connection to MySQL database.
@@ -22,7 +23,8 @@ public class MyTest {
 
 
     @BeforeAll
-    static void init() {
+    static void init()
+    {
         // Create new Application
         App app = new App();
         // Connect to database

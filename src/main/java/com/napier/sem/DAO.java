@@ -15,6 +15,7 @@ public class DAO
 {
     // Private properties
     private final Connection connection;
+    private static final String WORLD = "";
     private static final String CONTINENT = "continent";
     private static final String REGION = "region";
     private static final String COUNTRY = "country";
@@ -120,12 +121,10 @@ public class DAO
      *
      * @return An ordered list of countries in the world sorted by descending population
      */
-    public ArrayList<Country> allCountriesIn(String area, String areaName)
-    {
+    public ArrayList<Country> allCountriesIn(String area, String areaName) {
         String whereClause;
 
-        switch (area)
-        {
+        switch (area) {
             case CONTINENT:
                 whereClause = "WHERE country.continent = '" + areaName + "'\n";
                 break;
@@ -137,15 +136,17 @@ public class DAO
                 break;
         }
 
-        // Define the SQL query as a string
-        String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +
-                "FROM country\n" +
-                "    JOIN city ON country.capital = city.id\n" +
-                whereClause + 
-                "ORDER BY country.population DESC";
+            // Define the SQL query as a string
+            String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +
+                    "FROM country\n" +
+                    "    JOIN city ON country.capital = city.id\n" +
+                    whereClause +
+                    "ORDER BY country.population DESC";
 
-        return ExecuteCountryStatement(statementString);
+            return ExecuteCountryStatement(statementString);
+
     }
+
 
     /**
      * Use case 2.1-2.3

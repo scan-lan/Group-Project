@@ -111,10 +111,12 @@ public class DAO
      *
      * @return An ordered list of countries in the world sorted by descending population
      */
-    public ArrayList<Country> allCountriesIn(String area, String areaName) {
+    public ArrayList<Country> allCountriesIn(String area, String areaName)
+    {
         String whereClause;
 
-        switch (area) {
+        switch (area)
+        {
             case CONTINENT:
                 whereClause = "WHERE country.continent = '" + areaName + "'\n";
                 break;
@@ -136,7 +138,6 @@ public class DAO
         return ExecuteCountryStatement(statementString);
 
     }
-
 
     /**
      * Use case 2.1-2.3

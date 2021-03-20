@@ -46,7 +46,7 @@ public class MyTest
     {
         Integer N = 0;
         ArrayList<City> cities = dao.topNCitiesIn("world","",N);
-        assertTrue(cities.size() <= 0);
+        assertEquals(cities.size(), 0);
     }
 
     @Test
@@ -54,6 +54,6 @@ public class MyTest
     {
         Integer N = 10;
         ArrayList<City> cities = dao.topNCitiesIn("region","delaware",N);
-        assertTrue(cities.size() <= 0);
+        assertEquals(cities.size(), 0);
     }
 }

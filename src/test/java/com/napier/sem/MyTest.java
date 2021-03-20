@@ -17,10 +17,7 @@ public class MyTest
     final static Connection connection = null;  // Does not work in this classfile
 
     // Create instance of the database access object
-    // For some reason this doesn't work, it has to be called from the App
-    // DAO dao = new DAO(MyTest.connection);
     DAO dao = new DAO(App.connection);
-
 
     @BeforeAll
     static void init()

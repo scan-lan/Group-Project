@@ -11,11 +11,11 @@ import java.sql.SQLException;
  */
 public class City
 {
-    // Private properties
-    private String name;
-    private String country;
-    private String district;
-    private Integer population;
+    // Private properties - Removed private so tests would work, only work around we could think of for now.
+    String name;
+    String country;
+    String district;
+    Integer population;
 
 
 

@@ -141,7 +141,7 @@ public class DAO
         String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +
                 "FROM country\n" +
                 "    JOIN city ON country.capital = city.id\n" +
-                whereClause + 
+                whereClause +
                 "ORDER BY country.population DESC";
 
         return ExecuteCountryStatement(statementString);

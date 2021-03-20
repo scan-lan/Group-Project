@@ -40,4 +40,20 @@ public class MyTest
         assertEquals(cities.get(3).name, "Berlin");
         assertEquals(cities.get(4).name, "Madrid");
     }
+
+    @Test
+    void topNCitiesInTest2()
+    {
+        Integer N = 0;
+        ArrayList<City> cities = dao.topNCitiesIn("world","",N);
+        assertTrue(cities.size() <= 0);
+    }
+
+    @Test
+    void topNCitiesInTest3()
+    {
+        Integer N = 10;
+        ArrayList<City> cities = dao.topNCitiesIn("region","delaware",N);
+        assertTrue(cities.size() <= 0);
+    }
 }

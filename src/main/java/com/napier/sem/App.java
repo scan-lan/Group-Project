@@ -20,7 +20,7 @@ public class App
         App app = new App();
 
         // Connect to database
-        app.connect();
+        app.connect("localhost:33060");
 
         // Create instance of the database access object
         DAO dao = new DAO(app.connection);
@@ -90,7 +90,7 @@ public class App
     /**
      * Connect to the MySQL world database.
      */
-    public void connect()
+    public void connect(String location)
     {
         try
         {
@@ -112,7 +112,7 @@ public class App
                 // Wait a bit for db to start
                 Thread.sleep(5000);
                 // Connect to database
-                connection = DriverManager.getConnection("jdbc:mysql://database:3306/world?useSSL=false",
+                connection = DriverManager.getConnection("jdbc:mysql://" + location + "/employees?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",
                         "example");
                 System.out.println("Successfully connected");

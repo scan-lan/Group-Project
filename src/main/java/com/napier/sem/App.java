@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class App
 {
     // Constants
-    private static final String WORLD = "world";
-    private static final String CONTINENT = "continent";
-    private static final String REGION = "region";
-    private static final String COUNTRY = "country";
-    private static final String DISTRICT = "district";
+    static final String WORLD = "world";
+    static final String CONTINENT = "continent";
+    static final String REGION = "region";
+    static final String COUNTRY = "country";
+    static final String DISTRICT = "district";
 
     // Connection to MySQL database.
     // I had to change the access modifier to public static for the integration tests to run successfully
@@ -21,10 +21,17 @@ public class App
         App app = new App();
 
         // Connect to database
-        app.connect("localhost:33061");
+        if (args.length < 1)
+        {
+            connection = connect("localhost:3306");
+        }
+        else
+        {
+            connection = connect(args[0]);
+        }
 
         // Create instance of the database access object
-        DAO dao = new DAO(app.connection);
+        DAO dao = new DAO(connection);
 
         // Use-case 1.1-1.3
         // Produce a report on all countries in the world organised by largest population to smallest
@@ -90,8 +97,9 @@ public class App
 
     /**
      * Connect to the MySQL world database.
+     * @return a database connection object
      */
-    public void connect(String location)
+    public static Connection connect(String location)
     {
         try
         {
@@ -110,25 +118,29 @@ public class App
             System.out.println("Connecting to database...");
             try
             {
-                // Wait a bit for db to start
-                Thread.sleep(5000);
                 // Connect to database
-                connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
+                Connection connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",
                         "example");
                 System.out.println("Successfully connected");
-                break;
+                return connection;
             }
             catch (SQLException e)
             {
                 System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(e.getMessage());
             }
+            try
+            {
+                // Wait a bit before next retry
+                Thread.sleep(5000);
+            }
             catch (InterruptedException ie)
             {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
+        return null;
     }
 
     /**

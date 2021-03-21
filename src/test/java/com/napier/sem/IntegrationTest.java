@@ -11,24 +11,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MyTest
 {
-    static App app;
-
-    // Connection to MySQL database.
-    final static Connection connection = null;  // Does not work in this classfile
-
-    // Create instance of the database access object
-    // For some reason this doesn't work, it has to be called from the App
-    // DAO dao = new DAO(MyTest.connection);
-    DAO dao = new DAO(App.connection);
-
+    static DAO dao;
 
     @BeforeAll
     static void init()
     {
-        // Create new Application
-        App app = new App();
-        // Connect to database
-        app.connect("localhost:33061");
+        // Create database connection object
+        Connection connection = App.connect("localhost:33061");
+        // Create Data Access Object
+        dao = new DAO(connection);
     }
 
     // Tests that the number of results is less than or equal to Integer N

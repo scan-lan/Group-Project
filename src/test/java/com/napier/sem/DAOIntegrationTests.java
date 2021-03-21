@@ -48,7 +48,7 @@ public class DAOIntegrationTests
         ArrayList<City> cities = dao.topNCitiesIn(App.CONTINENT, "europe", 5);
 
         // then
-        for (int i = 0; i < 5; i++) assertEquals(expectedCities[i], cities.get(i).name);
+        for (int i = 0; i < 5; i++) assertEquals(expectedCities[i], cities.get(i).getName());
     }
 
     // Tests that an empty array is returned when integer n is set to 0
@@ -90,6 +90,6 @@ public class DAOIntegrationTests
         ArrayList<City> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 10);
 
         // then
-        for (City city: cities) assertEquals("United Kingdom", city.country);
+        for (City city: cities) assertEquals("United Kingdom", city.getCountry());
     }
 }

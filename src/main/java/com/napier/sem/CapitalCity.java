@@ -11,9 +11,9 @@ import java.sql.SQLException;
  */
 public class CapitalCity {
     // Private properties
-    private String name;
-    private String country;
-    private Integer population;
+    private final String name;
+    private final String country;
+    private final Integer population;
 
 
     /**
@@ -28,6 +28,10 @@ public class CapitalCity {
         country = result.getString("country");
         population = result.getInt("population");
     }
+
+    public String getName() { return this.name; }
+    public String getCountry() { return this.country; }
+    public Integer getPopulation() { return this.population; }
 
     /**
      * Formats the capital city data in a consistent, readable manner

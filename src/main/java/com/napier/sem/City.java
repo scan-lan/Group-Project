@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import javax.naming.Name;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,12 +13,10 @@ import java.sql.SQLException;
 public class City
 {
     // Private properties - Removed private so tests would work, only work around we could think of for now.
-    String name;
-    String country;
-    String district;
-    Integer population;
-
-
+    private final String name;
+    private final String country;
+    private final String district;
+    private final Integer population;
 
     /**
      * Takes the result of an executed SQL query, extracts
@@ -33,6 +32,11 @@ public class City
         district = result.getString("district");
         population = result.getInt("population");
     }
+
+    public String getName() { return this.name; }
+    public String getCountry() { return this.country; }
+    public String getDistrict() { return this.district; }
+    public Integer getPopulation() { return this.population; }
 
     /**
      * Formats the city data in a consistent, readable manner

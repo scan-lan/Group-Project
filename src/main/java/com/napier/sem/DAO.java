@@ -15,10 +15,6 @@ public class DAO
 {
     // Private properties
     private final Connection connection;
-    private static final String CONTINENT = "continent";
-    private static final String REGION = "region";
-    private static final String COUNTRY = "country";
-    private static final String DISTRICT = "district";
 
     public DAO(Connection connection) {
         this.connection = connection;
@@ -117,10 +113,10 @@ public class DAO
 
         switch (area)
         {
-            case CONTINENT:
+            case App.CONTINENT:
                 whereClause = "WHERE country.continent = '" + areaName + "'\n";
                 break;
-            case REGION:
+            case App.REGION:
                 whereClause = "WHERE country.region = '" + areaName + "'\n";
                 break;
             default:
@@ -148,11 +144,12 @@ public class DAO
     public ArrayList<Country> TopNCountriesIn(String area, String areaName, Integer n) {
         String whereClause;
 
-        switch (area) {
-            case CONTINENT:
+        switch (area)
+        {
+            case App.CONTINENT:
                 whereClause = "WHERE country.continent = '" + areaName + "'\n";
                 break;
-            case REGION:
+            case App.REGION:
                 whereClause = "WHERE country.region = '" + areaName + "'\n";
                 break;
             default:
@@ -180,17 +177,18 @@ public class DAO
     public ArrayList<City> allCitiesIn(String area, String areaName) {
         String whereClause;
 
-        switch (area) {
-            case CONTINENT:
+        switch (area)
+        {
+            case App.CONTINENT:
                 whereClause = "WHERE country.continent = '" + areaName + "'\n";
                 break;
-            case REGION:
+            case App.REGION:
                 whereClause = "WHERE country.region = '" + areaName + "'\n";
                 break;
-            case COUNTRY:
+            case App.COUNTRY:
                 whereClause = "WHERE country.name = '" + areaName + "'\n";
                 break;
-            case DISTRICT:
+            case App.DISTRICT:
                 whereClause = "WHERE city.district = '" + areaName + "'\n";
                 break;
             default:
@@ -220,16 +218,16 @@ public class DAO
 
         switch (area)
         {
-            case CONTINENT:
+            case App.CONTINENT:
                 whereClause = "AND country.continent = '" + areaName + "'\n";
                 break;
-            case REGION:
+            case App.REGION:
                 whereClause = "AND country.region = '" + areaName + "'\n";
                 break;
-            case COUNTRY:
+            case App.COUNTRY:
                 whereClause = "AND country.name = '" + areaName + "'\n";
                 break;
-            case DISTRICT:
+            case App.DISTRICT:
                 whereClause = "AND city.district = '" + areaName + "'\n";
                 break;
             default:
@@ -260,10 +258,10 @@ public class DAO
         String whereClause;
 
         switch (area) {
-            case CONTINENT:
+            case App.CONTINENT:
                 whereClause = "AND country.continent = '" + areaName + "'\n";
                 break;
-            case REGION:
+            case App.REGION:
                 whereClause = "AND country.region = '" + areaName + "'\n";
                 break;
             default:

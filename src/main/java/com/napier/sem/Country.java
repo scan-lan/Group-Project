@@ -12,12 +12,12 @@ import java.sql.SQLException;
 public class Country
 {
     // Private properties
-    private String code;
-    private String name;
-    private String continent;
-    private String region;
-    private Integer population;
-    private String capital;
+    private final String code;
+    private final String name;
+    private final String continent;
+    private final String region;
+    private final Integer population;
+    private final String capital;
 
 
     /**
@@ -35,6 +35,13 @@ public class Country
         population = result.getInt("population");
         capital = result.getString("capital");
     }
+
+    public String getCode() { return this.code; }
+    public String getName() { return this.name; }
+    public String getContinent() { return this.continent; }
+    public String getRegion() { return this.region; }
+    public Integer getPopulation() { return this.population; }
+    public String getCapital() { return this.capital; }
 
     /**
      * Formats the country data in a consistent, readable manner

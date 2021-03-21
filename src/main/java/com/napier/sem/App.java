@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class App
 {
     // Constants
-    private static final String WORLD = "world";
-    private static final String CONTINENT = "continent";
-    private static final String REGION = "region";
-    private static final String COUNTRY = "country";
-    private static final String DISTRICT = "district";
+    static final String WORLD = "world";
+    static final String CONTINENT = "continent";
+    static final String REGION = "region";
+    static final String COUNTRY = "country";
+    static final String DISTRICT = "district";
 
     // Connection to MySQL database.
     // I had to change the access modifier to public static for the integration tests to run successfully

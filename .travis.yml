@@ -17,7 +17,6 @@ install:
 before_script:
   - mvn clean
 
-// Update script names
 jobs:
   include:
     - stage: unit tests

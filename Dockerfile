@@ -1,4 +1,4 @@
 FROM openjdk:latest
 COPY ./target/SemGroupProject.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "SemGroupProject.jar", "db:3306"]
+ENTRYPOINT ["java", "-jar", "SemGroupProject.jar", "database:3306"]

@@ -23,15 +23,15 @@ public class App
         // Connect to database
         if (args.length < 1)
         {
-            app.connect("localhost:3306");
+            connection = connect("localhost:3306");
         }
         else
         {
-            app.connect(args[0]);
+            connection = connect(args[0]);
         }
 
         // Create instance of the database access object
-        DAO dao = new DAO(app.connection);
+        DAO dao = new DAO(connection);
 
         // Use-case 1.1-1.3
         // Produce a report on all countries in the world organised by largest population to smallest
@@ -97,8 +97,9 @@ public class App
 
     /**
      * Connect to the MySQL world database.
+     * @return a database connection object
      */
-    public void connect(String location)
+    public static Connection connect(String location)
     {
         try
         {
@@ -117,25 +118,29 @@ public class App
             System.out.println("Connecting to database...");
             try
             {
-                // Wait a bit for db to start
-                Thread.sleep(5000);
                 // Connect to database
-                connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
+                Connection connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",
                         "example");
                 System.out.println("Successfully connected");
-                break;
+                return connection;
             }
             catch (SQLException e)
             {
                 System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(e.getMessage());
             }
+            try
+            {
+                // Wait a bit before next retry
+                Thread.sleep(5000);
+            }
             catch (InterruptedException ie)
             {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
+        return null;
     }
 
     /**

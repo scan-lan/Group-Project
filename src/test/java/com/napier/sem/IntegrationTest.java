@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MyTest
+public class IntegrationTest
 {
     static App app;
 
@@ -22,10 +22,8 @@ public class MyTest
     @BeforeAll
     static void init()
     {
-        // Create new Application
-        App app = new App();
-        // Connect to database
-        app.connect("localhost:33061");
+        // Create database connection object
+        Connection connection = App.connect("localhost:33061");
     }
 
     // Tests that the number of results is less than or equal to Integer N

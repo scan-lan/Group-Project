@@ -21,7 +21,14 @@ public class App
         App app = new App();
 
         // Connect to database
-        app.connect("localhost:33061");
+        if (args.length < 1)
+        {
+            app.connect("localhost:3306");
+        }
+        else
+        {
+            app.connect(args[0]);
+        }
 
         // Create instance of the database access object
         DAO dao = new DAO(app.connection);

@@ -25,7 +25,7 @@ public class DAOIntegrationTests
 
     // Tests that the number of results is less than or equal to integer n
     @Test
-    void topNCitiesInArrayIsCorrectSize()
+    void topNCitiesIn_arrayIsCorrectSize()
     {
         // given
         int n = 5;
@@ -67,7 +67,7 @@ public class DAOIntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void topNCitiesIn_ArrayIsEmptyWhenAreaNameIsInvalid()
+    void topNCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid()
     {
         // given
         String areaName = "SmurfCity USA";
@@ -76,12 +76,12 @@ public class DAOIntegrationTests
         ArrayList<City> cities = dao.topNCitiesIn(App.REGION, areaName, 10);
 
         // then
-        assertEquals(cities.size(), 0);
+        assertEquals(0, cities.size());
     }
 
     // Tests all cities are in the given area that was passed
     @Test
-    void topNCitiesIn_AllAreasMatchFilter()
+    void topNCitiesIn_allAreasMatchFilter()
     {
         // given
         String areaName = "United Kingdom";

@@ -23,7 +23,7 @@ public class App
         // Connect to database
         if (args.length < 1)
         {
-            connection = connect("localhost:3306", "com.mysql.cj.jdbc.Driver");
+            connection = connect("localhost:33061", "com.mysql.cj.jdbc.Driver");
         }
         else
         {
@@ -35,7 +35,7 @@ public class App
 
         // Use-case 1.1-1.3
         // Produce a report on all countries in the world organised by largest population to smallest
-        // ArrayList<Country> countries = dao.allCountriesIn(WORLD, "");
+        ArrayList<Country> countries = dao.allCountriesIn(WORLD, "");
         // Produce a report on all countries in a continent organised by largest population to smallest
         // ArrayList<Country> countries = dao.allCountriesIn(CONTINENT, "Africa");
         // Produce a report on all countries in a region organised by largest population to smallest
@@ -55,7 +55,7 @@ public class App
         // Produce a report on all cities in a continent organised by largest population to smallest
         // ArrayList<City> cities = dao.allCitiesIn(CONTINENT, "Europe");
         // Produce a report on all cities in a region organised by largest population to smallest
-        ArrayList<City> cities = dao.allCitiesIn(REGION, "Caribbean");
+//        ArrayList<City> cities = dao.allCitiesIn(REGION, "Caribbean");
         // Produce a report on all cities in a country organised by largest population to smallest
         // ArrayList<City> cities = dao.allCitiesIn(COUNTRY, "India");
         // Produce a report on all cities in a district organised by largest population to smallest
@@ -76,20 +76,20 @@ public class App
 
         // Use-case 5.1-5.3
         // Produce a report on all capital cities in the world organised by largest population to smallest
-         ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
+//         ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
         // Produce a report on all capital cities in a continent organised by largest population to smallest
         // ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(CONTINENT, "Asia");
         // Produce a report on all capital cities in a region organised by largest population to smallest
         // ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(REGION, "Caribbean");
 
         // Display Country results
-        // for (Country country : countries) System.out.println(country);
+         for (Country country : countries) System.out.println(country);
 
         // Display City results
         // for (City city : cities) System.out.println(city);
 
         // Display Capital City results
-        for (CapitalCity capitalCity : capitalCities) System.out.println(capitalCity);
+//        for (CapitalCity capitalCity : capitalCities) System.out.println(capitalCity);
 
         // Disconnect from database
         app.disconnect();

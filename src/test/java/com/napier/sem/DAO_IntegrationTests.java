@@ -180,15 +180,15 @@ public class DAO_IntegrationTests
     /**
      * Integration tests covering the DAO.allCitiesIn method
      */
-    // Tests that all countries in query are in the given area
+    // Tests that all cities in query are in the given area
     @Test
     void allCitiesIn_allAreasMatchFilter()
     {
         // given
-        String areaFilter = "Caribbean";
+        String areaFilter = "Japan";
 
         // when
-        ArrayList<City> cities = dao.allCitiesIn(App.REGION, areaFilter);
+        ArrayList<City> cities = dao.allCitiesIn(App.COUNTRY, areaFilter);
 
         // then
         for (City city: cities) assertEquals(areaFilter, city.getCountry());
@@ -198,7 +198,7 @@ public class DAO_IntegrationTests
     @Test
     void allCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid() {
         // given
-        String areaName = "Scotland";
+        String areaName = "Invalid Area";
 
         // when
         ArrayList<City> cities = dao.allCitiesIn(App.COUNTRY, areaName);

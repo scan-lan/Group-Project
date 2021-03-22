@@ -23,11 +23,11 @@ public class App
         // Connect to database
         if (args.length < 1)
         {
-            connection = connect("localhost:3306");
+            connection = connect("localhost:3306", "com.mysql.cj.jdbc.Driver");
         }
         else
         {
-            connection = connect(args[0]);
+            connection = connect(args[0], "com.mysql.cj.jdbc.Driver");
         }
 
         // Create instance of the database access object
@@ -99,12 +99,12 @@ public class App
      * Connect to the MySQL world database.
      * @return a database connection object
      */
-    public static Connection connect(String location)
+    public static Connection connect(String location, String databaseDriver)
     {
         try
         {
             // Load Database driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(databaseDriver);
         }
         catch (ClassNotFoundException e)
         {

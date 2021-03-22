@@ -231,7 +231,7 @@ public class DAO
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
-        String statementString = "SELECT city.name, city.population, country.name AS country \n" +
+        String statementString = "SELECT city.name, city.population, country.region, country.continent, country.name AS country \n" +
                 "FROM city\n" +
                 "    JOIN country ON city.countrycode = country.code\n" +
                 "WHERE city.id = country.capital \n" +

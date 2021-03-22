@@ -288,13 +288,13 @@ public class DAO_IntegrationTests
         void allCapitalCitiesIn_allAreasMatchFilter()
         {
             // given
-            String areaFilter = "Brazil";
+            String areaFilter = "Asia";
 
             // when
-            ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, areaFilter);
+            ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaFilter);
 
             // then
-            for (CapitalCity capitalCity: capitalCities) assertEquals(areaFilter, capitalCity.getCountry());
+            for (CapitalCity capitalCity : capitalCities) assertEquals(areaFilter, capitalCity.getContinent());
         }
 
         // Tests that an empty array is returned when the areaName is set incorrectly
@@ -323,18 +323,18 @@ public class DAO_IntegrationTests
             assertTrue(capitalCities.size() <= 1);
         }
 
-        // Tests that the returned results are correct
-        @Test
-        void allCapitalCitiesIn_resultCapitalCitiesAreExpected ()
-        {
-            // given
-            String expectedCapitalCity = "Roma";
+    // Tests that the returned results are correct
+    @Test
+    void allCapitalCitiesIn_resultCapitalCitiesAreExpected() {
+        // given
+        String[] expectedCapitalCity = new String[]{"Canberra", "Wellington", "Kingston", "Flying Fish Cove", "West Island",};
 
-            // when
-            ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, "Italy");
+        // when
+        ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.REGION, "Australia and New Zealand");
 
-            // then
-            for (CapitalCity capitalCity: capitalCities) assertEquals(expectedCapitalCity, capitalCity.getName());
-        }
+        // then
+        //for (CapitalCity capitalCity: capitalCities) assertEquals(expectedCapitalCity, capitalCity.getname(i));
+        for (int i = 0; i < 5; i++) assertEquals(expectedCapitalCity[i], capitalCities.get(i).getName());
+    }
 
     }

@@ -1,6 +1,5 @@
 package com.napier.sem;
 
-import javax.naming.Name;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

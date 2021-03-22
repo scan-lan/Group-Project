@@ -1,16 +1,14 @@
 package com.napier.sem;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DAOIntegrationTests
+public class DAO_IntegrationTests
 {
     static DAO dao;
 
@@ -18,9 +16,79 @@ public class DAOIntegrationTests
     static void init()
     {
         // Create database connection object
-        Connection connection = App.connect("localhost:33061");
+        Connection connection = App.connect("localhost:33061", "com.mysql.cj.jdbc.Driver");
         // Create Data Access Object
         dao = new DAO(connection);
+    }
+
+    // Tests that an empty list is returned when a nonsense query is given
+    @Test
+    void executeCountryStatement_arrayIsEmptyWhenStatementIsInvalid()
+    {
+        // given
+        String statementString = "SELECT ALL FROM EVERYWHERE";
+
+        // when
+        ArrayList<Country> countries= dao.executeCountryStatement(statementString);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // Tests that an empty list is returned when a nonsense query is given
+    @Test
+    void executeCityStatement_arrayIsEmptyWhenStatementIsInvalid()
+    {
+        // given
+        String statementString = "SELECT ALL FROM EVERYWHERE";
+
+        // when
+        ArrayList<City> cities= dao.executeCityStatement(statementString);
+
+        // then
+        assertEquals(0, cities.size());
+    }
+
+    // Tests that an empty list is returned when a nonsense query is given
+    @Test
+    void executeCapitalCityStatement_arrayIsEmptyWhenStatementIsInvalid()
+    {
+        // given
+        String statementString = "SELECT ALL FROM EVERYWHERE";
+
+        // when
+        ArrayList<CapitalCity> capitalCities= dao.executeCapitalCityStatement(statementString);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // Tests that all countries in query are in the given area
+    @Test
+    void allCountriesIn_allAreasMatchFilter()
+    {
+        // given
+        String areaFilter = "Africa";
+
+        // when
+        ArrayList<Country> countries = dao.allCountriesIn(App.CONTINENT, areaFilter);
+
+        // then
+        for (Country country: countries) { assertEquals(areaFilter, country.getContinent()); }
+    }
+
+    // Tests that an empty array is returned when the areaName is set incorrectly
+    @Test
+    void allCountriesIn_arrayIsEmptyWhenAreaNameIsInvalid()
+    {
+        // given
+        String areaName = "SmurfCity USA";
+
+        // when
+        ArrayList<Country> countries = dao.allCountriesIn(App.REGION, areaName);
+
+        // then
+        assertEquals(0, countries.size());
     }
 
     // Tests that the number of results is less than or equal to integer n

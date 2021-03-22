@@ -43,11 +43,11 @@ public class App
 
         // Use-case 2.1-2.3
         // Run top N countries query against database
-        // ArrayList<Country> countries = dao.TopNCountriesIn(WORLD, "", 10);
+        // ArrayList<Country> countries = dao.topNCountriesIn(WORLD, "", 10);
         // Run top N populated countries in specified continent query
-        // ArrayList<Country> countries = dao.TopNCountriesIn(CONTINENT, "Asia", 5);
+        // ArrayList<Country> countries = dao.topNCountriesIn(CONTINENT, "Asia", 5);
         // Run top N populated countries in specified region query
-        // ArrayList<Country> countries = dao.TopNCountriesIn(REGION, "Eastern Asia", 5);
+        // ArrayList<Country> countries = dao.topNCountriesIn(REGION, "Eastern Asia", 5);
 
         // Use-case 3.1-3.5
         // Produce a report on all cities in the world organised by largest population to smallest

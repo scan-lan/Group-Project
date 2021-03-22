@@ -160,4 +160,5 @@ public class DAO_IntegrationTests
         // then
         for (City city: cities) assertEquals("United Kingdom", city.getCountry());
     }
+
 }

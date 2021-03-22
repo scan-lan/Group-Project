@@ -161,4 +161,74 @@ public class DAO_IntegrationTests
         for (City city: cities) assertEquals("United Kingdom", city.getCountry());
     }
 
+    // Tests that the number of results is less than or equal to integer n
+    @Test
+    void topNCountriesIn_arrayIsCorrectSize()
+    {
+        // given
+        int n = 17;
+
+        // when
+        ArrayList<Country> countries = dao.topNCountriesIn(App.WORLD, "", n);
+
+        // then
+        assertTrue(countries.size() <= n);
+    }
+
+    // Tests that the returned results are correct and in order
+    @Test
+    void topNCountriesIn_resultCountriesAreExpected()
+    {
+        // given
+        // Output string will be updated when I have access to MySQL
+        String[] expectedCountries = new String[]{"...","...","..."};
+
+        // when
+        ArrayList<Country> countries = dao.topNCountriesIn(App.CONTINENT, "Asia", 3);
+
+        // then
+        for (int i = 0; i < 3; i++) assertEquals(expectedCountries[i], countries.get(i).getName());
+    }
+
+    // Tests that an empty array is returned when integer n is set to 0
+    @Test
+    void topNCountriesIn_whenNZeroArrayIsEmpty()
+    {
+        // given
+        int n = 0;
+
+        // when
+        ArrayList<Country> countries = dao.topNCountriesIn(App.WORLD, "", n);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // Tests that an empty array is returned when the areaName is set incorrectly
+    @Test
+    void topNCountriesIn_arrayIsEmptyWhenAreaNameIsInvalid()
+    {
+        // given
+        String areaName = "Scotland";
+
+        // when
+        ArrayList<Country> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // Tests all countries are in the given area that was passed
+    @Test
+    void topNCountriesIn_allAreasMatchFilter()
+    {
+        // given
+        String areaName = "Europe";
+
+        // when
+        ArrayList<Country> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
+
+        // then
+        for (Country country: countries) assertEquals("Europe", country.getContinent());
+    }
 }

@@ -21,6 +21,33 @@ public class DAO
         this.connection = connection;
     }
 
+    public static String getWhereCondition(String areaFilter, String areaName)
+    {
+        String whereCondition;
+
+        switch (areaFilter)
+        {
+            case App.WORLD:
+                whereCondition = "TRUE\n";
+                break;
+            case App.CONTINENT:
+                whereCondition = "country.continent = '" + areaName + "'\n";
+                break;
+            case App.REGION:
+                whereCondition = "country.region = '" + areaName + "'\n";
+                break;
+            case App.COUNTRY:
+                whereCondition = "country.name = '" + areaName + "'\n";
+                break;
+            case App.DISTRICT:
+                whereCondition = "city.district = '" + areaName + "'\n";
+                break;
+            default:
+                return null;
+        }
+        return whereCondition;
+    }
+
     /**
      * This takes an SQL query in the form of a string and executes it against
      * the database.  It is only for use with statements that should return
@@ -29,7 +56,7 @@ public class DAO
      * @param statementString The SQL statement to be executed
      * @return An ArrayList of country objects
      */
-    private ArrayList<Country> ExecuteCountryStatement(String statementString)
+    public ArrayList<Country> executeCountryStatement(String statementString)
     {
         ArrayList<Country> countries = new ArrayList<>();
         try
@@ -61,7 +88,7 @@ public class DAO
      * @param statementString The SQL statement to be executed
      * @return An ArrayList of city objects
      */
-    private ArrayList<City> ExecuteCityStatement(String statementString)
+    public ArrayList<City> executeCityStatement(String statementString)
     {
         ArrayList<City> cities = new ArrayList<>();
         try {
@@ -91,7 +118,8 @@ public class DAO
      * @param statementString The SQL statement to be executed
      * @return An ArrayList of city objects
      */
-    private ArrayList<CapitalCity> ExecuteCapitalCityStatement(String statementString) {
+    public ArrayList<CapitalCity> executeCapitalCityStatement(String statementString)
+    {
         ArrayList<CapitalCity> capitalCities = new ArrayList<>();
         try {
             // Create the SQL statement object for sending statements to the database
@@ -118,29 +146,16 @@ public class DAO
      */
     public ArrayList<Country> allCountriesIn(String area, String areaName)
     {
-        String whereClause;
-
-        switch (area)
-        {
-            case App.CONTINENT:
-                whereClause = "WHERE country.continent = '" + areaName + "'\n";
-                break;
-            case App.REGION:
-                whereClause = "WHERE country.region = '" + areaName + "'\n";
-                break;
-            default:
-                whereClause = "";
-                break;
-        }
+        String whereCondition = getWhereCondition(area, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +
                 "FROM country\n" +
                 "    JOIN city ON country.capital = city.id\n" +
-                whereClause +
+                "WHERE " + whereCondition +
                 "ORDER BY country.population DESC";
 
-        return ExecuteCountryStatement(statementString);
+        return executeCountryStatement(statementString);
     }
 
     /**
@@ -152,30 +167,17 @@ public class DAO
      */
     public ArrayList<Country> TopNCountriesIn(String area, String areaName, Integer n)
     {
-        String whereClause;
-
-        switch (area)
-        {
-            case App.CONTINENT:
-                whereClause = "WHERE country.continent = '" + areaName + "'\n";
-                break;
-            case App.REGION:
-                whereClause = "WHERE country.region = '" + areaName + "'\n";
-                break;
-            default:
-                whereClause = "";
-                break;
-        }
+        String whereCondition = getWhereCondition(area, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT country.code, country.name, continent, region, country.population, city.name AS capital\n" +
                 "FROM country\n" +
                 "    JOIN city ON country.code = city.countrycode\n" +
                 "    AND country.capital = city.id\n" +
-                whereClause +
+                "WHERE " + whereCondition +
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
-        return ExecuteCountryStatement(statementString);
+        return executeCountryStatement(statementString);
     }
 
     /**
@@ -186,35 +188,16 @@ public class DAO
      */
     public ArrayList<City> allCitiesIn(String area, String areaName)
     {
-        String whereClause;
-
-        switch (area)
-        {
-            case App.CONTINENT:
-                whereClause = "WHERE country.continent = '" + areaName + "'\n";
-                break;
-            case App.REGION:
-                whereClause = "WHERE country.region = '" + areaName + "'\n";
-                break;
-            case App.COUNTRY:
-                whereClause = "WHERE country.name = '" + areaName + "'\n";
-                break;
-            case App.DISTRICT:
-                whereClause = "WHERE city.district = '" + areaName + "'\n";
-                break;
-            default:
-                whereClause = "";
-                break;
-        }
+        String whereCondition = getWhereCondition(area, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
                 "FROM city\n" +
                 "    JOIN country ON city.countrycode = country.code\n" +
-                whereClause +
+                "WHERE " + whereCondition +
                 "ORDER BY city.population DESC;";
 
-        return ExecuteCityStatement(statementString);
+        return executeCityStatement(statementString);
     }
 
     /**
@@ -225,37 +208,18 @@ public class DAO
      */
     public ArrayList<City> topNCitiesIn(String area, String areaName, Integer n)
     {
-        String whereClause;
-
-        switch (area)
-        {
-            case App.CONTINENT:
-                whereClause = "AND country.continent = '" + areaName + "'\n";
-                break;
-            case App.REGION:
-                whereClause = "AND country.region = '" + areaName + "'\n";
-                break;
-            case App.COUNTRY:
-                whereClause = "AND country.name = '" + areaName + "'\n";
-                break;
-            case App.DISTRICT:
-                whereClause = "AND city.district = '" + areaName + "'\n";
-                break;
-            default:
-                whereClause = "";
-                break;
-        }
+        String whereCondition = getWhereCondition(area, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
                 "FROM city\n" +
                 "    JOIN country ON city.countrycode = country.code\n" +
                 "WHERE city.population > 0 \n" +
-                whereClause +
+                "AND " + whereCondition +
                 "ORDER BY city.population DESC \n" +
                 "LIMIT " + n;
 
-        return ExecuteCityStatement(statementString);
+        return executeCityStatement(statementString);
     }
 
 
@@ -263,31 +227,20 @@ public class DAO
      * Use cases 5.1-5.3
      * Constructs an SQL query to fetch all capital cities in a specific area, and executes the query.
      *
-     * @return An ordered list of captial cities in a specific area sorted by descending population
+     * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public ArrayList<CapitalCity> allCapitalCitiesIn(String area, String areaName) {
-        String whereClause;
-
-        switch (area) {
-            case App.CONTINENT:
-                whereClause = "AND country.continent = '" + areaName + "'\n";
-                break;
-            case App.REGION:
-                whereClause = "AND country.region = '" + areaName + "'\n";
-                break;
-            default:
-                whereClause = "";
-                break;
-        }
+    public ArrayList<CapitalCity> allCapitalCitiesIn(String area, String areaName)
+    {
+        String whereCondition = getWhereCondition(area, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, city.population, country.name AS country \n" +
                 "FROM city\n" +
                 "    JOIN country ON city.countrycode = country.code\n" +
                 "WHERE city.id = country.capital \n" +
-                whereClause +
+                "AND " + whereCondition +
                 "ORDER BY city.population DESC;";
 
-        return ExecuteCapitalCityStatement(statementString);
+        return executeCapitalCityStatement(statementString);
     }
 }

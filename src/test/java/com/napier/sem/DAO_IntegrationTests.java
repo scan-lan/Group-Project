@@ -280,34 +280,61 @@ public class DAO_IntegrationTests
             for (City city : cities) assertEquals("United Kingdom", city.getCountry());
         }
 
-    /**
-     * Integration tests covering the DAO.allCapitalCitiesIn method
-     */
-    // Tests that all capital cities in query are in the given area
-    @Test
-    void allCapitalCitiesIn_allAreasMatchFilter()
-    {
-        // given
-        String areaFilter = "Japan";
+        /**
+         * Integration tests covering the DAO.allCapitalCitiesIn method
+         */
+        // Tests that all capital cities in query are in the given area
+        @Test
+        void allCapitalCitiesIn_allAreasMatchFilter()
+        {
+            // given
+            String areaFilter = "Brazil";
 
-        // when
-        ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, areaFilter);
+            // when
+            ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, areaFilter);
 
-        // then
-        for (CapitalCity capitalCity: capitalCities) assertEquals(areaFilter, capitalCity.getCountry());
-    }
+            // then
+            for (CapitalCity capitalCity: capitalCities) assertEquals(areaFilter, capitalCity.getCountry());
+        }
 
-    // Tests that an empty array is returned when the areaName is set incorrectly
-    @Test
-    void allCapitalCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid() {
-        // given
-        String areaName = "East Fife";
+        // Tests that an empty array is returned when the areaName is set incorrectly
+        @Test
+        void allCapitalCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid() {
+            // given
+            String areaName = "East Fife";
 
-        // when
-        ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
+            // when
+            ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
 
-        // then
-        assertEquals(0, capitalCities.size());
-    }
+            // then
+            assertEquals(0, capitalCities.size());
+        }
+
+        // Tests that when querying for capital cities in a country, no more than one is returned
+        @Test
+        void allCapitalCitiesIn_countryDoesNotHaveMoreThanOnceCapitalCity() {
+            // given
+            String areaName = "Germany";
+
+            // when
+            ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, areaName);
+
+            // then
+            assertTrue(capitalCities.size() <= 1);
+        }
+
+        // Tests that the returned results are correct
+        @Test
+        void allCapitalCitiesIn_resultCapitalCitiesAreExpected ()
+        {
+            // given
+            String expectedCapitalCity = "Rome";
+
+            // when
+            ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, "Italy");
+
+            // then
+            for (CapitalCity capitalCity: capitalCities) assertEquals(expectedCapitalCity, capitalCity.getName());
+        }
 
     }

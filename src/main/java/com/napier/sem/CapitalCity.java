@@ -34,13 +34,9 @@ public class CapitalCity {
     }
 
     public String getName() { return this.name; }
-
     public String getCountry() { return this.country; }
-
     public String getRegion() { return this.region; }
-
     public String getContinent() { return this.continent; }
-
     public Integer getPopulation() { return this.population; }
 
     /**

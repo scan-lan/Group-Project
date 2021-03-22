@@ -74,7 +74,7 @@ public class DAO_IntegrationTests
         ArrayList<Country> countries = dao.allCountriesIn(App.CONTINENT, areaFilter);
 
         // then
-        for (Country country: countries) { assertEquals(areaFilter, country.getContinent()); }
+        for (Country country: countries) assertEquals(areaFilter, country.getContinent());
     }
 
     // Tests that an empty array is returned when the areaName is set incorrectly
@@ -230,5 +230,19 @@ public class DAO_IntegrationTests
 
         // then
         for (Country country: countries) assertEquals("Europe", country.getContinent());
+    }
+
+    // Tests that all countries in query are in the given area
+    @Test
+    void allCitiesIn_allAreasMatchFilter()
+    {
+        // given
+        String areaFilter = "China";
+
+        // when
+        ArrayList<City> cities = dao.allCitiesIn(App.COUNTRY, areaFilter);
+
+        // then
+        for (City city: cities) assertEquals(areaFilter, city.getCountry());
     }
 }

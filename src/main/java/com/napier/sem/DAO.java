@@ -16,10 +16,14 @@ public class DAO
     // Private properties
     private final Connection connection;
 
-    public DAO(Connection connection) {
-        this.connection = connection;
-    }
+    public DAO(Connection connection) { this.connection = connection; }
 
+    /**
+     * Generates a valid condition for use with our SQL queries
+     * @param areaFilter The geographical category by which we'll be filtering
+     * @param areaName The name of the location which will be used
+     * @return The where condition string
+     */
     public static String getWhereCondition(String areaFilter, String areaName)
     {
         String whereCondition;
@@ -137,9 +141,9 @@ public class DAO
      *
      * @return An ordered list of countries in the world sorted by descending population
      */
-    public ArrayList<Country> allCountriesIn(String area, String areaName)
+    public ArrayList<Country> allCountriesIn(String areaFilter, String areaName)
     {
-        String whereCondition = getWhereCondition(area, areaName);
+        String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +
@@ -158,9 +162,9 @@ public class DAO
      *
      * @return An ordered list of countries sorted by descending population
      */
-    public ArrayList<Country> TopNCountriesIn(String area, String areaName, Integer n)
+    public ArrayList<Country> TopNCountriesIn(String areaFilter, String areaName, Integer n)
     {
-        String whereCondition = getWhereCondition(area, areaName);
+        String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT country.code, country.name, continent, region, country.population, city.name AS capital\n" +
@@ -179,9 +183,9 @@ public class DAO
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<City> allCitiesIn(String area, String areaName)
+    public ArrayList<City> allCitiesIn(String areaFilter, String areaName)
     {
-        String whereCondition = getWhereCondition(area, areaName);
+        String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
@@ -199,9 +203,9 @@ public class DAO
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<City> topNCitiesIn(String area, String areaName, Integer n)
+    public ArrayList<City> topNCitiesIn(String areaFilter, String areaName, Integer n)
     {
-        String whereCondition = getWhereCondition(area, areaName);
+        String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
@@ -222,9 +226,9 @@ public class DAO
      *
      * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public ArrayList<CapitalCity> allCapitalCitiesIn(String area, String areaName)
+    public ArrayList<CapitalCity> allCapitalCitiesIn(String areaFilter, String areaName)
     {
-        String whereCondition = getWhereCondition(area, areaName);
+        String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, city.population, country.name AS country \n" +

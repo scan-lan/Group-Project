@@ -162,7 +162,7 @@ public class DAO
      *
      * @return An ordered list of countries sorted by descending population
      */
-    public ArrayList<Country> TopNCountriesIn(String areaFilter, String areaName, Integer n)
+    public ArrayList<Country> topNCountriesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 

@@ -13,6 +13,8 @@ public class CapitalCity {
     // Private properties
     private final String name;
     private final String country;
+    private final String region;
+    private final String continent;
     private final Integer population;
 
 
@@ -26,11 +28,15 @@ public class CapitalCity {
     public CapitalCity(ResultSet result) throws SQLException {
         name = result.getString("name");
         country = result.getString("country");
+        region = result.getString("region");
+        continent = result.getString("continent");
         population = result.getInt("population");
     }
 
     public String getName() { return this.name; }
     public String getCountry() { return this.country; }
+    public String getRegion() { return this.region; }
+    public String getContinent() { return this.continent; }
     public Integer getPopulation() { return this.population; }
 
     /**

@@ -126,7 +126,7 @@ public class DAO_IntegrationTests
     {
         // given
         // Output string will be updated when I have access to MySQL
-        String[] expectedCountries = new String[]{"...","...","..."};
+        String[] expectedCountries = new String[]{"China", "India", "Indonesia"};
 
         // when
         ArrayList<Country> countries = dao.topNCountriesIn(App.CONTINENT, "Asia", 3);
@@ -328,7 +328,7 @@ public class DAO_IntegrationTests
         void allCapitalCitiesIn_resultCapitalCitiesAreExpected ()
         {
             // given
-            String expectedCapitalCity = "Rome";
+            String expectedCapitalCity = "Roma";
 
             // when
             ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, "Italy");

@@ -21,6 +21,9 @@ public class DAO_IntegrationTests
         dao = new DAO(connection);
     }
 
+    /**
+     * Integration tests covering the DAO.executeCountryStatement method
+     */
     // Tests that an empty list is returned when a nonsense query is given
     @Test
     void executeCountryStatement_arrayIsEmptyWhenStatementIsInvalid()
@@ -35,6 +38,9 @@ public class DAO_IntegrationTests
         assertEquals(0, countries.size());
     }
 
+    /**
+     * Integration tests covering the DAO.executeCityStatement method
+     */
     // Tests that an empty list is returned when a nonsense query is given
     @Test
     void executeCityStatement_arrayIsEmptyWhenStatementIsInvalid()
@@ -49,6 +55,9 @@ public class DAO_IntegrationTests
         assertEquals(0, cities.size());
     }
 
+    /**
+     * Integration tests covering the DAO.executeCapitalCityStatement method
+     */
     // Tests that an empty list is returned when a nonsense query is given
     @Test
     void executeCapitalCityStatement_arrayIsEmptyWhenStatementIsInvalid()
@@ -63,6 +72,9 @@ public class DAO_IntegrationTests
         assertEquals(0, capitalCities.size());
     }
 
+    /**
+     * Integration tests covering the DAO.allCountriesIn method
+     */
     // Tests that all countries in query are in the given area
     @Test
     void allCountriesIn_allAreasMatchFilter()
@@ -91,76 +103,9 @@ public class DAO_IntegrationTests
         assertEquals(0, countries.size());
     }
 
-    // Tests that the number of results is less than or equal to integer n
-    @Test
-    void topNCitiesIn_arrayIsCorrectSize()
-    {
-        // given
-        int n = 5;
-
-        // when
-        ArrayList<City> cities = dao.topNCitiesIn(App.CONTINENT, "europe", n);
-
-        // then
-        assertTrue(cities.size() <= n);
-    }
-
-    // Tests that the returned results are correct and in order
-    @Test
-    void topNCitiesIn_resultCitiesAreExpected()
-    {
-        // given
-        String[] expectedCities = new String[]{"Moscow", "London", "St Petersburg", "Berlin", "Madrid"};
-
-        // when
-        ArrayList<City> cities = dao.topNCitiesIn(App.CONTINENT, "europe", 5);
-
-        // then
-        for (int i = 0; i < 5; i++) assertEquals(expectedCities[i], cities.get(i).getName());
-    }
-
-    // Tests that an empty array is returned when integer n is set to 0
-    @Test
-    void topNCitiesIn_whenNZeroArrayIsEmpty()
-    {
-        // given
-        int n = 0;
-
-        // when
-        ArrayList<City> cities = dao.topNCitiesIn(App.WORLD, "", n);
-
-        // then
-        assertEquals(0, cities.size());
-    }
-
-    // Tests that an empty array is returned when the areaName is set incorrectly
-    @Test
-    void topNCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid()
-    {
-        // given
-        String areaName = "SmurfCity USA";
-
-        // when
-        ArrayList<City> cities = dao.topNCitiesIn(App.REGION, areaName, 10);
-
-        // then
-        assertEquals(0, cities.size());
-    }
-
-    // Tests all cities are in the given area that was passed
-    @Test
-    void topNCitiesIn_allAreasMatchFilter()
-    {
-        // given
-        String areaName = "United Kingdom";
-
-        // when
-        ArrayList<City> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 10);
-
-        // then
-        for (City city: cities) assertEquals("United Kingdom", city.getCountry());
-    }
-
+    /**
+     * Integration tests covering the DAO.topNCountriesIn method
+     */
     // Tests that the number of results is less than or equal to integer n
     @Test
     void topNCountriesIn_arrayIsCorrectSize()
@@ -232,6 +177,9 @@ public class DAO_IntegrationTests
         for (Country country: countries) assertEquals("Europe", country.getContinent());
     }
 
+    /**
+     * Integration tests covering the DAO.allCitiesIn method
+     */
     // Tests that all countries in query are in the given area
     @Test
     void allCitiesIn_allAreasMatchFilter()
@@ -248,8 +196,7 @@ public class DAO_IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void allCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid()
-    {
+    void allCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid() {
         // given
         String areaName = "Scotland";
 
@@ -259,4 +206,77 @@ public class DAO_IntegrationTests
         // then
         assertEquals(0, cities.size());
     }
-}
+
+    /**
+     * Integration tests covering the DAO.topNCitiesIn method
+     */
+        // Tests that the number of results is less than or equal to integer n
+        @Test
+        void topNCitiesIn_arrayIsCorrectSize ()
+        {
+            // given
+            int n = 5;
+
+            // when
+            ArrayList<City> cities = dao.topNCitiesIn(App.CONTINENT, "europe", n);
+
+            // then
+            assertTrue(cities.size() <= n);
+        }
+
+        // Tests that the returned results are correct and in order
+        @Test
+        void topNCitiesIn_resultCitiesAreExpected ()
+        {
+            // given
+            String[] expectedCities = new String[]{"Moscow", "London", "St Petersburg", "Berlin", "Madrid"};
+
+            // when
+            ArrayList<City> cities = dao.topNCitiesIn(App.CONTINENT, "europe", 5);
+
+            // then
+            for (int i = 0; i < 5; i++) assertEquals(expectedCities[i], cities.get(i).getName());
+        }
+
+        // Tests that an empty array is returned when integer n is set to 0
+        @Test
+        void topNCitiesIn_whenNZeroArrayIsEmpty ()
+        {
+            // given
+            int n = 0;
+
+            // when
+            ArrayList<City> cities = dao.topNCitiesIn(App.WORLD, "", n);
+
+            // then
+            assertEquals(0, cities.size());
+        }
+
+        // Tests that an empty array is returned when the areaName is set incorrectly
+        @Test
+        void topNCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid ()
+        {
+            // given
+            String areaName = "SmurfCity USA";
+
+            // when
+            ArrayList<City> cities = dao.topNCitiesIn(App.REGION, areaName, 10);
+
+            // then
+            assertEquals(0, cities.size());
+        }
+
+        // Tests all cities are in the given area that was passed
+        @Test
+        void topNCitiesIn_allAreasMatchFilter ()
+        {
+            // given
+            String areaName = "United Kingdom";
+
+            // when
+            ArrayList<City> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 10);
+
+            // then
+            for (City city : cities) assertEquals("United Kingdom", city.getCountry());
+        }
+    }

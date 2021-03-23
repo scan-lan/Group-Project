@@ -14,8 +14,9 @@ public class Record_UnitTests
         String name = "Scotland";
         String continent = "Europe";
         String region = "Great Britain";
-        Integer population = 6000000;
         String capital = "Edinburgh";
+        Integer population = 6000000;
+        String expectedRecordType = App.COUNTRY;
         String expectedToStringOutput = "Country code: SCT | Name: Scotland | Continent: Europe\n" +
                 "Region: Great Britain | Population: 6000000 | Capital: Edinburgh\n" +
                 "-------------------------------------------------------";
@@ -31,6 +32,7 @@ public class Record_UnitTests
         assertEquals(region, record.getRegion());
         assertEquals(population, record.getPopulation());
         assertEquals(capital, record.getCapital());
+        assertEquals(expectedRecordType, record.getRecordType());
         assertEquals(expectedToStringOutput, record.toString());
     }
 
@@ -43,9 +45,9 @@ public class Record_UnitTests
         String region = "Great Britain";
         String continent = "Europe";
         Integer population = 6000000;
+        String expectedRecordType = App.CAPITAL_CITY;
         String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6000000\n" +
                 "-------------------------------------------------------";
-        String expectedRecordType = App.CAPITAL_CITY;
 
         // when
         Record capitalCity = new Record(name, country, region, continent, population);

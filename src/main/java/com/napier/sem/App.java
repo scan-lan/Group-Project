@@ -86,7 +86,7 @@ public class App
         // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(REGION, "Caribbean");
 
         // Display Country results
-        for (Record record : countries) System.out.println(record);
+        for (Record country : countries) System.out.println(country);
 
         // Display City results
         // for (Record city : cities) System.out.println(city);

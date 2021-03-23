@@ -32,6 +32,14 @@ public class City
         population = result.getInt("population");
     }
 
+    public City(String name, String country, String district, Integer population)
+    {
+        this.name = name;
+        this.country = country;
+        this.district = district;
+        this.population = population;
+    }
+
     public String getName() { return this.name; }
     public String getCountry() { return this.country; }
     public String getDistrict() { return this.district; }
@@ -40,7 +48,7 @@ public class City
     /**
      * Formats the city data in a consistent, readable manner
      *
-     * @return
+     * @return A string representing a city record
      */
     public String toString()
     {

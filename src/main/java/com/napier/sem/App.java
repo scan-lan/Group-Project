@@ -12,9 +12,10 @@ public class App
     static final String COUNTRY = "country";
     static final String DISTRICT = "district";
 
-    // Connection to MySQL database.
-    // I had to change the access modifier to public static for the integration tests to run successfully
-    public static Connection connection = null;
+    static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
+
+    // Connection to MySQL database
+    public static Connection connection;
 
     public static void main(String[] args) {
         // Create new Application
@@ -23,11 +24,11 @@ public class App
         // Connect to database
         if (args.length < 1)
         {
-            connection = connect("localhost:33061", "com.mysql.cj.jdbc.Driver");
+            connection = connect("localhost:33061", databaseDriver, false);
         }
         else
         {
-            connection = connect(args[0], "com.mysql.cj.jdbc.Driver");
+            connection = connect(args[0], databaseDriver, false);
         }
 
         // Create instance of the database access object
@@ -55,7 +56,7 @@ public class App
         // Produce a report on all cities in a continent organised by largest population to smallest
         // ArrayList<City> cities = dao.allCitiesIn(CONTINENT, "Europe");
         // Produce a report on all cities in a region organised by largest population to smallest
-//        ArrayList<City> cities = dao.allCitiesIn(REGION, "Caribbean");
+        // ArrayList<City> cities = dao.allCitiesIn(REGION, "Caribbean");
         // Produce a report on all cities in a country organised by largest population to smallest
         // ArrayList<City> cities = dao.allCitiesIn(COUNTRY, "India");
         // Produce a report on all cities in a district organised by largest population to smallest
@@ -76,30 +77,30 @@ public class App
 
         // Use-case 5.1-5.3
         // Produce a report on all capital cities in the world organised by largest population to smallest
-//         ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
+        // ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
         // Produce a report on all capital cities in a continent organised by largest population to smallest
         // ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(CONTINENT, "Asia");
         // Produce a report on all capital cities in a region organised by largest population to smallest
         // ArrayList<CapitalCity> capitalCities = dao.allCapitalCitiesIn(REGION, "Caribbean");
 
         // Display Country results
-         for (Country country : countries) System.out.println(country);
+        for (Country country : countries) System.out.println(country);
 
         // Display City results
         // for (City city : cities) System.out.println(city);
 
         // Display Capital City results
-//        for (CapitalCity capitalCity : capitalCities) System.out.println(capitalCity);
+        // for (CapitalCity capitalCity : capitalCities) System.out.println(capitalCity);
 
         // Disconnect from database
-        app.disconnect();
+        disconnect(connection);
     }
 
     /**
      * Connect to the MySQL world database.
      * @return a database connection object
      */
-    public static Connection connect(String location, String databaseDriver)
+    public static Connection connect(String location, String databaseDriver, boolean isTest)
     {
         try
         {
@@ -109,7 +110,6 @@ public class App
         catch (ClassNotFoundException e)
         {
             System.out.println("Could not load SQL driver");
-            System.exit(-1);
         }
 
         int retries = 60;
@@ -130,14 +130,17 @@ public class App
                 System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(e.getMessage());
             }
-            try
+            if (!isTest)
             {
-                // Wait a bit before next retry
-                Thread.sleep(5000);
-            }
-            catch (InterruptedException ie)
-            {
-                System.out.println("Thread interrupted? Should not happen.");
+                try
+                {
+                    // Wait a bit before next retry
+                    Thread.sleep(5000);
+                }
+                catch (InterruptedException ie)
+                {
+                    System.out.println("Thread interrupted? Should not happen.");
+                }
             }
         }
         return null;
@@ -146,7 +149,7 @@ public class App
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect()
+    public static void disconnect(Connection connection)
     {
         if (connection != null)
         {

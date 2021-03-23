@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DAO_IntegrationTests
 {
     static DAO dao;
+    static Connection connection;
 
     @BeforeAll
     static void init()
     {
         // Create database connection object
-        Connection connection = App.connect("localhost:33061", "com.mysql.cj.jdbc.Driver");
+        connection = App.connect("localhost:33061", App.databaseDriver, false);
         // Create Data Access Object
         dao = new DAO(connection);
+    }
+
+    @AfterAll
+    static void tearDown()
+    {
+        App.disconnect(connection);
     }
 
     /**

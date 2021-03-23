@@ -43,4 +43,27 @@ public class recordClasses_UnitTests
         assertEquals(district, city.getDistrict());
         assertEquals(population, city.getPopulation());
     }
+
+    @Test
+    public void country_ensureGettersReturnsCorrectFields() {
+        // given
+        String code = "SCT";
+        String name = "Scotland";
+        String continent = "Europe";
+        String region = "Great Britain";
+        Integer population = 6000000;
+        String capital = "Edinburgh";
+
+
+        // when
+        Country country = new Country(code, name, continent, region, population, capital);
+
+        // then
+        assertEquals(code, country.getCode());
+        assertEquals(name, country.getName());
+        assertEquals(continent, country.getContinent());
+        assertEquals(region, country.getRegion());
+        assertEquals(population, country.getPopulation());
+        assertEquals(capital, country.getCapital());
+    }
 }

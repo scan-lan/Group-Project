@@ -12,12 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DAO_IntegrationTests
 {
     static DAO dao;
+    static Connection connection;
 
     @BeforeAll
     static void init()
     {
         // Create database connection object
-        Connection connection = App.connect("localhost:33061", "com.mysql.cj.jdbc.Driver", false);
+        connection = App.connect("localhost:33061", App.databaseDriver, false);
         // Create Data Access Object
         dao = new DAO(connection);
     }
@@ -25,7 +26,7 @@ public class DAO_IntegrationTests
     @AfterAll
     static void tearDown()
     {
-        App.dis
+        App.disconnect(connection);
     }
 
     /**

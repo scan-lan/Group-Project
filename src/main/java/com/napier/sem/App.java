@@ -12,6 +12,8 @@ public class App
     static final String COUNTRY = "country";
     static final String DISTRICT = "district";
 
+    static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
+
     // Connection to MySQL database.
     // I had to change the access modifier to public static for the integration tests to run successfully
     public static Connection connection = null;
@@ -23,7 +25,7 @@ public class App
         // Connect to database
         if (args.length < 1)
         {
-            connection = connect("localhost:33061", "com.mysql.cj.jdbc.Driver");
+            connection = connect("localhost:33061", databaseDriver);
         }
         else
         {

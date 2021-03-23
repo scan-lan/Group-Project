@@ -53,85 +53,32 @@ public class DAO
 
     /**
      * This takes an SQL query in the form of a string and executes it against
-     * the database.  It is only for use with statements that should return
-     * country records.  It will return the countries in a list of Country
-     * objects.
+     * the database.  It will return a list of Record objects.  It will return
+     * the countries in a list of Country objects.
      * @param statementString The SQL statement to be executed
      * @return An ArrayList of country objects
      */
-    public ArrayList<Country> executeCountryStatement(String statementString)
+    public ArrayList<Record> executeStatement(String statementString, String recordType)
     {
-        ArrayList<Country> countries = new ArrayList<>();
-        try {
+        ArrayList<Record> records = new ArrayList<>();
+        try
+        {
             // Create the SQL statement object for sending statements to the database
             Statement statement = connection.createStatement();
             // Execute the query
             ResultSet resultSet = statement.executeQuery(statementString);
             // Create Country object and add it to the list for each result in the query
-            while (resultSet.next()) {
-                countries.add(new Country(resultSet));
+            while (resultSet.next())
+            {
+                records.add(new Record(resultSet, recordType));
             }
-        } catch (SQLException e) {
-            System.out.println("Query failed");
+        }
+        catch (SQLException e)
+        {
+            System.out.println(recordType + " query failed");
             System.out.println(e.getMessage());
         }
-        return countries;
-    }
-
-    /**
-     * This takes an SQL query in the form of a string and executes it against
-     * the database.  It is only for use with statements that should return
-     * city records.  It will return the cities in a list of City
-     * objects.
-     *
-     * @param statementString The SQL statement to be executed
-     * @return An ArrayList of city objects
-     */
-    public ArrayList<City> executeCityStatement(String statementString)
-    {
-        ArrayList<City> cities = new ArrayList<>();
-        try {
-            // Create the SQL statement object for sending statements to the database
-            Statement statement = connection.createStatement();
-            // Execute the query
-            ResultSet resultSet = statement.executeQuery(statementString);
-            // Create City object and add it to the list for each result in the query
-            while (resultSet.next()) {
-                cities.add(new City(resultSet));
-            }
-        } catch (SQLException e) {
-            System.out.println("Query ExecuteCityStatement failed");
-            System.out.println(e.getMessage());
-        }
-        return cities;
-    }
-
-    /**
-     * This takes an SQL query in the form of a string and executes it against
-     * the database.  It is only for use with statements that should return
-     * Capital City records.  It will return the capital cities in a list of Capital City
-     * objects.
-     *
-     * @param statementString The SQL statement to be executed
-     * @return An ArrayList of city objects
-     */
-    public ArrayList<CapitalCity> executeCapitalCityStatement(String statementString)
-    {
-        ArrayList<CapitalCity> capitalCities = new ArrayList<>();
-        try {
-            // Create the SQL statement object for sending statements to the database
-            Statement statement = connection.createStatement();
-            // Execute the query
-            ResultSet resultSet = statement.executeQuery(statementString);
-            // Create Capital City object and add it to the list for each result in the query
-            while (resultSet.next()) {
-                capitalCities.add(new CapitalCity(resultSet));
-            }
-        } catch (SQLException e) {
-            System.out.println("Query ExecuteCityStatement failed");
-            System.out.println(e.getMessage());
-        }
-        return capitalCities;
+        return records;
     }
 
     /**
@@ -141,7 +88,7 @@ public class DAO
      *
      * @return An ordered list of countries in the world sorted by descending population
      */
-    public ArrayList<Country> allCountriesIn(String areaFilter, String areaName)
+    public ArrayList<Record> allCountriesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
@@ -152,7 +99,7 @@ public class DAO
                 "WHERE " + whereCondition +
                 "ORDER BY country.population DESC";
 
-        return executeCountryStatement(statementString);
+        return executeStatement(statementString, App.COUNTRY);
     }
 
     /**
@@ -162,7 +109,7 @@ public class DAO
      *
      * @return An ordered list of countries sorted by descending population
      */
-    public ArrayList<Country> topNCountriesIn(String areaFilter, String areaName, Integer n)
+    public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
@@ -174,7 +121,7 @@ public class DAO
                 "WHERE " + whereCondition +
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
-        return executeCountryStatement(statementString);
+        return executeStatement(statementString, App.COUNTRY);
     }
 
     /**
@@ -183,7 +130,7 @@ public class DAO
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<City> allCitiesIn(String areaFilter, String areaName)
+    public ArrayList<Record> allCitiesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
@@ -194,7 +141,7 @@ public class DAO
                 "WHERE " + whereCondition +
                 "ORDER BY city.population DESC;";
 
-        return executeCityStatement(statementString);
+        return executeStatement(statementString, App.CITY);
     }
 
     /**
@@ -203,7 +150,7 @@ public class DAO
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<City> topNCitiesIn(String areaFilter, String areaName, Integer n)
+    public ArrayList<Record> topNCitiesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
@@ -216,7 +163,7 @@ public class DAO
                 "ORDER BY city.population DESC \n" +
                 "LIMIT " + n;
 
-        return executeCityStatement(statementString);
+        return executeStatement(statementString, App.CITY);
     }
 
 
@@ -226,7 +173,7 @@ public class DAO
      *
      * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public ArrayList<CapitalCity> allCapitalCitiesIn(String areaFilter, String areaName)
+    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
@@ -238,6 +185,6 @@ public class DAO
                 "AND " + whereCondition +
                 "ORDER BY city.population DESC;";
 
-        return executeCapitalCityStatement(statementString);
+        return executeStatement(statementString, App.CAPITAL_CITY);
     }
 }

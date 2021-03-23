@@ -7,7 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class recordClasses_UnitTests
 {
     @Test
-    public void capitalCity_ensureGettersReturnsCorrectFields() {
+    public void capitalCity_ensureGettersReturnsCorrectFields()
+    {
         // given
         String name = "Glasgow";
         String country = "Scotland";
@@ -27,7 +28,8 @@ public class recordClasses_UnitTests
     }
 
     @Test
-    public void city_ensureGettersReturnsCorrectFields() {
+    public void city_ensureGettersReturnsCorrectFields()
+    {
         // given
         String name = "Wishae";
         String country = "Scotland";
@@ -45,7 +47,8 @@ public class recordClasses_UnitTests
     }
 
     @Test
-    public void country_ensureGettersReturnsCorrectFields() {
+    public void country_ensureGettersReturnsCorrectFields()
+    {
         // given
         String code = "SCT";
         String name = "Scotland";

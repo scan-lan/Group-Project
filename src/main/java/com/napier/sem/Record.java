@@ -8,6 +8,7 @@ import java.sql.SQLException;
  *   - Country
  *   - City
  *   - Capital City
+ * The type is denoted by the recordType field.
  * The possible fields consist of:
  *   code, name, continent, region, country,
  *   district, capital, population
@@ -15,7 +16,7 @@ import java.sql.SQLException;
 public class Record
 {
     // Private properties
-    private String code;
+    private String countryCode;
     private String name;
     private String continent;
     private String region;
@@ -39,7 +40,7 @@ public class Record
         switch (recordType)
         {
             case App.COUNTRY:
-                code = result.getString("code");
+                countryCode = result.getString("code");
                 name = result.getString("name");
                 continent = result.getString("continent");
                 region = result.getString("region");
@@ -63,9 +64,9 @@ public class Record
     }
 
     // Country constructor, just used for testing purposes.
-    public Record(String code, String name, String continent, String region, Integer population, String capital)
+    public Record(String countryCode, String name, String continent, String region, Integer population, String capital)
     {
-        this.code = code;
+        this.countryCode = countryCode;
         this.name = name;
         this.continent = continent;
         this.region = region;
@@ -95,7 +96,7 @@ public class Record
         recordType = App.CITY;
     }
 
-    public String getCode() { return this.code; }
+    public String getCountryCode() { return this.countryCode; }
     public String getName() { return this.name; }
     public String getContinent() { return this.continent; }
     public String getRegion() { return this.region; }
@@ -118,7 +119,7 @@ public class Record
                 recordString = String.format("Country code: %s | Name: %s | Continent: %s\n" +
                                 "Region: %s | Population: %s | Capital: %s\n" +
                                 "-------------------------------------------------------",
-                        this.code,
+                        this.countryCode,
                         this.name,
                         this.continent,
                         this.region,

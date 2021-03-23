@@ -10,7 +10,7 @@ public class Record_UnitTests
     public void Record_testGettersAndToStringForCountry()
     {
         // given
-        String code = "SCT";
+        String countryCode = "SCT";
         String name = "Scotland";
         String continent = "Europe";
         String region = "Great Britain";
@@ -22,10 +22,10 @@ public class Record_UnitTests
 
 
         // when
-        Record record = new Record(code, name, continent, region, population, capital);
+        Record record = new Record(countryCode, name, continent, region, population, capital);
 
         // then
-        assertEquals(code, record.getCode());
+        assertEquals(countryCode, record.getCountryCode());
         assertEquals(name, record.getName());
         assertEquals(continent, record.getContinent());
         assertEquals(region, record.getRegion());

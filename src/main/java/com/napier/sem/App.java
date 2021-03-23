@@ -14,9 +14,8 @@ public class App
 
     static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
 
-    // Connection to MySQL database.
-    // I had to change the access modifier to public static for the integration tests to run successfully
-    public static Connection connection = null;
+    // Connection to MySQL database
+    public static Connection connection;
 
     public static void main(String[] args) {
         // Create new Application
@@ -29,7 +28,7 @@ public class App
         }
         else
         {
-            connection = connect(args[0], App.databaseDriver, false);
+            connection = connect(args[0], databaseDriver, false);
         }
 
         // Create instance of the database access object
@@ -94,7 +93,7 @@ public class App
         // for (CapitalCity capitalCity : capitalCities) System.out.println(capitalCity);
 
         // Disconnect from database
-        app.disconnect(connection);
+        disconnect(connection);
     }
 
     /**

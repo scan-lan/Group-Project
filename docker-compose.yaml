@@ -4,8 +4,10 @@ services:
   app:
     build: .
 
-  # database is is database folder
+  # database is in database folder
   database:
     build: database/.
     command: --default-authentication-plugin=mysql_native_password
     restart: always
+    ports:
+      - "33061:3306"

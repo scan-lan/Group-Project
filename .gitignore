@@ -31,6 +31,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# java nonsense
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -42,5 +43,11 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+# intellij generated files
 .idea/
 SemGroupProject.iml
+
+# vscode generated files
+.classpath
+.project
+.settings/

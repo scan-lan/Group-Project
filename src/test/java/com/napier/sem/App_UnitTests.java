@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class App_UnitTests
 {
+    // test that the connection is null if the localhost is invalid
     @Test
     public void connect_invalidLocation()
     {
@@ -21,6 +22,7 @@ public class App_UnitTests
         assertNull(connection);
     }
 
+    // test that the connection is null if the database driver is invalid
     @Test
     public void connect_invalidDriver()
     {

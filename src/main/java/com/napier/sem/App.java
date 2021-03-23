@@ -94,7 +94,7 @@ public class App
         // for (CapitalCity capitalCity : capitalCities) System.out.println(capitalCity);
 
         // Disconnect from database
-        app.disconnect();
+        app.disconnect(connection);
     }
 
     /**
@@ -150,7 +150,7 @@ public class App
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect()
+    public static void disconnect(Connection connection)
     {
         if (connection != null)
         {

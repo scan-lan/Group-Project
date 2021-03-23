@@ -57,7 +57,7 @@ public class DAO_IntegrationTests
         ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, areaFilter);
 
         // then
-        for (Record record : countries) assertEquals(areaFilter, record.getContinent());
+        for (Record country : countries) assertEquals(areaFilter, country.getContinent());
     }
 
     // Tests that an empty array is returned when the areaName is set incorrectly
@@ -145,7 +145,7 @@ public class DAO_IntegrationTests
         ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
 
         // then
-        for (Record record : countries) assertEquals("Europe", record.getContinent());
+        for (Record country : countries) assertEquals("Europe", country.getContinent());
     }
 
     /**

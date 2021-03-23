@@ -53,7 +53,7 @@ public class CapitalCity
     /**
      * Formats the capital city data in a consistent, readable manner
      *
-     * @return A string representing a capital city
+     * @return A string representing a capital city record
      */
     public String toString()
     {

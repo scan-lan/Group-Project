@@ -25,7 +25,7 @@ public class App_UnitTests
     public void connect_invalidDriver()
     {
         // given
-        String databaseDriver = "nae licence";
+        String databaseDriver = "mysqf";
 
         // when
         Connection connection = App.connect("localhost:80", databaseDriver, true);

@@ -112,7 +112,7 @@ public class App
             System.out.println("Could not load SQL driver");
         }
 
-        int retries = 1;
+        int retries = 60;
         for (int i = 0; i < retries; ++i)
         {
             System.out.println("Connecting to database...");

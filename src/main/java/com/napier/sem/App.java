@@ -29,7 +29,7 @@ public class App
         }
         else
         {
-            connection = connect(args[0], "com.mysql.cj.jdbc.Driver", false);
+            connection = connect(args[0], App.databaseDriver, false);
         }
 
         // Create instance of the database access object

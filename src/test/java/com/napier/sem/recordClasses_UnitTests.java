@@ -15,6 +15,8 @@ public class recordClasses_UnitTests
         String region = "Great Britain";
         String continent = "Europe";
         Integer population = 6000000;
+        String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6000000\n" +
+                "-------------------------------------------------------";
 
         // when
         CapitalCity capitalCity = new CapitalCity(name, country, region, continent, population);
@@ -25,6 +27,7 @@ public class recordClasses_UnitTests
         assertEquals(region, capitalCity.getRegion());
         assertEquals(continent, capitalCity.getContinent());
         assertEquals(population, capitalCity.getPopulation());
+        assertEquals(expectedToStringOutput, capitalCity.toString());
     }
 
     @Test
@@ -35,6 +38,9 @@ public class recordClasses_UnitTests
         String country = "Scotland";
         String district = "North Lanarkshire";
         Integer population = 10000;
+        String expectedToStringOutput = "Name: Wishae |  Country: Scotland \n" +
+                "District: North Lanarkshire |  Population: 10000\n" +
+                "-------------------------------------------------------";
 
         // when
         City city = new City(name, country, district, population);
@@ -44,6 +50,7 @@ public class recordClasses_UnitTests
         assertEquals(country, city.getCountry());
         assertEquals(district, city.getDistrict());
         assertEquals(population, city.getPopulation());
+        assertEquals(expectedToStringOutput, city.toString());
     }
 
     @Test
@@ -56,6 +63,9 @@ public class recordClasses_UnitTests
         String region = "Great Britain";
         Integer population = 6000000;
         String capital = "Edinburgh";
+        String expectedToStringOutput = "Country code: SCT | Name: Scotland | Continent: Europe\n" +
+                "Region: Great Britain | Population: 6000000 | Capital: Edinburgh\n" +
+                "-------------------------------------------------------";
 
 
         // when
@@ -68,5 +78,6 @@ public class recordClasses_UnitTests
         assertEquals(region, country.getRegion());
         assertEquals(population, country.getPopulation());
         assertEquals(capital, country.getCapital());
+        assertEquals(expectedToStringOutput, country.toString());
     }
 }

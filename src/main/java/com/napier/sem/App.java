@@ -25,11 +25,11 @@ public class App
         // Connect to database
         if (args.length < 1)
         {
-            connection = connect("localhost:33061", databaseDriver);
+            connection = connect("localhost:33061", databaseDriver, false);
         }
         else
         {
-            connection = connect(args[0], "com.mysql.cj.jdbc.Driver");
+            connection = connect(args[0], "com.mysql.cj.jdbc.Driver", false);
         }
 
         // Create instance of the database access object
@@ -101,7 +101,7 @@ public class App
      * Connect to the MySQL world database.
      * @return a database connection object
      */
-    public static Connection connect(String location, String databaseDriver)
+    public static Connection connect(String location, String databaseDriver, boolean isTest)
     {
         try
         {
@@ -111,10 +111,9 @@ public class App
         catch (ClassNotFoundException e)
         {
             System.out.println("Could not load SQL driver");
-            System.exit(-1);
         }
 
-        int retries = 60;
+        int retries = 1;
         for (int i = 0; i < retries; ++i)
         {
             System.out.println("Connecting to database...");
@@ -132,14 +131,17 @@ public class App
                 System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(e.getMessage());
             }
-            try
+            if (!isTest)
             {
-                // Wait a bit before next retry
-                Thread.sleep(5000);
-            }
-            catch (InterruptedException ie)
-            {
-                System.out.println("Thread interrupted? Should not happen.");
+                try
+                {
+                    // Wait a bit before next retry
+                    Thread.sleep(5000);
+                }
+                catch (InterruptedException ie)
+                {
+                    System.out.println("Thread interrupted? Should not happen.");
+                }
             }
         }
         return null;

@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Record_UnitTests
 {
+    /**
+     * Tests for the Record class
+     */
+    // Tests that when a country object is constructed, the getters and toString
+    // return the same fields that we passed in.
     @Test
     public void Record_testGettersAndToStringForCountry()
     {
@@ -36,6 +41,8 @@ public class Record_UnitTests
         assertEquals(expectedToStringOutput, record.toString());
     }
 
+    // Tests that when a capital city object is constructed, the getters and toString
+    // return the same fields that we passed in.
     @Test
     public void Record_testGettersAndToStringForCapitalCity()
     {
@@ -62,6 +69,8 @@ public class Record_UnitTests
         assertEquals(expectedToStringOutput, capitalCity.toString());
     }
 
+    // Tests that when a city object is constructed, the getters and toString
+    // return the same fields that we passed in.
     @Test
     public void Record_testGettersAndToStringForCity()
     {

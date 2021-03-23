@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DAO_UnitTests
 {
+    // test the whereCondition is null when the areaFilter is unexpected
     @Test
     public void getWhereCondition_unknownAreaFilterReturnsNull()
     {
@@ -19,6 +20,7 @@ public class DAO_UnitTests
         assertNull(whereCondition);
     }
 
+    // test that the whereCondition contains our given area name
     @Test
     public void getWhereCondition_areaNameAppearsInWhereCondition()
     {

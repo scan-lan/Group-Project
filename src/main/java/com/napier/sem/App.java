@@ -6,125 +6,152 @@ import java.util.ArrayList;
 public class App
 {
     // Constants
-    private final String CONTINENT = "continent";
-    private final String REGION = "region";
-    private final String COUNTRY = "name";
-    private final String DISTRICT = "district";
+    static final String WORLD = "world";
+    static final String CONTINENT = "continent";
+    static final String REGION = "region";
+    static final String COUNTRY = "country";
+    static final String DISTRICT = "district";
+    static final String CAPITAL_CITY = "capital city";
+    static final String CITY = "city";
 
-    // Connection to MySQL database.
-    private Connection connection = null;
+    static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
+
+    // Connection to MySQL database
+    public static Connection connection;
 
     public static void main(String[] args) {
         // Create new Application
         App app = new App();
 
         // Connect to database
-        app.connect();
+        if (args.length < 1)
+        {
+            connection = connect("localhost:33061", databaseDriver, false);
+        }
+        else
+        {
+            connection = connect(args[0], databaseDriver, false);
+        }
 
         // Create instance of the database access object
-        DAO dao = new DAO(app.connection);
+        DAO dao = new DAO(connection);
 
-        // Run the test query
-        // dao.testQuery();
-
-        // Use-case 1.1
+        // Use-case 1.1-1.3
         // Produce a report on all countries in the world organised by largest population to smallest
-        // ArrayList<Country> countries = dao.allCountries();
-
-        // Use-cases 1.2 and 1.3
+        ArrayList<Record> countries = dao.allCountriesIn(WORLD, "");
         // Produce a report on all countries in a continent organised by largest population to smallest
-        // ArrayList<Country> countries = dao.allCountries(app.CONTINENT, "Africa")
+        // ArrayList<Country> countries = dao.allCountriesIn(CONTINENT, "Africa");
         // Produce a report on all countries in a region organised by largest population to smallest
-        // ArrayList<Country> countries = dao.allCountries(app.REGION, "Southern and Central Asia");
+        // ArrayList<Country> countries = dao.allCountriesIn(REGION, "Southern and Central Asia");
 
-
-        // Use-case 2.1
+        // Use-case 2.1-2.3
         // Run top N countries query against database
-        // ArrayList<Country> countries = dao.TopNCountries(10);
-
-        // Use-case 2.2
+        // ArrayList<Country> countries = dao.topNCountriesIn(WORLD, "", 10);
         // Run top N populated countries in specified continent query
-        // ArrayList<Country> countries = dao.TopNCountriesContinent(5,"Asia");
-
-        // Use-case 2.3
+        // ArrayList<Country> countries = dao.topNCountriesIn(CONTINENT, "Asia", 5);
         // Run top N populated countries in specified region query
-        // ArrayList<Country> countries = dao.TopNCountriesRegion(5,"Eastern Asia");
+        // ArrayList<Country> countries = dao.topNCountriesIn(REGION, "Eastern Asia", 5);
 
-        // Use-case 3.1
+        // Use-case 3.1-3.5
         // Produce a report on all cities in the world organised by largest population to smallest
-        ArrayList<City> cities = dao.allCities();
-
-        // Use-case 3.2 - 3.4
+        // ArrayList<Record> cities = dao.allCitiesIn(WORLD, "");
         // Produce a report on all cities in a continent organised by largest population to smallest
-        // ArrayList<City> cities = dao.allCities(app.CONTINENT, "Europe");
+        // ArrayList<Record> cities = dao.allCitiesIn(CONTINENT, "Europe");
         // Produce a report on all cities in a region organised by largest population to smallest
-        // ArrayList<City> cities = dao.allCities(app.REGION, "Europe");
+        // ArrayList<Record> cities = dao.allCitiesIn(REGION, "Caribbean");
         // Produce a report on all cities in a country organised by largest population to smallest
-        // ArrayList<City> cities = dao.allCities(app.COUNTRY, "Europe");
-
-        // Use-case 3.5
-        // We'll leave this for next sprint, but I think some readability is being sacrificed in
-        // the way we're doing this:
+        // ArrayList<Record> cities = dao.allCitiesIn(COUNTRY, "India");
         // Produce a report on all cities in a district organised by largest population to smallest
-        // ArrayList<City> cities = dao.allCities("Alagoas");
+        // ArrayList<Record> cities = dao.allCitiesIn(DISTRICT, "Alagoas");
+
+        // Use-case 4.1-4.5
+        // Produce a report on the top N populated cities in the world where N is provided by the user
+        // ArrayList<Record> cities = dao.topNCitiesIn(WORLD, "", 5);
+        // Produce a report on the top N populated cities in a continent where N is provided by the user
+        // ArrayList<Record> cities = dao.topNCitiesIn(CONTINENT, "Europe", 5);
+        // Produce a report on the top N populated cities in a region where N is provided by the user
+        // ArrayList<Record> cities = dao.topNCitiesIn(REGION, "Caribbean", 5);
+        // Produce a report on the top N populated cities in a country where N is provided by the user
+        // ArrayList<Record> cities = dao.topNCitiesIn(COUNTRY, "China", 5);
+        // Produce a report on the top N populated cities in a district where N is provided by the user
+        // ArrayList<Record> cities = dao.topNCitiesIn(DISTRICT, "Scotland", 6);
+
+
+        // Use-case 5.1-5.3
+        // Produce a report on all capital cities in the world organised by largest population to smallest
+        // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
+        // Produce a report on all capital cities in a continent organised by largest population to smallest
+        // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(CONTINENT, "Asia");
+        // Produce a report on all capital cities in a region organised by largest population to smallest
+        // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(REGION, "Caribbean");
 
         // Display Country results
-        //for (Country country : countries) System.out.println(country);
+        for (Record country : countries) System.out.println(country);
 
         // Display City results
-        for (City city : cities) System.out.println(city);
+        // for (Record city : cities) System.out.println(city);
+
+        // Display Capital City results
+        // for (Record capitalCity : capitalCities) System.out.println(capitalCity);
 
         // Disconnect from database
-        app.disconnect();
+        disconnect(connection);
     }
 
     /**
      * Connect to the MySQL world database.
+     * @return a database connection object
      */
-    public void connect()
+    public static Connection connect(String location, String databaseDriver, boolean isTest)
     {
         try
         {
             // Load Database driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(databaseDriver);
         }
         catch (ClassNotFoundException e)
         {
             System.out.println("Could not load SQL driver");
-            System.exit(-1);
         }
 
-        int retries = 30;
+        int retries = 60;
         for (int i = 0; i < retries; ++i)
         {
             System.out.println("Connecting to database...");
             try
             {
-                // Wait a bit for db to start
-                Thread.sleep(10000);
                 // Connect to database
-                connection = DriverManager.getConnection("jdbc:mysql://database:3306/world?useSSL=false",
+                Connection connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",
                         "example");
                 System.out.println("Successfully connected");
-                break;
+                return connection;
             }
             catch (SQLException e)
             {
                 System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(e.getMessage());
             }
-            catch (InterruptedException ie)
+            if (!isTest)
             {
-                System.out.println("Thread interrupted? Should not happen.");
+                try
+                {
+                    // Wait a bit before next retry
+                    Thread.sleep(5000);
+                }
+                catch (InterruptedException ie)
+                {
+                    System.out.println("Thread interrupted? Should not happen.");
+                }
             }
         }
+        return null;
     }
 
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect()
+    public static void disconnect(Connection connection)
     {
         if (connection != null)
         {

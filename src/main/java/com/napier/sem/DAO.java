@@ -13,26 +13,54 @@ import java.util.ArrayList;
  */
 public class DAO
 {
-
     // Private properties
     private final Connection connection;
 
-    public DAO(Connection connection)
+    public DAO(Connection connection) { this.connection = connection; }
+
+    /**
+     * Generates a valid condition for use with our SQL queries
+     * @param areaFilter The geographical category by which we'll be filtering
+     * @param areaName The name of the location which will be used
+     * @return The where condition string
+     */
+    public static String getWhereCondition(String areaFilter, String areaName)
     {
-        this.connection = connection;
+        String whereCondition;
+
+        switch (areaFilter)
+        {
+            case App.WORLD:
+                whereCondition = "TRUE\n";
+                break;
+            case App.CONTINENT:
+                whereCondition = "country.continent = '" + areaName + "'\n";
+                break;
+            case App.REGION:
+                whereCondition = "country.region = '" + areaName + "'\n";
+                break;
+            case App.COUNTRY:
+                whereCondition = "country.name = '" + areaName + "'\n";
+                break;
+            case App.DISTRICT:
+                whereCondition = "city.district = '" + areaName + "'\n";
+                break;
+            default:
+                return null;
+        }
+        return whereCondition;
     }
 
     /**
      * This takes an SQL query in the form of a string and executes it against
-     * the database.  It is only for use with statements that should return
-     * country records.  It will return the countries in a list of Country
-     * objects.
+     * the database.  It will return a list of Record objects.  It will return
+     * the countries in a list of Country objects.
      * @param statementString The SQL statement to be executed
      * @return An ArrayList of country objects
      */
-    private ArrayList<Country> ExecuteCountryStatement(String statementString)
+    public ArrayList<Record> executeStatement(String statementString, String recordType)
     {
-        ArrayList<Country> countries = new ArrayList<>();
+        ArrayList<Record> records = new ArrayList<>();
         try
         {
             // Create the SQL statement object for sending statements to the database
@@ -42,257 +70,121 @@ public class DAO
             // Create Country object and add it to the list for each result in the query
             while (resultSet.next())
             {
-                countries.add(new Country(resultSet));
+                records.add(new Record(resultSet, recordType));
             }
         }
         catch (SQLException e)
         {
-            System.out.println("Query TopNCountries failed");
+            System.out.println(recordType + " query failed");
             System.out.println(e.getMessage());
         }
-        return countries;
+        return records;
     }
 
     /**
-     * This takes an SQL query in the form of a string and executes it against
-     * the database.  It is only for use with statements that should return
-     * city records.  It will return the cities in a list of City
-     * objects.
-     *
-     * @param statementString The SQL statement to be executed
-     * @return An ArrayList of city objects
-     */
-    private ArrayList<City> ExecuteCityStatement(String statementString)
-    {
-        ArrayList<City> cities = new ArrayList<>();
-        try {
-            // Create the SQL statement object for sending statements to the database
-            Statement statement = connection.createStatement();
-            // Execute the query
-            ResultSet resultSet = statement.executeQuery(statementString);
-            // Create Country object and add it to the list for each result in the query
-            while (resultSet.next()) {
-                cities.add(new City(resultSet));
-            }
-        }
-        catch (SQLException e)
-        {
-            System.out.println("Query ExecuteCityStatement failed");
-            System.out.println(e.getMessage());
-        }
-        return cities;
-    }
-
-    /**
+     * Use cases 1.1-1.3
      * Constructs the SQL query required and returns the result of the
      * query.
      *
      * @return An ordered list of countries in the world sorted by descending population
      */
-    public ArrayList<Country> allCountries()
+    public ArrayList<Record> allCountriesIn(String areaFilter, String areaName)
     {
-        // Define the SQL query as a string
-        String statementString = "SELECT code, name, continent, region, population, (\n" +
-                "    SELECT name\n" +
-                "    FROM city\n" +
-                "    WHERE countrycode = country.code\n" +
-                "        AND ci.id = country.capital\n" +
-                "    ) AS capital\n" +
-                "FROM country\n" +
-                "ORDER BY population DESC\n" +
-                "LIMIT 20";
+        String whereCondition = getWhereCondition(areaFilter, areaName);
 
-        return ExecuteCountryStatement(statementString);
+        // Define the SQL query as a string
+        String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +
+                "FROM country\n" +
+                "    JOIN city ON country.capital = city.id\n" +
+                "WHERE " + whereCondition +
+                "ORDER BY country.population DESC";
+
+        return executeStatement(statementString, App.COUNTRY);
     }
 
     /**
-     * Constructs the SQL query required and returns the result of the
-     * query.
-     *
-     * @return An ordered list of countries in the world sorted by descending population
-     */
-    public ArrayList<Country> allCountries(String areaFilter, String areaName)
-    {
-        // Define the SQL query as a string
-        String statementString = "SELECT code, name, continent, region, population, (\n" +
-                "    SELECT name\n" +
-                "    FROM city\n" +
-                "    WHERE countrycode = country.code\n" +
-                "        AND city.id = country.capital\n" +
-                "    ) AS capital\n" +
-
-                "FROM country\n" +
-                "WHERE country." + areaFilter + " = '" + areaName + "'\n" +
-                "ORDER BY population DESC\n";
-
-        return ExecuteCountryStatement(statementString);
-    }
-
-    /**
+     * Use case 2.1-2.3
      * Constructs the SQL query required and returns the result of the
      * query.
      *
      * @return An ordered list of countries sorted by descending population
      */
-    public ArrayList<Country> TopNCountries(Integer n)
+    public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n)
     {
+        String whereCondition = getWhereCondition(areaFilter, areaName);
+
         // Define the SQL query as a string
-        String statementString = "SELECT code, name, continent, region, population, (\n" +
-                "    SELECT name\n" +
-                "    FROM city\n" +
-                "    WHERE countrycode = country.code\n" +
-                "        AND city.id = country.capital\n" +
-                "    ) AS capital\n" +
+        String statementString = "SELECT country.code, country.name, continent, region, country.population, city.name AS capital\n" +
                 "FROM country\n" +
-                "WHERE country.population > 0\n " +
+                "    JOIN city ON country.code = city.countrycode\n" +
+                "    AND country.capital = city.id\n" +
+                "WHERE " + whereCondition +
                 "ORDER BY population DESC\n" +
                 "LIMIT " + n;
-        return ExecuteCountryStatement(statementString);
+        return executeStatement(statementString, App.COUNTRY);
     }
 
     /**
-     * Constructs the SQL query required and returns the result of the
-     * query.
-     *
-     * @return An ordered list of countries in a specified continent sorted by descending population
-     */
-    public ArrayList<Country> TopNCountriesContinent(Integer n, String continentName)
-    {
-        // Define the SQL query as a string
-        String statementString = "SELECT code, name, continent, region, population, (\n" +
-                "    SELECT name\n" +
-                "    FROM city\n" +
-                "    WHERE countrycode = country.code\n" +
-                "        AND city.id = country.capital\n" +
-                "    ) AS capital\n" +
-                "FROM country\n" +
-                "WHERE country.continent = '" + continentName + "'\n" +
-                "AND country.population > 0\n " +
-                "ORDER BY population DESC\n" +
-                "LIMIT " + n;
-
-        return ExecuteCountryStatement(statementString);
-    }
-
-    /**
-     * Constructs the SQL query required and returns the result of the
-     * query.
-     *
-     * @return An ordered list of populated countries in a specified region sorted by descending population
-     */
-    public ArrayList<Country> TopNCountriesRegion(Integer n, String regionName)
-    {
-        // Define the SQL query as a string
-        String statementString = "SELECT code, name, continent, region, population, (\n" +
-                "    SELECT name\n" +
-                "    FROM city\n" +
-                "    WHERE countrycode = country.code\n" +
-                "        AND city.id = country.capital\n" +
-                "    ) AS capital\n" +
-                "FROM country\n" +
-                "WHERE country.region = '" + regionName + "'\n" +
-                "AND country.population > 0\n " +
-                "ORDER BY population DESC\n" +
-                "LIMIT " + n;
-
-        return ExecuteCountryStatement(statementString);
-    }
-
-    /**
-     * Constructs the SQL query required and returns the result of the
-     * query.
-     *
-     * @return An ordered list of cities in the world sorted by descending population
-     */
-    public ArrayList<City> allCities()
-    {
-        // Define the SQL query as a string
-        String statementString = "SELECT name, district, population,  (\n" +
-                "    SELECT name\n" +
-                "    FROM country\n" +
-                "    WHERE code = city.countrycode\n" +
-                "    ) AS country\n" +
-                "FROM city\n" +
-                "ORDER BY population DESC";
-
-        return ExecuteCityStatement(statementString);
-    }
-
-    /**
-     * Constructs the SQL query required and returns the result of the
-     * query.
+     * Use cases 3.1-3.5
+     * Constructs an SQL query to fetch all cities in a given area, and executes the query.
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<City> allCities(String areaFilter, String areaName)
+    public ArrayList<Record> allCitiesIn(String areaFilter, String areaName)
     {
-        // Define the SQL query as a string
-        String statementString = "SELECT city.name, city.district, city.population, (\n" +
-                "    SELECT name\n" +
-                "    FROM country \n" +
-                "    WHERE code = city.countrycode\n" +
-                "    ) AS country\n" +
-                "FROM city\n" +
-                "   JOIN country co \n" +
-                "   ON city.countrycode = country.code\n" +
-                "WHERE country." + areaFilter + " = '" + areaName + "'\n" +
-                "ORDER BY population DESC";
+        String whereCondition = getWhereCondition(areaFilter, areaName);
 
-        return ExecuteCityStatement(statementString);
+        // Define the SQL query as a string
+        String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
+                "FROM city\n" +
+                "    JOIN country ON city.countrycode = country.code\n" +
+                "WHERE " + whereCondition +
+                "ORDER BY city.population DESC;";
+
+        return executeStatement(statementString, App.CITY);
     }
 
     /**
-     * Constructs the SQL query required and returns the result of the
-     * query.
+     * Use cases 4.1-4.5
+     * Constructs an SQL query to fetch the top N populated cities in a specific area, and executes the query.
      *
-     * @return An ordered list of cities in a district sorted by descending population
+     * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<City> allCities(String areaName)
+    public ArrayList<Record> topNCitiesIn(String areaFilter, String areaName, Integer n)
     {
-        // Define the SQL query as a string
-        String statementString = "SELECT city.name, city.district, city.population, (\n" +
-                "    SELECT name\n" +
-                "    FROM country \n" +
-                "    WHERE code = city.countrycode\n" +
-                "    ) AS country\n" +
-                "FROM city\n" +
-                "Join country\n" +
-                "ON city.countrycode = country.code \n" +
-                "WHERE city.district = '" + areaName + "'\n" +
-                "ORDER BY population DESC";
+        String whereCondition = getWhereCondition(areaFilter, areaName);
 
-        return ExecuteCityStatement(statementString);
+        // Define the SQL query as a string
+        String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
+                "FROM city\n" +
+                "    JOIN country ON city.countrycode = country.code\n" +
+                "WHERE city.population > 0 \n" +
+                "AND " + whereCondition +
+                "ORDER BY city.population DESC \n" +
+                "LIMIT " + n;
+
+        return executeStatement(statementString, App.CITY);
     }
 
 
     /**
-     * This is a sanity-check query just ensuring that the database can be accessed
+     * Use cases 5.1-5.3
+     * Constructs an SQL query to fetch all capital cities in a specific area, and executes the query.
+     *
+     * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public void testQuery()
+    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
     {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = connection.createStatement();
-            // Create string for SQL statement
-            String strSelect = "SELECT code, name, continent\n" +
-                    "FROM country\n" +
-                    "LIMIT 5";
-            // Execute SQL statement
-            ResultSet resultSet = stmt.executeQuery(strSelect);
-            while (resultSet.next())
-            {
-                System.out.println(resultSet.getString("code"));
-                System.out.println(resultSet.getString("name"));
-                System.out.println(resultSet.getString("continent"));
-            }
-        }
-        catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get salary details");
-        }
+        String whereCondition = getWhereCondition(areaFilter, areaName);
+
+        // Define the SQL query as a string
+        String statementString = "SELECT city.name, city.population, country.region, country.continent, country.name AS country \n" +
+                "FROM city\n" +
+                "    JOIN country ON city.countrycode = country.code\n" +
+                "WHERE city.id = country.capital \n" +
+                "AND " + whereCondition +
+                "ORDER BY city.population DESC;";
+
+        return executeStatement(statementString, App.CAPITAL_CITY);
     }
 }
-
-

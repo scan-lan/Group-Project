@@ -4,57 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class recordClasses_UnitTests
+public class Record_UnitTests
 {
     @Test
-    public void capitalCity_testGettersAndToString()
-    {
-        // given
-        String name = "Glasgow";
-        String country = "Scotland";
-        String region = "Great Britain";
-        String continent = "Europe";
-        Integer population = 6000000;
-        String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6000000\n" +
-                "-------------------------------------------------------";
-
-        // when
-        CapitalCity capitalCity = new CapitalCity(name, country, region, continent, population);
-
-        // then
-        assertEquals(name, capitalCity.getName());
-        assertEquals(country, capitalCity.getCountry());
-        assertEquals(region, capitalCity.getRegion());
-        assertEquals(continent, capitalCity.getContinent());
-        assertEquals(population, capitalCity.getPopulation());
-        assertEquals(expectedToStringOutput, capitalCity.toString());
-    }
-
-    @Test
-    public void city_testGettersAndToString()
-    {
-        // given
-        String name = "Wishae";
-        String country = "Scotland";
-        String district = "North Lanarkshire";
-        Integer population = 10000;
-        String expectedToStringOutput = "Name: Wishae |  Country: Scotland \n" +
-                "District: North Lanarkshire |  Population: 10000\n" +
-                "-------------------------------------------------------";
-
-        // when
-        City city = new City(name, country, district, population);
-
-        // then
-        assertEquals(name, city.getName());
-        assertEquals(country, city.getCountry());
-        assertEquals(district, city.getDistrict());
-        assertEquals(population, city.getPopulation());
-        assertEquals(expectedToStringOutput, city.toString());
-    }
-
-    @Test
-    public void country_testGettersAndToString()
+    public void Record_testGettersAndToStringForCountry()
     {
         // given
         String code = "SCT";
@@ -69,15 +22,66 @@ public class recordClasses_UnitTests
 
 
         // when
-        Country country = new Country(code, name, continent, region, population, capital);
+        Record record = new Record(code, name, continent, region, population, capital);
 
         // then
-        assertEquals(code, country.getCode());
-        assertEquals(name, country.getName());
-        assertEquals(continent, country.getContinent());
-        assertEquals(region, country.getRegion());
-        assertEquals(population, country.getPopulation());
-        assertEquals(capital, country.getCapital());
-        assertEquals(expectedToStringOutput, country.toString());
+        assertEquals(code, record.getCode());
+        assertEquals(name, record.getName());
+        assertEquals(continent, record.getContinent());
+        assertEquals(region, record.getRegion());
+        assertEquals(population, record.getPopulation());
+        assertEquals(capital, record.getCapital());
+        assertEquals(expectedToStringOutput, record.toString());
+    }
+
+    @Test
+    public void Record_testGettersAndToStringForCapitalCity()
+    {
+        // given
+        String name = "Glasgow";
+        String country = "Scotland";
+        String region = "Great Britain";
+        String continent = "Europe";
+        Integer population = 6000000;
+        String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6000000\n" +
+                "-------------------------------------------------------";
+        String expectedRecordType = App.CAPITAL_CITY;
+
+        // when
+        Record capitalCity = new Record(name, country, region, continent, population);
+
+        // then
+        assertEquals(name, capitalCity.getName());
+        assertEquals(country, capitalCity.getCountry());
+        assertEquals(region, capitalCity.getRegion());
+        assertEquals(continent, capitalCity.getContinent());
+        assertEquals(population, capitalCity.getPopulation());
+        assertEquals(expectedRecordType, capitalCity.getRecordType());
+        assertEquals(expectedToStringOutput, capitalCity.toString());
+    }
+
+    @Test
+    public void Record_testGettersAndToStringForCity()
+    {
+        // given
+        String name = "Wishae";
+        String country = "Scotland";
+        String district = "North Lanarkshire";
+        Integer population = 10000;
+        String expectedRecordType = App.CITY;
+        String expectedToStringOutput = "Name: Wishae |  Country: Scotland \n" +
+                "District: North Lanarkshire |  Population: 10000\n" +
+                "-------------------------------------------------------";
+
+        // when
+        Record city = new Record(name, country, district, population);
+
+        // then
+        assertEquals(name, city.getName());
+        assertEquals(country, city.getCountry());
+        assertEquals(district, city.getDistrict());
+        assertEquals(population, city.getPopulation());
+        assertEquals(expectedRecordType, city.getRecordType());
+        assertEquals(expectedToStringOutput, city.toString());
     }
 }

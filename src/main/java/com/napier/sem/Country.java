@@ -55,7 +55,7 @@ public class Country
 
     /**
      * Formats the country data in a consistent, readable manner
-     * @return
+     * @return A string representing a country record
      */
     public String toString()
     {

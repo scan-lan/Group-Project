@@ -17,6 +17,9 @@ public class DAO_UnitTests
         dao = new DAO(null);
     }
 
+    /**
+     * Unit tests covering the DAO.getWhereCondition method
+     */
     // test the whereCondition is null when the areaFilter is unexpected
     @Test
     public void getWhereCondition_unknownAreaFilterReturnsNull()
@@ -45,7 +48,7 @@ public class DAO_UnitTests
         assertTrue(whereCondition.contains(areaName));
     }
 
-    //test that the whereCondition is null when areaName is null
+    // test that the whereCondition is null when areaName is null
     @Test
     public void getWhereCondition_nullAreaNameReturnsNull()
     {
@@ -59,7 +62,7 @@ public class DAO_UnitTests
         assertNull(whereCondition);
     }
 
-    //test that the whereCondition is null when areaFilter is null
+    // test that the whereCondition is null when areaFilter is null
     @Test
     public void getWhereCondition_nullAreaFilterReturnsNull()
     {
@@ -73,6 +76,10 @@ public class DAO_UnitTests
         assertNull(whereCondition);
     }
 
+    /**
+     * Unit tests covering the DAO.allCountriesIn method
+     */
+    // test that countries list is empty when areaFilter and areaName are null
     @Test
     public void allCountriesIn_bothArgumentsNullListEmpty()
     {
@@ -87,6 +94,7 @@ public class DAO_UnitTests
         assertEquals(0, countries.size());
     }
 
+    // test that countries list is empty when areaFilter is null
     @Test
     public void allCountriesIn_areaFilterNullListEmpty()
     {
@@ -100,19 +108,21 @@ public class DAO_UnitTests
         assertEquals(0, countries.size());
     }
 
+    // test that countries list is empty when areaName is null
     @Test
     public void allCountriesIn_areaNameNullListEmpty()
     {
         // given
-        String areaFilter = null;
+        String areaName = null;
 
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.COUNTRY, areaFilter);
+        ArrayList<Record> countries = dao.allCountriesIn(App.COUNTRY, areaName);
 
         // then
         assertEquals(0, countries.size());
     }
 
+    // check test passes with valid areaFilter and areaName
     @Test
     public void allCountriesIn_happyPath()
     {
@@ -121,6 +131,136 @@ public class DAO_UnitTests
         String areaName = "France";
 
         // then
-        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, areaName); // No Error
+        dao.allCountriesIn(areaFilter, areaName); // No Error
+    }
+
+    /**
+     * Unit tests covering the DAO.topNCountriesIn method
+     */
+    // test that countries list is empty when areaFilter and areaName are null
+    @Test
+    public void topNCountriesIn_bothArgumentsNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> countries = dao.topNCountriesIn(areaFilter, areaName, 5);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // test that countries list is empty when areaFilter is null
+    @Test
+    public void topNCountriesIn_areaFilterNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> countries = dao.topNCountriesIn(areaFilter, "Scotland", 10);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // test that countries list is empty when areaName is null
+    @Test
+    public void topNCountriesIn_areaNameNullListEmpty()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, areaName, 3);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // test that n is greater than or equal to 0
+    @Test
+    public void topNCountriesIn_negativeNListEmpty()
+    {
+        // given
+        Integer n = -3;
+
+        // when
+        ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, "China", n);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // check test passes with valid areaFilter and areaName
+    @Test
+    public void topNCountriesIn_happyPath()
+    {
+        // given
+        String areaFilter = App.COUNTRY;
+        String areaName = "France";
+
+        // then
+        dao.topNCountriesIn(areaFilter, areaName, 15); // No Error
+    }
+
+    /**
+     * Unit tests covering the DAO.allCitiesIn method
+     */
+    // test that countries list is empty when areaFilter and areaName are null
+    @Test
+    public void allCitiesIn_bothArgumentsNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> countries = dao.allCitiesIn(areaFilter, areaName);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // test that countries list is empty when areaFilter is null
+    @Test
+    public void allCitiesIn_areaFilterNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> countries = dao.allCitiesIn(areaFilter, "Scotland");
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // test that countries list is empty when areaName is null
+    @Test
+    public void allCitiesIn_areaNameNullListEmpty()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        ArrayList<Record> countries = dao.allCitiesIn(App.COUNTRY, areaName);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    // check test passes with valid areaFilter and areaName
+    @Test
+    public void allCitiesIn_happyPath()
+    {
+        // given
+        String areaFilter = App.COUNTRY;
+        String areaName = "France";
+
+        // then
+        dao.allCitiesIn(areaFilter, areaName); // No Error
     }
 }

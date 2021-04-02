@@ -98,7 +98,7 @@ public class DAO
         String whereCondition = getWhereCondition(areaFilter, areaName);
         if (whereCondition == null)
         {
-            System.out.println("Invalid area query");
+            System.out.println("allCountriesIn - invalid query condition");
             return new ArrayList<>();
         }
 
@@ -122,6 +122,11 @@ public class DAO
     public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+        if (whereCondition == null || n < 0)
+        {
+            System.out.println("topNCountriesIn - invalid query condition");
+            return new ArrayList<>();
+        }
 
         // Define the SQL query as a string
         String statementString = "SELECT country.code, country.name, continent, region, country.population, city.name AS capital\n" +
@@ -143,6 +148,11 @@ public class DAO
     public ArrayList<Record> allCitiesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+        if (whereCondition == null)
+        {
+            System.out.println("allCitiesIn - invalid query condition");
+            return new ArrayList<>();
+        }
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
@@ -163,6 +173,7 @@ public class DAO
     public ArrayList<Record> topNCitiesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +

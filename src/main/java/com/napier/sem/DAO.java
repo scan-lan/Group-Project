@@ -11,27 +11,29 @@ import java.util.ArrayList;
  * The Data Access Object (DAO) is used for querying the database and returning
  * the results in a usable manner.
  */
-public class DAO
-{
+public class DAO {
     // Private properties
     private final Connection connection;
 
-    public DAO(Connection connection) { this.connection = connection; }
+    public DAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      * Generates a valid condition for use with our SQL queries
+     *
      * @param areaFilter The geographical category by which we'll be filtering
-     * @param areaName The name of the location which will be used
+     * @param areaName   The name of the location which will be used
      * @return The where condition string
      */
-    public static String getWhereCondition(String areaFilter, String areaName)
-    {
+    public static String getWhereCondition(String areaFilter, String areaName) {
         String whereCondition;
 
-        if (areaName == null || areaFilter == null) { return null; }
+        if (areaName == null || areaFilter == null) {
+            return null;
+        }
 
-        switch (areaFilter)
-        {
+        switch (areaFilter) {
             case App.WORLD:
                 whereCondition = "TRUE\n";
                 break;
@@ -57,29 +59,27 @@ public class DAO
      * This takes an SQL query in the form of a string and executes it against
      * the database.  It will return a list of Record objects.  It will return
      * the countries in a list of Country objects.
+     *
      * @param statementString The SQL statement to be executed
      * @return An ArrayList of country objects
      */
-    public ArrayList<Record> executeStatement(String statementString, String recordType)
-    {
+    public ArrayList<Record> executeStatement(String statementString, String recordType) {
         ArrayList<Record> records = new ArrayList<>();
 
-        if (connection == null){ return records; }
+        if (connection == null) {
+            return records;
+        }
 
-        try
-        {
+        try {
             // Create the SQL statement object for sending statements to the database
             Statement statement = connection.createStatement();
             // Execute the query
             ResultSet resultSet = statement.executeQuery(statementString);
             // Create Country object and add it to the list for each result in the query
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 records.add(new Record(resultSet, recordType));
             }
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println(recordType + " query failed");
             System.out.println(e.getMessage());
         }
@@ -93,11 +93,9 @@ public class DAO
      *
      * @return An ordered list of countries in the world sorted by descending population
      */
-    public ArrayList<Record> allCountriesIn(String areaFilter, String areaName)
-    {
+    public ArrayList<Record> allCountriesIn(String areaFilter, String areaName) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-        if (whereCondition == null)
-        {
+        if (whereCondition == null) {
             System.out.println("allCountriesIn - invalid query condition");
             return new ArrayList<>();
         }
@@ -119,11 +117,9 @@ public class DAO
      *
      * @return An ordered list of countries sorted by descending population
      */
-    public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n)
-    {
+    public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-        if (whereCondition == null || n < 1)
-        {
+        if (whereCondition == null || n < 1) {
             System.out.println("topNCountriesIn - invalid query condition");
             return new ArrayList<>();
         }
@@ -145,11 +141,9 @@ public class DAO
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<Record> allCitiesIn(String areaFilter, String areaName)
-    {
+    public ArrayList<Record> allCitiesIn(String areaFilter, String areaName) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-        if (whereCondition == null)
-        {
+        if (whereCondition == null) {
             System.out.println("allCitiesIn - invalid query condition");
             return new ArrayList<>();
         }
@@ -170,8 +164,7 @@ public class DAO
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<Record> topNCitiesIn(String areaFilter, String areaName, Integer n)
-    {
+    public ArrayList<Record> topNCitiesIn(String areaFilter, String areaName, Integer n) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
@@ -192,8 +185,7 @@ public class DAO
      *
      * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
-    {
+    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string

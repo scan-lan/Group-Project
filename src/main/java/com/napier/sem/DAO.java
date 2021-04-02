@@ -119,7 +119,7 @@ public class DAO {
      */
     public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-        if (whereCondition == null || n < 1) {
+        if (whereCondition == null || n < 0) {
             System.out.println("topNCountriesIn - invalid query condition");
             return new ArrayList<>();
         }
@@ -205,8 +205,7 @@ public class DAO {
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n)
-    {
+    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
@@ -229,8 +228,7 @@ public class DAO {
      *
      * @return An ordered list of languages spoken in the world sorted by the number of langauge speakers descending
      */
-    public ArrayList<Record> languageReport()
-    {
+    public ArrayList<Record> languageReport() {
         String statementString = "WITH x AS (SELECT SUM(population) AS world_population FROM country)\n" +
                 "SELECT `language`, speakers, ((speakers / world_population) * 100) AS percentage\n" +
                 "FROM x, (\n" +
@@ -247,5 +245,4 @@ public class DAO {
 
         return executeStatement(statementString, App.LANGUAGE);
     }
-
 }

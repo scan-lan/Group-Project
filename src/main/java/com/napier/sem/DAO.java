@@ -119,7 +119,7 @@ public class DAO {
      */
     public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-        if (whereCondition == null || n < 1) {
+        if (whereCondition == null || n < 0) {
             System.out.println("topNCountriesIn - invalid query condition");
             return new ArrayList<>();
         }
@@ -245,6 +245,4 @@ public class DAO {
 
         return executeStatement(statementString, App.LANGUAGE);
     }
-
 }
-

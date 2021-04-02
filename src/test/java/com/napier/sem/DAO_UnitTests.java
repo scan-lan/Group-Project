@@ -74,7 +74,7 @@ public class DAO_UnitTests
     }
 
     @Test
-    public void allCountriesIn_bothArgumentsNullNoError()
+    public void allCountriesIn_bothArgumentsNullListEmpty()
     {
         // given
         String areaFilter = null;
@@ -85,5 +85,42 @@ public class DAO_UnitTests
 
         // then
         assertEquals(0, countries.size());
+    }
+
+    @Test
+    public void allCountriesIn_areaFilterNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, "Scotland");
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    @Test
+    public void allCountriesIn_areaNameNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> countries = dao.allCountriesIn(App.COUNTRY, areaFilter);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
+    @Test
+    public void allCountriesIn_happyPath()
+    {
+        // given
+        String areaFilter = App.COUNTRY;
+        String areaName = "France";
+
+        // then
+        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, areaName); // No Error
     }
 }

@@ -91,6 +91,11 @@ public class DAO
     public ArrayList<Record> allCountriesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+        if (whereCondition == null)
+        {
+            System.out.println("Invalid area query");
+            return new ArrayList<>();
+        }
 
         // Define the SQL query as a string
         String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +

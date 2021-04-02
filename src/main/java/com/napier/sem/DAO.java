@@ -230,6 +230,7 @@ public class DAO
         return executeStatement(statementString, App.CAPITAL_CITY);
     }
 
+
     /**
      * Use case 9.1
      * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
@@ -254,4 +255,5 @@ public class DAO
 
         return executeStatement(statementString, App.LANGUAGE);
     }
+
 }

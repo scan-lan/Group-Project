@@ -45,6 +45,34 @@ public class DAO_UnitTests
         assertTrue(whereCondition.contains(areaName));
     }
 
+    //test that the whereCondition is null when areaName is null
+    @Test
+    public void getWhereCondition_nullAreaNameReturnsNull()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        String whereCondition = DAO.getWhereCondition(App.WORLD, areaName);
+
+        // then
+        assertNull(whereCondition);
+    }
+
+    //test that the whereCondition is null when areaFilter is null
+    @Test
+    public void getWhereCondition_nullAreaFilterReturnsNull()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        String whereCondition = DAO.getWhereCondition(areaFilter, "Earth");
+
+        // then
+        assertNull(whereCondition);
+    }
+
     @Test
     public void allCountriesIn_bothArgumentsNullNoError()
     {

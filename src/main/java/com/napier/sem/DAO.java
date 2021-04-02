@@ -28,6 +28,8 @@ public class DAO
     {
         String whereCondition;
 
+        if (areaName == null || areaFilter == null) {return null;}
+
         switch (areaFilter)
         {
             case App.WORLD:

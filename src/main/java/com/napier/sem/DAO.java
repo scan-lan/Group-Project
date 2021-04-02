@@ -194,7 +194,8 @@ public class DAO
      *
      * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName) {
+    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
+    {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
@@ -229,5 +230,27 @@ public class DAO
                 "LIMIT " + n;
 
         return executeStatement(statementString, App.CAPITAL_CITY);
+    }
+
+    /**
+     * Use case 9.1
+     * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
+     */
+
+    public ArrayList<Record> languageReport()
+    {
+        String statementString = "WITH x AS (SELECT SUM(population) AS world_population FROM country)\n" +
+                "SELECT `language`, speakers, (speakers / world_population * 100) AS percentage\n" +
+                "FROM x, (\n" +
+                "    SELECT `language`,\n" +
+                "       CEILING(SUM(population * (percentage / 100))) AS speakers\n" +
+                "    FROM countrylanguage\n" +
+                "             JOIN country\n" +
+                "                  ON countrycode = code\n" +
+                "    GROUP BY `language`\n" +
+                "    ORDER BY speakers DESC\n" +
+                "    LIMIT 5) AS language_info";
+
+        return executeStatement(statementString, App.LANGUAGE);
     }
 }

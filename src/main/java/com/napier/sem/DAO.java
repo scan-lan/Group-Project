@@ -63,6 +63,9 @@ public class DAO
     public ArrayList<Record> executeStatement(String statementString, String recordType)
     {
         ArrayList<Record> records = new ArrayList<>();
+
+        if (connection == null){ return records; }
+
         try
         {
             // Create the SQL statement object for sending statements to the database

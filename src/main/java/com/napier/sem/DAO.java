@@ -237,7 +237,6 @@ public class DAO
      * Use case 9.1
      * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
      */
-
     public ArrayList<Record> languageReport()
     {
         String statementString = "WITH x AS (SELECT SUM(population) AS world_population FROM country)\n" +
@@ -254,5 +253,4 @@ public class DAO
 
         return executeStatement(statementString, App.LANGUAGE);
     }
-
 }

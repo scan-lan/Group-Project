@@ -35,7 +35,7 @@ public class Record
      * @param result The result of a query that returns country records
      * @throws SQLException
      */
-    public Record(ResultSet result, String recordType) throws SQLException
+    public Record(ResultSet result, String recordType) throws SQLException // TODO: add language record structure
     {
         this.recordType = recordType;
         switch (recordType)

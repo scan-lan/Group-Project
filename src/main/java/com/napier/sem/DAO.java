@@ -232,6 +232,7 @@ public class DAO
         return executeStatement(statementString, App.CAPITAL_CITY);
     }
 
+
     /**
      * Use case 9.1
      * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
@@ -240,7 +241,7 @@ public class DAO
     public ArrayList<Record> languageReport()
     {
         String statementString = "WITH x AS (SELECT SUM(population) AS world_population FROM country)\n" +
-                "SELECT `language`, speakers, (speakers / world_population * 100) AS percentage\n" +
+                "SELECT `language`, speakers, ((speakers / world_population) * 100) AS percentage\n" +
                 "FROM x, (\n" +
                 "    SELECT `language`,\n" +
                 "       CEILING(SUM(population * (percentage / 100))) AS speakers\n" +
@@ -253,4 +254,5 @@ public class DAO
 
         return executeStatement(statementString, App.LANGUAGE);
     }
+
 }

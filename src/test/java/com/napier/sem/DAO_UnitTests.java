@@ -1,11 +1,22 @@
 package com.napier.sem;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DAO_UnitTests
 {
+    static DAO dao;
+
+    @BeforeAll
+    static void init()
+    {
+        dao = new DAO(null);
+    }
+
     // test the whereCondition is null when the areaFilter is unexpected
     @Test
     public void getWhereCondition_unknownAreaFilterReturnsNull()
@@ -32,5 +43,19 @@ public class DAO_UnitTests
 
         // then
         assertTrue(whereCondition.contains(areaName));
+    }
+
+    @Test
+    public void allCountriesIn_bothArgumentsNullNoError()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, areaName);
+
+        // then
+        assertEquals(0, countries.size());
     }
 }

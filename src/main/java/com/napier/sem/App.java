@@ -13,6 +13,7 @@ public class App
     static final String DISTRICT = "district";
     static final String CAPITAL_CITY = "capital city";
     static final String CITY = "city";
+    static final String LANGUAGE = "language";
 
     static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
 

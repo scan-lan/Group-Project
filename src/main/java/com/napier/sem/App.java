@@ -66,7 +66,7 @@ public class App
 
         // Use-case 4.1-4.5
         // Produce a report on the top N populated cities in the world where N is provided by the user
-        // ArrayList<Record> cities = dao.topNCitiesIn(WORLD, "", 5);
+         ArrayList<Record> cities = dao.topNCitiesIn(WORLD, "", 5);
         // Produce a report on the top N populated cities in a continent where N is provided by the user
         // ArrayList<Record> cities = dao.topNCitiesIn(CONTINENT, "Europe", 5);
         // Produce a report on the top N populated cities in a region where N is provided by the user
@@ -79,7 +79,7 @@ public class App
 
         // Use-case 5.1-5.3
         // Produce a report on all capital cities in the world organised by largest population to smallest
-         ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
+        // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
         // Produce a report on all capital cities in a continent organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(CONTINENT, "Asia");
         // Produce a report on all capital cities in a region organised by largest population to smallest
@@ -98,10 +98,10 @@ public class App
         // for (Record country : countries) System.out.println(country);
 
         // Display City results
-        // for (Record city : cities) System.out.println(city);
+        for (Record city : cities) System.out.println(city);
 
         // Display Capital City results
-        for (Record capitalCity : capitalCities) System.out.println(capitalCity);
+        // for (Record capitalCity : capitalCities) System.out.println(capitalCity);
 
         // Disconnect from database
         disconnect(connection);
@@ -121,6 +121,7 @@ public class App
         catch (ClassNotFoundException e)
         {
             System.out.println("Could not load SQL driver");
+            return null;
         }
 
         int retries = 60;

@@ -13,7 +13,7 @@ public class App_UnitTests
     public void connect_invalidLocation()
     {
         // given
-        String location = "localhost:80";
+        String location = "klo0";
 
         // when
         Connection connection = App.connect(location, App.databaseDriver, true);

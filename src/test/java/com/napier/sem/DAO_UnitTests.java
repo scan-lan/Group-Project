@@ -207,7 +207,7 @@ public class DAO_UnitTests
     }
 
     /**
-     * Unit tests covering the DAO.topNCitiesIn method
+     * Unit tests covering the DAO.allCitiesIn method
      */
     // test that countries list is empty when areaFilter and areaName are null
     @Test

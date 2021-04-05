@@ -221,9 +221,9 @@ public class DAO
         // Define the SQL query as a string
         String statementString = "SELECT city.name, city.population, country.region, country.continent, country.name AS country \n" +
                 "FROM city\n" +
-                "    JOIN country ON city.countrycode = country.code\n" +
-                "WHERE city.id = country.capital \n" +
-                "AND city.population > 0 \n" +
+                "JOIN country ON city.countrycode = country.code\n" +
+                "AND city.id = country.capital \n" +
+                "WHERE city.population > 0 \n" +
                 "AND " + whereCondition +
                 "ORDER BY city.population DESC \n" +
                 "LIMIT " + n;

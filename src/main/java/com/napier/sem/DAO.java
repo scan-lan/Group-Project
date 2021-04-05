@@ -194,8 +194,7 @@ public class DAO
      *
      * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
-    {
+    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName) {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
@@ -205,6 +204,29 @@ public class DAO
                 "WHERE city.id = country.capital \n" +
                 "AND " + whereCondition +
                 "ORDER BY city.population DESC;";
+
+        return executeStatement(statementString, App.CAPITAL_CITY);
+    }
+
+    /**
+     * Use cases 6.1-6.3
+     * Constructs an SQL query to fetch the top N populated cities in a specific area, and executes the query.
+     *
+     * @return An ordered list of cities in a defined area sorted by descending population
+     */
+    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n) {
+        String whereCondition = getWhereCondition(areaFilter, areaName);
+
+
+        // Define the SQL query as a string
+        String statementString = "SELECT city.name, city.population, country.region, country.continent, country.name AS country \n" +
+                "FROM city\n" +
+                "JOIN country ON city.countrycode = country.code\n" +
+                "AND city.id = country.capital \n" +
+                "WHERE city.population > 0 \n" +
+                "AND " + whereCondition +
+                "ORDER BY city.population DESC \n" +
+                "LIMIT " + n;
 
         return executeStatement(statementString, App.CAPITAL_CITY);
     }

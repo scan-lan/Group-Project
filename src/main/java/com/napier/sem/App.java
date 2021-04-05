@@ -38,7 +38,7 @@ public class App
 
         // Use-case 1.1-1.3
         // Produce a report on all countries in the world organised by largest population to smallest
-        ArrayList<Record> countries = dao.allCountriesIn(WORLD, "");
+        // ArrayList<Record> countries = dao.allCountriesIn(WORLD, "");
         // Produce a report on all countries in a continent organised by largest population to smallest
         // ArrayList<Country> countries = dao.allCountriesIn(CONTINENT, "Africa");
         // Produce a report on all countries in a region organised by largest population to smallest
@@ -85,14 +85,23 @@ public class App
         // Produce a report on all capital cities in a region organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(REGION, "Caribbean");
 
+
+        // Use-Cases 6.1-6.3
+        // 6.1 - Produce a report on the top N capital cities in the world organised by largest population to smallest
+        // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(WORLD, "",5);
+        // 6.2 - Produce a report on the top N capital cities in a continent organised by largest population to smallest
+        // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
+        // 6.3 - Produce a report on the top N capital cities in a region organised by largest population to smallest
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(REGION, "Caribbean", 7);
+
         // Display Country results
-        for (Record country : countries) System.out.println(country);
+        // for (Record country : countries) System.out.println(country);
 
         // Display City results
         // for (Record city : cities) System.out.println(city);
 
         // Display Capital City results
-        // for (Record capitalCity : capitalCities) System.out.println(capitalCity);
+        for (Record capitalCity : capitalCities) System.out.println(capitalCity);
 
         // Disconnect from database
         disconnect(connection);
@@ -112,6 +121,7 @@ public class App
         catch (ClassNotFoundException e)
         {
             System.out.println("Could not load SQL driver");
+            return null;
         }
 
         int retries = 60;
@@ -120,6 +130,8 @@ public class App
             System.out.println("Connecting to database...");
             try
             {
+                if (location == null) { return null; }
+
                 // Connect to database
                 Connection connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",

@@ -6,6 +6,8 @@ FROM x, (
     FROM countrylanguage
              JOIN country
                   ON countrycode = code
+    WHERE countrylanguage.language = "Chinese" OR countrylanguage.language = "English"
+    OR countrylanguage.language = "Spanish" OR countrylanguage.language = "Hindi"
+    OR countrylanguage.language = "Arabic"
     GROUP BY `language`
-    ORDER BY speakers DESC
-    LIMIT 5) AS language_info;
+    ORDER BY speakers DESC) AS language_info;

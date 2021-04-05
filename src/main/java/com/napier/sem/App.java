@@ -66,7 +66,7 @@ public class App
 
         // Use-case 4.1-4.5
         // Produce a report on the top N populated cities in the world where N is provided by the user
-         ArrayList<Record> cities = dao.topNCitiesIn(WORLD, "", 5);
+        // ArrayList<Record> cities = dao.topNCitiesIn(WORLD, "", 5);
         // Produce a report on the top N populated cities in a continent where N is provided by the user
         // ArrayList<Record> cities = dao.topNCitiesIn(CONTINENT, "Europe", 5);
         // Produce a report on the top N populated cities in a region where N is provided by the user
@@ -88,20 +88,20 @@ public class App
 
         // Use-Cases 6.1-6.3
         // 6.1 - Produce a report on the top N capital cities in the world organised by largest population to smallest
-        //ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(WORLD, "",5);
+        // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(WORLD, "",5);
         // 6.2 - Produce a report on the top N capital cities in the world organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
         // 6.3 - Produce a report on the top N capital cities in the world organised by largest population to smallest
-        // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(REGION, "Caribbean", n);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(REGION, "Caribbean", 7);
 
         // Display Country results
         // for (Record country : countries) System.out.println(country);
 
         // Display City results
-        for (Record city : cities) System.out.println(city);
+        // for (Record city : cities) System.out.println(city);
 
         // Display Capital City results
-        // for (Record capitalCity : capitalCities) System.out.println(capitalCity);
+        for (Record capitalCity : capitalCities) System.out.println(capitalCity);
 
         // Disconnect from database
         disconnect(connection);

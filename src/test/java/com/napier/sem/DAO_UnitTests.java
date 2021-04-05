@@ -207,7 +207,7 @@ public class DAO_UnitTests
     }
 
     /**
-     * Unit tests covering the DAO.allCitiesIn method
+     * Unit tests covering the DAO.topNCitiesIn method
      */
     // test that cities list is empty when areaFilter and areaName are null
     @Test
@@ -339,7 +339,7 @@ public class DAO_UnitTests
     /**
      * Unit tests covering the DAO.allCapitalCitiesIn method
      */
-    // test that captialCities list is empty when areaFilter and areaName are null
+    // test that capitalCities list is empty when areaFilter and areaName are null
     @Test
     public void allCapitalCitiesIn_bothArgumentsNullListEmpty()
     {

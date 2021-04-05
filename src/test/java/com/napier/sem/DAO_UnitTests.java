@@ -207,7 +207,7 @@ public class DAO_UnitTests
     }
 
     /**
-     * Unit tests covering the DAO.allCitiesIn method
+     * Unit tests covering the DAO.topNCitiesIn method
      */
     // test that countries list is empty when areaFilter and areaName are null
     @Test
@@ -263,4 +263,207 @@ public class DAO_UnitTests
         // then
         dao.allCitiesIn(areaFilter, areaName); // No Error
     }
+
+    /**
+     * Unit tests covering the DAO.topNCitiesIn method
+     */
+    // test that countries list is empty when areaFilter and areaName are null
+    @Test
+    public void topNCitiesIn_bothArgumentsNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> cities = dao.topNCitiesIn(areaFilter, areaName, 5);
+
+        // then
+        assertEquals(0, cities.size());
+    }
+
+    // test that countries list is empty when areaFilter is null
+    @Test
+    public void topNCitiesIn_areaFilterNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> cities = dao.topNCitiesIn(areaFilter, "Europe", 10);
+
+        // then
+        assertEquals(0, cities.size());
+    }
+
+    // test that countries list is empty when areaName is null
+    @Test
+    public void topNCitiesIn_areaNameNullListEmpty()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        ArrayList<Record> cities = dao.topNCountriesIn(App.COUNTRY, areaName, 3);
+
+        // then
+        assertEquals(0, cities.size());
+    }
+
+    // test that n cannot be less than or equal to 0
+    @Test
+    public void topNCitiesIn_negativeNListEmpty()
+    {
+        // given
+        Integer n = -3;
+
+        // when
+        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, "China", n);
+
+        // then
+        assertEquals(0, cities.size());
+    }
+
+    // check test passes with valid areaFilter and areaName
+    @Test
+    public void topNCitiesIn_happyPath()
+    {
+        // given
+        String areaFilter = App.COUNTRY;
+        String areaName = "France";
+
+        // then
+        dao.topNCitiesIn(areaFilter, areaName, 15); // No Error
+    }
+
+    /**
+     * Unit tests covering the DAO.allCapitalCitiesIn method
+     */
+    // test that countries list is empty when areaFilter and areaName are null
+    @Test
+    public void allCapitalCitiesIn_bothArgumentsNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, areaName);
+
+        // then
+        assertEquals(0,capitalCities.size());
+    }
+
+    // test that countries list is empty when areaFilter is null
+    @Test
+    public void allCapitalCitiesIn_areaFilterNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, "Scotland");
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // test that countries list is empty when areaName is null
+    @Test
+    public void allCapitalCitiesIn_areaNameNullListEmpty()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, areaName);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // check test passes with valid areaFilter and areaName
+    @Test
+    public void allCapitalCitiesIn_happyPath()
+    {
+        // given
+        String areaFilter = App.COUNTRY;
+        String areaName = "France";
+
+        // then
+        dao.allCitiesIn(areaFilter, areaName); // No Error
+    }
+
+    /**
+     * Unit tests covering the DAO.topNCapitalCitiesIn method
+     */
+    // test that countries list is empty when areaFilter and areaName are null
+    @Test
+    public void topNCapitalCitiesIn_bothArgumentsNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, areaName, 5);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // test that countries list is empty when areaFilter is null
+    @Test
+    public void topNCapitalCitiesIn_areaFilterNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, "Europe", 10);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // test that countries list is empty when areaName is null
+    @Test
+    public void topNCapitalCitiesIn_areaNameNullListEmpty()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCountriesIn(App.COUNTRY, areaName, 3);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // test that n cannot be less than or equal to 0
+    @Test
+    public void topNCapitalCitiesIn_negativeNListEmpty()
+    {
+        // given
+        Integer n = -3;
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCitiesIn(App.COUNTRY, "China", n);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // check test passes with valid areaFilter and areaName
+    @Test
+    public void topNCapitalCitiesIn_happyPath()
+    {
+        // given
+        String areaFilter = App.COUNTRY;
+        String areaName = "France";
+
+        // then
+        dao.topNCitiesIn(areaFilter, areaName, 15); // No Error
+    }
+
 }

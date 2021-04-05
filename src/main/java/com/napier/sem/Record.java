@@ -24,7 +24,7 @@ public class Record
     private String district;
     private String capital;
     private Integer population;
-    private String recordType = "";
+    private String recordType;
 
 
     /**
@@ -37,6 +37,7 @@ public class Record
      */
     public Record(ResultSet result, String recordType) throws SQLException
     {
+        this.recordType = recordType;
         switch (recordType)
         {
             case App.COUNTRY:
@@ -46,7 +47,6 @@ public class Record
                 region = result.getString("region");
                 population = result.getInt("population");
                 capital = result.getString("capital");
-                this.recordType = recordType;
                 break;
             case App.CAPITAL_CITY:
                 name = result.getString("name");
@@ -60,6 +60,7 @@ public class Record
                 country = result.getString("country");
                 district = result.getString("district");
                 population = result.getInt("population");
+                break;
         }
     }
 

@@ -24,7 +24,7 @@ public class Record
     private String district;
     private String capital;
     private Integer population;
-    private String recordType;
+    private String recordType = "";
 
 
     /**

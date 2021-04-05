@@ -79,7 +79,7 @@ public class App
 
         // Use-case 5.1-5.3
         // Produce a report on all capital cities in the world organised by largest population to smallest
-        // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
+         ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
         // Produce a report on all capital cities in a continent organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(CONTINENT, "Asia");
         // Produce a report on all capital cities in a region organised by largest population to smallest
@@ -90,7 +90,7 @@ public class App
         // 6.1 - Produce a report on the top N capital cities in the world organised by largest population to smallest
         //ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(WORLD, "",5);
         // 6.2 - Produce a report on the top N capital cities in the world organised by largest population to smallest
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
+        // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
         // 6.3 - Produce a report on the top N capital cities in the world organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(REGION, "Caribbean", n);
 

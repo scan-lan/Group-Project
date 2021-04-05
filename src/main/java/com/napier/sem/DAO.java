@@ -205,7 +205,8 @@ public class DAO {
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n) {
+    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n)
+    {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string

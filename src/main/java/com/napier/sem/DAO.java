@@ -255,4 +255,3 @@ public class DAO
         return executeStatement(statementString, App.LANGUAGE);
     }
 }
-

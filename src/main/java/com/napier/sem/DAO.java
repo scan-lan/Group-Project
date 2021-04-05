@@ -174,7 +174,6 @@ public class DAO
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
-
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
                 "FROM city\n" +
@@ -215,9 +214,9 @@ public class DAO
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n) {
+    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n)
+    {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, city.population, country.region, country.continent, country.name AS country \n" +
@@ -236,6 +235,8 @@ public class DAO
     /**
      * Use case 9.1
      * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
+     *
+     * @return An ordered list of languages spoken in the world sorted by the number of langauge speakers descending
      */
     public ArrayList<Record> languageReport()
     {
@@ -247,9 +248,11 @@ public class DAO
                 "    FROM countrylanguage\n" +
                 "             JOIN country\n" +
                 "                  ON countrycode = code\n" +
+                "    WHERE countrylanguage.language = \"Chinese\" OR countrylanguage.language = \"English\" " +
+                "    OR countrylanguage.language = \"Spanish\" OR countrylanguage.language = \"Hindi\" " +
+                "    OR countrylanguage.language = \"Arabic\"\n" +
                 "    GROUP BY `language`\n" +
-                "    ORDER BY speakers DESC\n" +
-                "    LIMIT 5) AS language_info";
+                "    ORDER BY speakers DESC) AS language_info";
 
         return executeStatement(statementString, App.LANGUAGE);
     }

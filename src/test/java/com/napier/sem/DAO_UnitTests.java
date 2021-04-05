@@ -180,7 +180,7 @@ public class DAO_UnitTests
         assertEquals(0, countries.size());
     }
 
-    // test that n is greater than or equal to 0
+    // test that n cannot be less than or equal to 0
     @Test
     public void topNCountriesIn_negativeNListEmpty()
     {
@@ -464,6 +464,18 @@ public class DAO_UnitTests
 
         // then
         dao.topNCapitalCitiesIn(areaFilter, areaName, 15); // No Error
+    }
+
+
+    /**
+     * Unit tests covering the DAO.languageReport method
+     */
+    // check no error is thrown when method is called with a null connection
+    @Test
+    public void languageReport_happyPath()
+    {
+        // then
+        dao.languageReport(); // No Error
     }
 
 }

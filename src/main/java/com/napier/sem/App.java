@@ -130,6 +130,8 @@ public class App
             System.out.println("Connecting to database...");
             try
             {
+                if (location == null) { return null; }
+
                 // Connect to database
                 Connection connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",

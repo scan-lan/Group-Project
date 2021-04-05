@@ -186,7 +186,6 @@ public class DAO
         return executeStatement(statementString, App.CITY);
     }
 
-
     /**
      * Use cases 5.1-5.3
      * Constructs an SQL query to fetch all capital cities in a specific area, and executes the query.
@@ -231,7 +230,6 @@ public class DAO
         return executeStatement(statementString, App.CAPITAL_CITY);
     }
 
-
     /**
      * Use case 9.1
      * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
@@ -248,9 +246,9 @@ public class DAO
                 "    FROM countrylanguage\n" +
                 "             JOIN country\n" +
                 "                  ON countrycode = code\n" +
-                "    WHERE countrylanguage.language = \"Chinese\" OR countrylanguage.language = \"English\" " +
-                "    OR countrylanguage.language = \"Spanish\" OR countrylanguage.language = \"Hindi\" " +
-                "    OR countrylanguage.language = \"Arabic\"\n" +
+                "    WHERE countrylanguage.language = 'Chinese' OR countrylanguage.language = 'English' " +
+                "    OR countrylanguage.language = 'Spanish' OR countrylanguage.language = 'Hindi' " +
+                "    OR countrylanguage.language = 'Arabic'\n" +
                 "    GROUP BY `language`\n" +
                 "    ORDER BY speakers DESC) AS language_info";
 

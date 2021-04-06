@@ -174,7 +174,6 @@ public class DAO
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
-
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
                 "FROM city\n" +
@@ -187,14 +186,14 @@ public class DAO
         return executeStatement(statementString, App.CITY);
     }
 
-
     /**
      * Use cases 5.1-5.3
      * Constructs an SQL query to fetch all capital cities in a specific area, and executes the query.
      *
      * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName) {
+    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
+    {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
@@ -214,9 +213,9 @@ public class DAO
      *
      * @return An ordered list of cities in a defined area sorted by descending population
      */
-    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n) {
+    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n)
+    {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, city.population, country.region, country.continent, country.name AS country \n" +
@@ -230,4 +229,30 @@ public class DAO
 
         return executeStatement(statementString, App.CAPITAL_CITY);
     }
+
+    /**
+     * Use case 9.1
+     * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
+     *
+     * @return An ordered list of languages spoken in the world sorted by the number of langauge speakers descending
+     */
+    public ArrayList<Record> languageReport()
+    {
+        String statementString = "WITH x AS (SELECT SUM(population) AS world_population FROM country)\n" +
+                "SELECT `language`, speakers, ((speakers / world_population) * 100) AS percentage\n" +
+                "FROM x, (\n" +
+                "    SELECT `language`,\n" +
+                "       CEILING(SUM(population * (percentage / 100))) AS speakers\n" +
+                "    FROM countrylanguage\n" +
+                "             JOIN country\n" +
+                "                  ON countrycode = code\n" +
+                "    WHERE countrylanguage.language = 'Chinese' OR countrylanguage.language = 'English' " +
+                "    OR countrylanguage.language = 'Spanish' OR countrylanguage.language = 'Hindi' " +
+                "    OR countrylanguage.language = 'Arabic'\n" +
+                "    GROUP BY `language`\n" +
+                "    ORDER BY speakers DESC) AS language_info";
+
+        return executeStatement(statementString, App.LANGUAGE);
+    }
+
 }

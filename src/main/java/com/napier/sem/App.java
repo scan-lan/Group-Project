@@ -13,6 +13,7 @@ public class App
     static final String DISTRICT = "district";
     static final String CAPITAL_CITY = "capital city";
     static final String CITY = "city";
+    static final String LANGUAGE = "language";
 
     static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
 
@@ -92,7 +93,11 @@ public class App
         // 6.2 - Produce a report on the top N capital cities in a continent organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
         // 6.3 - Produce a report on the top N capital cities in a region organised by largest population to smallest
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(REGION, "Caribbean", 7);
+        // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(REGION, "Caribbean", 7);
+
+        // Use-case 9.1
+        // Produce a report on the number of who speak the following specific languages from greatest number to smallest, including the percentage of the world population
+        ArrayList<Record> languages = dao.languageReport();
 
         // Display Country results
         // for (Record country : countries) System.out.println(country);
@@ -101,7 +106,10 @@ public class App
         // for (Record city : cities) System.out.println(city);
 
         // Display Capital City results
-        for (Record capitalCity : capitalCities) System.out.println(capitalCity);
+        // for (Record capitalCity : capitalCities) System.out.println(capitalCity);
+
+        //Display Language results
+        for (Record language : languages) System.out.println(language);
 
         // Disconnect from database
         disconnect(connection);

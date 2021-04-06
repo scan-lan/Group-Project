@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -296,4 +297,37 @@ public class DAO_IntegrationTests
         // then
         for (int i = 0; i < 5; i++) assertEquals(expectedCapitalCity[i], capitalCities.get(i).getName());
     }
+
+    /**
+     * Integration tests covering the DAO.languageReport method
+     */
+    // Test that 5 items are returned in the list
+    @Test
+    void languageReport_returnedListLengthAsExpected()
+    {
+        // given
+        Integer expectedLength = 5;
+
+        // when
+        ArrayList<Record> languages = dao.languageReport();
+
+        // then
+        assertEquals(expectedLength, languages.size());
+    }
+
+    // Test that the 5 expected languages are returned
+    @Test
+    void languageReport_returnedLanguagesAsExpected()
+    {
+        // given
+        ArrayList<String> expectedLanguages = new ArrayList<String>(
+                Arrays.asList("Chinese", "English", "Hindi", "Arabic", "Spanish"));
+
+        // when
+        ArrayList<Record> languages = dao.languageReport();
+
+        // then
+        for (int i = 0; i < 5; i++) assertTrue(expectedLanguages.contains(languages.get(i).getLanguage()));
+    }
 }
+

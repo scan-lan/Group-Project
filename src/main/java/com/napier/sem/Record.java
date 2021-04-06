@@ -8,10 +8,12 @@ import java.sql.SQLException;
  *   - Country
  *   - City
  *   - Capital City
+ *   - Language
  * The type is denoted by the recordType field.
  * The possible fields consist of:
  *   code, name, continent, region, country,
- *   district, capital, population
+ *   district, capital, population, language,
+ *   speakers, percentage
  */
 public class Record
 {
@@ -24,6 +26,9 @@ public class Record
     private String district;
     private String capital;
     private Integer population;
+    private String language;
+    private Integer speakers;
+    private Integer percentage;
     private String recordType;
 
 
@@ -61,6 +66,10 @@ public class Record
                 district = result.getString("district");
                 population = result.getInt("population");
                 break;
+            case App.LANGUAGE:
+                language = result.getString("language");
+                speakers = result.getInt("speakers");
+                percentage = result.getInt("percentage");
         }
     }
 
@@ -97,6 +106,15 @@ public class Record
         recordType = App.CITY;
     }
 
+    // Language constructor, just used for testing purposes.
+    public Record(String language, Integer speakers, Integer percentage)
+    {
+        this.language = language;
+        this.speakers = speakers;
+        this.percentage = percentage;
+        recordType = App.LANGUAGE;
+    }
+
     public String getCountryCode() { return this.countryCode; }
     public String getName() { return this.name; }
     public String getContinent() { return this.continent; }
@@ -105,6 +123,9 @@ public class Record
     public String getDistrict() { return this.district; }
     public Integer getPopulation() { return this.population; }
     public String getCapital() { return this.capital; }
+    public String getLanguage() { return this.language; }
+    public Integer getSpeakers() { return this.speakers; }
+    public Integer getPercentage() { return this.percentage; }
     public String getRecordType() { return this.recordType; }
 
     /**
@@ -142,6 +163,13 @@ public class Record
                         this.country,
                         this.district,
                         this.population);
+                break;
+            case App.LANGUAGE:
+                recordString = String.format("Language: %s |  Speakers: %s | Percentage: %s%% \n" +
+                                "-------------------------------------------------------",
+                        this.language,
+                        this.speakers,
+                        this.percentage);
                 break;
         }
         return recordString;

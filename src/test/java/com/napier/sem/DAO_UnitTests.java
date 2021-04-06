@@ -218,10 +218,10 @@ public class DAO_UnitTests
         String areaName = null;
 
         // when
-        ArrayList<Record> countries = dao.allCitiesIn(areaFilter, areaName);
+        ArrayList<Record> cities = dao.allCitiesIn(areaFilter, areaName);
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, cities.size());
     }
 
     // test that countries list is empty when areaFilter is null
@@ -232,10 +232,10 @@ public class DAO_UnitTests
         String areaFilter = null;
 
         // when
-        ArrayList<Record> countries = dao.allCitiesIn(areaFilter, "Scotland");
+        ArrayList<Record> cities = dao.allCitiesIn(areaFilter, "Scotland");
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, cities.size());
     }
 
     // test that countries list is empty when areaName is null
@@ -246,10 +246,10 @@ public class DAO_UnitTests
         String areaName = null;
 
         // when
-        ArrayList<Record> countries = dao.allCitiesIn(App.COUNTRY, areaName);
+        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, cities.size());
     }
 
     // check test passes with valid areaFilter and areaName
@@ -304,7 +304,7 @@ public class DAO_UnitTests
         String areaName = null;
 
         // when
-        ArrayList<Record> cities = dao.topNCountriesIn(App.COUNTRY, areaName, 3);
+        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 3);
 
         // then
         assertEquals(0, cities.size());
@@ -434,7 +434,7 @@ public class DAO_UnitTests
         String areaName = null;
 
         // when
-        ArrayList<Record> capitalCities = dao.topNCountriesIn(App.COUNTRY, areaName, 3);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, areaName, 3);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -448,7 +448,7 @@ public class DAO_UnitTests
         Integer n = -3;
 
         // when
-        ArrayList<Record> capitalCities = dao.topNCitiesIn(App.COUNTRY, "China", n);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, "China", n);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -463,7 +463,7 @@ public class DAO_UnitTests
         String areaName = "France";
 
         // then
-        dao.topNCitiesIn(areaFilter, areaName, 15); // No Error
+        dao.topNCapitalCitiesIn(areaFilter, areaName, 15); // No Error
     }
 
 

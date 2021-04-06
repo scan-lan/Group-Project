@@ -29,6 +29,10 @@ public class Record
     private String language;
     private Integer speakers;
     private Integer percentage;
+    private Integer cityPopulation;
+    private Integer cityPercentage;
+    private Integer nonCityPopulation;
+    private Integer nonCityPercentage;
     private String recordType;
 
 
@@ -70,6 +74,15 @@ public class Record
                 language = result.getString("language");
                 speakers = result.getInt("speakers");
                 percentage = result.getInt("percentage");
+                break;
+            case App.CITY_POPULATION:
+                name = result.getString("name");
+                population = result.getInt("areaPopulation");
+                cityPopulation = result.getInt("cityPopulation");
+                cityPercentage = result.getInt("cityPercentage");
+                nonCityPopulation = result.getInt("nonCityPopulation");
+                nonCityPercentage = result.getInt("nonCityPercentage");
+                break;
         }
     }
 
@@ -170,6 +183,18 @@ public class Record
                         this.language,
                         this.speakers,
                         this.percentage);
+                break;
+            case App.CITY_POPULATION:
+                recordString = String.format("Area: %s | Population: %s\n" +
+                                "City Population: %s | City Population Percentage: %s%%\n" +
+                                "Non City Population: %s | Non City Population Percentage: %s%%\n" +
+                                "-------------------------------------------------------",
+                        this.name,
+                        this.population,
+                        this.cityPopulation,
+                        this.cityPercentage,
+                        this.nonCityPopulation,
+                        this.nonCityPercentage);
                 break;
         }
         return recordString;

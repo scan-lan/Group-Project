@@ -327,7 +327,7 @@ public class DAO_IntegrationTests
         ArrayList<Record> languages = dao.languageReport();
 
         // then
-        for (int i = 0; i < 5; i++) assertTrue(expectedLanguages.contains(languages.get(i).getLanguage()));
+        for (int i = 0; i < languages.size(); i++) assertTrue(expectedLanguages.contains(languages.get(i).getLanguage()));
     }
 }
 

@@ -351,7 +351,7 @@ public class DAO_UnitTests
         ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, areaName);
 
         // then
-        assertEquals(0,capitalCities.size());
+        assertEquals(0, capitalCities.size());
     }
 
     // test that capitalCities list is empty when areaFilter is null

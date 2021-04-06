@@ -34,6 +34,7 @@ public class Record
     private long populationNotLivingInCities;
     private double percentageNotLivingInCities;
     private final String recordType;
+    private Long bigPopulation;
 
 
     /**
@@ -82,6 +83,10 @@ public class Record
                 language = result.getString("language");
                 speakers = result.getInt("speakers");
                 percentage = result.getInt("percentage");
+                break;
+            case App.POPULATION:
+                name = result.getString("area");
+                bigPopulation = result.getLong("population");
                 break;
         }
     }
@@ -196,6 +201,23 @@ public class Record
                         this.speakers,
                         this.percentage);
                 break;
+            case App.CITY_POPULATION:
+                recordString = String.format("Area: %s | Population: %s\n" +
+                                "City Population: %s | City Population Percentage: %s%%\n" +
+                                "Non City Population: %s | Non City Population Percentage: %s%%\n" +
+                                "-------------------------------------------------------",
+                        this.name,
+                        this.population,
+                        this.populationLivingInCities,
+                        this.percentageLivingInCities,
+                        this.populationNotLivingInCities,
+                        this.percentageNotLivingInCities);
+                break;
+            case App.POPULATION:
+                recordString = String.format("Area: %s |  Population: %s\n" +
+                                "-------------------------------------------------------",
+                        this.name,
+                        this.bigPopulation);
         }
         return recordString;
     }

@@ -14,6 +14,7 @@ public class App
     static final String CAPITAL_CITY = "capital city";
     static final String CITY = "city";
     static final String LANGUAGE = "language";
+    static final String CITY_POPULATION = "city population";
 
     static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
 
@@ -77,7 +78,6 @@ public class App
         // Produce a report on the top N populated cities in a district where N is provided by the user
         // ArrayList<Record> cities = dao.topNCitiesIn(DISTRICT, "Scotland", 6);
 
-
         // Use-case 5.1-5.3
         // Produce a report on all capital cities in the world organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(WORLD, "");
@@ -85,7 +85,6 @@ public class App
         // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(CONTINENT, "Asia");
         // Produce a report on all capital cities in a region organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(REGION, "Caribbean");
-
 
         // Use-Cases 6.1-6.3
         // 6.1 - Produce a report on the top N capital cities in the world organised by largest population to smallest
@@ -95,9 +94,17 @@ public class App
         // 6.3 - Produce a report on the top N capital cities in a region organised by largest population to smallest
         // ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(REGION, "Caribbean", 7);
 
+        // Use-Cases 7.1-7.3
+        // 7.1 - Produce a report on the population of people, people living in cities, and people not living in cities in each continent
+         ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(CONTINENT, "Europe");
+        // 7.2 - Produce a report on the population of people, people living in cities, and people not living in cities in each region
+        // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(REGION, "Carribean");
+        // 7.3 - Produce a report on the population of people, people living in cities, and people not living in cities in each country
+        //ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(COUNTRY, "France");
+
         // Use-case 9.1
         // Produce a report on the number of who speak the following specific languages from greatest number to smallest, including the percentage of the world population
-        ArrayList<Record> languages = dao.languageReport();
+        // ArrayList<Record> languages = dao.languageReport();
 
         // Display Country results
         // for (Record country : countries) System.out.println(country);
@@ -108,8 +115,11 @@ public class App
         // Display Capital City results
         // for (Record capitalCity : capitalCities) System.out.println(capitalCity);
 
+        //Display Population Cities results
+        for (Record population : populationCities) System.out.println(population);
+
         //Display Language results
-        for (Record language : languages) System.out.println(language);
+        // for (Record language : languages) System.out.println(language);
 
         // Disconnect from database
         disconnect(connection);

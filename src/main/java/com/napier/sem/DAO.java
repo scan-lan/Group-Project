@@ -231,6 +231,48 @@ public class DAO
     }
 
     /**
+     * Use cases 7.1-7.3
+     * Constructs an SQL query to fetch the population in a specific area as well as the population who live in cities and those who don't, and executes the query.
+     *
+     * @return The population of a specified area as well as the population who live in cities and those who don't
+     */
+    public ArrayList<Record> populationCitiesAndNonCities(String areaFilter, String areaName)
+    {
+        String whereCondition = getWhereCondition(areaFilter, areaName);
+
+        String selectCondition = null;
+        switch (areaFilter)
+        {
+            case App.CONTINENT:
+                selectCondition = "country.continent";
+                break;
+            case App.REGION:
+                selectCondition = "country.region";
+                break;
+            case App.COUNTRY:
+                selectCondition = "country.name";
+                break;
+        }
+        if (selectCondition == null)
+        {
+            System.out.println("populationCitiesAndNonCities - invalid query condition");
+            return new ArrayList<>();
+        }
+
+        // Define the SQL query as a string
+        String statementString = "SELECT "+ selectCondition +" AS name, SUM(Distinct country.population) AS areaPopulation, SUM(city.population) AS cityPopulation,\n" +
+                "((SUM(city.population) / SUM(Distinct country.population)) * 100) AS cityPercentage,\n" +
+                "(SUM(distinct country.population) - SUM(city.population)) AS nonCityPopulation,\n" +
+                "((SUM(Distinct country.population) - SUM(city.population)) / SUM(distinct country.population) * 100) AS nonCityPercentage\n" +
+                "FROM country\n" +
+                "JOIN city\n" +
+                "ON code = countryCode\n" +
+                "WHERE " + whereCondition + ";";
+
+        return executeStatement(statementString, App.CITY_POPULATION);
+    }
+
+    /**
      * Use case 9.1
      * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
      *

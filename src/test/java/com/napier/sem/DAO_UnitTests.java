@@ -464,6 +464,7 @@ public class DAO_UnitTests
 
         // then
         dao.topNCapitalCitiesIn(areaFilter, areaName, 15); // No Error
+        dao.topNCapitalCitiesIn(areaFilter, areaName, 15); // No Error
     }
 
 

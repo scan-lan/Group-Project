@@ -3,5 +3,5 @@ clean:
 	-docker image rm group-project_app
 
 deploy-local: clean
-	mvn package
+	mvn package -DskipTests
 	docker compose up

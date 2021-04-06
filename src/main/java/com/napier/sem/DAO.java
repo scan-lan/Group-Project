@@ -260,14 +260,15 @@ public class DAO
         }
 
         // Define the SQL query as a string
-        String statementString = "SELECT "+ selectCondition +" AS name, SUM(Distinct country.population) AS areaPopulation, SUM(city.population) AS cityPopulation,\n" +
-                "((SUM(city.population) / SUM(Distinct country.population)) * 100) AS cityPercentage,\n" +
-                "(SUM(distinct country.population) - SUM(city.population)) AS nonCityPopulation,\n" +
-                "((SUM(Distinct country.population) - SUM(city.population)) / SUM(distinct country.population) * 100) AS nonCityPercentage\n" +
+        String statementString = "SELECT "+ selectCondition +" AS name,\n" +
+                "   SUM(DISTINCT country.population) AS areaPopulation,\n" +
+                "   SUM(city.population) AS cityPopulation,\n" +
+                "   ((SUM(city.population) / SUM(DISTINCT country.population)) * 100) AS cityPercentage,\n" +
+                "   (SUM(DISTINCT country.population) - SUM(city.population)) AS nonCityPopulation,\n" +
+                "   ((SUM(DISTINCT country.population) - SUM(city.population)) / SUM(DISTINCT country.population) * 100) AS nonCityPercentage\n" +
                 "FROM country\n" +
-                "JOIN city\n" +
-                "ON code = countryCode\n" +
-                "WHERE " + whereCondition + ";";
+                "   JOIN city ON code = countryCode\n" +
+                "WHERE " + whereCondition;
 
         return executeStatement(statementString, App.CITY_POPULATION);
     }

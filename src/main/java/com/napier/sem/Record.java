@@ -29,11 +29,11 @@ public class Record
     private String language;
     private Integer speakers;
     private Integer percentage;
-    private Integer cityPopulation;
-    private Integer cityPercentage;
-    private Integer nonCityPopulation;
-    private Integer nonCityPercentage;
-    private String recordType;
+    private Integer populationLivingInCities;
+    private Integer percentageLivingInCities;
+    private Integer populationNotLivingInCities;
+    private Integer percentageNotLivingInCities;
+    private final String recordType;
 
 
     /**
@@ -70,18 +70,18 @@ public class Record
                 district = result.getString("district");
                 population = result.getInt("population");
                 break;
+            case App.POPULATION_RESIDENCE_REPORT:
+                name = result.getString("name");
+                population = result.getInt("areaPopulation");
+                populationLivingInCities = result.getInt("cityPopulation");
+                percentageLivingInCities = result.getInt("cityPercentage");
+                populationNotLivingInCities = result.getInt("nonCityPopulation");
+                percentageNotLivingInCities = result.getInt("nonCityPercentage");
+                break;
             case App.LANGUAGE:
                 language = result.getString("language");
                 speakers = result.getInt("speakers");
                 percentage = result.getInt("percentage");
-                break;
-            case App.CITY_POPULATION:
-                name = result.getString("name");
-                population = result.getInt("areaPopulation");
-                cityPopulation = result.getInt("cityPopulation");
-                cityPercentage = result.getInt("cityPercentage");
-                nonCityPopulation = result.getInt("nonCityPopulation");
-                nonCityPercentage = result.getInt("nonCityPercentage");
                 break;
         }
     }
@@ -184,17 +184,17 @@ public class Record
                         this.speakers,
                         this.percentage);
                 break;
-            case App.CITY_POPULATION:
+            case App.POPULATION_RESIDENCE_REPORT:
                 recordString = String.format("Area: %s | Population: %s\n" +
-                                "City Population: %s | City Population Percentage: %s%%\n" +
-                                "Non City Population: %s | Non City Population Percentage: %s%%\n" +
+                                "Population in Cities: %s | City Population Percentage: %s%%\n" +
+                                "Population not in Cities: %s | Non City Population Percentage: %s%%\n" +
                                 "-------------------------------------------------------",
                         this.name,
                         this.population,
-                        this.cityPopulation,
-                        this.cityPercentage,
-                        this.nonCityPopulation,
-                        this.nonCityPercentage);
+                        this.populationLivingInCities,
+                        this.percentageLivingInCities,
+                        this.populationNotLivingInCities,
+                        this.percentageNotLivingInCities);
                 break;
         }
         return recordString;

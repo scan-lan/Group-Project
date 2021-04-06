@@ -339,7 +339,7 @@ public class DAO_UnitTests
     /**
      * Unit tests covering the DAO.allCapitalCitiesIn method
      */
-    // test that captialCities list is empty when areaFilter and areaName are null
+    // test that capitalCities list is empty when areaFilter and areaName are null
     @Test
     public void allCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -351,7 +351,7 @@ public class DAO_UnitTests
         ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, areaName);
 
         // then
-        assertEquals(0,capitalCities.size());
+        assertEquals(0, capitalCities.size());
     }
 
     // test that capitalCities list is empty when areaFilter is null

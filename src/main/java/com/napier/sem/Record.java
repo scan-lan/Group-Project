@@ -33,6 +33,7 @@ public class Record
     private Integer cityPercentage;
     private Integer nonCityPopulation;
     private Integer nonCityPercentage;
+    private Long bigPopulation;
     private String recordType;
 
 
@@ -82,6 +83,10 @@ public class Record
                 cityPercentage = result.getInt("cityPercentage");
                 nonCityPopulation = result.getInt("nonCityPopulation");
                 nonCityPercentage = result.getInt("nonCityPercentage");
+                break;
+            case App.POPULATION:
+                name = result.getString("area");
+                bigPopulation = result.getLong("population");
                 break;
         }
     }
@@ -196,6 +201,11 @@ public class Record
                         this.nonCityPopulation,
                         this.nonCityPercentage);
                 break;
+            case App.POPULATION:
+                recordString = String.format("Area: %s |  Population: %s\n" +
+                                "-------------------------------------------------------",
+                        this.name,
+                        this.bigPopulation);
         }
         return recordString;
     }

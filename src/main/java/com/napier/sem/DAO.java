@@ -47,6 +47,8 @@ public class DAO
             case App.DISTRICT:
                 whereCondition = "city.district = '" + areaName + "'\n";
                 break;
+            case App.CITY:
+                whereCondition = "city.name = '" + areaName + "'\n";
             default:
                 return null;
         }
@@ -270,6 +272,59 @@ public class DAO
                 "WHERE " + whereCondition + ";";
 
         return executeStatement(statementString, App.CITY_POPULATION);
+    }
+
+    /**
+     * Use cases 8.1-8.6
+     * Constructs an SQL query to fetch the population in a specific area, and executes the query.
+     *
+     * @return The population of a specified area
+     */
+    public ArrayList<Record> populationOf(String areaFilter, String areaName)
+    {
+        String whereCondition = getWhereCondition(areaFilter, areaName);
+
+        String selectCondition = null;
+        String sumCondition = "country.population";
+        switch (areaFilter)
+        {
+            case App.WORLD:
+                selectCondition = "World"; // Double Check
+                break;
+            case App.CONTINENT:
+                selectCondition = "country.continent";
+                break;
+            case App.REGION:
+                selectCondition = "country.region";
+                break;
+            case App.COUNTRY:
+                selectCondition = "country.name";
+                break;
+            case App.DISTRICT:
+                selectCondition = "city.district";
+                sumCondition = "city.population";
+            case App.CITY:
+                selectCondition = "city.name";
+                sumCondition = "city.population";
+                break;
+            default:
+                sumCondition = null;
+        }
+        if (selectCondition == null || sumCondition == null)
+        {
+            System.out.println("populationOf - invalid query condition");
+            return new ArrayList<>();
+        }
+
+        // Define the SQL query as a string
+        String statementString = "SELECT " + selectCondition + " AS area, SUM(DISTINCT " + sumCondition + ") AS population\n" +
+                "FROM country\n" +
+                "JOIN city\n" +
+                "ON countryCode = code\n" +
+                "WHERE " + whereCondition + "\n" +
+                "GROUP BY " + selectCondition + ";";
+
+        return executeStatement(statementString, App.POPULATION);
     }
 
     /**

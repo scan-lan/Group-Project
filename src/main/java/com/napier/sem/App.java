@@ -98,7 +98,7 @@ public class App
         // 7.1 - Produce a report on the population of people, people living in cities, and people not living in cities in each continent
         ArrayList<Record> populationCities = dao.populationLivingInAndNotInCities(CONTINENT, "Europe");
         // 7.2 - Produce a report on the population of people, people living in cities, and people not living in cities in each region
-        // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(REGION, "Carribean");
+        // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(REGION, "Nordic Countries");
         // 7.3 - Produce a report on the population of people, people living in cities, and people not living in cities in each country
         //ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(COUNTRY, "France");
 

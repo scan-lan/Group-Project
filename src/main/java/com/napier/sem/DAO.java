@@ -197,12 +197,16 @@ public class DAO
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
-        String statementString = "SELECT city.name, city.population, country.region, country.continent, country.name AS country \n" +
+        String statementString = "SELECT city.name,\n" +
+                "city.population,\n" +
+                "country.region,\n" +
+                "country.continent,\n" +
+                "country.name AS country \n" +
                 "FROM city\n" +
                 "    JOIN country ON city.countrycode = country.code\n" +
                 "WHERE city.id = country.capital \n" +
                 "AND " + whereCondition +
-                "ORDER BY city.population DESC;";
+                "ORDER BY city.population DESC";
 
         return executeStatement(statementString, App.CAPITAL_CITY);
     }
@@ -218,13 +222,17 @@ public class DAO
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
         // Define the SQL query as a string
-        String statementString = "SELECT city.name, city.population, country.region, country.continent, country.name AS country \n" +
+        String statementString = "SELECT city.name,\n" +
+                "city.population,\n" +
+                "country.region,\n" +
+                "country.continent,\n" +
+                "country.name AS country \n" +
                 "FROM city\n" +
                 "JOIN country ON city.countrycode = country.code\n" +
                 "AND city.id = country.capital \n" +
                 "WHERE city.population > 0 \n" +
                 "AND " + whereCondition +
-                "ORDER BY city.population DESC \n" +
+                "ORDER BY city.population DESC\n" +
                 "LIMIT " + n;
 
         return executeStatement(statementString, App.CAPITAL_CITY);
@@ -236,48 +244,37 @@ public class DAO
      *
      * @return The population of a specified area as well as the population who live in cities and those who don't
      */
-    public ArrayList<Record> populationCitiesAndNonCities(String areaFilter, String areaName)
+    public ArrayList<Record> populationLivingInAndNotInCities(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
-        String selectCondition = null;
-        switch (areaFilter)
-        {
-            case App.CONTINENT:
-                selectCondition = "country.continent";
-                break;
-            case App.REGION:
-                selectCondition = "country.region";
-                break;
-            case App.COUNTRY:
-                selectCondition = "country.name";
-                break;
-        }
-        if (selectCondition == null)
+        if (whereCondition == null)
         {
             System.out.println("populationCitiesAndNonCities - invalid query condition");
             return new ArrayList<>();
         }
 
         // Define the SQL query as a string
-        String statementString = "SELECT "+ selectCondition +" AS name,\n" +
-                "   SUM(DISTINCT country.population) AS areaPopulation,\n" +
-                "   SUM(city.population) AS cityPopulation,\n" +
-                "   ((SUM(city.population) / SUM(DISTINCT country.population)) * 100) AS cityPercentage,\n" +
-                "   (SUM(DISTINCT country.population) - SUM(city.population)) AS nonCityPopulation,\n" +
-                "   ((SUM(DISTINCT country.population) - SUM(city.population)) / SUM(DISTINCT country.population) * 100) AS nonCityPercentage\n" +
-                "FROM country\n" +
-                "   JOIN city ON code = countryCode\n" +
-                "WHERE " + whereCondition;
+        String statementString = "SELECT name,\n" +
+                "totalPopulation,\n" +
+                "populationInCities,\n" +
+                "(totalPopulation - populationInCities) AS populationNotInCities\n" +
+                "FROM (SELECT " + whereCondition.split("\\s+")[0] + " AS name, SUM(population) AS totalPopulation\n" +
+                "    FROM country\n" +
+                "    WHERE " + whereCondition + ") t,\n" +
+                "    (SELECT SUM(city.population) AS populationInCities\n" +
+                "    FROM city\n" +
+                "        JOIN country ON city.countrycode = country.code\n" +
+                "    WHERE " + whereCondition + ") c";
 
-        return executeStatement(statementString, App.CITY_POPULATION);
+        return executeStatement(statementString, App.POPULATION_RESIDENCE_REPORT);
     }
 
     /**
      * Use case 9.1
      * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
      *
-     * @return An ordered list of languages spoken in the world sorted by the number of langauge speakers descending
+     * @return An ordered list of languages spoken in the world sorted by the number of language speakers descending
      */
     public ArrayList<Record> languageReport()
     {

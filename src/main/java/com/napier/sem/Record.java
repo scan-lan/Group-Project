@@ -33,8 +33,8 @@ public class Record
     private double percentageLivingInCities;
     private long populationNotLivingInCities;
     private double percentageNotLivingInCities;
-    private final String recordType;
     private Long bigPopulation;
+    private String recordType;
 
 
     /**
@@ -200,18 +200,6 @@ public class Record
                         this.language,
                         this.speakers,
                         this.percentage);
-                break;
-            case App.CITY_POPULATION:
-                recordString = String.format("Area: %s | Population: %s\n" +
-                                "City Population: %s | City Population Percentage: %s%%\n" +
-                                "Non City Population: %s | Non City Population Percentage: %s%%\n" +
-                                "-------------------------------------------------------",
-                        this.name,
-                        this.population,
-                        this.populationLivingInCities,
-                        this.percentageLivingInCities,
-                        this.populationNotLivingInCities,
-                        this.percentageNotLivingInCities);
                 break;
             case App.POPULATION:
                 recordString = String.format("Area: %s |  Population: %s\n" +

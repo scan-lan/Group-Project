@@ -15,6 +15,7 @@ public class App
     static final String CITY = "city";
     static final String LANGUAGE = "language";
     static final String POPULATION_RESIDENCE_REPORT = "population residence report";
+    static final String POPULATION = "population";
 
     static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
 
@@ -96,11 +97,25 @@ public class App
 
         // Use-Cases 7.1-7.3
         // 7.1 - Produce a report on the population of people, people living in cities, and people not living in cities in each continent
-        ArrayList<Record> populationCities = dao.populationLivingInAndNotInCities(CONTINENT, "Asia");
+        // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(CONTINENT, "Europe");
         // 7.2 - Produce a report on the population of people, people living in cities, and people not living in cities in each region
-        // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(REGION, "Nordic Countries");
+        // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(REGION, "Caribbean");
         // 7.3 - Produce a report on the population of people, people living in cities, and people not living in cities in each country
         //ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(COUNTRY, "France");
+
+        // Use-Cases 8.1-8.6
+        // 8.1 - Produce a report on the population of the world
+        // ArrayList<Record> populationOf = dao.populationOf(WORLD, "");
+        // 8.2 - Produce a report on the population of a continent
+        // ArrayList<Record> populationOf = dao.populationOf(CONTINENT, "Europe");
+        // 8.3 - Produce a report on the population of a region
+        // ArrayList<Record> populationOf = dao.populationOf(REGION, "Caribbean");
+        // 8.4 - Produce a report on the population of a country
+        // ArrayList<Record> populationOf = dao.populationOf(COUNTRY, "Spain");
+        // 8.5 - Produce a report on the population of a district
+        ArrayList<Record> populationOf = dao.populationOf(DISTRICT, "Scotland");
+        // 8.6 - Produce a report on the population of a city
+        // ArrayList<Record> populationOf = dao.populationOf(CITY, "London");
 
         // Use-case 9.1
         // Produce a report on the number of who speak the following specific languages from greatest number to smallest, including the percentage of the world population
@@ -116,7 +131,10 @@ public class App
         // for (Record capitalCity : capitalCities) System.out.println(capitalCity);
 
         //Display Population Cities results
-        for (Record population : populationCities) System.out.println(population);
+        // for (Record population : populationCities) System.out.println(population);
+
+        //Display Population Of results
+        for (Record population : populationOf) System.out.println(population);
 
         //Display Language results
         // for (Record language : languages) System.out.println(language);

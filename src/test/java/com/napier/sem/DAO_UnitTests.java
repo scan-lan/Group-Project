@@ -209,7 +209,7 @@ public class DAO_UnitTests
     /**
      * Unit tests covering the DAO.allCitiesIn method
      */
-    // test that countries list is empty when areaFilter and areaName are null
+    // test that cities list is empty when areaFilter and areaName are null
     @Test
     public void allCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -224,7 +224,7 @@ public class DAO_UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that countries list is empty when areaFilter is null
+    // test that cities list is empty when areaFilter is null
     @Test
     public void allCitiesIn_areaFilterNullListEmpty()
     {
@@ -238,7 +238,7 @@ public class DAO_UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that countries list is empty when areaName is null
+    // test that cities list is empty when areaName is null
     @Test
     public void allCitiesIn_areaNameNullListEmpty()
     {
@@ -267,7 +267,7 @@ public class DAO_UnitTests
     /**
      * Unit tests covering the DAO.topNCitiesIn method
      */
-    // test that countries list is empty when areaFilter and areaName are null
+    // test that cities list is empty when areaFilter and areaName are null
     @Test
     public void topNCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -282,7 +282,7 @@ public class DAO_UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that countries list is empty when areaFilter is null
+    // test that cities list is empty when areaFilter is null
     @Test
     public void topNCitiesIn_areaFilterNullListEmpty()
     {
@@ -296,7 +296,7 @@ public class DAO_UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that countries list is empty when areaName is null
+    // test that cities list is empty when areaName is null
     @Test
     public void topNCitiesIn_areaNameNullListEmpty()
     {
@@ -339,7 +339,7 @@ public class DAO_UnitTests
     /**
      * Unit tests covering the DAO.allCapitalCitiesIn method
      */
-    // test that countries list is empty when areaFilter and areaName are null
+    // test that captialCities list is empty when areaFilter and areaName are null
     @Test
     public void allCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -354,7 +354,7 @@ public class DAO_UnitTests
         assertEquals(0,capitalCities.size());
     }
 
-    // test that countries list is empty when areaFilter is null
+    // test that capitalCities list is empty when areaFilter is null
     @Test
     public void allCapitalCitiesIn_areaFilterNullListEmpty()
     {
@@ -368,7 +368,7 @@ public class DAO_UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // test that countries list is empty when areaName is null
+    // test that capitalCities list is empty when areaName is null
     @Test
     public void allCapitalCitiesIn_areaNameNullListEmpty()
     {
@@ -397,7 +397,7 @@ public class DAO_UnitTests
     /**
      * Unit tests covering the DAO.topNCapitalCitiesIn method
      */
-    // test that countries list is empty when areaFilter and areaName are null
+    // test that capitalCities list is empty when areaFilter and areaName are null
     @Test
     public void topNCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -412,7 +412,7 @@ public class DAO_UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // test that countries list is empty when areaFilter is null
+    // test that capitalCities list is empty when areaFilter is null
     @Test
     public void topNCapitalCitiesIn_areaFilterNullListEmpty()
     {
@@ -426,7 +426,7 @@ public class DAO_UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // test that countries list is empty when areaName is null
+    // test that capitalCities list is empty when areaName is null
     @Test
     public void topNCapitalCitiesIn_areaNameNullListEmpty()
     {

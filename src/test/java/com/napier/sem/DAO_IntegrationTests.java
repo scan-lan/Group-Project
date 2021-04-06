@@ -286,16 +286,36 @@ public class DAO_IntegrationTests
 
     // Tests that the returned results are correct
     @Test
-    void allCapitalCitiesIn_resultCapitalCitiesAreExpected()
+    void topNCapitalCitiesIn_resultCapitalCitiesAreExpected()
     {
         // given
-        String[] expectedCapitalCity = new String[]{"Canberra", "Wellington", "Kingston", "Flying Fish Cove", "West Island",};
+        int n = 5;
+        int x =0;
 
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.REGION, "Australia and New Zealand");
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", n);
 
         // then
-        for (int i = 0; i < 5; i++) assertEquals(expectedCapitalCity[i], capitalCities.get(i).getName());
+        while(x < n-1)
+        {
+            assertTrue(capitalCities.get(x).getPopulation() > capitalCities.get(x+1).getPopulation());
+            // the below is to prove that the test is making valid comparisons
+            System.out.println("position " + x + "- " + capitalCities.get(x).getPopulation());
+            System.out.println("compared with " + (x+1) + "- " + capitalCities.get(x+1).getPopulation());
+            x++;
+        }
+
+    }
+
+    @Test
+    void allCapitalCitiesIn_resultCapitalCitiesAreExpected2()
+    {
+        // given
+
+
+        // when
+
+        // then
     }
 
     /**
@@ -329,5 +349,7 @@ public class DAO_IntegrationTests
         // then
         for (int i = 0; i < languages.size(); i++) assertTrue(expectedLanguages.contains(languages.get(i).getLanguage()));
     }
+
+
 }
 

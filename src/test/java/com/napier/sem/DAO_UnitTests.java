@@ -391,7 +391,7 @@ public class DAO_UnitTests
         String areaName = "France";
 
         // then
-        dao.allCitiesIn(areaFilter, areaName); // No Error
+        dao.allCapitalCitiesIn(areaFilter, areaName); // No Error
     }
 
     /**

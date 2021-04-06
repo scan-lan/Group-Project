@@ -75,10 +75,8 @@ public class Record
                 population = result.getInt("totalPopulation");
                 populationLivingInCities = result.getInt("populationInCities");
                 percentageLivingInCities = Double.valueOf(populationLivingInCities) / Double.valueOf(population) * 100;
-                System.out.println(percentageLivingInCities);
                 populationNotLivingInCities = result.getInt("populationNotInCities");
                 percentageNotLivingInCities = Double.valueOf(populationNotLivingInCities) / Double.valueOf(population) * 100;
-                System.out.println(percentageNotLivingInCities);
                 break;
             case App.LANGUAGE:
                 language = result.getString("language");

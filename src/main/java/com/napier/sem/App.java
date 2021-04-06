@@ -14,7 +14,7 @@ public class App
     static final String CAPITAL_CITY = "capital city";
     static final String CITY = "city";
     static final String LANGUAGE = "language";
-    static final String CITY_POPULATION = "city population";
+    static final String POPULATION_RESIDENCE_REPORT = "population residence report";
 
     static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
 
@@ -96,7 +96,7 @@ public class App
 
         // Use-Cases 7.1-7.3
         // 7.1 - Produce a report on the population of people, people living in cities, and people not living in cities in each continent
-         ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(CONTINENT, "Europe");
+        ArrayList<Record> populationCities = dao.populationLivingInAndNotInCities(CONTINENT, "Europe");
         // 7.2 - Produce a report on the population of people, people living in cities, and people not living in cities in each region
         // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(REGION, "Carribean");
         // 7.3 - Produce a report on the population of people, people living in cities, and people not living in cities in each country

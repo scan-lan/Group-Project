@@ -124,7 +124,7 @@ public class Record
     }
 
     // Language constructor, just used for testing purposes.
-    public Record(String language, Integer speakers, Integer percentage)
+    public Record(String language, Long speakers, Integer percentage)
     {
         this.language = language;
         this.speakers = speakers;

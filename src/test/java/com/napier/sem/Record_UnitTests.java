@@ -4,16 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Record_UnitTests
-{
+public class Record_UnitTests {
     /**
      * Tests for the Record class
      */
     // Tests that when a country object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForCountry()
-    {
+    public void Record_testGettersAndToStringForCountry() {
         // given
         String countryCode = "SCT";
         String name = "Scotland";
@@ -44,8 +42,7 @@ public class Record_UnitTests
     // Tests that when a capital city object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForCapitalCity()
-    {
+    public void Record_testGettersAndToStringForCapitalCity() {
         // given
         String name = "Glasgow";
         String country = "Scotland";
@@ -72,8 +69,7 @@ public class Record_UnitTests
     // Tests that when a city object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForCity()
-    {
+    public void Record_testGettersAndToStringForCity() {
         // given
         String name = "Wishae";
         String country = "Scotland";
@@ -94,5 +90,29 @@ public class Record_UnitTests
         assertEquals(population, city.getPopulation());
         assertEquals(expectedRecordType, city.getRecordType());
         assertEquals(expectedToStringOutput, city.toString());
+    }
+
+    // Tests that when a language object is constructed, the getters and toString
+    // return the same fields that we passed in.
+    @Test
+    public void Record_testGettersAndToStringForLanguage()
+    {
+        // given
+        String language = "Gaelic";
+        Long speakers = 3L;
+        Integer percentage = 0;
+        String expectedRecordType = App.LANGUAGE;
+        String expectedToStringOutput = "Language: Gaelic |  Speakers: 3 | % of world's population: 0% \n" +
+                "-------------------------------------------------------";
+
+        // when
+        Record Language = new Record(language, speakers, percentage);
+
+        // then
+        assertEquals(language, Language.getLanguage());
+        assertEquals(speakers, Language.getSpeakers());
+        assertEquals(percentage, Language.getPercentage());
+        assertEquals(expectedRecordType, Language.getRecordType());
+        assertEquals(expectedToStringOutput, Language.toString());
     }
 }

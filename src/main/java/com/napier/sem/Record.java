@@ -122,6 +122,18 @@ public class Record
         recordType = App.CITY;
     }
 
+    //Population Residence Report constructor, just used for testing purposes.
+    public Record(String name, Long population, Long populationLivingInCities, Double percentageLivingInCities, Long populationNotLivingInCities, Double percentageNotLivingInCities)
+    {
+        this.name = name;
+        this.population = population;
+        this.populationLivingInCities = populationLivingInCities;
+        this.percentageLivingInCities = percentageLivingInCities;
+        this.populationNotLivingInCities = populationNotLivingInCities;
+        this.percentageNotLivingInCities = percentageNotLivingInCities;
+        recordType = App.POPULATION_RESIDENCE_REPORT;
+    }
+
     // Language constructor, just used for testing purposes.
     public Record(String language, Long speakers, Integer percentage)
     {
@@ -142,6 +154,10 @@ public class Record
     public String getLanguage() { return this.language; }
     public long getSpeakers() { return this.speakers; }
     public Integer getPercentage() { return this.percentage; }
+    public long getPopulationLivingInCities() { return this.populationLivingInCities; };
+    public double getPercentageLivingInCities() { return this.percentageLivingInCities; };;
+    public long getPopulationNotLivingInCities() { return this.populationNotLivingInCities; };;
+    public double getPercentageNotLivingInCities() { return this.percentageNotLivingInCities; };;
     public String getRecordType() { return this.recordType; }
 
     /**

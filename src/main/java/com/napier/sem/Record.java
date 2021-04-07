@@ -143,6 +143,14 @@ public class Record
         recordType = App.LANGUAGE;
     }
 
+    // Population constructor, just used for testing purposes.
+    public Record(String name, Long population)
+    {
+        this.name = name;
+        this.population = population;
+        recordType = App.POPULATION;
+    }
+
     public String getCountryCode() { return this.countryCode; }
     public String getName() { return this.name; }
     public String getContinent() { return this.continent; }

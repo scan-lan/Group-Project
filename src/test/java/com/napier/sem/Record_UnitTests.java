@@ -20,10 +20,10 @@ public class Record_UnitTests
         String continent = "Europe";
         String region = "Great Britain";
         String capital = "Edinburgh";
-        Integer population = 6000000;
+        long population = 6000000L;
         String expectedRecordType = App.COUNTRY;
         String expectedToStringOutput = "Country code: SCT | Name: Scotland | Continent: Europe\n" +
-                "Region: Great Britain | Population: 6000000 | Capital: Edinburgh\n" +
+                "Region: Great Britain | Population: 6,000,000 | Capital: Edinburgh\n" +
                 "-------------------------------------------------------";
 
 
@@ -51,9 +51,9 @@ public class Record_UnitTests
         String country = "Scotland";
         String region = "Great Britain";
         String continent = "Europe";
-        Integer population = 6000000;
+        long population = 6000000L;
         String expectedRecordType = App.CAPITAL_CITY;
-        String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6000000\n" +
+        String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6,000,000\n" +
                 "-------------------------------------------------------";
 
         // when
@@ -78,10 +78,10 @@ public class Record_UnitTests
         String name = "Wishae";
         String country = "Scotland";
         String district = "North Lanarkshire";
-        Integer population = 10000;
+        long population = 10000L;
         String expectedRecordType = App.CITY;
         String expectedToStringOutput = "Name: Wishae |  Country: Scotland \n" +
-                "District: North Lanarkshire |  Population: 10000\n" +
+                "District: North Lanarkshire |  Population: 10,000\n" +
                 "-------------------------------------------------------";
 
         // when

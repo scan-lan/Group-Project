@@ -33,9 +33,7 @@ public class Record
     private double percentageLivingInCities;
     private long populationNotLivingInCities;
     private double percentageNotLivingInCities;
-    private Long bigPopulation;
-    private String recordType;
-
+    private final String recordType;
 
     /**
      * Constructors
@@ -86,7 +84,7 @@ public class Record
                 break;
             case App.POPULATION:
                 name = result.getString("area");
-                bigPopulation = result.getLong("population");
+                population = result.getLong("population");
                 break;
         }
     }
@@ -202,10 +200,10 @@ public class Record
                         this.percentage);
                 break;
             case App.POPULATION:
-                recordString = String.format("Area: %s |  Population: %s\n" +
+                recordString = String.format("Area: %s |  Population: %,d\n" +
                                 "-------------------------------------------------------",
                         this.name,
-                        this.bigPopulation);
+                        this.population);
         }
         return recordString;
     }

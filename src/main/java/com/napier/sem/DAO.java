@@ -287,7 +287,7 @@ public class DAO
         switch (areaFilter)
         {
             case App.WORLD:
-                selectCondition = "World"; // Double Check
+                selectCondition = "'World'"; // Double Check
                 break;
             case App.CONTINENT:
                 selectCondition = "country.continent";
@@ -315,10 +315,11 @@ public class DAO
         }
 
         // Define the SQL query as a string
-        String statementString = "SELECT " + selectCondition + " AS area, SUM(DISTINCT " + sumCondition + ") AS population\n" +
+        String statementString = "SELECT " + selectCondition + " AS area,\n" +
+                "SUM(DISTINCT " + sumCondition + ") AS population\n" +
                 "FROM country\n" +
-                "JOIN city\n" +
-                "ON countryCode = code\n" +
+                "   JOIN city\n" +
+                "       ON countryCode = code\n" +
                 "WHERE " + whereCondition + "\n" +
                 "GROUP BY " + selectCondition + ";";
 

@@ -393,6 +393,34 @@ public class DAO_IntegrationTests
     /**
      * Integration tests covering the DAO.populationLivingInAndNotInCities method
      */
+    // Tests that area in query is the same as the area output
+    @Test
+    void populationLivingInAndNotInCities_correctAreaIsOutput()
+    {
+        // given
+        String areaName = "Japan";
+
+        // when
+        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
+
+        // then
+        assertEquals(areaName, populationResidenceReport.get(0).getName());
+    }
+
+    // Tests that an empty array is returned when the areaName is set incorrectly
+    @Test
+    void populationLivingInAndNotInCities_arrayIsEmptyWhenAreaNameIsInvalid() //Todo Fix test.
+    {
+        // given
+        String areaName = "Invalid Area";
+
+        // when
+        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(App.REGION, areaName);
+        System.out.println(populationResidenceReport.get(0));
+
+        // then
+        assertEquals(0, populationResidenceReport.size());
+    }
 
     /**
      * Integration tests covering the DAO.languageReport method

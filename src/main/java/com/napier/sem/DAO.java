@@ -47,8 +47,6 @@ public class DAO
             case App.DISTRICT:
                 whereCondition = "city.district = '" + areaName + "'\n";
                 break;
-            case App.CITY:
-                whereCondition = "city.name = '" + areaName + "'\n";
             default:
                 return null;
         }
@@ -252,7 +250,7 @@ public class DAO
 
         if (whereCondition == null)
         {
-            System.out.println("populationCitiesAndNonCities - invalid query condition");
+            System.out.println("populationLivingInAndNotInCities - invalid query condition");
             return new ArrayList<>();
         }
 

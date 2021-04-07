@@ -41,7 +41,7 @@ public class Record
      * Takes the result of an SQL query for a country or city extracts
      * the data we need and stores it in the class properties
      * @param result The result of a query that returns country records
-     * @throws SQLException
+     * @throws SQLException ...
      */
     public Record(ResultSet result, String recordType) throws SQLException
     {
@@ -162,10 +162,10 @@ public class Record
     public String getLanguage() { return this.language; }
     public long getSpeakers() { return this.speakers; }
     public Integer getPercentage() { return this.percentage; }
-    public long getPopulationLivingInCities() { return this.populationLivingInCities; };
-    public double getPercentageLivingInCities() { return this.percentageLivingInCities; };;
-    public long getPopulationNotLivingInCities() { return this.populationNotLivingInCities; };;
-    public double getPercentageNotLivingInCities() { return this.percentageNotLivingInCities; };;
+    public long getPopulationLivingInCities() { return this.populationLivingInCities; }
+    public double getPercentageLivingInCities() { return this.percentageLivingInCities; }
+    public long getPopulationNotLivingInCities() { return this.populationNotLivingInCities; }
+    public double getPercentageNotLivingInCities() { return this.percentageNotLivingInCities; }
     public String getRecordType() { return this.recordType; }
 
     /**

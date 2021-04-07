@@ -33,7 +33,7 @@ public class DAO
         switch (areaFilter)
         {
             case App.WORLD:
-                whereCondition = "TRUE\n";
+                whereCondition = "country.code LIKE '%'\n";
                 break;
             case App.CONTINENT:
                 whereCondition = "country.continent = '" + areaName + "'\n";
@@ -282,41 +282,14 @@ public class DAO
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
-        String selectCondition = null;
-        String sumCondition = "country.population";
-        switch (areaFilter)
-        {
-            case App.WORLD:
-                selectCondition = "'World'"; // Double Check
-                break;
-            case App.CONTINENT:
-                selectCondition = "country.continent";
-                break;
-            case App.REGION:
-                selectCondition = "country.region";
-                break;
-            case App.COUNTRY:
-                selectCondition = "country.name";
-                break;
-            case App.DISTRICT:
-                selectCondition = "city.district";
-                sumCondition = "city.population";
-            case App.CITY:
-                selectCondition = "city.name";
-                sumCondition = "city.population";
-                break;
-            default:
-                sumCondition = null;
-        }
-
         // Define the SQL query as a string
-        String statementString = "SELECT " + selectCondition + " AS area,\n" +
-                "SUM(DISTINCT " + sumCondition + ") AS population\n" +
+        String statementString = "SELECT " +
+                ((areaFilter.equals(App.WORLD)) ? "'world'" : whereCondition.split("\\s+")[0]) +
+                " AS area,\n" +
+                "SUM(" + whereCondition.split("\\.")[0] + ".population) AS population\n" +
                 "FROM country\n" +
-                "   JOIN city\n" +
-                "       ON countryCode = code\n" +
-                "WHERE " + whereCondition + "\n" +
-                "GROUP BY " + selectCondition + ";";
+                ((whereCondition.split("\\.")[0].equals("city")) ? "JOIN city ON countryCode = code\n" : "") +
+                "WHERE " + whereCondition + "\n";
 
         return executeStatement(statementString, App.POPULATION);
     }

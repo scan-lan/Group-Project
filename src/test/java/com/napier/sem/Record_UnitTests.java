@@ -147,4 +147,26 @@ public class Record_UnitTests {
         assertEquals(expectedRecordType, Language.getRecordType());
         assertEquals(expectedToStringOutput, Language.toString());
     }
+
+    // Tests that when a population object is constructed, the getters and toString
+    // return the same fields that we passed in.
+    @Test
+    public void Record_testGettersAndToStringForPopulation()
+    {
+        // given
+        String name = "China";
+        Long population = 999000000L;
+        String expectedRecordType = App.POPULATION;
+        String expectedToStringOutput = "Area: China |  Population: 999,000,000\n" +
+                "-------------------------------------------------------";
+
+        // when
+        Record Population = new Record(name, population);
+
+        // then
+        assertEquals(name, Population.getName());
+        assertEquals(population, Population.getPopulation());
+        assertEquals(expectedRecordType, Population.getRecordType());
+        assertEquals(expectedToStringOutput, Population.toString());
+    }
 }

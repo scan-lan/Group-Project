@@ -293,7 +293,7 @@ public class DAO
                 "SUM(" + whereCondition.split("\\.")[0] + ".population) AS population\n" +
                 "FROM country\n" +
                 ((whereCondition.split("\\.")[0].equals("city")) ? "JOIN city ON countryCode = code\n" : "") +
-                "WHERE " + whereCondition + "\n";
+                "WHERE " + whereCondition;
 
         return executeStatement(statementString, App.POPULATION);
     }

@@ -35,4 +35,15 @@ public class App_UnitTests
         // then
         assertNull(connection);
     }
+
+    // test that if the connection is null there is no error
+    @Test
+    public void disconnect_nullConnection()
+    {
+        //given
+        Connection connection = null;
+
+        //then
+        App.disconnect(connection);
+    }
 }

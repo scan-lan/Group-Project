@@ -290,19 +290,17 @@ public class DAO_IntegrationTests
     {
         // given
         int n = 5;
-        int x = 0;
 
         // when
         ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", n);
 
         // then
-        while(x < n-1)
+        for (int x = 0; x < n-1; x++)
         {
             assertTrue(capitalCities.get(x).getPopulation() > capitalCities.get(x+1).getPopulation());
             // the below is to prove that the test is making valid comparisons
             System.out.println("position " + x + "- " + capitalCities.get(x).getPopulation());
             System.out.println("compared with " + (x+1) + "- " + capitalCities.get(x+1).getPopulation());
-            x++;
         }
 
     }

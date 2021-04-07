@@ -69,7 +69,7 @@ public class App
 
         // Use-case 4.1-4.5
         // Produce a report on the top N populated cities in the world where N is provided by the user
-        ArrayList<Record> records = dao.topNCitiesIn(WORLD, "", 5);
+        // ArrayList<Record> records = dao.topNCitiesIn(WORLD, "", 5);
         // Produce a report on the top N populated cities in a continent where N is provided by the user
         // ArrayList<Record> records = dao.topNCitiesIn(CONTINENT, "Europe", 5);
         // Produce a report on the top N populated cities in a region where N is provided by the user
@@ -91,7 +91,7 @@ public class App
         // 6.1 - Produce a report on the top N capital cities in the world organised by largest population to smallest
         // ArrayList<Record> records = dao.topNCapitalCitiesIn(WORLD, "",5);
         // 6.2 - Produce a report on the top N capital cities in a continent organised by largest population to smallest
-        // ArrayList<Record> records = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
+        ArrayList<Record> records = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
         // 6.3 - Produce a report on the top N capital cities in a region organised by largest population to smallest
         // ArrayList<Record> records = dao.topNCapitalCitiesIn(REGION, "Caribbean", 7);
 

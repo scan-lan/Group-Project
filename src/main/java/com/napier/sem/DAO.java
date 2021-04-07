@@ -280,6 +280,12 @@ public class DAO
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
+        if (whereCondition == null)
+        {
+            System.out.println("populationLivingInAndNotInCities - invalid query condition");
+            return new ArrayList<>();
+        }
+
         // Define the SQL query as a string
         String statementString = "SELECT " +
                 ((areaFilter.equals(App.WORLD)) ? "'world'" : whereCondition.split("\\s+")[0]) +

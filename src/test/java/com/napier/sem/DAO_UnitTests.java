@@ -459,8 +459,8 @@ public class DAO_UnitTests
     public void topNCapitalCitiesIn_happyPath()
     {
         // given
-        String areaFilter = App.COUNTRY;
-        String areaName = "France";
+        String areaFilter = App.REGION;
+        String areaName = "Nordic Countries";
 
         // then
         dao.topNCapitalCitiesIn(areaFilter, areaName, 15); // No Error
@@ -517,8 +517,8 @@ public class DAO_UnitTests
     public void populationLivingInAndNotInCities_happyPath()
     {
         // given
-        String areaFilter = App.COUNTRY;
-        String areaName = "France";
+        String areaFilter = App.CONTINENT;
+        String areaName = "Asia";
 
         // then
         dao.populationLivingInAndNotInCities(areaFilter, areaName); // No Error
@@ -577,8 +577,8 @@ public class DAO_UnitTests
     public void populationOf_happyPath()
     {
         // given
-        String areaFilter = App.COUNTRY;
-        String areaName = "France";
+        String areaFilter = App.WORLD;
+        String areaName = "";
 
         // then
         dao.populationOf(areaFilter, areaName); // No Error

@@ -89,19 +89,19 @@ public class App
 
         // Use-Cases 6.1-6.3
         // 6.1 - Produce a report on the top N capital cities in the world organised by largest population to smallest
-        // ArrayList<Record> records = dao.topNCapitalCitiesIn(WORLD, "",5);
+         ArrayList<Record> records = dao.topNCapitalCitiesIn(WORLD, "",5);
         // 6.2 - Produce a report on the top N capital cities in a continent organised by largest population to smallest
-        ArrayList<Record> records = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
+        // ArrayList<Record> records = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
         // 6.3 - Produce a report on the top N capital cities in a region organised by largest population to smallest
         // ArrayList<Record> records = dao.topNCapitalCitiesIn(REGION, "Caribbean", 7);
 
         // Use-Cases 7.1-7.3
         // 7.1 - Produce a report on the population of people, people living in cities, and people not living in cities in each continent
-        // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(CONTINENT, "Europe");
+        // ArrayList<Record> records = dao.populationLivingInAndNotInCities(CONTINENT, "Europe");
         // 7.2 - Produce a report on the population of people, people living in cities, and people not living in cities in each region
-        // ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(REGION, "Caribbean");
+        // ArrayList<Record> records = dao.populationLivingInAndNotInCities(REGION, "Caribbean");
         // 7.3 - Produce a report on the population of people, people living in cities, and people not living in cities in each country
-        //ArrayList<Record> populationCities = dao.populationCitiesAndNonCities(COUNTRY, "France");
+        // ArrayList<Record> records = dao.populationLivingInAndNotInCities(COUNTRY, "France");
 
         // Use-Cases 8.1-8.6
         // 8.1 - Produce a report on the population of the world

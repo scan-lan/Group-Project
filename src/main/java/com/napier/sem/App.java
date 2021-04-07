@@ -105,7 +105,7 @@ public class App
 
         // Use-Cases 8.1-8.6
         // 8.1 - Produce a report on the population of the world
-        // ArrayList<Record> populationOf = dao.populationOf(WORLD, "");
+        ArrayList<Record> populationOf = dao.populationOf(WORLD, "");
         // 8.2 - Produce a report on the population of a continent
         // ArrayList<Record> populationOf = dao.populationOf(CONTINENT, "Europe");
         // 8.3 - Produce a report on the population of a region
@@ -113,7 +113,7 @@ public class App
         // 8.4 - Produce a report on the population of a country
         // ArrayList<Record> populationOf = dao.populationOf(COUNTRY, "Spain");
         // 8.5 - Produce a report on the population of a district
-        ArrayList<Record> populationOf = dao.populationOf(DISTRICT, "Scotland");
+        // ArrayList<Record> populationOf = dao.populationOf(DISTRICT, "Scotland");
         // 8.6 - Produce a report on the population of a city
         // ArrayList<Record> populationOf = dao.populationOf(CITY, "London");
 

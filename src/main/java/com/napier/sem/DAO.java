@@ -33,7 +33,7 @@ public class DAO
         switch (areaFilter)
         {
             case App.WORLD:
-                whereCondition = "TRUE\n";
+                whereCondition = "country.code LIKE '%'\n";
                 break;
             case App.CONTINENT:
                 whereCondition = "country.continent = '" + areaName + "'\n";
@@ -47,6 +47,8 @@ public class DAO
             case App.DISTRICT:
                 whereCondition = "city.district = '" + areaName + "'\n";
                 break;
+            case App.CITY:
+                whereCondition = "city.name = '" + areaName + "'\n";
             default:
                 return null;
         }
@@ -268,6 +270,28 @@ public class DAO
                 "    WHERE " + whereCondition + ") c";
 
         return executeStatement(statementString, App.POPULATION_RESIDENCE_REPORT);
+    }
+
+    /**
+     * Use cases 8.1-8.6
+     * Constructs an SQL query to fetch the population in a specific area, and executes the query.
+     *
+     * @return The population of a specified area
+     */
+    public ArrayList<Record> populationOf(String areaFilter, String areaName)
+    {
+        String whereCondition = getWhereCondition(areaFilter, areaName);
+
+        // Define the SQL query as a string
+        String statementString = "SELECT " +
+                ((areaFilter.equals(App.WORLD)) ? "'world'" : whereCondition.split("\\s+")[0]) +
+                " AS area,\n" +
+                "SUM(" + whereCondition.split("\\.")[0] + ".population) AS population\n" +
+                "FROM country\n" +
+                ((whereCondition.split("\\.")[0].equals("city")) ? "JOIN city ON countryCode = code\n" : "") +
+                "WHERE " + whereCondition + "\n";
+
+        return executeStatement(statementString, App.POPULATION);
     }
 
     /**

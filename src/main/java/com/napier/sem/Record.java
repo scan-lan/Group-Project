@@ -83,6 +83,10 @@ public class Record
                 speakers = result.getInt("speakers");
                 percentage = result.getInt("percentage");
                 break;
+            case App.POPULATION:
+                name = result.getString("area");
+                population = result.getLong("population");
+                break;
         }
     }
 
@@ -196,6 +200,11 @@ public class Record
                         this.speakers,
                         this.percentage);
                 break;
+            case App.POPULATION:
+                recordString = String.format("Area: %s |  Population: %,d\n" +
+                                "-------------------------------------------------------",
+                        this.name,
+                        this.population);
         }
         return recordString;
     }

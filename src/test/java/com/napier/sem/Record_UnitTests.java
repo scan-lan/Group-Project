@@ -92,6 +92,38 @@ public class Record_UnitTests {
         assertEquals(expectedToStringOutput, city.toString());
     }
 
+    // Tests that when a population residence report object is constructed, the getters and toString
+    // return the same fields that we passed in.
+    @Test
+    public void Record_testGettersAndToStringForPopulationResidenceReport()
+    {
+        // given
+        String name = "East Kilbride";
+        Long population = 7000L;
+        Long populationLivingInCities = 6999L;
+        Double percentageLivingInCities = 99.99D;
+        Long populationNotLivingInCities = 1L;
+        Double percentageNotLivingInCities = 0.01D;
+        String expectedRecordType = App.POPULATION_RESIDENCE_REPORT;
+        String expectedToStringOutput = "Area: East Kilbride | Total population: 7,000\n" +
+                "Population living in Cities: 6,999 (99.99%)\n" +
+                "Population not living in Cities: 1 (0.01%)\n" +
+                "-------------------------------------------------------";
+
+        // when
+        Record populationResidenceReport = new Record(name, population, populationLivingInCities, percentageLivingInCities, populationNotLivingInCities, percentageNotLivingInCities);
+
+        // then
+        assertEquals(name, populationResidenceReport.getName());
+        assertEquals(population, populationResidenceReport.getPopulation());
+        assertEquals(populationLivingInCities, populationResidenceReport.getPopulationLivingInCities());
+        assertEquals(percentageLivingInCities, populationResidenceReport.getPercentageLivingInCities());
+        assertEquals(populationNotLivingInCities, populationResidenceReport.getPopulationNotLivingInCities());
+        assertEquals(percentageNotLivingInCities, populationResidenceReport.getPercentageNotLivingInCities());
+        assertEquals(expectedRecordType, populationResidenceReport.getRecordType());
+        assertEquals(expectedToStringOutput, populationResidenceReport.toString());
+    }
+
     // Tests that when a language object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test

@@ -14,7 +14,11 @@ public class App
     static final String CAPITAL_CITY = "capital city";
     static final String CITY = "city";
     static final String LANGUAGE = "language";
+<<<<<<< HEAD
     static final String POPULATION_RESIDENCE_REPORT = "population residence report";
+=======
+    static final String CITY_POPULATION = "city population";
+>>>>>>> abe7dc8e8207dc5a630f1135fdf5229a80cff39d
     static final String POPULATION = "population";
 
     static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
@@ -113,7 +117,11 @@ public class App
         // 8.4 - Produce a report on the population of a country
         // ArrayList<Record> populationOf = dao.populationOf(COUNTRY, "Spain");
         // 8.5 - Produce a report on the population of a district
+<<<<<<< HEAD
         ArrayList<Record> populationOf = dao.populationOf(DISTRICT, "Scotland");
+=======
+         ArrayList<Record> populationOf = dao.populationOf(DISTRICT, "Scotland");
+>>>>>>> abe7dc8e8207dc5a630f1135fdf5229a80cff39d
         // 8.6 - Produce a report on the population of a city
         // ArrayList<Record> populationOf = dao.populationOf(CITY, "London");
 

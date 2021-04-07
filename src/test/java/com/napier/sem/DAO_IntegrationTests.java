@@ -286,11 +286,11 @@ public class DAO_IntegrationTests
 
     // Tests that the returned results are correct
     @Test
-    void topNCapitalCitiesIn_resultCapitalCitiesAreExpected()
+    void topNCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
         // given
         int n = 5;
-        int x =0;
+        int x = 0;
 
         // when
         ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", n);

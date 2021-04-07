@@ -312,11 +312,87 @@ public class DAO_IntegrationTests
     {
         // given
 
-
         // when
 
         // then
     }
+
+    /**
+     * Integration tests covering the DAO.topNCapitalCitiesIn method
+     */
+    // Tests that the number of results is less than or equal to integer n
+    @Test
+    void topNCapitalCitiesIn_arrayIsCorrectSize ()
+    {
+        // given
+        int n = 5;
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.DISTRICT, "Scotland", n);
+
+        // then
+        assertTrue(capitalCities.size() <= n);
+    }
+
+    // Tests that the returned results are correct and in order
+    @Test
+    void topNCapitalCitiesIn_resultCitiesAreExpected ()
+    {
+        // given
+        String[] expectedCapitalCities = new String[]{"Moscow", "London" , "Berlin", "Madrid", "Roma"};
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "europe", 5);
+
+        // then
+        for (int i = 0; i < 5; i++) assertEquals(expectedCapitalCities[i], capitalCities.get(i).getName());
+    }
+
+    // Tests that an empty array is returned when integer n is set to 0
+    @Test
+    void topNCapitalCitiesIn_whenNZeroArrayIsEmpty ()
+    {
+        // given
+        int n = 0;
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.WORLD, "", n);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // Tests that an empty array is returned when the areaName is set incorrectly
+    @Test
+    void topNCapitalCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid ()
+    {
+        // given
+        String areaName = "SmurfCity USA";
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.REGION, areaName, 10);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // Tests all capital cities are in the given area that was passed
+    @Test
+    void topNCapitalCitiesIn_allAreasMatchFilter ()
+    {
+        // given
+        String areaName = "United Kingdom";
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, areaName, 10);
+
+        // then
+        for (Record capitalCity : capitalCities) assertEquals("United Kingdom", capitalCity.getCountry());
+    }
+
+    /**
+     * Integration tests covering the DAO.populationLivingInAndNotInCities method
+     */
 
     /**
      * Integration tests covering the DAO.languageReport method
@@ -340,7 +416,7 @@ public class DAO_IntegrationTests
     void languageReport_returnedLanguagesAsExpected()
     {
         // given
-        ArrayList<String> expectedLanguages = new ArrayList<String>(
+        ArrayList<String> expectedLanguages = new ArrayList<>(
                 Arrays.asList("Chinese", "English", "Hindi", "Arabic", "Spanish"));
 
         // when

@@ -25,13 +25,13 @@ public class Record
     private String country;
     private String district;
     private String capital;
-    private Integer population;
+    private long population;
     private String language;
-    private Integer speakers;
+    private long speakers;
     private Integer percentage;
-    private Integer populationLivingInCities;
+    private long populationLivingInCities;
     private double percentageLivingInCities;
-    private Integer populationNotLivingInCities;
+    private long populationNotLivingInCities;
     private double percentageNotLivingInCities;
     private final String recordType;
 
@@ -54,7 +54,7 @@ public class Record
                 name = result.getString("name");
                 continent = result.getString("continent");
                 region = result.getString("region");
-                population = result.getInt("population");
+                population = result.getLong("population");
                 capital = result.getString("capital");
                 break;
             case App.CAPITAL_CITY:
@@ -62,21 +62,21 @@ public class Record
                 country = result.getString("country");
                 region = result.getString("region");
                 continent = result.getString("continent");
-                population = result.getInt("population");
+                population = result.getLong("population");
                 break;
             case App.CITY:
                 name = result.getString("name");
                 country = result.getString("country");
                 district = result.getString("district");
-                population = result.getInt("population");
+                population = result.getLong("population");
                 break;
             case App.POPULATION_RESIDENCE_REPORT:
                 name = result.getString("name");
-                population = result.getInt("totalPopulation");
-                populationLivingInCities = result.getInt("populationInCities");
-                percentageLivingInCities = Double.valueOf(populationLivingInCities) / Double.valueOf(population) * 100;
-                populationNotLivingInCities = result.getInt("populationNotInCities");
-                percentageNotLivingInCities = Double.valueOf(populationNotLivingInCities) / Double.valueOf(population) * 100;
+                population = result.getLong("totalPopulation");
+                populationLivingInCities = result.getLong("populationInCities");
+                percentageLivingInCities = (double) populationLivingInCities / (double) population * 100;
+                populationNotLivingInCities = result.getLong("populationNotInCities");
+                percentageNotLivingInCities = (double) populationNotLivingInCities / (double) population * 100;
                 break;
             case App.LANGUAGE:
                 language = result.getString("language");
@@ -87,7 +87,7 @@ public class Record
     }
 
     // Country constructor, just used for testing purposes.
-    public Record(String countryCode, String name, String continent, String region, Integer population, String capital)
+    public Record(String countryCode, String name, String continent, String region, long population, String capital)
     {
         this.countryCode = countryCode;
         this.name = name;
@@ -99,7 +99,7 @@ public class Record
     }
 
     // Capital city constructor, just used for testing purposes.
-    public Record(String name, String country, String region, String continent, Integer population)
+    public Record(String name, String country, String region, String continent, long population)
     {
         this.name = name;
         this.country = country;
@@ -110,7 +110,7 @@ public class Record
     }
 
     // City constructor, just used for testing purposes.
-    public Record(String name, String country, String district, Integer population)
+    public Record(String name, String country, String district, long population)
     {
         this.name = name;
         this.country = country;
@@ -134,10 +134,10 @@ public class Record
     public String getRegion() { return this.region; }
     public String getCountry() { return this.country; }
     public String getDistrict() { return this.district; }
-    public Integer getPopulation() { return this.population; }
+    public long getPopulation() { return this.population; }
     public String getCapital() { return this.capital; }
     public String getLanguage() { return this.language; }
-    public Integer getSpeakers() { return this.speakers; }
+    public long getSpeakers() { return this.speakers; }
     public Integer getPercentage() { return this.percentage; }
     public String getRecordType() { return this.recordType; }
 

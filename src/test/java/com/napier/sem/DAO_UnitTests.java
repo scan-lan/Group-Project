@@ -329,8 +329,8 @@ public class DAO_UnitTests
     public void topNCitiesIn_happyPath()
     {
         // given
-        String areaFilter = App.COUNTRY;
-        String areaName = "France";
+        String areaFilter = App.WORLD;
+        String areaName = "";
 
         // then
         dao.topNCitiesIn(areaFilter, areaName, 15); // No Error
@@ -577,8 +577,8 @@ public class DAO_UnitTests
     public void populationOf_happyPath()
     {
         // given
-        String areaFilter = App.WORLD;
-        String areaName = "";
+        String areaFilter = App.CITY;
+        String areaName = "Glasgow";
 
         // then
         dao.populationOf(areaFilter, areaName); // No Error

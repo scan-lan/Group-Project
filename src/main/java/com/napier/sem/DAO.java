@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.WeakHashMap;
 
 
 /**
@@ -46,6 +47,9 @@ public class DAO
                 break;
             case App.DISTRICT:
                 whereCondition = "city.district = '" + areaName + "'\n";
+                break;
+            case App.CITY:
+                whereCondition = "city.name = '" + areaName + "'\n";
                 break;
             default:
                 return null;

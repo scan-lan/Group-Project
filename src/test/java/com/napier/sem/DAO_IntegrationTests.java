@@ -284,7 +284,8 @@ public class DAO_IntegrationTests
         assertEquals(0, capitalCities.size());
     }
 
-    // Tests that the returned results are correct
+    // Tests that the results are listed in descending order.  Can be used instead of topNCapitalCitiesIn_resultCitiesAreExpected
+    // Which has hard coded values
     @Test
     void topNCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
@@ -467,7 +468,4 @@ public class DAO_IntegrationTests
         // then
         for (Record language : languages) assertTrue(expectedLanguages.contains(language.getName()));
     }
-
-
 }
-

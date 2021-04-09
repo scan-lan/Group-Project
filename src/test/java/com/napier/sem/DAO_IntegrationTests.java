@@ -298,21 +298,7 @@ public class DAO_IntegrationTests
         for (int x = 0; x < n-1; x++)
         {
             assertTrue(capitalCities.get(x).getPopulation() > capitalCities.get(x+1).getPopulation());
-            // the below is to prove that the test is making valid comparisons
-            System.out.println("position " + x + "- " + capitalCities.get(x).getPopulation());
-            System.out.println("compared with " + (x+1) + "- " + capitalCities.get(x+1).getPopulation());
         }
-
-    }
-
-    @Test
-    void allCapitalCitiesIn_resultCapitalCitiesAreExpected2()
-    {
-        // given
-
-        // when
-
-        // then
     }
 
     /**
@@ -407,17 +393,47 @@ public class DAO_IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void populationLivingInAndNotInCities_arrayIsEmptyWhenAreaNameIsInvalid() //Todo Fix test.
+    void populationLivingInAndNotInCities_arrayIsEmptyWhenAreaNameIsInvalid()
     {
         // given
         String areaName = "Invalid Area";
 
         // when
         ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(App.REGION, areaName);
-        System.out.println(populationResidenceReport.get(0));
-        System.out.println(populationResidenceReport.size());
+
         // then
         assertEquals(0, populationResidenceReport.size());
+    }
+
+    /**
+     * Integration tests covering the DAO.populationOf method
+     */
+    // Tests that area in query is the same as the area output
+    @Test
+    void populationOf_correctAreaIsOutput()
+    {
+        // given
+        String areaName = "Japan";
+
+        // when
+        ArrayList<Record> population = dao.populationOf(App.COUNTRY, areaName);
+
+        // then
+        assertEquals(areaName, population.get(0).getName());
+    }
+
+    // Tests that an empty array is returned when the areaName is set incorrectly
+    @Test
+    void populationOf_arrayIsEmptyWhenAreaNameIsInvalid()
+    {
+        // given
+        String areaName = "Invalid Area";
+
+        // when
+        ArrayList<Record> population = dao.populationOf(App.REGION, areaName);
+
+        // then
+        assertEquals(0, population.size());
     }
 
     /**
@@ -449,7 +465,7 @@ public class DAO_IntegrationTests
         ArrayList<Record> languages = dao.languageReport();
 
         // then
-        for (int i = 0; i < languages.size(); i++) assertTrue(expectedLanguages.contains(languages.get(i).getLanguage()));
+        for (Record language : languages) assertTrue(expectedLanguages.contains(language.getName()));
     }
 
 

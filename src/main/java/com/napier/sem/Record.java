@@ -26,7 +26,6 @@ public class Record
     private String district;
     private String capital;
     private long population;
-    private String language;
     private long speakers;
     private Integer percentage;
     private long populationLivingInCities;
@@ -78,12 +77,12 @@ public class Record
                 percentageNotLivingInCities = (double) populationNotLivingInCities / (double) population * 100;
                 break;
             case App.LANGUAGE:
-                language = result.getString("language");
+                name = result.getString("name");
                 speakers = result.getInt("speakers");
                 percentage = result.getInt("percentage");
                 break;
             case App.POPULATION:
-                name = result.getString("area");
+                name = result.getString("name");
                 population = result.getLong("population");
                 break;
         }
@@ -135,9 +134,9 @@ public class Record
     }
 
     // Language constructor, just used for testing purposes.
-    public Record(String language, Long speakers, Integer percentage)
+    public Record(String name, Long speakers, Integer percentage)
     {
-        this.language = language;
+        this.name = name;
         this.speakers = speakers;
         this.percentage = percentage;
         recordType = App.LANGUAGE;
@@ -159,7 +158,6 @@ public class Record
     public String getDistrict() { return this.district; }
     public long getPopulation() { return this.population; }
     public String getCapital() { return this.capital; }
-    public String getLanguage() { return this.language; }
     public long getSpeakers() { return this.speakers; }
     public Integer getPercentage() { return this.percentage; }
     public long getPopulationLivingInCities() { return this.populationLivingInCities; }
@@ -219,7 +217,7 @@ public class Record
             case App.LANGUAGE:
                 recordString = String.format("Language: %s |  Speakers: %,d | %% of world's population: %d%% \n" +
                                 "-------------------------------------------------------",
-                        this.language,
+                        this.name,
                         this.speakers,
                         this.percentage);
                 break;

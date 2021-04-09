@@ -285,25 +285,7 @@ public class DAO_IntegrationTests
     }
 
     // Tests that the returned results are correct
-    @Test
-    void topNCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
-    {
-        // given
-        int n = 5;
 
-        // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", n);
-
-        // then
-        for (int x = 0; x < n-1; x++)
-        {
-            assertTrue(capitalCities.get(x).getPopulation() > capitalCities.get(x+1).getPopulation());
-            // the below is to prove that the test is making valid comparisons
-            System.out.println("position " + x + "- " + capitalCities.get(x).getPopulation());
-            System.out.println("compared with " + (x+1) + "- " + capitalCities.get(x+1).getPopulation());
-        }
-
-    }
 
     @Test
     void allCapitalCitiesIn_resultCapitalCitiesAreExpected2()
@@ -386,6 +368,28 @@ public class DAO_IntegrationTests
 
         // then
         for (Record capitalCity : capitalCities) assertEquals("United Kingdom", capitalCity.getCountry());
+    }
+
+    // Tests that the results are listed in descending order.  Can be used instead of topNCapitalCitiesIn_resultCitiesAreExpected
+    // Which has hard coded values
+    @Test
+    void topNCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
+    {
+        // given
+        int n = 5;
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", n);
+
+        // then
+        for (int x = 0; x < n-1; x++)
+        {
+            assertTrue(capitalCities.get(x).getPopulation() > capitalCities.get(x+1).getPopulation());
+            // the below is to prove that the test is making valid comparisons
+            System.out.println("position " + x + "- " + capitalCities.get(x).getPopulation());
+            System.out.println("compared with " + (x+1) + "- " + capitalCities.get(x+1).getPopulation());
+        }
+
     }
 
     /**

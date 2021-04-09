@@ -141,7 +141,7 @@ public class Record_UnitTests {
         Record Language = new Record(language, speakers, percentage);
 
         // then
-        assertEquals(language, Language.getLanguage());
+        assertEquals(language, Language.getName());
         assertEquals(speakers, Language.getSpeakers());
         assertEquals(percentage, Language.getPercentage());
         assertEquals(expectedRecordType, Language.getRecordType());

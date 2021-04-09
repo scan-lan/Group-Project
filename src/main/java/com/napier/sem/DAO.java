@@ -78,7 +78,7 @@ public class DAO
             // Create Country object and add it to the list for each result in the query
             while (resultSet.next())
             {
-                records.add(new Record(resultSet, recordType));
+                if (resultSet.getString("name") != null) { records.add(new Record(resultSet, recordType)); }
             }
         }
         catch (SQLException e)
@@ -262,7 +262,8 @@ public class DAO
                 "totalPopulation,\n" +
                 "populationInCities,\n" +
                 "(totalPopulation - populationInCities) AS populationNotInCities\n" +
-                "FROM (SELECT " + whereCondition.split("\\s+")[0] + " AS name, SUM(population) AS totalPopulation\n" +
+                "FROM (SELECT " + whereCondition.split("\\s+")[0] + " AS name,\n" +
+                "SUM(population) AS totalPopulation\n" +
                 "    FROM country\n" +
                 "    WHERE " + whereCondition + ") t,\n" +
                 "    (SELECT SUM(city.population) AS populationInCities\n" +
@@ -292,7 +293,7 @@ public class DAO
         // Define the SQL query as a string
         String statementString = "SELECT " +
                 ((areaFilter.equals(App.WORLD)) ? "'world'" : whereCondition.split("\\s+")[0]) +
-                " AS area,\n" +
+                " AS name,\n" +
                 "SUM(" + whereCondition.split("\\.")[0] + ".population) AS population\n" +
                 "FROM country\n" +
                 ((whereCondition.split("\\.")[0].equals("city")) ? "JOIN city ON countryCode = code\n" : "") +
@@ -310,7 +311,7 @@ public class DAO
     public ArrayList<Record> languageReport()
     {
         String statementString = "WITH x AS (SELECT SUM(population) AS world_population FROM country)\n" +
-                "SELECT `language`, speakers, ((speakers / world_population) * 100) AS percentage\n" +
+                "SELECT `language` AS name, speakers, ((speakers / world_population) * 100) AS percentage\n" +
                 "FROM x, (\n" +
                 "    SELECT `language`,\n" +
                 "       CEILING(SUM(population * (percentage / 100))) AS speakers\n" +

@@ -415,7 +415,7 @@ public class DAO_IntegrationTests
         // when
         ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(App.REGION, areaName);
         System.out.println(populationResidenceReport.get(0));
-        System.out.println(populationResidenceReport.size());
+
         // then
         assertEquals(0, populationResidenceReport.size());
     }

@@ -75,6 +75,24 @@ public class DAO_IntegrationTests
         assertEquals(0, countries.size());
     }
 
+    // Tests that the results are listed in descending order.
+    @Test
+    void allCountriesIn_countriesPopulationIsInDescendingOrder()
+    {
+        // given
+        String areaName = "Asia";
+
+        // when
+        ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, areaName);
+
+        // then
+        int n = countries.size();
+        for (int x = 0; x < n-1; x++)
+        {
+            assertTrue(countries.get(x).getPopulation() >= countries.get(x+1).getPopulation());
+        }
+    }
+
     /**
      * Integration tests covering the DAO.topNCountriesIn method
      */
@@ -90,21 +108,6 @@ public class DAO_IntegrationTests
 
         // then
         assertTrue(countries.size() <= n);
-    }
-
-    // Tests that the returned results are correct and in order
-    @Test
-    void topNCountriesIn_resultCountriesAreExpected()
-    {
-        // given
-        // Output string will be updated when I have access to MySQL
-        String[] expectedCountries = new String[]{"China", "India", "Indonesia"};
-
-        // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, "Asia", 3);
-
-        // then
-        for (int i = 0; i < 3; i++) assertEquals(expectedCountries[i], countries.get(i).getName());
     }
 
     // Tests that an empty array is returned when integer n is set to 0
@@ -149,6 +152,22 @@ public class DAO_IntegrationTests
         for (Record country : countries) assertEquals("Europe", country.getContinent());
     }
 
+    @Test
+    void topNCountriesIn_countriesPopulationIsInDescendingOrder()
+    {
+        // given
+        int n = 5;
+
+        // when
+        ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, "Europe", 5);
+
+        // then
+        for (int x = 0; x < n-1; x++)
+        {
+            assertTrue(countries.get(x).getPopulation() >= countries.get(x+1).getPopulation());
+        }
+    }
+
     /**
      * Integration tests covering the DAO.allCitiesIn method
      */
@@ -180,6 +199,23 @@ public class DAO_IntegrationTests
         assertEquals(0, cities.size());
     }
 
+    @Test // run test
+    void allCitiesIn_allCitiesPopulationIsInDescendingOrder()
+    {
+        // given
+        String areaName = "United Kingdom";
+
+        // when
+        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
+
+        // then
+        int n = cities.size();
+        for (int x = 0; x < n-1; x++)
+        {
+            assertTrue(cities.get(x).getPopulation() >= cities.get(x+1).getPopulation());
+        }
+    }
+
     /**
      * Integration tests covering the DAO.topNCitiesIn method
      */
@@ -195,20 +231,6 @@ public class DAO_IntegrationTests
 
         // then
         assertTrue(cities.size() <= n);
-    }
-
-    // Tests that the returned results are correct and in order
-    @Test
-    void topNCitiesIn_resultCitiesAreExpected ()
-    {
-        // given
-        String[] expectedCities = new String[]{"Moscow", "London", "St Petersburg", "Berlin", "Madrid"};
-
-        // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.CONTINENT, "europe", 5);
-
-        // then
-        for (int i = 0; i < 5; i++) assertEquals(expectedCities[i], cities.get(i).getName());
     }
 
     // Tests that an empty array is returned when integer n is set to 0
@@ -253,6 +275,23 @@ public class DAO_IntegrationTests
         for (Record city : cities) assertEquals("United Kingdom", city.getCountry());
     }
 
+    // Tests that the results are listed in descending order.
+    @Test
+    void topNCitiesIn_topNCitiesPopulationIsInDescendingOrder()
+    {
+        // Given
+        int n = 5;
+
+        // when
+        ArrayList<Record> cities = dao.topNCitiesIn(App.CONTINENT, "Europe", n);
+
+        // then
+        for (int x = 0; x < n-1; x++)
+        {
+            assertTrue(cities.get(x).getPopulation() >= cities.get(x+1).getPopulation());
+        }
+    }
+
     /**
      * Integration tests covering the DAO.allCapitalCitiesIn method
      */
@@ -283,16 +322,22 @@ public class DAO_IntegrationTests
         // then
         assertEquals(0, capitalCities.size());
     }
-
-    // Tests that the returned results are correct
+    // Tests that the results are listed in descending order.
     @Test
-    void allCapitalCitiesIn_resultCapitalCitiesAreExpected2()
+    void allCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
-        // given
+        // Given
+        String areaName = "Asia";
 
         // when
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
 
         // then
+        int n = capitalCities.size();
+        for (int x = 0; x < n-1; x++)
+        {
+            assertTrue(capitalCities.get(x).getPopulation() >= capitalCities.get(x+1).getPopulation());
+        }
     }
 
     /**
@@ -310,20 +355,6 @@ public class DAO_IntegrationTests
 
         // then
         assertTrue(capitalCities.size() <= n);
-    }
-
-    // Tests that the returned results are correct and in order
-    @Test
-    void topNCapitalCitiesIn_resultCitiesAreExpected ()
-    {
-        // given
-        String[] expectedCapitalCities = new String[]{"Moscow", "London" , "Berlin", "Madrid", "Roma"};
-
-        // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "europe", 5);
-
-        // then
-        for (int i = 0; i < 5; i++) assertEquals(expectedCapitalCities[i], capitalCities.get(i).getName());
     }
 
     // Tests that an empty array is returned when integer n is set to 0
@@ -382,12 +413,8 @@ public class DAO_IntegrationTests
         // then
         for (int x = 0; x < n-1; x++)
         {
-            assertTrue(capitalCities.get(x).getPopulation() > capitalCities.get(x+1).getPopulation());
-            // the below is to prove that the test is making valid comparisons
-            System.out.println("position " + x + "- " + capitalCities.get(x).getPopulation());
-            System.out.println("compared with " + (x+1) + "- " + capitalCities.get(x+1).getPopulation());
+            assertTrue(capitalCities.get(x).getPopulation() >= capitalCities.get(x+1).getPopulation());
         }
-
     }
 
     /**

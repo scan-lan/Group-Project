@@ -83,10 +83,9 @@ public class DAO_IntegrationTests
         ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, "Asia");
 
         // then
-        int i = countries.size();
-        for (int x = 0; x < i-1; x++)
+        for (int i = 0; i < (countries.size()-1); i++)
         {
-            assertTrue(countries.get(x).getPopulation() >= countries.get(x+1).getPopulation());
+            assertTrue(countries.get(i).getPopulation() >= countries.get(i+1).getPopulation());
         }
     }
 
@@ -157,10 +156,9 @@ public class DAO_IntegrationTests
         ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, "Europe", 5);
 
         // then
-        int i = countries.size();
-        for (int x = 0; x < i-1; x++)
+        for (int i = 0; i < (countries.size()-1); i++)
         {
-            assertTrue(countries.get(x).getPopulation() >= countries.get(x+1).getPopulation());
+            assertTrue(countries.get(i).getPopulation() >= countries.get(i+1).getPopulation());
         }
     }
 
@@ -203,10 +201,9 @@ public class DAO_IntegrationTests
         ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, "United Kingdom");
 
         // then
-        int i = cities.size();
-        for (int x = 0; x < i-1; x++)
+        for (int i = 0; i < (cities.size()-1); i++)
         {
-            assertTrue(cities.get(x).getPopulation() >= cities.get(x+1).getPopulation());
+            assertTrue(cities.get(i).getPopulation() >= cities.get(i+1).getPopulation());
         }
     }
 
@@ -277,10 +274,9 @@ public class DAO_IntegrationTests
         ArrayList<Record> cities = dao.topNCitiesIn(App.CONTINENT, "Europe", 5);
 
         // then
-        int i = cities.size();
-        for (int x = 0; x < i-1; x++)
+        for (int i = 0; i < (cities.size()-1); i++)
         {
-            assertTrue(cities.get(x).getPopulation() >= cities.get(x+1).getPopulation());
+            assertTrue(cities.get(i).getPopulation() >= cities.get(i+1).getPopulation());
         }
     }
 
@@ -323,10 +319,9 @@ public class DAO_IntegrationTests
         ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, "Asia");
 
         // then
-        int i = capitalCities.size();
-        for (int x = 0; x < i-1; x++)
+        for (int i = 0; i < (capitalCities.size()-1); i++)
         {
-            assertTrue(capitalCities.get(x).getPopulation() >= capitalCities.get(x+1).getPopulation());
+            assertTrue(capitalCities.get(i).getPopulation() >= capitalCities.get(i+1).getPopulation());
         }
     }
 
@@ -397,10 +392,9 @@ public class DAO_IntegrationTests
         ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", 5);
 
         // then
-        int i = capitalCities.size();
-        for (int x = 0; x < i-1; x++)
+        for (int i = 0; i < (capitalCities.size()-1); i++)
         {
-            assertTrue(capitalCities.get(x).getPopulation() >= capitalCities.get(x+1).getPopulation());
+            assertTrue(capitalCities.get(i).getPopulation() >= capitalCities.get(i+1).getPopulation());
         }
     }
 

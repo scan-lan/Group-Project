@@ -524,9 +524,7 @@ public class DAO_UnitTests
         dao.populationLivingInAndNotInCities(areaFilter, areaName); // No Error
     }
 
-    //TODO: Test only continent, region or country can be entered.
-
-    /**
+     /**
      * Unit tests covering the DAO.populationOf method
      */
     // test that population list is empty when areaFilter and areaName are null

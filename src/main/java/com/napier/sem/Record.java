@@ -41,7 +41,7 @@ public class Record
      * Takes the result of an SQL query for a country or city extracts
      * the data we need and stores it in the class properties
      * @param result The result of a query that returns country records
-     * @throws SQLException ...
+     * @throws SQLException if a record can't be constructed due to a missing field
      */
     public Record(ResultSet result, String recordType) throws SQLException
     {
@@ -122,8 +122,8 @@ public class Record
         recordType = App.CITY;
     }
 
-    //Population Residence Report constructor, just used for testing purposes.
-    public Record(String name, Long population, Long populationLivingInCities, Double percentageLivingInCities, Long populationNotLivingInCities, Double percentageNotLivingInCities)
+    // Population Residence Report constructor, just used for testing purposes.
+    public Record(String name, long population, long populationLivingInCities, Double percentageLivingInCities, long populationNotLivingInCities, Double percentageNotLivingInCities)
     {
         this.name = name;
         this.population = population;
@@ -135,7 +135,7 @@ public class Record
     }
 
     // Language constructor, just used for testing purposes.
-    public Record(String name, Long speakers, Integer percentage)
+    public Record(String name, long speakers, Integer percentage)
     {
         this.name = name;
         this.speakers = speakers;
@@ -144,7 +144,7 @@ public class Record
     }
 
     // Population constructor, just used for testing purposes.
-    public Record(String name, Long population)
+    public Record(String name, long population)
     {
         this.name = name;
         this.population = population;

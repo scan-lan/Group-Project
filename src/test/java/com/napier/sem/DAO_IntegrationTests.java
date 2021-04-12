@@ -79,15 +79,12 @@ public class DAO_IntegrationTests
     @Test
     void allCountriesIn_countriesPopulationIsInDescendingOrder()
     {
-        // given
-        String areaName = "Asia";
-
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, areaName);
+        ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, "Asia");
 
         // then
-        int n = countries.size();
-        for (int x = 0; x < n-1; x++)
+        int i = countries.size();
+        for (int x = 0; x < i-1; x++)
         {
             assertTrue(countries.get(x).getPopulation() >= countries.get(x+1).getPopulation());
         }
@@ -152,17 +149,16 @@ public class DAO_IntegrationTests
         for (Record country : countries) assertEquals("Europe", country.getContinent());
     }
 
+    // Tests that the results are listed in descending order.
     @Test
     void topNCountriesIn_countriesPopulationIsInDescendingOrder()
     {
-        // given
-        int n = 5;
-
         // when
         ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, "Europe", 5);
 
         // then
-        for (int x = 0; x < n-1; x++)
+        int i = countries.size();
+        for (int x = 0; x < i-1; x++)
         {
             assertTrue(countries.get(x).getPopulation() >= countries.get(x+1).getPopulation());
         }
@@ -199,18 +195,16 @@ public class DAO_IntegrationTests
         assertEquals(0, cities.size());
     }
 
-    @Test // run test
+    // Tests that the results are listed in descending order.
+    @Test
     void allCitiesIn_allCitiesPopulationIsInDescendingOrder()
     {
-        // given
-        String areaName = "United Kingdom";
-
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
+        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, "United Kingdom");
 
         // then
-        int n = cities.size();
-        for (int x = 0; x < n-1; x++)
+        int i = cities.size();
+        for (int x = 0; x < i-1; x++)
         {
             assertTrue(cities.get(x).getPopulation() >= cities.get(x+1).getPopulation());
         }
@@ -279,14 +273,12 @@ public class DAO_IntegrationTests
     @Test
     void topNCitiesIn_topNCitiesPopulationIsInDescendingOrder()
     {
-        // Given
-        int n = 5;
-
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.CONTINENT, "Europe", n);
+        ArrayList<Record> cities = dao.topNCitiesIn(App.CONTINENT, "Europe", 5);
 
         // then
-        for (int x = 0; x < n-1; x++)
+        int i = cities.size();
+        for (int x = 0; x < i-1; x++)
         {
             assertTrue(cities.get(x).getPopulation() >= cities.get(x+1).getPopulation());
         }
@@ -326,15 +318,12 @@ public class DAO_IntegrationTests
     @Test
     void allCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
-        // Given
-        String areaName = "Asia";
-
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, "Asia");
 
         // then
-        int n = capitalCities.size();
-        for (int x = 0; x < n-1; x++)
+        int i = capitalCities.size();
+        for (int x = 0; x < i-1; x++)
         {
             assertTrue(capitalCities.get(x).getPopulation() >= capitalCities.get(x+1).getPopulation());
         }
@@ -404,14 +393,12 @@ public class DAO_IntegrationTests
     @Test
     void topNCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
-        // given
-        int n = 5;
-
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", n);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", 5);
 
         // then
-        for (int x = 0; x < n-1; x++)
+        int i = capitalCities.size();
+        for (int x = 0; x < i-1; x++)
         {
             assertTrue(capitalCities.get(x).getPopulation() >= capitalCities.get(x+1).getPopulation());
         }

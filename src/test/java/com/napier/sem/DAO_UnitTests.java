@@ -329,8 +329,8 @@ public class DAO_UnitTests
     public void topNCitiesIn_happyPath()
     {
         // given
-        String areaFilter = App.COUNTRY;
-        String areaName = "France";
+        String areaFilter = App.WORLD;
+        String areaName = "";
 
         // then
         dao.topNCitiesIn(areaFilter, areaName, 15); // No Error
@@ -459,13 +459,128 @@ public class DAO_UnitTests
     public void topNCapitalCitiesIn_happyPath()
     {
         // given
-        String areaFilter = App.COUNTRY;
-        String areaName = "France";
+        String areaFilter = App.REGION;
+        String areaName = "Nordic Countries";
 
         // then
         dao.topNCapitalCitiesIn(areaFilter, areaName, 15); // No Error
     }
 
+    /**
+     * Unit tests covering the DAO.populationLivingInAndNotInCities method
+     */
+    // test that populationResidenceReport list is empty when areaFilter and areaName are null
+    @Test
+    public void populationLivingInAndNotInCities_bothArgumentsNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(areaFilter, areaName);
+
+        // then
+        assertEquals(0, populationResidenceReport.size());
+    }
+
+    // test that populationResidenceReport list is empty when areaFilter is null
+    @Test
+    public void populationLivingInAndNotInCities_areaFilterNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(areaFilter, "Scotland");
+
+        // then
+        assertEquals(0, populationResidenceReport.size());
+    }
+
+    // test that populationResidenceReport list is empty when areaName is null
+    @Test
+    public void populationLivingInAndNotInCities_areaNameNullListEmpty()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
+
+        // then
+        assertEquals(0, populationResidenceReport.size());
+    }
+
+    // check test passes with valid areaFilter and areaName
+    @Test
+    public void populationLivingInAndNotInCities_happyPath()
+    {
+        // given
+        String areaFilter = App.CONTINENT;
+        String areaName = "Asia";
+
+        // then
+        dao.populationLivingInAndNotInCities(areaFilter, areaName); // No Error
+    }
+
+     /**
+     * Unit tests covering the DAO.populationOf method
+     */
+    // test that population list is empty when areaFilter and areaName are null
+    @Test
+    public void populationOf_bothArgumentsNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> population = dao.populationOf(areaFilter, areaName);
+
+        // then
+        assertEquals(0, population.size());
+    }
+
+    // test that population list is empty when areaFilter is null
+    @Test
+    public void populationOf_areaFilterNullListEmpty()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        ArrayList<Record> population = dao.populationOf(areaFilter, "Scotland");
+
+        // then
+        assertEquals(0, population.size());
+    }
+
+    // test that population list is empty when areaName is null
+    @Test
+    public void populationOf_areaNameNullListEmpty()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        ArrayList<Record> population = dao.populationOf(App.COUNTRY, areaName);
+
+        // then
+        assertEquals(0, population.size());
+    }
+
+    // check test passes with valid areaFilter and areaName
+    @Test
+    public void populationOf_happyPath()
+    {
+        // given
+        String areaFilter = App.CITY;
+        String areaName = "Glasgow";
+
+        // then
+        dao.populationOf(areaFilter, areaName); // No Error
+    }
 
     /**
      * Unit tests covering the DAO.languageReport method

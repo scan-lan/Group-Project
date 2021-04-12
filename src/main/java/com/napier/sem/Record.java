@@ -26,7 +26,6 @@ public class Record
     private String district;
     private String capital;
     private long population;
-    private String language;
     private long speakers;
     private Integer percentage;
     private long populationLivingInCities;
@@ -42,7 +41,7 @@ public class Record
      * Takes the result of an SQL query for a country or city extracts
      * the data we need and stores it in the class properties
      * @param result The result of a query that returns country records
-     * @throws SQLException
+     * @throws SQLException if a record can't be constructed due to a missing field
      */
     public Record(ResultSet result, String recordType) throws SQLException
     {
@@ -79,12 +78,12 @@ public class Record
                 percentageNotLivingInCities = (double) populationNotLivingInCities / (double) population * 100;
                 break;
             case App.LANGUAGE:
-                language = result.getString("language");
+                name = result.getString("name");
                 speakers = result.getInt("speakers");
                 percentage = result.getInt("percentage");
                 break;
             case App.POPULATION:
-                name = result.getString("area");
+                name = result.getString("name");
                 population = result.getLong("population");
                 break;
         }
@@ -123,13 +122,33 @@ public class Record
         recordType = App.CITY;
     }
 
-    // Language constructor, just used for testing purposes.
-    public Record(String language, Integer speakers, Integer percentage)
+    // Population Residence Report constructor, just used for testing purposes.
+    public Record(String name, long population, long populationLivingInCities, Double percentageLivingInCities, long populationNotLivingInCities, Double percentageNotLivingInCities)
     {
-        this.language = language;
+        this.name = name;
+        this.population = population;
+        this.populationLivingInCities = populationLivingInCities;
+        this.percentageLivingInCities = percentageLivingInCities;
+        this.populationNotLivingInCities = populationNotLivingInCities;
+        this.percentageNotLivingInCities = percentageNotLivingInCities;
+        recordType = App.POPULATION_RESIDENCE_REPORT;
+    }
+
+    // Language constructor, just used for testing purposes.
+    public Record(String name, long speakers, Integer percentage)
+    {
+        this.name = name;
         this.speakers = speakers;
         this.percentage = percentage;
         recordType = App.LANGUAGE;
+    }
+
+    // Population constructor, just used for testing purposes.
+    public Record(String name, long population)
+    {
+        this.name = name;
+        this.population = population;
+        recordType = App.POPULATION;
     }
 
     public String getCountryCode() { return this.countryCode; }
@@ -140,9 +159,12 @@ public class Record
     public String getDistrict() { return this.district; }
     public long getPopulation() { return this.population; }
     public String getCapital() { return this.capital; }
-    public String getLanguage() { return this.language; }
     public long getSpeakers() { return this.speakers; }
     public Integer getPercentage() { return this.percentage; }
+    public long getPopulationLivingInCities() { return this.populationLivingInCities; }
+    public double getPercentageLivingInCities() { return this.percentageLivingInCities; }
+    public long getPopulationNotLivingInCities() { return this.populationNotLivingInCities; }
+    public double getPercentageNotLivingInCities() { return this.percentageNotLivingInCities; }
     public String getRecordType() { return this.recordType; }
 
     /**
@@ -196,7 +218,7 @@ public class Record
             case App.LANGUAGE:
                 recordString = String.format("Language: %s |  Speakers: %,d | %% of world's population: %d%% \n" +
                                 "-------------------------------------------------------",
-                        this.language,
+                        this.name,
                         this.speakers,
                         this.percentage);
                 break;

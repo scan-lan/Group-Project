@@ -52,13 +52,13 @@ public class DAO_IntegrationTests
     void allCountriesIn_allAreasMatchFilter()
     {
         // given
-        String areaFilter = "Africa";
+        String areaName = "Africa";
 
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, areaFilter);
+        ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, areaName);
 
         // then
-        for (Record country : countries) assertEquals(areaFilter, country.getContinent());
+        for (Record country : countries) assertEquals(areaName, country.getContinent());
     }
 
     // Tests that an empty array is returned when the areaName is set incorrectly
@@ -172,13 +172,13 @@ public class DAO_IntegrationTests
     void allCitiesIn_allAreasMatchFilter()
     {
         // given
-        String areaFilter = "Japan";
+        String areaName = "Japan";
 
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaFilter);
+        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
 
         // then
-        for (Record city: cities) assertEquals(areaFilter, city.getCountry());
+        for (Record city: cities) assertEquals(areaName, city.getCountry());
     }
 
     // Tests that an empty array is returned when the areaName is set incorrectly
@@ -292,13 +292,13 @@ public class DAO_IntegrationTests
     void allCapitalCitiesIn_allAreasMatchFilter()
     {
         // given
-        String areaFilter = "Asia";
+        String areaName = "Asia";
 
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaFilter);
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
 
         // then
-        for (Record capitalCity : capitalCities) assertEquals(areaFilter, capitalCity.getContinent());
+        for (Record capitalCity : capitalCities) assertEquals(areaName, capitalCity.getContinent());
     }
 
     // Tests that an empty array is returned when the areaName is set incorrectly

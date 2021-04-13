@@ -20,10 +20,10 @@ public class Record_UnitTests
         String continent = "Europe";
         String region = "Great Britain";
         String capital = "Edinburgh";
-        Integer population = 6000000;
+        long population = 6000000L;
         String expectedRecordType = App.COUNTRY;
         String expectedToStringOutput = "Country code: SCT | Name: Scotland | Continent: Europe\n" +
-                "Region: Great Britain | Population: 6000000 | Capital: Edinburgh\n" +
+                "Region: Great Britain | Population: 6,000,000 | Capital: Edinburgh\n" +
                 "-------------------------------------------------------";
 
 
@@ -51,9 +51,9 @@ public class Record_UnitTests
         String country = "Scotland";
         String region = "Great Britain";
         String continent = "Europe";
-        Integer population = 6000000;
+        long population = 6000000L;
         String expectedRecordType = App.CAPITAL_CITY;
-        String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6000000\n" +
+        String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6,000,000\n" +
                 "-------------------------------------------------------";
 
         // when
@@ -78,10 +78,10 @@ public class Record_UnitTests
         String name = "Wishae";
         String country = "Scotland";
         String district = "North Lanarkshire";
-        Integer population = 10000;
+        long population = 10000L;
         String expectedRecordType = App.CITY;
         String expectedToStringOutput = "Name: Wishae |  Country: Scotland \n" +
-                "District: North Lanarkshire |  Population: 10000\n" +
+                "District: North Lanarkshire |  Population: 10,000\n" +
                 "-------------------------------------------------------";
 
         // when
@@ -94,5 +94,83 @@ public class Record_UnitTests
         assertEquals(population, city.getPopulation());
         assertEquals(expectedRecordType, city.getRecordType());
         assertEquals(expectedToStringOutput, city.toString());
+    }
+
+    // Tests that when a population residence report object is constructed, the getters and toString
+    // return the same fields that we passed in.
+    @Test
+    public void Record_testGettersAndToStringForPopulationResidenceReport()
+    {
+        // given
+        String name = "East Kilbride";
+        Long population = 7000L;
+        Long populationLivingInCities = 6999L;
+        Double percentageLivingInCities = 99.99D;
+        Long populationNotLivingInCities = 1L;
+        Double percentageNotLivingInCities = 0.01D;
+        String expectedRecordType = App.POPULATION_RESIDENCE_REPORT;
+        String expectedToStringOutput = "Area: East Kilbride | Total population: 7,000\n" +
+                "Population living in Cities: 6,999 (99.99%)\n" +
+                "Population not living in Cities: 1 (0.01%)\n" +
+                "-------------------------------------------------------";
+
+        // when
+        Record populationResidenceReport = new Record(name, population, populationLivingInCities, percentageLivingInCities, populationNotLivingInCities, percentageNotLivingInCities);
+
+        // then
+        assertEquals(name, populationResidenceReport.getName());
+        assertEquals(population, populationResidenceReport.getPopulation());
+        assertEquals(populationLivingInCities, populationResidenceReport.getPopulationLivingInCities());
+        assertEquals(percentageLivingInCities, populationResidenceReport.getPercentageLivingInCities());
+        assertEquals(populationNotLivingInCities, populationResidenceReport.getPopulationNotLivingInCities());
+        assertEquals(percentageNotLivingInCities, populationResidenceReport.getPercentageNotLivingInCities());
+        assertEquals(expectedRecordType, populationResidenceReport.getRecordType());
+        assertEquals(expectedToStringOutput, populationResidenceReport.toString());
+    }
+
+    // Tests that when a language object is constructed, the getters and toString
+    // return the same fields that we passed in.
+    @Test
+    public void Record_testGettersAndToStringForLanguage()
+    {
+        // given
+        String language = "Gaelic";
+        Long speakers = 3L;
+        Integer percentage = 0;
+        String expectedRecordType = App.LANGUAGE;
+        String expectedToStringOutput = "Language: Gaelic |  Speakers: 3 | % of world's population: 0% \n" +
+                "-------------------------------------------------------";
+
+        // when
+        Record Language = new Record(language, speakers, percentage);
+
+        // then
+        assertEquals(language, Language.getName());
+        assertEquals(speakers, Language.getSpeakers());
+        assertEquals(percentage, Language.getPercentage());
+        assertEquals(expectedRecordType, Language.getRecordType());
+        assertEquals(expectedToStringOutput, Language.toString());
+    }
+
+    // Tests that when a population object is constructed, the getters and toString
+    // return the same fields that we passed in.
+    @Test
+    public void Record_testGettersAndToStringForPopulation()
+    {
+        // given
+        String name = "China";
+        Long population = 999000000L;
+        String expectedRecordType = App.POPULATION;
+        String expectedToStringOutput = "Area: China |  Population: 999,000,000\n" +
+                "-------------------------------------------------------";
+
+        // when
+        Record Population = new Record(name, population);
+
+        // then
+        assertEquals(name, Population.getName());
+        assertEquals(population, Population.getPopulation());
+        assertEquals(expectedRecordType, Population.getRecordType());
+        assertEquals(expectedToStringOutput, Population.toString());
     }
 }

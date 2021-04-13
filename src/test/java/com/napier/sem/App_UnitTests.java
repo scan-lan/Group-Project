@@ -13,7 +13,7 @@ public class App_UnitTests
     public void connect_invalidLocation()
     {
         // given
-        String location = "localhost:80";
+        String location = null;
 
         // when
         Connection connection = App.connect(location, App.databaseDriver, true);
@@ -30,9 +30,20 @@ public class App_UnitTests
         String databaseDriver = "mysqf";
 
         // when
-        Connection connection = App.connect("localhost:80", databaseDriver, true);
+        Connection connection = App.connect("localhost:33061", databaseDriver, true);
 
         // then
         assertNull(connection);
+    }
+
+    // test that if the connection is null there is no error
+    @Test
+    public void disconnect_nullConnection()
+    {
+        //given
+        Connection connection = null;
+
+        //then
+        App.disconnect(connection);
     }
 }

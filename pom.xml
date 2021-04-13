@@ -6,7 +6,7 @@
 
     <groupId>com.napier.sem</groupId>
     <artifactId>SemGroupProject</artifactId>
-    <version>0.1.0.6</version>
+    <version>0.1.0.7</version>
 
     <dependencies>
         <dependency>
@@ -47,12 +47,15 @@
                         <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-engine</artifactId>
                         <version>[5.1.0,)</version>
-                    </dependency>
+                      </dependency>
                 </dependencies>
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+
                 <configuration>
                     <finalName>SemGroupProject</finalName>
                     <archive>
@@ -79,7 +82,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
+                <version>0.8.6</version>
                 <executions>
                     <execution>
                         <goals>

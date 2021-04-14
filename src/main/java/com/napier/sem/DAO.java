@@ -1,5 +1,9 @@
 package com.napier.sem;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,12 +15,13 @@ import java.util.ArrayList;
  * The Data Access Object (DAO) is used for querying the database and returning
  * the results in a usable manner.
  */
+@RestController
 public class DAO
 {
     // Private properties
-    private final Connection connection;
-
-    public DAO(Connection connection) { this.connection = connection; }
+//    private final Connection connection;
+//
+//    public DAO(Connection connection) { this.connection = connection; }
 
     /**
      * Generates a valid condition for use with our SQL queries
@@ -67,12 +72,12 @@ public class DAO
     {
         ArrayList<Record> records = new ArrayList<>();
 
-        if (connection == null){ return records; }
+        if (App.connection == null){ return records; }
 
         try
         {
             // Create the SQL statement object for sending statements to the database
-            Statement statement = connection.createStatement();
+            Statement statement = App.connection.createStatement();
             // Execute the query
             ResultSet resultSet = statement.executeQuery(statementString);
             // Create Country object and add it to the list for each result in the query
@@ -195,7 +200,10 @@ public class DAO
      *
      * @return An ordered list of capital cities in a specific area sorted by descending population
      */
-    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
+    @RequestMapping("capitals")
+    public ArrayList<Record> allCapitalCitiesIn(
+            @RequestParam(value = "filter", defaultValue = App.WORLD) String areaFilter,
+            @RequestParam(value = "name", defaultValue = "") String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
@@ -280,7 +288,10 @@ public class DAO
      *
      * @return The population of a specified area
      */
-    public ArrayList<Record> populationOf(String areaFilter, String areaName)
+    @RequestMapping("population")
+    public ArrayList<Record> populationOf(
+            @RequestParam(value = "filter", defaultValue = App.WORLD) String areaFilter,
+            @RequestParam(value = "name", defaultValue = "") String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
 
@@ -308,6 +319,7 @@ public class DAO
      *
      * @return An ordered list of languages spoken in the world sorted by the number of language speakers descending
      */
+    @RequestMapping("language")
     public ArrayList<Record> languageReport()
     {
         String statementString = "WITH x AS (SELECT SUM(population) AS world_population FROM country)\n" +

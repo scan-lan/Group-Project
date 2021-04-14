@@ -1,8 +1,14 @@
 package com.napier.sem;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.sql.*;
 import java.util.ArrayList;
 
+@SpringBootApplication
+@RestController
 public class App
 {
     // Constants
@@ -23,8 +29,6 @@ public class App
     public static Connection connection;
 
     public static void main(String[] args) {
-        // Create new Application
-        App app = new App();
 
         // Connect to database
         if (args.length < 1)
@@ -36,96 +40,8 @@ public class App
             connection = connect(args[0], databaseDriver, false);
         }
 
-        // Create instance of the database access object
-        DAO dao = new DAO(connection);
-
-        // Use-case 1.1-1.3
-        // Produce a report on all countries in the world organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCountriesIn(WORLD, "");
-        // Produce a report on all countries in a continent organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCountriesIn(CONTINENT, "Africa");
-        // Produce a report on all countries in a region organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCountriesIn(REGION, "Southern and Central Asia");
-
-        // Use-case 2.1-2.3
-        // Run top N countries query against database
-        // ArrayList<Record> records = dao.topNCountriesIn(WORLD, "", 10);
-        // Run top N populated countries in specified continent query
-        // ArrayList<Record> records = dao.topNCountriesIn(CONTINENT, "Asia", 5);
-        // Run top N populated countries in specified region query
-        // ArrayList<Record> records = dao.topNCountriesIn(REGION, "Eastern Asia", 5);
-
-        // Use-case 3.1-3.5
-        // Produce a report on all cities in the world organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCitiesIn(WORLD, "");
-        // Produce a report on all cities in a continent organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCitiesIn(CONTINENT, "Europe");
-        // Produce a report on all cities in a region organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCitiesIn(REGION, "Caribbean");
-        // Produce a report on all cities in a country organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCitiesIn(COUNTRY, "India");
-        // Produce a report on all cities in a district organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCitiesIn(DISTRICT, "Alagoas");
-
-        // Use-case 4.1-4.5
-        // Produce a report on the top N populated cities in the world where N is provided by the user
-        // ArrayList<Record> records = dao.topNCitiesIn(WORLD, "", 5);
-        // Produce a report on the top N populated cities in a continent where N is provided by the user
-        // ArrayList<Record> records = dao.topNCitiesIn(CONTINENT, "Europe", 5);
-        // Produce a report on the top N populated cities in a region where N is provided by the user
-        // ArrayList<Record> records = dao.topNCitiesIn(REGION, "Caribbean", 5);
-        // Produce a report on the top N populated cities in a country where N is provided by the user
-        // ArrayList<Record> records = dao.topNCitiesIn(COUNTRY, "China", 5);
-        // Produce a report on the top N populated cities in a district where N is provided by the user
-        // ArrayList<Record> records = dao.topNCitiesIn(DISTRICT, "Scotland", 6);
-
-        // Use-case 5.1-5.3
-        // Produce a report on all capital cities in the world organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCapitalCitiesIn(WORLD, "");
-        // Produce a report on all capital cities in a continent organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCapitalCitiesIn(CONTINENT, "Asia");
-        // Produce a report on all capital cities in a region organised by largest population to smallest
-        // ArrayList<Record> records = dao.allCapitalCitiesIn(REGION, "Caribbean");
-
-        // Use-Cases 6.1-6.3
-        // 6.1 - Produce a report on the top N capital cities in the world organised by largest population to smallest
-         ArrayList<Record> records = dao.topNCapitalCitiesIn(WORLD, "",5);
-        // 6.2 - Produce a report on the top N capital cities in a continent organised by largest population to smallest
-        // ArrayList<Record> records = dao.topNCapitalCitiesIn(CONTINENT, "Asia", 5);
-        // 6.3 - Produce a report on the top N capital cities in a region organised by largest population to smallest
-        // ArrayList<Record> records = dao.topNCapitalCitiesIn(REGION, "Caribbean", 7);
-
-        // Use-Cases 7.1-7.3
-        // 7.1 - Produce a report on the population of people, people living in cities, and people not living in cities in each continent
-        // ArrayList<Record> records = dao.populationLivingInAndNotInCities(CONTINENT, "Europe");
-        // 7.2 - Produce a report on the population of people, people living in cities, and people not living in cities in each region
-        // ArrayList<Record> records = dao.populationLivingInAndNotInCities(REGION, "Caribbean");
-        // 7.3 - Produce a report on the population of people, people living in cities, and people not living in cities in each country
-        // ArrayList<Record> records = dao.populationLivingInAndNotInCities(COUNTRY, "France");
-
-        // Use-Cases 8.1-8.6
-        // 8.1 - Produce a report on the population of the world
-        // ArrayList<Record> records = dao.populationOf(WORLD, "");
-        // 8.2 - Produce a report on the population of a continent
-        // ArrayList<Record> records = dao.populationOf(CONTINENT, "Europe");
-        // 8.3 - Produce a report on the population of a region
-        // ArrayList<Record> records = dao.populationOf(REGION, "Caribbean");
-        // 8.4 - Produce a report on the population of a country
-        // ArrayList<Record> records = dao.populationOf(COUNTRY, "Spain");
-        // 8.5 - Produce a report on the population of a district
-        // ArrayList<Record> records = dao.populationOf(DISTRICT, "Scotland");
-        // 8.6 - Produce a report on the population of a city
-        // ArrayList<Record> records = dao.populationOf(CITY, "London");
-
-        // Use-case 9.1
-        // Produce a report on the number of who speak the following specific languages from greatest number to smallest, including the percentage of the world population
-        // ArrayList<Record> languages = dao.languageReport();
-
-        //Display results
-        for (Record record : records) System.out.println(record);
-
-        // Disconnect from database
-        disconnect(connection);
+        // Initialise spring app
+        SpringApplication.run(App.class, args);
     }
 
     /**

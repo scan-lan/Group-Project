@@ -11,3 +11,6 @@ services:
     restart: always
     ports:
       - "33061:3306"
+
+  web:
+    build: web/.

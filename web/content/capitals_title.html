@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Salaries by Title</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <style>
+            th, td, p, input
+            {
+                font:14px Verdana;
+            }
+            table, th, td
+            {
+                border: solid 1px #DDD;
+                border-collapse: collapse;
+                padding: 2px 3px;
+                text-align: center;
+            }
+            th
+            {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="showData">Waiting</div>
+    </body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // const URL = "http://" + window.location.hostname + "/capitals";
+        const URL = "http://localhost:8080/capitals";
+
+        $.getJSON(URL, function(data) {
+            // EXTRACT VALUE FOR HTML HEADER.
+            const fieldNames = [];
+            data.forEach((record) => {
+                record.forEach((fieldName) => {if (fieldNames.indexOf(fieldName) === -1) fieldNames.push(fieldName)})
+            })
+            // the 3 lines above replace the below 7 and are much better javascript (very readable)
+            // for (let i = 0; i < data.length; i++) { // this outside for loop is unnecessary unless you're expecting different record types, which i don't see why anyone would be
+            //     for (let key in data[i]) {
+            //         if (col.indexOf(key) === -1) {
+            //             col.push(key);
+            //         }
+            //     }
+            // }
+
+            // CREATE DYNAMIC TABLE.
+            const table = document.createElement("table");
+
+            // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+            let tableRowElement = table.insertRow(-1);                   // TABLE ROW.
+            fieldNames.forEach((field) => {
+                const tableHeaderCellElement = document.createElement("th");
+                tableHeaderCellElement.innerHTML = field;
+                tableRowElement.appendChild(tableHeaderCellElement);
+            })
+            // once again leaving old code to compare in terms of readability etc.
+            // for (let i = 0; i < col.length; i++) {
+            //     const th = document.createElement("th");      // TABLE HEADER <-- if this variable was named correctly, there'd be no need for this comment
+            //     th.innerHTML = col[i];
+            //     tr.appendChild(th);
+            // }
+
+            // ADD JSON DATA TO THE TABLE AS ROWS.
+            data.forEach((record) => {
+                tableRowElement = table.insertRow(-1);
+                fieldNames.forEach((field) => {
+                    const tabCell = tableRowElement.insertCell(-1);
+                    tabCell.innerHTML = record[field];
+                })
+            })
+            // for (let i = 0; i < data.length; i++) {
+            //     tr = table.insertRow(-1);
+            //     for (let j = 0; j < fields.length; j++) {
+            //         const tabCell = tr.insertCell(-1); // what is a tabcell? terrible name
+            //         tabCell.innerHTML = data[i][col[j]];
+            //     }
+            // }
+
+            // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+            $(".showData").html(table);
+        });
+    </script>
+</html>

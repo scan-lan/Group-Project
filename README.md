@@ -20,7 +20,7 @@ Build Status
 32 requirements of 32 requirements have been implemented, which is 100%
 
 | ID  |                                                  Name                                                  |  Met  |                   Screenshot                           |
-|----:|:------------------------------------------------------------------------------------------------------:|------:|-------------------------------------------------------:|
+|----:|:------------------------------------------------------------------------------------------------------|------:|-------------------------------------------------------:|
 | 1.1 |  All the countries in the world organised by largest population to smallest.                           |  Yes  |![Use Case 1 World](Screenshots/UseCase1.1.jpg)         |        
 | 1.2 |  All the countries in a continent organised by largest population to smallest.                         |  Yes  |![Use Case 1 Continent](Screenshots/UseCase1.2.jpg)     |                          
 | 1.3 |  All the countries in a region organised by largest population to smallest.                            |  Yes  |![Use Case 1 Region](Screenshots/UseCase1.3.jpg)        |

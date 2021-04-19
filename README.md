@@ -40,7 +40,7 @@ Build Status
 | 5.1 |  All the capital cities in the world organised by largest population to smallest.                      |  Yes  |![Use Case 5 World](Screenshots/UseCase5.1)    |
 | 5.2 |  All the capital cities in a continent organised by largest population to smallest.                    |  Yes  |![Use Case 5 Continent](Screenshots/UseCase5.2)|
 | 5.3 |  All the capital cities in the region organised by largest population to smallest.                     |  Yes  |![Use Case 5 Region](Screenshots/UseCase5.3)   |
-| 6.1 |  The top N populated capital cities in the world where N is provided by the user.                      |  Yes  |![Use Case 6 World](Screenshots/UseCase6.1)    |
+| 6.1 |  The top N populated capital cities in the world where N is provided by the user.                      |  Yes  |![Use Case 6 World](Screenshots/UseCase6.1)         |
 | 6.2 |  The top N populated capital cities in a continent where N is provided by the user.                    |  Yes  |![Use Case 6 Continent](Screenshots/UseCase6.2)     |
 | 6.3 |  The top N populated capital cities in a region where N is provided by the user.                       |  Yes  |![Use Case 6 Region](Screenshots/UseCase6.3)        |
 | 7.1 |  The population of people, people living in cities, and people not living in cities in each continent. |  Yes  |![Use Case 7 Each Continent](Screenshots/UseCase7.1)|

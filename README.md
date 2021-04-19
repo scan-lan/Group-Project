@@ -34,7 +34,7 @@ Build Status
 | 3.5 |  All the cities in a district organised by largest population to smallest.                             |  Yes  |![Use Case 3 District](Screenshots/UseCase3.5) |
 | 4.1 |  The top N populated cities in the world where N is provided by the user.                              |  Yes  |![Use Case 4 World](Screenshots/UseCase4.1)    |
 | 4.2 |  The top N populated cities in a continent where N is provided by the user.                            |  Yes  |![Use Case 4 Continent](Screenshots/UseCase4.2)|
-| 4.3 |  The top N populated cities in a region where N is provided by the user.                               |  Yes  |![Use Case 4 Region](Screenshots/UseCase4.3)   |
+| 4.3 |  The top N populated cities in a region where N is provided by the user.                               |  Yes  |![Use Case 4 Region](Screenshots/UseCase4.3)        |
 | 4.4 |  The top N populated cities in a country where N is provided by the user.                              |  Yes  |![Use Case 4 Country](Screenshots/UseCase4.4)       |
 | 4.5 |  The top N populated cities in a district where N is provided by the user.                             |  Yes  |![Use Case 4 District](Screenshots/UseCase4.5)      |
 | 5.1 |  All the capital cities in the world organised by largest population to smallest.                      |  Yes  |![Use Case 5 World](Screenshots/UseCase5.1)         |

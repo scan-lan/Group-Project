@@ -6,9 +6,12 @@ public class UserPrompt
 {
     private final DAO dao;
     private final Scanner scanner;
+    boolean userWantsToContinue;
     private static final int[] topNQueryParentIds = new int[]{2, 4, 6};
-    private static final String USE_CASE_PROMPT = "Enter the number corresponding to the type of query you'd like to run\n" +
-            "Your options are as follows:\n" +
+    private static final String USE_CASE_PROMPT = "--------------------------------------------------------------------" +
+            "--------------------------------------------------------------------\n" +
+            "Enter the number corresponding to the type of query you'd like to run\n" +
+            "Your options are as follows:\n\n" +
             "1) All countries in...\n" +
             "2) Top N countries in...\n" +
             "3) All cities in...\n" +
@@ -17,15 +20,17 @@ public class UserPrompt
             "6) Top N capital cities in...\n" +
             "7) Residence report of people living in...\n" +
             "8) Population of...\n" +
-            "9) Report on number of speakers per language for chinese, english, hindi, spanish and arabic\n" +
+            "9) Report on number of speakers per language for chinese, english, hindi, spanish and arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +
-            "Enter 'q' at any time to exit";
+            "Enter 'q' at any time to exit\n" +
+            "--------------------------------------------------------------------" +
+            "--------------------------------------------------------------------";
     private final ArrayList<QueryInfo> queryList = new ArrayList<>();
 
     public UserPrompt(DAO dao)
     {
         this.dao = dao;
-        this.scanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in).useDelimiter("\\n");
 
         queryList.add(new QueryInfo(1,
                 "All countries in",
@@ -56,53 +61,60 @@ public class UserPrompt
                 new String[]{}));
     }
 
-    public void enterLoop()
+    public void start()
     {
-        int parentQueryChoice = obtainParentQueryChoice();
-
-        String areaFilter = "";
-        if (parentQueryChoice != 9)
+        userWantsToContinue = true;
+        while (userWantsToContinue)
         {
-            areaFilter = obtainChildQueryChoice(parentQueryChoice);
-        }
-
-        String areaNameInput = "";
-        if (parentQueryChoice != 9 && areaFilter != App.WORLD)
-        {
-            System.out.println("Enter the area you'd like to query");
-
-            areaNameInput = scanner.next();
-        }
-
-        int n = -1;
-        if (Arrays.binarySearch(topNQueryParentIds, parentQueryChoice) >= 0)
-        {
-            System.out.println("Enter the number of records you'd like to see");
-
-            n = scanner.nextInt();
-        }
-
-        executeQueryFromInput(parentQueryChoice, areaFilter, areaNameInput, n);
-    }
-
-    private int obtainParentQueryChoice()
-    {
-        int parentQueryChoice = -1;
-
-        while (parentQueryChoice < 1)
-        {
-            System.out.println(USE_CASE_PROMPT);
-            Integer input = obtainValidIntWithinRange(queryList.size());
-            if (input == null)
+            int parentQueryChoice = obtainInputWithPrompt(USE_CASE_PROMPT, queryList.size());
+            if (parentQueryChoice == -1)
             {
-                System.out.println("Sorry, that's not a valid choice. Pick a number from 1 to " + queryList.size());
+                userWantsToContinue = false;
+                continue;
             }
-            else
+
+            String areaFilter = "";
+            if (parentQueryChoice != 9)
             {
-                parentQueryChoice = input;
+                areaFilter = obtainChildQueryChoice(parentQueryChoice);
+                if (!userWantsToContinue) continue;
             }
+
+            String areaNameInput = "";
+            if (parentQueryChoice != 9 && !areaFilter.equals(App.WORLD))
+            {
+                System.out.printf("Enter the name of the %s you'd like to query%n", areaFilter);
+
+                areaNameInput = scanner.next();
+            }
+
+            int n = 0;
+            // checks if the query takes an n value, and asks for it from the use if it does
+            if (Arrays.binarySearch(topNQueryParentIds, parentQueryChoice) >= 0)
+            {
+                n = obtainInputWithPrompt("Enter the number of records you'd like to see", 4080);
+
+                if (n == -1)
+                {
+                    userWantsToContinue = false;
+                    continue;
+                }
+            }
+
+            executeQueryFromInput(parentQueryChoice, areaFilter, areaNameInput, n);
+
+            System.out.println("--------------------------------------------------------------------" +
+                    "--------------------------------------------------------------------\n" +
+                    "Do you want to run another query? (y)es/(n)o");
+            String continueInput = scanner.next();
+            while (!(continueInput.equals("y") || continueInput.equals("n")))
+            {
+                System.out.println("Please enter 'y' or 'n'");
+                continueInput = scanner.next();
+            }
+
+            if (formatInput(continueInput).equals("n")) userWantsToContinue = false;
         }
-        return parentQueryChoice;
     }
 
     private String obtainChildQueryChoice(int parentQuery)
@@ -118,33 +130,60 @@ public class UserPrompt
             childQueryPrompt += String.format("%d) %s %s\n", i+1, queryInfo.getParentQuery(), childQueries[i]);
         }
 
-        int childQuery = -1;
-        while (childQuery < 1)
-        {
-            System.out.println(childQueryPrompt);
-            Integer input = obtainValidIntWithinRange(childQueries.length);
-            if (input == null)
-            {
-                System.out.println("Sorry, that's not a valid choice. Pick a number from 1 to " + childQueries.length);
-            }
-            else
-            {
-                childQuery = input;
-            }
-        }
+        int childQuery = obtainInputWithPrompt(childQueryPrompt, childQueries.length);
 
         return parseQueryInputForAreaFilter(parentQuery, childQuery);
     }
 
+    private int obtainInputWithPrompt(String prompt, int maxNum)
+    {
+        int validInput = 0;
+        while (validInput == 0)
+        {
+            System.out.println(prompt);
+            Integer input = obtainValidIntWithinRange(maxNum);
+            if (input == null)
+            {
+                System.out.println("Sorry, that's not a valid choice. Pick a number from 1 to " + maxNum);
+            }
+            else
+            {
+                validInput = input;
+            }
+        }
+        return validInput;
+    }
+
     private Integer obtainValidIntWithinRange(int maxNum)
     {
-        int input = scanner.nextInt();
+        int input = 0;
+        try
+        {
+            input = scanner.nextInt();
+        }
+        catch (InputMismatchException e)
+        {
+            if (formatInput(scanner.next()).equals("q")) return -1;
+            else return null;
+        }
 
         if (input < 1 || input > maxNum) return null;
 
         return input;
     }
 
+    private String formatInput(String input)
+    {
+        return input.trim().toLowerCase(Locale.ROOT);
+    }
+
+    /**
+     * This returns the area filter that will be used for the query, given the selection that the user has made
+     * @param parentQueryChoice the id of the top-level query (1-9)
+     * @param areaFilterChoice the id of the area filter that the user has chosen, which can go from 1 to 6
+     *                         depending on the query
+     * @return the string representing the area filter
+     */
     private String parseQueryInputForAreaFilter(int parentQueryChoice, int areaFilterChoice)
     {
         if (parentQueryChoice == 7) areaFilterChoice++;
@@ -163,6 +202,9 @@ public class UserPrompt
                 return App.DISTRICT;
             case (6):
                 return App.CITY;
+            case (-1):
+                userWantsToContinue = false;
+                return "";
             default:
                 return null;
         }
@@ -204,6 +246,12 @@ public class UserPrompt
             default:
                 records = new ArrayList<>();
                 break;
+        }
+
+        if (records.size() == 0)
+        {
+            System.out.println("Your query had no results");
+            return;
         }
 
         for (Record record: records)

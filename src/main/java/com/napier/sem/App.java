@@ -21,10 +21,8 @@ public class App
     // Connection to MySQL database
     public static Connection connection;
 
-    public static void main(String[] args) {
-        // Create new Application
-        App app = new App();
-
+    public static void main(String[] args)
+    {
         // Connect to database
         if (args.length < 1)
         {
@@ -40,7 +38,7 @@ public class App
 
         UserPrompt prompt = new UserPrompt(dao);
 
-        prompt.enterLoop();
+        prompt.start();
 
         // Disconnect from database
         disconnect(connection);

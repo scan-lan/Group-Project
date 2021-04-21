@@ -6,7 +6,7 @@ public class UserPrompt
 {
     private final DAO dao;
     private final Scanner scanner;
-    boolean userWantsToContinue;
+    boolean userWantsToQuit;
     private static final int[] topNQueryParentIds = new int[]{2, 4, 6};
     private static final String USE_CASE_PROMPT = "--------------------------------------------------------------------" +
             "--------------------------------------------------------------------\n" +
@@ -61,87 +61,96 @@ public class UserPrompt
                 new String[]{}));
     }
 
+    /**
+     * The main loop of the command line app.  This takes the user through each step of running a query and
+     * getting results.  The user is given prompts which they must enter numbers to respond to, and they can
+     * enter "q" at any time to exit the app.
+     */
     public void start()
     {
-        userWantsToContinue = true;
-        while (userWantsToContinue)
+        userWantsToQuit = false;
+        while (!userWantsToQuit)
         {
-            int parentQueryChoice = obtainInputWithPrompt(USE_CASE_PROMPT, queryList.size());
-            if (parentQueryChoice == -1)
-            {
-                userWantsToContinue = false;
-                continue;
-            }
+            int chosenQueryId = obtainInputWithPrompt(USE_CASE_PROMPT, queryList.size());
+            if (chosenQueryId == -1) continue;
 
-            String areaFilter = "";
-            if (parentQueryChoice != 9)
+            String chosenAreaFilter = "";
+            if (chosenQueryId != 9)
             {
-                areaFilter = obtainChildQueryChoice(parentQueryChoice);
-                if (!userWantsToContinue) continue;
+                chosenAreaFilter = obtainAreaFilterChoice(chosenQueryId);
+                if (userWantsToQuit) continue;
             }
 
             String areaNameInput = "";
-            if (parentQueryChoice != 9 && !areaFilter.equals(App.WORLD))
+            if (chosenQueryId != 9 && !chosenAreaFilter.equals(App.WORLD))
             {
-                System.out.printf("Enter the name of the %s you'd like to query%n", areaFilter);
+                System.out.printf("Enter the name of the %s you'd like to query%n", chosenAreaFilter);
 
-                areaNameInput = scanner.next();
-            }
-
-            int n = 0;
-            // checks if the query takes an n value, and asks for it from the use if it does
-            if (Arrays.binarySearch(topNQueryParentIds, parentQueryChoice) >= 0)
-            {
-                n = obtainInputWithPrompt("Enter the number of records you'd like to see", 4080);
-
-                if (n == -1)
+                areaNameInput = formatInput(scanner.next());
+                // exit the loop if the user enters "q" indicating they want to quit
+                if (areaNameInput.equals("q"))
                 {
-                    userWantsToContinue = false;
+                    userWantsToQuit = true;
                     continue;
                 }
             }
 
-            executeQueryFromInput(parentQueryChoice, areaFilter, areaNameInput, n);
-
-            System.out.println("--------------------------------------------------------------------" +
-                    "--------------------------------------------------------------------\n" +
-                    "Do you want to run another query? (y)es/(n)o");
-            String continueInput = scanner.next();
-            while (!(continueInput.equals("y") || continueInput.equals("n")))
+            int n = 0;
+            // checks if the query takes an n value, and asks for it from the use if it does
+            if (Arrays.binarySearch(topNQueryParentIds, chosenQueryId) >= 0)
             {
-                System.out.println("Please enter 'y' or 'n'");
-                continueInput = scanner.next();
+                n = obtainInputWithPrompt("Enter the number of records you'd like to see", 4080);
+
+                if (n == -1) continue;
             }
 
-            if (formatInput(continueInput).equals("n")) userWantsToContinue = false;
+            executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);
         }
+
+        System.out.println("Until next time");
     }
 
-    private String obtainChildQueryChoice(int parentQuery)
+    /**
+     * This displays the area filters (world, continent, region etc.) available for the selected query
+     * as a numbered list, and asks the user which one they'd like to choose
+     * asks the
+     * @param parentQuery The ID of the type of query being run
+     * @return The string representing the area filter
+     */
+    private String obtainAreaFilterChoice(int parentQuery)
     {
         if (parentQuery == 9) return "";
 
         QueryInfo queryInfo = queryList.get(parentQuery - 1);
-        String[] childQueries = queryInfo.getChildQueries();
+        String[] areaFilterDescriptions = queryInfo.getAreaFilterDescriptions();
 
-        String childQueryPrompt = String.format("Choose the type of \"%s\" query you'd like to run.\n", queryInfo.getParentQuery());
-        for (int i = 0; i < queryInfo.getChildQueries().length; i++)
+        String childQueryPrompt = String.format("Choose the type of \"%s\" query you'd like to run.\n", queryInfo.getQueryDescription());
+        for (int i = 0; i < queryInfo.getAreaFilterDescriptions().length; i++)
         {
-            childQueryPrompt += String.format("%d) %s %s\n", i+1, queryInfo.getParentQuery(), childQueries[i]);
+            childQueryPrompt += String.format("%d) %s %s\n", i+1, queryInfo.getQueryDescription(), areaFilterDescriptions[i]);
         }
 
-        int childQuery = obtainInputWithPrompt(childQueryPrompt, childQueries.length);
+        int childQuery = obtainInputWithPrompt(childQueryPrompt, areaFilterDescriptions.length);
 
         return parseQueryInputForAreaFilter(parentQuery, childQuery);
     }
 
+    /**
+     * Display a given string as a prompt for a user to select from a numbered list, and then take an
+     * integer as input from the user.  If the input is not an integer or is larger than the maximum
+     * passed in as an argument, the prompt is displayed again and the user is given an error message.
+     * Will return -1 if the user enters "q", indicating they want to quit.
+     * @param prompt A string that will be printed in the console explaining what the user should enter
+     * @param maxNum An integer representing the largest number a user should be able to enter
+     * @return An integer representing the user's choice
+     */
     private int obtainInputWithPrompt(String prompt, int maxNum)
     {
         int validInput = 0;
         while (validInput == 0)
         {
             System.out.println(prompt);
-            Integer input = obtainValidIntWithinRange(maxNum);
+            Integer input = obtainIntWithinRange(maxNum);
             if (input == null)
             {
                 System.out.println("Sorry, that's not a valid choice. Pick a number from 1 to " + maxNum);
@@ -154,7 +163,13 @@ public class UserPrompt
         return validInput;
     }
 
-    private Integer obtainValidIntWithinRange(int maxNum)
+    /**
+     * Scans input for a number from 1 to the maxNum, and returns null if there is no matching input.
+     * Returns -1 if the user enters "q", indicating they want to quit.
+     * @param maxNum An integer representing the largest number which should be accepted as valid input
+     * @return An integer from 1 to maxNum, -1 if the user enters "q", or null if no valid input is found
+     */
+    private Integer obtainIntWithinRange(int maxNum)
     {
         int input = 0;
         try
@@ -163,7 +178,11 @@ public class UserPrompt
         }
         catch (InputMismatchException e)
         {
-            if (formatInput(scanner.next()).equals("q")) return -1;
+            if (formatInput(scanner.next()).equals("q"))
+            {
+                userWantsToQuit = true;
+                return -1;
+            }
             else return null;
         }
 
@@ -172,6 +191,11 @@ public class UserPrompt
         return input;
     }
 
+    /**
+     * Remove whitespace from around input strings and convert to lowercase
+     * @param input The string that will be formatted
+     * @return The formatted string
+     */
     private String formatInput(String input)
     {
         return input.trim().toLowerCase(Locale.ROOT);
@@ -179,14 +203,15 @@ public class UserPrompt
 
     /**
      * This returns the area filter that will be used for the query, given the selection that the user has made
-     * @param parentQueryChoice the id of the top-level query (1-9)
+     * @param queryId the id of the top-level query (1-9)
      * @param areaFilterChoice the id of the area filter that the user has chosen, which can go from 1 to 6
      *                         depending on the query
      * @return the string representing the area filter
      */
-    private String parseQueryInputForAreaFilter(int parentQueryChoice, int areaFilterChoice)
+    private String parseQueryInputForAreaFilter(int queryId, int areaFilterChoice)
     {
-        if (parentQueryChoice == 7) areaFilterChoice++;
+        // query 7 is the only query which can't be run on the world, so we increment the area filter choice by one
+        if (queryId == 7) areaFilterChoice++;
 
         switch (areaFilterChoice)
         {
@@ -203,13 +228,22 @@ public class UserPrompt
             case (6):
                 return App.CITY;
             case (-1):
-                userWantsToContinue = false;
+                userWantsToQuit = true;
                 return "";
             default:
                 return null;
         }
     }
 
+    /**
+     * Runs the query corresponding to the queryId, with the areaFilter and n value that the user has given.
+     * Depending on the query, areaFilter or n may not be used.  Once the query has been run, its results
+     * are printed in the console.
+     * @param queryId An integer from 1-9 corresponding to a unique query
+     * @param areaFilter The type of area you want to run the query over e.g. "world", "continent" etc.
+     * @param areaName The name of the area you'd like to query e.g. for a "country" areaFilter, "France"
+     * @param n The number of results returned if the query is a "Top N" query
+     */
     private void executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
     {
         ArrayList<Record> records;
@@ -250,31 +284,31 @@ public class UserPrompt
 
         if (records.size() == 0)
         {
-            System.out.println("Your query had no results");
+            System.out.println("Your query had no results, maybe try again with different input");
             return;
         }
 
-        for (Record record: records)
-        {
-            System.out.println(record);
-        }
+        for (Record record: records) System.out.println(record);
     }
 }
 
+/**
+ * Object used for storing the information used while displaying queries and their area filter options
+ */
 class QueryInfo
 {
     private final int queryId;
-    private final String parentQuery;
-    private final String[] childQueries;
+    private final String queryDescription;
+    private final String[] areaFilterDescriptions;
 
-    public QueryInfo(int queryId, String parentQuery, String[] childQueries)
+    public QueryInfo(int queryId, String queryDescription, String[] areaFilterDescriptions)
     {
         this.queryId = queryId;
-        this.parentQuery = parentQuery;
-        this.childQueries = childQueries;
+        this.queryDescription = queryDescription;
+        this.areaFilterDescriptions = areaFilterDescriptions;
     }
 
     public int getQueryId() { return queryId; }
-    public String getParentQuery() { return parentQuery; }
-    public String[] getChildQueries() { return childQueries; }
+    public String getQueryDescription() { return queryDescription; }
+    public String[] getAreaFilterDescriptions() { return areaFilterDescriptions; }
 }

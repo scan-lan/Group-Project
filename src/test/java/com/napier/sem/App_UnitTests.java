@@ -16,7 +16,7 @@ public class App_UnitTests
         String location = null;
 
         // when
-        Connection connection = App.connect(location, App.databaseDriver, true);
+        Connection connection = App.connect(location, App.DATABASE_DRIVER, true);
 
         // then
         assertNull(connection);

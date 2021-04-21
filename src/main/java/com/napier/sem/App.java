@@ -16,7 +16,9 @@ public class App
     static final String POPULATION_RESIDENCE_REPORT = "population residence report";
     static final String POPULATION = "population";
 
-    static final String databaseDriver = "com.mysql.cj.jdbc.Driver";
+    static final String HORIZONTAL_LINE = "------------------------------------------------------------" +
+            "------------------------------------------------------------";
+    static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     // Connection to MySQL database
     public static Connection connection;
@@ -26,11 +28,11 @@ public class App
         // Connect to database
         if (args.length < 1)
         {
-            connection = connect("localhost:33061", databaseDriver, false);
+            connection = connect("localhost:33061", DATABASE_DRIVER, false);
         }
         else
         {
-            connection = connect(args[0], databaseDriver, false);
+            connection = connect(args[0], DATABASE_DRIVER, false);
         }
 
         // Create instance of the database access object
@@ -64,13 +66,14 @@ public class App
         int retries = 60;
         for (int i = 1; i <= retries; ++i)
         {
-            System.out.println("Connecting to database...");
+            System.out.println(App.HORIZONTAL_LINE +  "\nConnecting to database...");
             try
             {
                 if (location == null) { return null; }
 
                 // Connect to database
-                Connection connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
+                Connection connection = DriverManager.getConnection(
+                        "jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",
                         "example");
                 System.out.println("Successfully connected");

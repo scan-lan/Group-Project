@@ -19,7 +19,7 @@ public class DAO_IntegrationTests
     static void init()
     {
         // Create database connection object
-        connection = App.connect("localhost:33061", App.databaseDriver, false);
+        connection = App.connect("localhost:33061", App.DATABASE_DRIVER, false);
         // Create Data Access Object
         dao = new DAO(connection);
     }

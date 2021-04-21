@@ -17,64 +17,64 @@ public class DAO_UnitTests
         dao = new DAO(null);
     }
 
-//    /**
-//     * Unit tests covering the DAO.getWhereCondition method
-//     */
-//    // test the whereCondition is null when the areaFilter is unexpected
-//    @Test
-//    public void getWhereCondition_unknownAreaFilterReturnsNull()
-//    {
-//        // given
-//        String areaFilter = "planet";
-//
-//        // when
-//        String whereCondition = dao.getWhereCondition(areaFilter, "Earth");
-//
-//        // then
-//        assertNull(whereCondition);
-//    }
-//
-//    // test that the whereCondition contains our given area name
-//    @Test
-//    public void getWhereCondition_areaNameAppearsInWhereCondition()
-//    {
-//        // given
-//        String areaName = "New York";
-//
-//        // when
-//        String whereCondition = dao.getWhereCondition(App.DISTRICT, areaName);
-//
-//        // then
-//        assertTrue(whereCondition.contains(areaName));
-//    }
-//
-//    // test that the whereCondition is null when areaName is null
-//    @Test
-//    public void getWhereCondition_nullAreaNameReturnsNull()
-//    {
-//        // given
-//        String areaName = null;
-//
-//        // when
-//        String whereCondition = dao.getWhereCondition(App.WORLD, areaName);
-//
-//        // then
-//        assertNull(whereCondition);
-//    }
-//
-//    // test that the whereCondition is null when areaFilter is null
-//    @Test
-//    public void getWhereCondition_nullAreaFilterReturnsNull()
-//    {
-//        // given
-//        String areaFilter = null;
-//
-//        // when
-//        String whereCondition = dao.getWhereCondition(areaFilter, "Earth");
-//
-//        // then
-//        assertNull(whereCondition);
-//    }
+    /**
+     * Unit tests covering the DAO.getWhereCondition method
+     */
+    // test the whereCondition is null when the areaFilter is unexpected
+    @Test
+    public void getWhereCondition_unknownAreaFilterReturnsNull()
+    {
+        // given
+        String areaFilter = "planet";
+
+        // when
+        String whereCondition = dao.getWhereCondition(areaFilter, "Earth");
+
+        // then
+        assertNull(whereCondition);
+    }
+
+    // test that the whereCondition contains our given area name
+    @Test
+    public void getWhereCondition_areaNameAppearsInWhereCondition()
+    {
+        // given
+        String areaName = "New York";
+
+        // when
+        String whereCondition = dao.getWhereCondition(App.DISTRICT, areaName);
+
+        // then
+        assertTrue(whereCondition.contains(areaName));
+    }
+
+    // test that the whereCondition is null when areaName is null
+    @Test
+    public void getWhereCondition_nullAreaNameReturnsNull()
+    {
+        // given
+        String areaName = null;
+
+        // when
+        String whereCondition = dao.getWhereCondition(App.WORLD, areaName);
+
+        // then
+        assertNull(whereCondition);
+    }
+
+    // test that the whereCondition is null when areaFilter is null
+    @Test
+    public void getWhereCondition_nullAreaFilterReturnsNull()
+    {
+        // given
+        String areaFilter = null;
+
+        // when
+        String whereCondition = dao.getWhereCondition(areaFilter, "Earth");
+
+        // then
+        assertNull(whereCondition);
+    }
 
     /**
      * Unit tests covering the DAO.allCountriesIn method

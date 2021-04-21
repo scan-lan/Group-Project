@@ -27,22 +27,22 @@ public class DAO_IntegrationTests
     @AfterAll
     static void tearDown() { App.disconnect(connection); }
 
-//    /**
-//     * Integration tests covering the DAO.executeStatement method
-//     */
-//    // Tests that an empty list is returned when a nonsense query is given
-//    @Test
-//    void executeStatement_arrayIsEmptyWhenStatementIsInvalid()
-//    {
-//        // given
-//        String statementString = "SELECT ALL FROM EVERYWHERE";
-//
-//        // when
-//        ArrayList<Record> countries= dao.executeStatement(statementString, App.COUNTRY);
-//
-//        // then
-//        assertEquals(0, countries.size());
-//    }
+    /**
+     * Integration tests covering the DAO.executeStatement method
+     */
+    // Tests that an empty list is returned when a nonsense query is given
+    @Test
+    void executeStatement_arrayIsEmptyWhenStatementIsInvalid()
+    {
+        // given
+        String statementString = "SELECT ALL FROM EVERYWHERE";
+
+        // when
+        ArrayList<Record> countries= dao.executeStatement(statementString, App.COUNTRY);
+
+        // then
+        assertEquals(0, countries.size());
+    }
 
     /**
      * Integration tests covering the DAO.allCountriesIn method

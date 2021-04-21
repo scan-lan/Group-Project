@@ -24,7 +24,7 @@ public class DAO
      * @param areaName The name of the location which will be used
      * @return The where condition string
      */
-    private static String getWhereCondition(String areaFilter, String areaName)
+    public static String getWhereCondition(String areaFilter, String areaName)
     {
         String whereCondition;
 
@@ -63,7 +63,7 @@ public class DAO
      * @param statementString The SQL statement to be executed
      * @return An ArrayList of country objects
      */
-    private ArrayList<Record> executeStatement(String statementString, String recordType)
+    public ArrayList<Record> executeStatement(String statementString, String recordType)
     {
         ArrayList<Record> records = new ArrayList<>();
 

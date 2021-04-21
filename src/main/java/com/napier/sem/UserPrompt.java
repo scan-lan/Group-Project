@@ -19,7 +19,7 @@ public class UserPrompt
             "6) Top N capital cities in...\n" +
             "7) Residence report of people living in...\n" +
             "8) Population of...\n" +
-            "9) Report on number of speakers per language for chinese, english, hindi, spanish and arabic\n\n" +
+            "9) Report on number of speakers per language for Chinese, English, Hindi, Spanish and Arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +
             "Enter 'q' at any time to exit";
     private final HashMap<Integer, QueryInfo> queryTable = new HashMap<>();

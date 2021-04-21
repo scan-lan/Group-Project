@@ -1,6 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.NoSuchElementException;
 
 public class App
 {
@@ -40,7 +41,15 @@ public class App
 
         UserPrompt prompt = new UserPrompt(dao);
 
-        prompt.start();
+        try
+        {
+            prompt.start();
+        }
+        catch (NoSuchElementException e)
+        {
+            System.out.println(App.HORIZONTAL_LINE + "\nNo console detected, running example query");
+            for (Record record: dao.topNCountriesIn(App.REGION, "Caribbean", 5)) System.out.println(record);
+        }
 
         // Disconnect from database
         disconnect(connection);

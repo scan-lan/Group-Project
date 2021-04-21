@@ -8,8 +8,7 @@ public class UserPrompt
     private final Scanner scanner;
     boolean userWantsToQuit;
     private static final int[] topNQueryParentIds = new int[]{2, 4, 6};
-    private static final String USE_CASE_PROMPT = "--------------------------------------------------------------------" +
-            "--------------------------------------------------------------------\n" +
+    private static final String USE_CASE_PROMPT = App.HORIZONTAL_LINE + "\n" +
             "Enter the number corresponding to the type of query you'd like to run\n" +
             "Your options are as follows:\n\n" +
             "1) All countries in...\n" +
@@ -22,43 +21,43 @@ public class UserPrompt
             "8) Population of...\n" +
             "9) Report on number of speakers per language for chinese, english, hindi, spanish and arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +
-            "Enter 'q' at any time to exit\n" +
-            "--------------------------------------------------------------------" +
-            "--------------------------------------------------------------------";
-    private final ArrayList<QueryInfo> queryList = new ArrayList<>();
+            "Enter 'q' at any time to exit";
+    private final HashMap<Integer, QueryInfo> queryTable = new HashMap<>();
 
     public UserPrompt(DAO dao)
     {
         this.dao = dao;
         this.scanner = new Scanner(System.in).useDelimiter("\\n");
 
-        queryList.add(new QueryInfo(1,
-                "All countries in",
-                new String[]{"the world", "a given continent", "a given region"}));
-        queryList.add(new QueryInfo(2,
-                "Top N countries in",
-                new String[]{"the world", "a given continent", "a given region"}));
-        queryList.add(new QueryInfo(3,
-                "All cities in",
-                new String[]{"the world", "a given continent", "a given region", "a given country", "a given district"}));
-        queryList.add(new QueryInfo(4,
-                "Top N cities in",
-                new String[]{"the world", "a given continent", "a given region", "a given country", "a given district"}));
-        queryList.add(new QueryInfo(5,
-                "All capital cities in",
-                new String[]{"the world", "a given continent", "a given region"}));
-        queryList.add(new QueryInfo(6,
-                "Top N capital cities in",
-                new String[]{"the world", "a given continent", "a given region"}));
-        queryList.add(new QueryInfo(7,
-                "Report on people living in vs not in cities in",
-                new String[]{"a given continent", "a given region", "a given country"}));
-        queryList.add(new QueryInfo(8,
-                "The population of",
-                new String[]{"the world", "a given continent", "a given region", "a given country", "a given district", "a given city"}));
-        queryList.add(new QueryInfo(9,
-                "Report on the number of speakers of Chinese, English, Spanish, Hindi and Arabic worldwide",
-                new String[]{}));
+        // Set up the query table hashmap with the queries available to the user.
+        // The query id is the key and the query info object representing the query is the value.
+        queryTable.put(1,
+                new QueryInfo("All countries in",
+                        new String[]{"the world", "a given continent", "a given region"}));
+        queryTable.put(2,
+                new QueryInfo("Top N countries in",
+                        new String[]{"the world", "a given continent", "a given region"}));
+        queryTable.put(3,
+                new QueryInfo("All cities in",
+                        new String[]{"the world", "a given continent", "a given region", "a given country", "a given district"}));
+        queryTable.put(4,
+                new QueryInfo("Top N cities in",
+                        new String[]{"the world", "a given continent", "a given region", "a given country", "a given district"}));
+        queryTable.put(5,
+                new QueryInfo("All capital cities in",
+                        new String[]{"the world", "a given continent", "a given region"}));
+        queryTable.put(6,
+                new QueryInfo("Top N capital cities in",
+                        new String[]{"the world", "a given continent", "a given region"}));
+        queryTable.put(7,
+                new QueryInfo("Report on people living in vs not in cities in",
+                        new String[]{"a given continent", "a given region", "a given country"}));
+        queryTable.put(8,
+                new QueryInfo("The population of",
+                        new String[]{"the world", "a given continent", "a given region", "a given country", "a given district", "a given city"}));
+        queryTable.put(9,
+                new QueryInfo("Report on the number of speakers of Chinese, English, Spanish, Hindi and Arabic worldwide",
+                        new String[]{}));
     }
 
     /**
@@ -71,7 +70,7 @@ public class UserPrompt
         userWantsToQuit = false;
         while (!userWantsToQuit)
         {
-            int chosenQueryId = obtainInputWithPrompt(USE_CASE_PROMPT, queryList.size());
+            int chosenQueryId = obtainInputWithPrompt(USE_CASE_PROMPT, queryTable.size());
             if (chosenQueryId == -1) continue;
 
             String chosenAreaFilter = "";
@@ -84,7 +83,8 @@ public class UserPrompt
             String areaNameInput = "";
             if (chosenQueryId != 9 && !chosenAreaFilter.equals(App.WORLD))
             {
-                System.out.printf("Enter the name of the %s you'd like to query%n", chosenAreaFilter);
+                System.out.printf(App.HORIZONTAL_LINE + "\nEnter the name of the %s you'd like to query%n",
+                        chosenAreaFilter);
 
                 areaNameInput = formatInput(scanner.next());
                 // exit the loop if the user enters "q" indicating they want to quit
@@ -99,7 +99,9 @@ public class UserPrompt
             // checks if the query takes an n value, and asks for it from the use if it does
             if (Arrays.binarySearch(topNQueryParentIds, chosenQueryId) >= 0)
             {
-                n = obtainInputWithPrompt("Enter the number of records you'd like to see", 4080);
+                n = obtainInputWithPrompt(
+                        App.HORIZONTAL_LINE + "\nEnter the number of records you'd like to see",
+                        4080);
 
                 if (n == -1) continue;
             }
@@ -107,7 +109,7 @@ public class UserPrompt
             executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);
         }
 
-        System.out.println("Until next time");
+        System.out.println(App.HORIZONTAL_LINE + "\nUntil next time\n" + App.HORIZONTAL_LINE);
     }
 
     /**
@@ -121,16 +123,22 @@ public class UserPrompt
     {
         if (parentQuery == 9) return "";
 
-        QueryInfo queryInfo = queryList.get(parentQuery - 1);
+        QueryInfo queryInfo = queryTable.get(parentQuery);
         String[] areaFilterDescriptions = queryInfo.getAreaFilterDescriptions();
 
-        String childQueryPrompt = String.format("Choose the type of \"%s\" query you'd like to run.\n", queryInfo.getQueryDescription());
+        StringBuilder childQueryPrompt = new StringBuilder(String.format(App.HORIZONTAL_LINE + "\n" +
+                        "Choose the type of \"%s\" query you'd like to run.\n",
+                queryInfo.getQueryDescription()));
         for (int i = 0; i < queryInfo.getAreaFilterDescriptions().length; i++)
         {
-            childQueryPrompt += String.format("%d) %s %s\n", i+1, queryInfo.getQueryDescription(), areaFilterDescriptions[i]);
+            childQueryPrompt.append(String.format("%d) %s %s" +
+                            ((i == queryInfo.getAreaFilterDescriptions().length - 1) ? "" : "\n"),
+                    i + 1,
+                    queryInfo.getQueryDescription(),
+                    areaFilterDescriptions[i]));
         }
 
-        int childQuery = obtainInputWithPrompt(childQueryPrompt, areaFilterDescriptions.length);
+        int childQuery = obtainInputWithPrompt(childQueryPrompt.toString(), areaFilterDescriptions.length);
 
         return parseQueryInputForAreaFilter(parentQuery, childQuery);
     }
@@ -171,7 +179,7 @@ public class UserPrompt
      */
     private Integer obtainIntWithinRange(int maxNum)
     {
-        int input = 0;
+        int input;
         try
         {
             input = scanner.nextInt();
@@ -297,18 +305,15 @@ public class UserPrompt
  */
 class QueryInfo
 {
-    private final int queryId;
     private final String queryDescription;
     private final String[] areaFilterDescriptions;
 
-    public QueryInfo(int queryId, String queryDescription, String[] areaFilterDescriptions)
+    public QueryInfo(String queryDescription, String[] areaFilterDescriptions)
     {
-        this.queryId = queryId;
         this.queryDescription = queryDescription;
         this.areaFilterDescriptions = areaFilterDescriptions;
     }
 
-    public int getQueryId() { return queryId; }
     public String getQueryDescription() { return queryDescription; }
     public String[] getAreaFilterDescriptions() { return areaFilterDescriptions; }
 }

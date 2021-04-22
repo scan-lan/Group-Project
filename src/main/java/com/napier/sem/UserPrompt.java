@@ -122,7 +122,7 @@ public class UserPrompt
      * @param queryId The ID of the query being run
      * @return The string representing the area filter (world, continent, region etc.)
      */
-    private String obtainAreaFilterChoice(int queryId)
+    public String obtainAreaFilterChoice(int queryId)
     {
         if (queryId == 9) return "";
 
@@ -207,7 +207,7 @@ public class UserPrompt
      * @param input The string that will be formatted
      * @return The formatted string
      */
-    private String formatInput(String input)
+    public String formatInput(String input)
     {
         return input.trim().toLowerCase(Locale.ROOT);
     }
@@ -219,7 +219,7 @@ public class UserPrompt
      *                         depending on the query.
      * @return The string representing the area filter or an empty string if the user wants to quit
      */
-    private String parseQueryInputForAreaFilter(int queryId, int areaFilterChoice)
+    public String parseQueryInputForAreaFilter(int queryId, int areaFilterChoice)
     {
         // query 7 is the only query which can't be run on the world, so we increment the area filter choice by one
         if (queryId == 7) areaFilterChoice++;
@@ -255,7 +255,7 @@ public class UserPrompt
      * @param areaName The name of the area you'd like to query e.g. for a "country" areaFilter, "France"
      * @param n The number of results returned if the query is a "Top N" query
      */
-    private void executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
+    public void executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
     {
         ArrayList<Record> records;
 

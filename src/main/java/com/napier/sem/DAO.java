@@ -107,12 +107,12 @@ public class DAO
     {
         if (whereCondition == null || n < 1)
         {
-            System.out.printf("%s - invalid query condition", queryName);
+            System.out.printf("%s - invalid query condition. ", queryName);
             return true;
         }
         else if (!validAreaFilters.contains(areaFilter))
         {
-            System.out.printf("%s - bad area filter passed", queryName);
+            System.out.printf("%s - bad area filter passed. ", queryName);
             return true;
         }
         return false;

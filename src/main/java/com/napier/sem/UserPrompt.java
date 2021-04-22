@@ -7,8 +7,8 @@ public class UserPrompt
     private final DAO dao;
     private final Scanner scanner;
     boolean userWantsToQuit;
-    private static final int[] topNQueryParentIds = new int[]{2, 4, 6};
-    private static final String USE_CASE_PROMPT = App.HORIZONTAL_LINE + "\n" +
+    private static final int[] topNQueryIds = new int[]{2, 4, 6};
+    private static final String INITIAL_QUERY_PROMPT = App.HORIZONTAL_LINE + "\n" +
             "Enter the number corresponding to the type of query you'd like to run\n" +
             "Your options are as follows:\n\n" +
             "1) All countries in...\n" +
@@ -27,6 +27,7 @@ public class UserPrompt
     public UserPrompt(DAO dao)
     {
         this.dao = dao;
+        // Initialise a scanner to read strings from the console, splitting on newlines
         this.scanner = new Scanner(System.in).useDelimiter("\\n");
 
         // Set up the query table hashmap with the queries available to the user.
@@ -70,17 +71,15 @@ public class UserPrompt
         userWantsToQuit = false;
         while (!userWantsToQuit)
         {
-            int chosenQueryId = obtainInputWithPrompt(USE_CASE_PROMPT, queryTable.size());
-            if (chosenQueryId == -1) continue;
+            int chosenQueryId = obtainInputWithPrompt(INITIAL_QUERY_PROMPT, queryTable.size());
+            if (chosenQueryId == -1) continue; // Exit the loop if the user indicated they wanted to quit
 
-            String chosenAreaFilter = "";
-            if (chosenQueryId != 9)
-            {
-                chosenAreaFilter = obtainAreaFilterChoice(chosenQueryId);
-                if (userWantsToQuit) continue;
-            }
+            String chosenAreaFilter = obtainAreaFilterChoice(chosenQueryId);
+            if (userWantsToQuit) continue; // Exit the loop if the user indicated they wanted to quit
 
             String areaNameInput = "";
+            // If the chosen area filter is world there's no need to ask for the name of the area and query 9
+            // doesn't take an area filter
             if (chosenQueryId != 9 && !chosenAreaFilter.equals(App.WORLD))
             {
                 System.out.printf(App.HORIZONTAL_LINE + "\nEnter the name of the %s you'd like to query%n",
@@ -97,13 +96,13 @@ public class UserPrompt
 
             int n = 0;
             // checks if the query takes an n value, and asks for it from the use if it does
-            if (Arrays.binarySearch(topNQueryParentIds, chosenQueryId) >= 0)
+            if (Arrays.binarySearch(topNQueryIds, chosenQueryId) >= 0)
             {
                 n = obtainInputWithPrompt(
                         App.HORIZONTAL_LINE + "\nEnter the number of records you'd like to see",
                         4080);
 
-                if (n == -1) continue;
+                if (n == -1) continue; // Exit the loop if the user indicated they wanted to quit
             }
 
             executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);

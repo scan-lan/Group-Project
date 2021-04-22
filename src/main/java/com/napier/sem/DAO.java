@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -78,7 +79,7 @@ public class DAO
             // Create Country object and add it to the list for each result in the query
             while (resultSet.next())
             {
-                if (resultSet.getString("name") != null) { records.add(new Record(resultSet, recordType)); }
+                if (resultSet.getString("name") != null) records.add(new Record(resultSet, recordType));
             }
         }
         catch (SQLException e)
@@ -87,6 +88,34 @@ public class DAO
             System.out.println(e.getMessage());
         }
         return records;
+    }
+
+    /**
+     * This method checks if the parameters being passed to a query will result in an invalid SQL statement.
+     * @param queryName Name of the query being tested
+     * @param whereCondition The where condition being passed to the query
+     * @param areaFilter The area filter being passed to the query
+     * @param validAreaFilters The area filters that are accepted by the query
+     * @param n The value of n, if the query takes an n
+     * @return True if the query will result in an invalid SQL statement, otherwise false
+     */
+    public boolean queryInvalid(String queryName,
+                                 String whereCondition,
+                                 String areaFilter,
+                                 ArrayList<String> validAreaFilters,
+                                 int n)
+    {
+        if (whereCondition == null || n < 1)
+        {
+            System.out.printf("%s - invalid query condition", queryName);
+            return true;
+        }
+        else if (!validAreaFilters.contains(areaFilter))
+        {
+            System.out.printf("%s - bad area filter passed", queryName);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -99,14 +128,18 @@ public class DAO
     public ArrayList<Record> allCountriesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-        if (whereCondition == null)
-        {
-            System.out.println("allCountriesIn - invalid query condition");
-            return new ArrayList<>();
-        }
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
+
+        if (queryInvalid("allCountriesIn", whereCondition,
+                areaFilter, validAreaFilters, 1)) return new ArrayList<>();
 
         // Define the SQL query as a string
-        String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +
+        String statementString = "SELECT code,\n" +
+                "country.name,\n" +
+                "continent,\n" +
+                "region,\n" +
+                "country.population,\n" +
+                "city.name AS capital\n" +
                 "FROM country\n" +
                 "    JOIN city ON country.capital = city.id\n" +
                 "WHERE " + whereCondition +
@@ -125,14 +158,18 @@ public class DAO
     public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-        if (whereCondition == null || n < 1)
-        {
-            System.out.println("topNCountriesIn - invalid query condition");
-            return new ArrayList<>();
-        }
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
+
+        if (queryInvalid("topNCountriesIn", whereCondition,
+                areaFilter, validAreaFilters, n)) return new ArrayList<>();
 
         // Define the SQL query as a string
-        String statementString = "SELECT country.code, country.name, continent, region, country.population, city.name AS capital\n" +
+        String statementString = "SELECT country.code,\n" +
+                "country.name,\n" +
+                "continent,\n" +
+                "region,\n" +
+                "country.population,\n" +
+                "city.name AS capital\n" +
                 "FROM country\n" +
                 "    JOIN city ON country.code = city.countrycode\n" +
                 "    AND country.capital = city.id\n" +
@@ -151,11 +188,11 @@ public class DAO
     public ArrayList<Record> allCitiesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
-        if (whereCondition == null)
-        {
-            System.out.println("allCitiesIn - invalid query condition");
-            return new ArrayList<>();
-        }
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION,
+                App.COUNTRY, App.DISTRICT));
+
+        if (queryInvalid("allCitiesIn", whereCondition,
+                areaFilter, validAreaFilters, 1)) return new ArrayList<>();
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
@@ -176,6 +213,11 @@ public class DAO
     public ArrayList<Record> topNCitiesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION,
+                App.COUNTRY, App.DISTRICT));
+
+        if (queryInvalid("topNCitiesIn", whereCondition,
+                areaFilter, validAreaFilters, n)) return new ArrayList<>();
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name, district, city.population, country.name AS country\n" +
@@ -198,6 +240,10 @@ public class DAO
     public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
+
+        if (queryInvalid("allCapitalCitiesIn", whereCondition,
+                areaFilter, validAreaFilters, 1)) return new ArrayList<>();
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name,\n" +
@@ -223,6 +269,10 @@ public class DAO
     public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
+
+        if (queryInvalid("topNCapitalCitiesIn", whereCondition,
+                areaFilter, validAreaFilters, n)) return new ArrayList<>();
 
         // Define the SQL query as a string
         String statementString = "SELECT city.name,\n" +
@@ -243,19 +293,18 @@ public class DAO
 
     /**
      * Use cases 7.1-7.3
-     * Constructs an SQL query to fetch the population in a specific area as well as the population who live in cities and those who don't, and executes the query.
+     * Constructs an SQL query to fetch the population in a specific area as well as the population who live
+     * in cities and those who don't, and executes the query.
      *
      * @return The population of a specified area as well as the population who live in cities and those who don't
      */
     public ArrayList<Record> populationLivingInAndNotInCities(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.CONTINENT, App.REGION, App.COUNTRY));
 
-        if (whereCondition == null)
-        {
-            System.out.println("populationLivingInAndNotInCities - invalid query condition");
-            return new ArrayList<>();
-        }
+        if (queryInvalid("populationLivingInAndNotInCities", whereCondition,
+                areaFilter, validAreaFilters, 1)) return new ArrayList<>();
 
         // Define the SQL query as a string
         String statementString = "SELECT name,\n" +
@@ -283,12 +332,11 @@ public class DAO
     public ArrayList<Record> populationOf(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION,
+                App.COUNTRY, App.DISTRICT, App.CITY));
 
-        if (whereCondition == null)
-        {
-            System.out.println("populationLivingInAndNotInCities - invalid query condition");
-            return new ArrayList<>();
-        }
+        if (queryInvalid("populationOf", whereCondition,
+                areaFilter, validAreaFilters, 1)) return new ArrayList<>();
 
         // Define the SQL query as a string
         String statementString = "SELECT " +
@@ -326,5 +374,4 @@ public class DAO
 
         return executeStatement(statementString, App.LANGUAGE);
     }
-
 }

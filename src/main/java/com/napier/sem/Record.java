@@ -34,7 +34,6 @@ public class Record
     private double percentageNotLivingInCities;
     private final String recordType;
 
-
     /**
      * Constructors
      *
@@ -177,9 +176,9 @@ public class Record
         switch (this.recordType)
         {
             case App.COUNTRY:
-                recordString = String.format("Country code: %s | Name: %s | Continent: %s\n" +
-                                "Region: %s | Population: %,d | Capital: %s\n" +
-                                "-------------------------------------------------------",
+                recordString = String.format(App.HORIZONTAL_LINE + "\n" +
+                                "Country code: %s | Name: %s | Continent: %s\n" +
+                                "Region: %s | Population: %,d | Capital: %s",
                         this.countryCode,
                         this.name,
                         this.continent,
@@ -188,26 +187,26 @@ public class Record
                         this.capital);
                 break;
             case App.CAPITAL_CITY:
-                recordString =  String.format("Name: %s | Country: %s | Population: %,d\n" +
-                                "-------------------------------------------------------",
+                recordString =  String.format(App.HORIZONTAL_LINE + "\n" +
+                                "Name: %s | Country: %s | Population: %,d",
                         this.name,
                         this.country,
                         this.population);
                 break;
             case App.CITY:
-                recordString = String.format("Name: %s |  Country: %s \n" +
-                                "District: %s |  Population: %,d\n" +
-                                "-------------------------------------------------------",
+                recordString = String.format(App.HORIZONTAL_LINE + "\n" +
+                                "Name: %s |  Country: %s \n" +
+                                "District: %s |  Population: %,d",
                         this.name,
                         this.country,
                         this.district,
                         this.population);
                 break;
             case App.POPULATION_RESIDENCE_REPORT:
-                recordString = String.format("Area: %s | Total population: %,d\n" +
+                recordString = String.format(App.HORIZONTAL_LINE + "\n" +
+                                "Area: %s | Total population: %,d\n" +
                                 "Population living in Cities: %,d (%.2f%%)\n" +
-                                "Population not living in Cities: %,d (%.2f%%)\n" +
-                                "-------------------------------------------------------",
+                                "Population not living in Cities: %,d (%.2f%%)",
                         this.name,
                         this.population,
                         this.populationLivingInCities,
@@ -216,15 +215,15 @@ public class Record
                         this.percentageNotLivingInCities);
                 break;
             case App.LANGUAGE:
-                recordString = String.format("Language: %s |  Speakers: %,d | %% of world's population: %d%% \n" +
-                                "-------------------------------------------------------",
+                recordString = String.format(App.HORIZONTAL_LINE + "\n" +
+                                "Language: %s |  Speakers: %,d | %% of world's population: %d%%",
                         this.name,
                         this.speakers,
                         this.percentage);
                 break;
             case App.POPULATION:
-                recordString = String.format("Area: %s |  Population: %,d\n" +
-                                "-------------------------------------------------------",
+                recordString = String.format(App.HORIZONTAL_LINE + "\n" +
+                                "Area: %s |  Population: %,d",
                         this.name,
                         this.population);
         }

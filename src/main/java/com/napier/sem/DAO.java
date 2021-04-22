@@ -101,7 +101,7 @@ public class DAO
      * @param n The value of n, if the query takes an n
      * @return True if the query will result in an invalid SQL statement, otherwise false
      */
-    private boolean queryInvalid(String queryName,
+    public boolean queryInvalid(String queryName,
                                  String whereCondition,
                                  String areaFilter,
                                  ArrayList<String> validAreaFilters,

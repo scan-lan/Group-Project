@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -74,6 +75,82 @@ public class DAO_UnitTests
 
         // then
         assertNull(whereCondition);
+    }
+
+    /**
+     * Unit tests convering the DAO.queryInvalid method
+     */
+    // test that a null whereCondition will result in queryInvalid being true
+    @Test
+    public void queryInvalid_falseWhenWhereConditionIsNull()
+    {
+        // given
+        String whereCondition = null;
+
+        // when
+        boolean result = dao.queryInvalid("query",
+                whereCondition,
+                App.WORLD,
+                new ArrayList<>(),
+                1);
+
+        assertTrue(result);
+    }
+
+    // test that an n value of less than 1 will result in queryInvalid being true
+    @Test
+    public void queryInvalid_falseWhenNLessThanOne()
+    {
+        // given
+        int n = 0;
+
+        // when
+        boolean result = dao.queryInvalid("query",
+                "country.code LIKE '%'",
+                App.WORLD,
+                new ArrayList<>(),
+                n);
+
+        assertTrue(result);
+    }
+
+    // test that an area filter not in the valid area filters will result in queryInvalid being true
+    @Test
+    public void queryInvalid_falseWhenAreaFilterNotAllowed()
+    {
+        // given
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
+        String areaFilter = App.COUNTRY;
+
+        // when
+        boolean result = dao.queryInvalid("query",
+                "country.name LIKE '%'",
+                areaFilter,
+                validAreaFilters,
+                1);
+
+        assertTrue(result);
+    }
+
+    // test that queryInvalid is false when it is passed good values
+    @Test
+    public void queryInvalid_happyPath()
+    {
+        // given
+        String queryName = "query";
+        String whereCondition = "country.name LIKE '%'";
+        ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
+        String areaFilter = App.WORLD;
+        int n = 5;
+
+        // when
+        boolean result = dao.queryInvalid(queryName,
+                whereCondition,
+                areaFilter,
+                validAreaFilters,
+                n);
+
+        assertFalse(result);
     }
 
     /**

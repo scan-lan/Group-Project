@@ -22,9 +22,9 @@ public class Record_UnitTests
         String capital = "Edinburgh";
         long population = 6000000L;
         String expectedRecordType = App.COUNTRY;
-        String expectedToStringOutput = "Country code: SCT | Name: Scotland | Continent: Europe\n" +
-                "Region: Great Britain | Population: 6,000,000 | Capital: Edinburgh\n" +
-                "-------------------------------------------------------";
+        String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
+                "Country code: SCT | Name: Scotland | Continent: Europe\n" +
+                "Region: Great Britain | Population: 6,000,000 | Capital: Edinburgh";
 
 
         // when
@@ -53,8 +53,8 @@ public class Record_UnitTests
         String continent = "Europe";
         long population = 6000000L;
         String expectedRecordType = App.CAPITAL_CITY;
-        String expectedToStringOutput = "Name: Glasgow | Country: Scotland | Population: 6,000,000\n" +
-                "-------------------------------------------------------";
+        String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
+                "Name: Glasgow | Country: Scotland | Population: 6,000,000";
 
         // when
         Record capitalCity = new Record(name, country, region, continent, population);
@@ -80,9 +80,9 @@ public class Record_UnitTests
         String district = "North Lanarkshire";
         long population = 10000L;
         String expectedRecordType = App.CITY;
-        String expectedToStringOutput = "Name: Wishae |  Country: Scotland \n" +
-                "District: North Lanarkshire |  Population: 10,000\n" +
-                "-------------------------------------------------------";
+        String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
+                "Name: Wishae |  Country: Scotland \n" +
+                "District: North Lanarkshire |  Population: 10,000";
 
         // when
         Record city = new Record(name, country, district, population);
@@ -109,10 +109,10 @@ public class Record_UnitTests
         Long populationNotLivingInCities = 1L;
         Double percentageNotLivingInCities = 0.01D;
         String expectedRecordType = App.POPULATION_RESIDENCE_REPORT;
-        String expectedToStringOutput = "Area: East Kilbride | Total population: 7,000\n" +
+        String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
+                "Area: East Kilbride | Total population: 7,000\n" +
                 "Population living in Cities: 6,999 (99.99%)\n" +
-                "Population not living in Cities: 1 (0.01%)\n" +
-                "-------------------------------------------------------";
+                "Population not living in Cities: 1 (0.01%)";
 
         // when
         Record populationResidenceReport = new Record(name, population, populationLivingInCities, percentageLivingInCities, populationNotLivingInCities, percentageNotLivingInCities);
@@ -138,8 +138,8 @@ public class Record_UnitTests
         Long speakers = 3L;
         Integer percentage = 0;
         String expectedRecordType = App.LANGUAGE;
-        String expectedToStringOutput = "Language: Gaelic |  Speakers: 3 | % of world's population: 0% \n" +
-                "-------------------------------------------------------";
+        String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
+                "Language: Gaelic |  Speakers: 3 | % of world's population: 0%";
 
         // when
         Record Language = new Record(language, speakers, percentage);
@@ -161,8 +161,8 @@ public class Record_UnitTests
         String name = "China";
         Long population = 999000000L;
         String expectedRecordType = App.POPULATION;
-        String expectedToStringOutput = "Area: China |  Population: 999,000,000\n" +
-                "-------------------------------------------------------";
+        String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
+                "Area: China |  Population: 999,000,000";
 
         // when
         Record Population = new Record(name, population);

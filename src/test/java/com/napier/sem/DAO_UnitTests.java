@@ -28,7 +28,7 @@ public class DAO_UnitTests
         String areaFilter = "planet";
 
         // when
-        String whereCondition = DAO.getWhereCondition(areaFilter, "Earth");
+        String whereCondition = dao.getWhereCondition(areaFilter, "Earth");
 
         // then
         assertNull(whereCondition);
@@ -42,7 +42,7 @@ public class DAO_UnitTests
         String areaName = "New York";
 
         // when
-        String whereCondition = DAO.getWhereCondition(App.DISTRICT, areaName);
+        String whereCondition = dao.getWhereCondition(App.DISTRICT, areaName);
 
         // then
         assertTrue(whereCondition.contains(areaName));
@@ -56,7 +56,7 @@ public class DAO_UnitTests
         String areaName = null;
 
         // when
-        String whereCondition = DAO.getWhereCondition(App.WORLD, areaName);
+        String whereCondition = dao.getWhereCondition(App.WORLD, areaName);
 
         // then
         assertNull(whereCondition);
@@ -70,7 +70,7 @@ public class DAO_UnitTests
         String areaFilter = null;
 
         // when
-        String whereCondition = DAO.getWhereCondition(areaFilter, "Earth");
+        String whereCondition = dao.getWhereCondition(areaFilter, "Earth");
 
         // then
         assertNull(whereCondition);

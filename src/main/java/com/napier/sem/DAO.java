@@ -78,7 +78,7 @@ public class DAO
             // Create Country object and add it to the list for each result in the query
             while (resultSet.next())
             {
-                if (resultSet.getString("name") != null) { records.add(new Record(resultSet, recordType)); }
+                if (resultSet.getString("name") != null) records.add(new Record(resultSet, recordType));
             }
         }
         catch (SQLException e)
@@ -106,7 +106,12 @@ public class DAO
         }
 
         // Define the SQL query as a string
-        String statementString = "SELECT code, country.name, continent, region, country.population, city.name AS capital\n" +
+        String statementString = "SELECT code,\n" +
+                "country.name,\n" +
+                "continent,\n" +
+                "region,\n" +
+                "country.population,\n" +
+                "city.name AS capital\n" +
                 "FROM country\n" +
                 "    JOIN city ON country.capital = city.id\n" +
                 "WHERE " + whereCondition +
@@ -132,7 +137,12 @@ public class DAO
         }
 
         // Define the SQL query as a string
-        String statementString = "SELECT country.code, country.name, continent, region, country.population, city.name AS capital\n" +
+        String statementString = "SELECT country.code,\n" +
+                "country.name,\n" +
+                "continent,\n" +
+                "region,\n" +
+                "country.population,\n" +
+                "city.name AS capital\n" +
                 "FROM country\n" +
                 "    JOIN city ON country.code = city.countrycode\n" +
                 "    AND country.capital = city.id\n" +
@@ -243,7 +253,8 @@ public class DAO
 
     /**
      * Use cases 7.1-7.3
-     * Constructs an SQL query to fetch the population in a specific area as well as the population who live in cities and those who don't, and executes the query.
+     * Constructs an SQL query to fetch the population in a specific area as well as the population who live
+     * in cities and those who don't, and executes the query.
      *
      * @return The population of a specified area as well as the population who live in cities and those who don't
      */

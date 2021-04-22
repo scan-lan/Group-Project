@@ -122,6 +122,20 @@ public class DAO_UnitTests
         assertEquals(0, countries.size());
     }
 
+    // check countries list is empty if called with an invalid areaFilter
+    @Test
+    public void allCountriesIn_areaFilterWrongListEmpty()
+    {
+        // given
+        String areaFilter = App.CITY;
+
+        // when
+        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, "Glasgow");
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
     // check test passes with valid areaFilter and areaName
     @Test
     public void allCountriesIn_happyPath()
@@ -194,6 +208,19 @@ public class DAO_UnitTests
         assertEquals(0, countries.size());
     }
 
+    // check countries list is empty if called with an invalid areaFilter
+    @Test
+    public void topNCountriesIn_areaFilterWrongListEmpty() {
+        // given
+        String areaFilter = App.DISTRICT;
+
+        // when
+        ArrayList<Record> countries = dao.topNCountriesIn(areaFilter, "Scotland", 15);
+
+        // then
+        assertEquals(0, countries.size());
+    }
+
     // check test passes with valid areaFilter and areaName
     @Test
     public void topNCountriesIn_happyPath()
@@ -247,6 +274,20 @@ public class DAO_UnitTests
 
         // when
         ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
+
+        // then
+        assertEquals(0, cities.size());
+    }
+
+    // check cities list is empty if called with an invalid areaFilter
+    @Test
+    public void allCitiesIn_areaFilterWrongListEmpty()
+    {
+        // given
+        String areaFilter = App.CITY;
+
+        // when
+        ArrayList<Record> cities = dao.allCitiesIn(areaFilter, "Glasgow");
 
         // then
         assertEquals(0, cities.size());
@@ -324,6 +365,19 @@ public class DAO_UnitTests
         assertEquals(0, cities.size());
     }
 
+    // check cities list is empty if called with an invalid areaFilter
+    @Test
+    public void topNCitiesIn_areaFilterWrongListEmpty() {
+        // given
+        String areaFilter = App.CITY;
+
+        // when
+        ArrayList<Record> cities = dao.topNCitiesIn(areaFilter, "Houston", 15);
+
+        // then
+        assertEquals(0, cities.size());
+    }
+
     // check test passes with valid areaFilter and areaName
     @Test
     public void topNCitiesIn_happyPath()
@@ -377,6 +431,20 @@ public class DAO_UnitTests
 
         // when
         ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, areaName);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
+    // check capital cities list is empty if called with an invalid areaFilter
+    @Test
+    public void allCapitalCitiesIn_areaFilterWrongListEmpty()
+    {
+        // given
+        String areaFilter = App.DISTRICT;
+
+        // when
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, "Glasgow");
 
         // then
         assertEquals(0, capitalCities.size());
@@ -454,6 +522,19 @@ public class DAO_UnitTests
         assertEquals(0, capitalCities.size());
     }
 
+    // check capital cities list is empty if called with an invalid areaFilter
+    @Test
+    public void topNCapitalCitiesIn_areaFilterWrongListEmpty() {
+        // given
+        String areaFilter = App.CITY;
+
+        // when
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, "Canberra", 15);
+
+        // then
+        assertEquals(0, capitalCities.size());
+    }
+
     // check test passes with valid areaFilter and areaName
     @Test
     public void topNCapitalCitiesIn_happyPath()
@@ -510,6 +591,19 @@ public class DAO_UnitTests
 
         // then
         assertEquals(0, populationResidenceReport.size());
+    }
+
+    // check cities list is empty if called with an invalid areaFilter
+    @Test
+    public void populationLivingInAndNotInCities_areaFilterWrongListEmpty() {
+        // given
+        String areaFilter = App.WORLD;
+
+        // when
+        ArrayList<Record> cities = dao.populationLivingInAndNotInCities(areaFilter, "");
+
+        // then
+        assertEquals(0, cities.size());
     }
 
     // check test passes with valid areaFilter and areaName

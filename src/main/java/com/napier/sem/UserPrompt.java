@@ -16,14 +16,14 @@ public class UserPrompt
     private static final String INITIAL_QUERY_PROMPT = App.HORIZONTAL_LINE + "\n" +
             "Enter the number corresponding to the type of query you'd like to run\n" +
             "Your options are as follows:\n\n" +
-            "1) All countries in...\n" +
-            "2) Top N countries in...\n" +
-            "3) All cities in...\n" +
-            "4) Top N cities in...\n" +
-            "5) All capital cities in...\n" +
-            "6) Top N capital cities in...\n" +
-            "7) Residence report of people living in...\n" +
-            "8) Population of...\n" +
+            "1) Report on the population of countries in the a given area\n" +
+            "2) Report on the top N populated countries in a given area where N is an integer provided by the user\n" +
+            "3) Report on the population of cities in a given area\n" +
+            "4) Report on the top N populated cities in a given area where N is an integer provided by the user\n" +
+            "5) Report on the population of capital cities in a given area\n" +
+            "6) Report on the top N populated capital cities in a given area where N is an integer provided by the user\n" +
+            "7) Report on the population of people, people living in cities, and people not living in cities in a given area\n" +
+            "8) Report on the population of a given area\n" +
             "9) Report on number of speakers per language for Chinese, English, Hindi, Spanish and Arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +
             "Enter 'q' at any time to exit";

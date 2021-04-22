@@ -603,9 +603,9 @@ public class DAO_IntegrationTests
         String areaName = null;
 
         // when
-        ArrayList<Record> population1 = dao.populationLivingInAndNotInCities(areaFilter, areaName);
-        ArrayList<Record> population2 = dao.populationLivingInAndNotInCities(App.REGION, areaName);
-        ArrayList<Record> population3 = dao.populationLivingInAndNotInCities(areaFilter, "Europe");
+        ArrayList<Record> population1 = dao.populationOf(areaFilter, areaName);
+        ArrayList<Record> population2 = dao.populationOf(App.REGION, areaName);
+        ArrayList<Record> population3 = dao.populationOf(areaFilter, "Europe");
 
         // then
         assertEquals(0, population1.size());

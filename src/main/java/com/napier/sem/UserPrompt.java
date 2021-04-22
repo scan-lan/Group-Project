@@ -2,6 +2,11 @@ package com.napier.sem;
 
 import java.util.*;
 
+/**
+ * The UserPrompt handles displaying information to the user so they can choose a query and
+ * processes their input so the query is run with valid parameters.  There is input validation
+ * so that the user can't crash the app with bad input.
+ */
 public class UserPrompt
 {
     private final DAO dao;
@@ -113,33 +118,32 @@ public class UserPrompt
 
     /**
      * This displays the area filters (world, continent, region etc.) available for the selected query
-     * as a numbered list, and asks the user which one they'd like to choose
-     * asks the
-     * @param parentQuery The ID of the type of query being run
-     * @return The string representing the area filter
+     * as a numbered list, and asks the user which one they'd like to choose.
+     * @param queryId The ID of the query being run
+     * @return The string representing the area filter (world, continent, region etc.)
      */
-    private String obtainAreaFilterChoice(int parentQuery)
+    private String obtainAreaFilterChoice(int queryId)
     {
-        if (parentQuery == 9) return "";
+        if (queryId == 9) return "";
 
-        QueryInfo queryInfo = queryTable.get(parentQuery);
+        QueryInfo queryInfo = queryTable.get(queryId);
         String[] areaFilterDescriptions = queryInfo.getAreaFilterDescriptions();
 
-        StringBuilder childQueryPrompt = new StringBuilder(String.format(App.HORIZONTAL_LINE + "\n" +
-                        "Choose the type of \"%s\" query you'd like to run.\n",
+        StringBuilder areaFilterPrompt = new StringBuilder(
+                String.format(App.HORIZONTAL_LINE + "\nChoose the type of \"%s\" query you'd like to run.\n",
                 queryInfo.getQueryDescription()));
         for (int i = 0; i < queryInfo.getAreaFilterDescriptions().length; i++)
         {
-            childQueryPrompt.append(String.format("%d) %s %s" +
+            areaFilterPrompt.append(String.format("%d) %s %s" +
                             ((i == queryInfo.getAreaFilterDescriptions().length - 1) ? "" : "\n"),
                     i + 1,
                     queryInfo.getQueryDescription(),
                     areaFilterDescriptions[i]));
         }
 
-        int childQuery = obtainInputWithPrompt(childQueryPrompt.toString(), areaFilterDescriptions.length);
+        int areaFilterId = obtainInputWithPrompt(areaFilterPrompt.toString(), areaFilterDescriptions.length);
 
-        return parseQueryInputForAreaFilter(parentQuery, childQuery);
+        return parseQueryInputForAreaFilter(queryId, areaFilterId);
     }
 
     /**
@@ -174,7 +178,7 @@ public class UserPrompt
      * Scans input for a number from 1 to the maxNum, and returns null if there is no matching input.
      * Returns -1 if the user enters "q", indicating they want to quit.
      * @param maxNum An integer representing the largest number which should be accepted as valid input
-     * @return An integer from 1 to maxNum, -1 if the user enters "q", or null if no valid input is found
+     * @return An integer from 1 to maxNum; -1 if the user enters "q"; or null if no valid input is found
      */
     private Integer obtainIntWithinRange(int maxNum)
     {
@@ -199,7 +203,7 @@ public class UserPrompt
     }
 
     /**
-     * Remove whitespace from around input strings and convert to lowercase
+     * Remove whitespace from around input strings and convert to lowercase.
      * @param input The string that will be formatted
      * @return The formatted string
      */
@@ -209,11 +213,11 @@ public class UserPrompt
     }
 
     /**
-     * This returns the area filter that will be used for the query, given the selection that the user has made
-     * @param queryId the id of the top-level query (1-9)
-     * @param areaFilterChoice the id of the area filter that the user has chosen, which can go from 1 to 6
-     *                         depending on the query
-     * @return the string representing the area filter
+     * This returns the area filter that will be used for the query, given the selection that the user has made.
+     * @param queryId The id of the top-level query (1-9)
+     * @param areaFilterChoice The id of the area filter that the user has chosen, which can go from 1 to 6
+     *                         depending on the query.
+     * @return The string representing the area filter or an empty string if the user wants to quit
      */
     private String parseQueryInputForAreaFilter(int queryId, int areaFilterChoice)
     {

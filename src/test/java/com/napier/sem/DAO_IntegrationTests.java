@@ -89,6 +89,25 @@ public class DAO_IntegrationTests
         }
     }
 
+    // test that countries list is empty when areaFilter and areaName are null
+    @Test
+    public void allCountriesIn_nullArgumentsCauseEmptyList()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> countries1 = dao.allCountriesIn(areaFilter, areaName);
+        ArrayList<Record> countries2 = dao.allCountriesIn(App.REGION, areaName);
+        ArrayList<Record> countries3 = dao.allCountriesIn(areaFilter, "Europe");
+
+        // then
+        assertEquals(0, countries1.size());
+        assertEquals(0, countries2.size());
+        assertEquals(0, countries3.size());
+    }
+
     /**
      * Integration tests covering the DAO.topNCountriesIn method
      */
@@ -162,6 +181,25 @@ public class DAO_IntegrationTests
         }
     }
 
+    // test that countries list is empty when areaFilter and areaName are null
+    @Test
+    public void topNCountriesIn_nullArgumentsCauseEmptyList()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> countries1 = dao.topNCountriesIn(areaFilter, areaName, 10);
+        ArrayList<Record> countries2 = dao.topNCountriesIn(App.REGION, areaName, 10);
+        ArrayList<Record> countries3 = dao.topNCountriesIn(areaFilter, "Europe", 10);
+
+        // then
+        assertEquals(0, countries1.size());
+        assertEquals(0, countries2.size());
+        assertEquals(0, countries3.size());
+    }
+
     /**
      * Integration tests covering the DAO.allCitiesIn method
      */
@@ -205,6 +243,25 @@ public class DAO_IntegrationTests
         {
             assertTrue(cities.get(i).getPopulation() >= cities.get(i+1).getPopulation());
         }
+    }
+
+    // test that cities list is empty when areaFilter and areaName are null
+    @Test
+    public void allCitiesIn_nullArgumentsCauseEmptyList()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> cities1 = dao.allCitiesIn(areaFilter, areaName);
+        ArrayList<Record> cities2 = dao.allCitiesIn(App.REGION, areaName);
+        ArrayList<Record> cities3 = dao.allCitiesIn(areaFilter, "Europe");
+
+        // then
+        assertEquals(0, cities1.size());
+        assertEquals(0, cities2.size());
+        assertEquals(0, cities3.size());
     }
 
     /**
@@ -280,6 +337,25 @@ public class DAO_IntegrationTests
         }
     }
 
+    // test that cities list is empty when areaFilter and areaName are null
+    @Test
+    public void topNCitiesIn_nullArgumentsCauseEmptyList()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> cities1 = dao.topNCitiesIn(areaFilter, areaName, 10);
+        ArrayList<Record> cities2 = dao.topNCitiesIn(App.REGION, areaName, 10);
+        ArrayList<Record> cities3 = dao.topNCitiesIn(areaFilter, "Europe", 10);
+
+        // then
+        assertEquals(0, cities1.size());
+        assertEquals(0, cities2.size());
+        assertEquals(0, cities3.size());
+    }
+
     /**
      * Integration tests covering the DAO.allCapitalCitiesIn method
      */
@@ -323,6 +399,25 @@ public class DAO_IntegrationTests
         {
             assertTrue(capitalCities.get(i).getPopulation() >= capitalCities.get(i+1).getPopulation());
         }
+    }
+
+    // test that capital cities list is empty when areaFilter and areaName are null
+    @Test
+    public void allCapitalCitiesIn_nullArgumentsCauseEmptyList()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> capitalCities1 = dao.allCapitalCitiesIn(areaFilter, areaName);
+        ArrayList<Record> capitalCities2 = dao.allCapitalCitiesIn(App.REGION, areaName);
+        ArrayList<Record> capitalCities3 = dao.allCapitalCitiesIn(areaFilter, "Europe");
+
+        // then
+        assertEquals(0, capitalCities1.size());
+        assertEquals(0, capitalCities2.size());
+        assertEquals(0, capitalCities3.size());
     }
 
     /**
@@ -399,6 +494,25 @@ public class DAO_IntegrationTests
         }
     }
 
+    // test that capital cities list is empty when areaFilter and areaName are null
+    @Test
+    public void topNCapitalCitiesIn_nullArgumentsCauseEmptyList()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> capitalCities1 = dao.topNCapitalCitiesIn(areaFilter, areaName, 10);
+        ArrayList<Record> capitalCities2 = dao.topNCapitalCitiesIn(App.REGION, areaName, 10);
+        ArrayList<Record> capitalCities3 = dao.topNCapitalCitiesIn(areaFilter, "Europe", 10);
+
+        // then
+        assertEquals(0, capitalCities1.size());
+        assertEquals(0, capitalCities2.size());
+        assertEquals(0, capitalCities3.size());
+    }
+
     /**
      * Integration tests covering the DAO.populationLivingInAndNotInCities method
      */
@@ -430,6 +544,25 @@ public class DAO_IntegrationTests
         assertEquals(0, populationResidenceReport.size());
     }
 
+    // test that population residence report list is empty when areaFilter and areaName are null
+    @Test
+    public void populationLivingInAndNotInCities_nullArgumentsCauseEmptyList()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> populationResidenceReport1 = dao.populationLivingInAndNotInCities(areaFilter, areaName);
+        ArrayList<Record> populationResidenceReport2 = dao.populationLivingInAndNotInCities(App.REGION, areaName);
+        ArrayList<Record> populationResidenceReport3 = dao.populationLivingInAndNotInCities(areaFilter, "Europe");
+
+        // then
+        assertEquals(0, populationResidenceReport1.size());
+        assertEquals(0, populationResidenceReport2.size());
+        assertEquals(0, populationResidenceReport3.size());
+    }
+
     /**
      * Integration tests covering the DAO.populationOf method
      */
@@ -459,6 +592,25 @@ public class DAO_IntegrationTests
 
         // then
         assertEquals(0, population.size());
+    }
+
+    // test that population list is empty when areaFilter and areaName are null
+    @Test
+    public void populationOf_nullArgumentsCauseEmptyList()
+    {
+        // given
+        String areaFilter = null;
+        String areaName = null;
+
+        // when
+        ArrayList<Record> population1 = dao.populationLivingInAndNotInCities(areaFilter, areaName);
+        ArrayList<Record> population2 = dao.populationLivingInAndNotInCities(App.REGION, areaName);
+        ArrayList<Record> population3 = dao.populationLivingInAndNotInCities(areaFilter, "Europe");
+
+        // then
+        assertEquals(0, population1.size());
+        assertEquals(0, population2.size());
+        assertEquals(0, population3.size());
     }
 
     /**

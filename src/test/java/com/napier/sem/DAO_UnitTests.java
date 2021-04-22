@@ -29,7 +29,7 @@ public class DAO_UnitTests
         String areaFilter = "planet";
 
         // when
-        String whereCondition = dao.getWhereCondition(areaFilter, "Earth");
+        String whereCondition = DAO.getWhereCondition(areaFilter, "Earth");
 
         // then
         assertNull(whereCondition);
@@ -43,7 +43,7 @@ public class DAO_UnitTests
         String areaName = "New York";
 
         // when
-        String whereCondition = dao.getWhereCondition(App.DISTRICT, areaName);
+        String whereCondition = DAO.getWhereCondition(App.DISTRICT, areaName);
 
         // then
         assertTrue(whereCondition.contains(areaName));
@@ -57,7 +57,7 @@ public class DAO_UnitTests
         String areaName = null;
 
         // when
-        String whereCondition = dao.getWhereCondition(App.WORLD, areaName);
+        String whereCondition = DAO.getWhereCondition(App.WORLD, areaName);
 
         // then
         assertNull(whereCondition);
@@ -71,14 +71,14 @@ public class DAO_UnitTests
         String areaFilter = null;
 
         // when
-        String whereCondition = dao.getWhereCondition(areaFilter, "Earth");
+        String whereCondition = DAO.getWhereCondition(areaFilter, "Earth");
 
         // then
         assertNull(whereCondition);
     }
 
     /**
-     * Unit tests convering the DAO.queryInvalid method
+     * Unit tests covering the DAO.queryInvalid method
      */
     // test that a null whereCondition will result in queryInvalid being true
     @Test

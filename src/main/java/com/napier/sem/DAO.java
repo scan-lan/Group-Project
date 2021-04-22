@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static java.util.Arrays.binarySearch;
-
 
 /**
  * The Data Access Object (DAO) is used for querying the database and returning

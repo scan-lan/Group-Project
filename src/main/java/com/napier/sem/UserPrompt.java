@@ -21,7 +21,7 @@ public class UserPrompt
             "3) Report on the population of cities in an area you specify\n" +
             "4) Report on the top N most populous cities in an area you specify where N is an integer you provide\n" +
             "5) Report on the population of capital cities in an area you specify\n" +
-            "6) Report on the top N most populous capital cities in an area you specify, where N is an integer provided by the user\n" +
+            "6) Report on the top N most populous capital cities in an area you specify, where N is an integer you provide\n" +
             "7) Report on the residence of a population in an area you specify\n" +
             "8) Report on the population of an area you specify\n" +
             "9) Report on number of speakers per language for Chinese, English, Hindi, Spanish and Arabic\n\n" +

@@ -14,25 +14,28 @@ public class IntegrationTests
 {
     static DAO dao;
     static Connection connection;
+    static UserPrompt userPrompt;
 
     @BeforeAll
     static void init()
     {
-        // Create database connection object
+        // Create database connection object for use in tests
         connection = App.connect("localhost:33061", App.DATABASE_DRIVER, false);
-        // Create Data Access Object
+        // Create Data Access Object for use in tests
         dao = new DAO(connection);
+        // Create user prompt object for use in tests
+        userPrompt = new UserPrompt(dao);
     }
 
     @AfterAll
     static void tearDown() { App.disconnect(connection); }
 
     /**
-     * Integration tests covering the DAO.executeStatement method
+     * Integration tests covering the DAO class
      */
     // Tests that null is returned when a nonsense query is given
     @Test
-    void executeStatement_nullWhenStatementIsInvalid()
+    void DAO_executeStatement_nullWhenStatementIsInvalid()
     {
         // given
         String statementString = "SELECT ALL FROM EVERYWHERE";
@@ -43,13 +46,9 @@ public class IntegrationTests
         // then
         assertNull(countries);
     }
-
-    /**
-     * Integration tests covering the DAO.allCountriesIn method
-     */
     // Tests that all countries in query are in the given area
     @Test
-    void allCountriesIn_allAreasMatchFilter()
+    void DAO_allCountriesIn_allAreasMatchFilter()
     {
         // given
         String areaName = "Africa";
@@ -63,7 +62,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void allCountriesIn_arrayIsEmptyWhenAreaNameIsInvalid()
+    void DAO_allCountriesIn_arrayIsEmptyWhenAreaNameIsInvalid()
     {
         // given
         String areaName = "SmurfCity USA";
@@ -77,7 +76,7 @@ public class IntegrationTests
 
     // Tests that the results are listed in descending order.
     @Test
-    void allCountriesIn_countriesPopulationIsInDescendingOrder()
+    void DAO_allCountriesIn_countriesPopulationIsInDescendingOrder()
     {
         // when
         ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, "Asia");
@@ -91,7 +90,7 @@ public class IntegrationTests
 
     // test that countries list is empty when areaFilter and areaName are null
     @Test
-    public void allCountriesIn_nullArgumentsCauseEmptyList()
+    void DAO_allCountriesIn_nullArgumentsCauseEmptyList()
     {
         // given
         String areaFilter = null;
@@ -108,12 +107,9 @@ public class IntegrationTests
         assertEquals(0, countries3.size());
     }
 
-    /**
-     * Integration tests covering the DAO.topNCountriesIn method
-     */
     // Tests that the number of results is less than or equal to integer n
     @Test
-    void topNCountriesIn_arrayIsCorrectSize()
+    void DAO_topNCountriesIn_arrayIsCorrectSize()
     {
         // given
         int n = 17;
@@ -127,7 +123,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when integer n is set to 0
     @Test
-    void topNCountriesIn_whenNZeroArrayIsEmpty()
+    void DAO_topNCountriesIn_whenNZeroArrayIsEmpty()
     {
         // given
         int n = 0;
@@ -141,7 +137,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void topNCountriesIn_arrayIsEmptyWhenAreaNameIsInvalid()
+    void DAO_topNCountriesIn_arrayIsEmptyWhenAreaNameIsInvalid()
     {
         // given
         String areaName = "Scotland";
@@ -155,7 +151,7 @@ public class IntegrationTests
 
     // Tests all countries are in the given area that was passed
     @Test
-    void topNCountriesIn_allAreasMatchFilter()
+    void DAO_topNCountriesIn_allAreasMatchFilter()
     {
         // given
         String areaName = "Europe";
@@ -169,7 +165,7 @@ public class IntegrationTests
 
     // Tests that the results are listed in descending order.
     @Test
-    void topNCountriesIn_countriesPopulationIsInDescendingOrder()
+    void DAO_topNCountriesIn_countriesPopulationIsInDescendingOrder()
     {
         // when
         ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, "Europe", 5);
@@ -183,7 +179,7 @@ public class IntegrationTests
 
     // test that countries list is empty when areaFilter and areaName are null
     @Test
-    public void topNCountriesIn_nullArgumentsCauseEmptyList()
+    void DAO_topNCountriesIn_nullArgumentsCauseEmptyList()
     {
         // given
         String areaFilter = null;
@@ -200,12 +196,9 @@ public class IntegrationTests
         assertEquals(0, countries3.size());
     }
 
-    /**
-     * Integration tests covering the DAO.allCitiesIn method
-     */
     // Tests that all cities in query are in the given area
     @Test
-    void allCitiesIn_allAreasMatchFilter()
+    void DAO_allCitiesIn_allAreasMatchFilter()
     {
         // given
         String areaName = "Japan";
@@ -219,7 +212,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void allCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid()
+    void DAO_allCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid()
     {
         // given
         String areaName = "Invalid Area";
@@ -233,7 +226,7 @@ public class IntegrationTests
 
     // Tests that the results are listed in descending order.
     @Test
-    void allCitiesIn_allCitiesPopulationIsInDescendingOrder()
+    void DAO_allCitiesIn_allCitiesPopulationIsInDescendingOrder()
     {
         // when
         ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, "United Kingdom");
@@ -247,7 +240,7 @@ public class IntegrationTests
 
     // test that cities list is empty when areaFilter and areaName are null
     @Test
-    public void allCitiesIn_nullArgumentsCauseEmptyList()
+    void DAO_allCitiesIn_nullArgumentsCauseEmptyList()
     {
         // given
         String areaFilter = null;
@@ -264,12 +257,9 @@ public class IntegrationTests
         assertEquals(0, cities3.size());
     }
 
-    /**
-     * Integration tests covering the DAO.topNCitiesIn method
-     */
     // Tests that the number of results is less than or equal to integer n
     @Test
-    void topNCitiesIn_arrayIsCorrectSize ()
+    void DAO_topNCitiesIn_arrayIsCorrectSize ()
     {
         // given
         int n = 5;
@@ -283,7 +273,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when integer n is set to 0
     @Test
-    void topNCitiesIn_whenNZeroArrayIsEmpty ()
+    void DAO_topNCitiesIn_whenNZeroArrayIsEmpty ()
     {
         // given
         int n = 0;
@@ -297,7 +287,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void topNCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid ()
+    void DAO_topNCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid ()
     {
         // given
         String areaName = "SmurfCity USA";
@@ -311,7 +301,7 @@ public class IntegrationTests
 
     // Tests all cities are in the given area that was passed
     @Test
-    void topNCitiesIn_allAreasMatchFilter ()
+    void DAO_topNCitiesIn_allAreasMatchFilter ()
     {
         // given
         String areaName = "United Kingdom";
@@ -325,7 +315,7 @@ public class IntegrationTests
 
     // Tests that the results are listed in descending order.
     @Test
-    void topNCitiesIn_topNCitiesPopulationIsInDescendingOrder()
+    void DAO_topNCitiesIn_topNCitiesPopulationIsInDescendingOrder()
     {
         // when
         ArrayList<Record> cities = dao.topNCitiesIn(App.CONTINENT, "Europe", 5);
@@ -339,7 +329,7 @@ public class IntegrationTests
 
     // test that cities list is empty when areaFilter and areaName are null
     @Test
-    public void topNCitiesIn_nullArgumentsCauseEmptyList()
+    void DAO_topNCitiesIn_nullArgumentsCauseEmptyList()
     {
         // given
         String areaFilter = null;
@@ -356,12 +346,9 @@ public class IntegrationTests
         assertEquals(0, cities3.size());
     }
 
-    /**
-     * Integration tests covering the DAO.allCapitalCitiesIn method
-     */
     // Tests that all capital cities in query are in the given area
     @Test
-    void allCapitalCitiesIn_allAreasMatchFilter()
+    void DAO_allCapitalCitiesIn_allAreasMatchFilter()
     {
         // given
         String areaName = "Asia";
@@ -375,7 +362,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void allCapitalCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid()
+    void DAO_allCapitalCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid()
     {
         // given
         String areaName = "East Fife";
@@ -389,7 +376,7 @@ public class IntegrationTests
 
     // Tests that the results are listed in descending order.
     @Test
-    void allCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
+    void DAO_allCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
         // when
         ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, "Asia");
@@ -403,7 +390,7 @@ public class IntegrationTests
 
     // test that capital cities list is empty when areaFilter and areaName are null
     @Test
-    public void allCapitalCitiesIn_nullArgumentsCauseEmptyList()
+    void DAO_allCapitalCitiesIn_nullArgumentsCauseEmptyList()
     {
         // given
         String areaFilter = null;
@@ -420,12 +407,9 @@ public class IntegrationTests
         assertEquals(0, capitalCities3.size());
     }
 
-    /**
-     * Integration tests covering the DAO.topNCapitalCitiesIn method
-     */
     // Tests that the number of results is less than or equal to integer n
     @Test
-    void topNCapitalCitiesIn_arrayIsCorrectSize ()
+    void DAO_topNCapitalCitiesIn_arrayIsCorrectSize ()
     {
         // given
         int n = 5;
@@ -439,7 +423,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when integer n is set to 0
     @Test
-    void topNCapitalCitiesIn_whenNZeroArrayIsEmpty ()
+    void DAO_topNCapitalCitiesIn_whenNZeroArrayIsEmpty ()
     {
         // given
         int n = 0;
@@ -453,7 +437,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void topNCapitalCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid ()
+    void DAO_topNCapitalCitiesIn_arrayIsEmptyWhenAreaNameIsInvalid ()
     {
         // given
         String areaName = "SmurfCity USA";
@@ -467,7 +451,7 @@ public class IntegrationTests
 
     // Tests all capital cities are in the given area that was passed
     @Test
-    void topNCapitalCitiesIn_allAreasMatchFilter ()
+    void DAO_topNCapitalCitiesIn_allAreasMatchFilter ()
     {
         // given
         String areaName = "United Kingdom";
@@ -482,7 +466,7 @@ public class IntegrationTests
     // Tests that the results are listed in descending order.  Can be used instead of topNCapitalCitiesIn_resultCitiesAreExpected
     // Which has hard coded values
     @Test
-    void topNCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
+    void DAO_topNCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
         // when
         ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", 5);
@@ -496,7 +480,7 @@ public class IntegrationTests
 
     // test that capital cities list is empty when areaFilter and areaName are null
     @Test
-    public void topNCapitalCitiesIn_nullArgumentsCauseEmptyList()
+    void DAO_topNCapitalCitiesIn_nullArgumentsCauseEmptyList()
     {
         // given
         String areaFilter = null;
@@ -513,12 +497,9 @@ public class IntegrationTests
         assertEquals(0, capitalCities3.size());
     }
 
-    /**
-     * Integration tests covering the DAO.populationLivingInAndNotInCities method
-     */
     // Tests that area in query is the same as the area output
     @Test
-    void populationLivingInAndNotInCities_correctAreaIsOutput()
+    void DAO_populationLivingInAndNotInCities_correctAreaIsOutput()
     {
         // given
         String areaName = "Japan";
@@ -532,7 +513,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void populationLivingInAndNotInCities_arrayIsEmptyWhenAreaNameIsInvalid()
+    void DAO_populationLivingInAndNotInCities_arrayIsEmptyWhenAreaNameIsInvalid()
     {
         // given
         String areaName = "Invalid Area";
@@ -546,7 +527,7 @@ public class IntegrationTests
 
     // test that population residence report list is empty when areaFilter and areaName are null
     @Test
-    public void populationLivingInAndNotInCities_nullArgumentsCauseEmptyList()
+    void DAO_populationLivingInAndNotInCities_nullArgumentsCauseEmptyList()
     {
         // given
         String areaFilter = null;
@@ -563,18 +544,15 @@ public class IntegrationTests
         assertEquals(0, residenceReport3.size());
     }
 
-    /**
-     * Integration tests covering the DAO.populationOf method
-     */
     // Tests that area in query is the same as the area output
     @Test
-    void populationOf_correctAreaIsOutput()
+    void DAO_populationOf_correctAreaIsOutput()
     {
         // given
-        String areaName = "Japan";
+        String areaName = "Glasgow";
 
         // when
-        ArrayList<Record> population = dao.populationOf(App.COUNTRY, areaName);
+        ArrayList<Record> population = dao.populationOf(App.CITY, areaName);
 
         // then
         assertEquals(areaName, population.get(0).getName());
@@ -582,7 +560,7 @@ public class IntegrationTests
 
     // Tests that an empty array is returned when the areaName is set incorrectly
     @Test
-    void populationOf_arrayIsEmptyWhenAreaNameIsInvalid()
+    void DAO_populationOf_arrayIsEmptyWhenAreaNameIsInvalid()
     {
         // given
         String areaName = "Invalid Area";
@@ -596,7 +574,7 @@ public class IntegrationTests
 
     // test that population list is empty when areaFilter and areaName are null
     @Test
-    public void populationOf_nullArgumentsCauseEmptyList()
+    void DAO_populationOf_nullArgumentsCauseEmptyList()
     {
         // given
         String areaFilter = null;
@@ -613,12 +591,9 @@ public class IntegrationTests
         assertEquals(0, population3.size());
     }
 
-    /**
-     * Integration tests covering the DAO.languageReport method
-     */
     // Test that 5 items are returned in the list
     @Test
-    void languageReport_returnedListLengthAsExpected()
+    void DAO_languageReport_returnedListLengthAsExpected()
     {
         // given
         Integer expectedLength = 5;
@@ -632,7 +607,7 @@ public class IntegrationTests
 
     // Test that the 5 expected languages are returned
     @Test
-    void languageReport_returnedLanguagesAsExpected()
+    void DAO_languageReport_returnedLanguagesAsExpected()
     {
         // given
         ArrayList<String> expectedLanguages = new ArrayList<>(
@@ -643,5 +618,68 @@ public class IntegrationTests
 
         // then
         for (Record language : languages) assertTrue(expectedLanguages.contains(language.getName()));
+    }
+
+    // Test all queries that take area filters return empty lists when an invalid filter is passed
+    @Test
+    void DAO_allQueries_emptyListWhenInvalidAreaFilterPassed()
+    {
+        // given
+        String areaFilter = "planet";
+        ArrayList<ArrayList<Record>> recordsLists = new ArrayList<>();
+
+        // when
+        recordsLists.add(dao.allCountriesIn(areaFilter, "Earth"));
+        recordsLists.add(dao.topNCountriesIn(areaFilter, "Earth", 10));
+        recordsLists.add(dao.allCitiesIn(areaFilter, "Earth"));
+        recordsLists.add(dao.topNCitiesIn(areaFilter, "Earth", 10));
+        recordsLists.add(dao.allCapitalCitiesIn(areaFilter, "Earth"));
+        recordsLists.add(dao.topNCapitalCitiesIn(areaFilter, "Earth", 10));
+        recordsLists.add(dao.populationLivingInAndNotInCities(areaFilter, "Earth"));
+        recordsLists.add(dao.populationOf(areaFilter, "Earth"));
+
+        // then
+        for (ArrayList<Record> records : recordsLists) assertEquals(0, records.size());
+    }
+
+    /**
+     * Integration tests covering the UserPrompt class
+     */
+    @Test
+    void UserPrompt_executeQueryFromInput_happyPath()
+    {
+        // when
+        for (int queryId = 0; queryId < 10; queryId++)
+        {
+            ArrayList<Record> records = userPrompt.executeQueryFromInput(queryId,
+                    App.CONTINENT, "South America", 10);
+
+            // then
+            if (records != null) assertNotEquals(0, records.size());
+        }
+    }
+
+    @Test
+    void UserPrompt_parseQueryInputForAreaFilter_areaFiltersWorkForLiveQueries()
+    {
+        // given
+        ArrayList<String> areaFilters = new ArrayList<>();
+        for (int i = 1; i < 7; i++) areaFilters.add(userPrompt.parseQueryInputForAreaFilter(8, i));
+
+        // when
+        for (String areaFilter: areaFilters)
+        {
+            userPrompt.executeQueryFromInput(8, areaFilter, "", 10); // no failure
+        }
+    }
+
+    @Test
+    void UserPrompt_showRecords_worksWithLiveData()
+    {
+        // given
+        ArrayList<Record> records = dao.topNCountriesIn(App.CONTINENT, "North America", 10);
+
+        // when
+        userPrompt.showRecords(records); // no failure
     }
 }

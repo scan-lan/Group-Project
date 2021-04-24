@@ -108,24 +108,24 @@ public class Record_UnitTests
         Double percentageLivingInCities = 99.99D;
         Long populationNotLivingInCities = 1L;
         Double percentageNotLivingInCities = 0.01D;
-        String expectedRecordType = App.POPULATION_RESIDENCE_REPORT;
+        String expectedRecordType = App.RESIDENCE_REPORT;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Area: East Kilbride | Total population: 7,000\n" +
                 "Population living in Cities: 6,999 (99.99%)\n" +
                 "Population not living in Cities: 1 (0.01%)";
 
         // when
-        Record populationResidenceReport = new Record(name, population, populationLivingInCities, percentageLivingInCities, populationNotLivingInCities, percentageNotLivingInCities);
+        Record residenceReport = new Record(name, population, populationLivingInCities, percentageLivingInCities, populationNotLivingInCities, percentageNotLivingInCities);
 
         // then
-        assertEquals(name, populationResidenceReport.getName());
-        assertEquals(population, populationResidenceReport.getPopulation());
-        assertEquals(populationLivingInCities, populationResidenceReport.getPopulationLivingInCities());
-        assertEquals(percentageLivingInCities, populationResidenceReport.getPercentageLivingInCities());
-        assertEquals(populationNotLivingInCities, populationResidenceReport.getPopulationNotLivingInCities());
-        assertEquals(percentageNotLivingInCities, populationResidenceReport.getPercentageNotLivingInCities());
-        assertEquals(expectedRecordType, populationResidenceReport.getRecordType());
-        assertEquals(expectedToStringOutput, populationResidenceReport.toString());
+        assertEquals(name, residenceReport.getName());
+        assertEquals(population, residenceReport.getPopulation());
+        assertEquals(populationLivingInCities, residenceReport.getPopulationLivingInCities());
+        assertEquals(percentageLivingInCities, residenceReport.getPercentageLivingInCities());
+        assertEquals(populationNotLivingInCities, residenceReport.getPopulationNotLivingInCities());
+        assertEquals(percentageNotLivingInCities, residenceReport.getPercentageNotLivingInCities());
+        assertEquals(expectedRecordType, residenceReport.getRecordType());
+        assertEquals(expectedToStringOutput, residenceReport.toString());
     }
 
     // Tests that when a language object is constructed, the getters and toString

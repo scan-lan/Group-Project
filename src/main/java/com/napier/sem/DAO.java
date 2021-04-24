@@ -68,7 +68,7 @@ public class DAO
     {
         ArrayList<Record> records = new ArrayList<>();
 
-        if (connection == null){ return records; }
+        if (connection == null) return null;
 
         try
         {
@@ -321,7 +321,7 @@ public class DAO
                 "        JOIN country ON city.countrycode = country.code\n" +
                 "    WHERE " + whereCondition + ") c";
 
-        return executeStatement(statementString, App.POPULATION_RESIDENCE_REPORT);
+        return executeStatement(statementString, App.RESIDENCE_REPORT);
     }
 
     /**

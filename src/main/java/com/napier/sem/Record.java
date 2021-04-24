@@ -8,12 +8,15 @@ import java.sql.SQLException;
  *   - Country
  *   - City
  *   - Capital City
+ *   - Residence Report
+ *   - Population
  *   - Language
  * The type is denoted by the recordType field.
  * The possible fields consist of:
- *   code, name, continent, region, country,
- *   district, capital, population, language,
- *   speakers, percentage
+ *   countryCode, name, continent, region, country,
+ *   district, capital, population, speakers, percentage,
+ *   populationLivingInCities, percentageLivingInCities,
+ *   populationNotLivingInCities, percentageNotLivingInCities
  */
 public class Record
 {
@@ -68,7 +71,7 @@ public class Record
                 district = result.getString("district");
                 population = result.getLong("population");
                 break;
-            case App.POPULATION_RESIDENCE_REPORT:
+            case App.RESIDENCE_REPORT:
                 name = result.getString("name");
                 population = result.getLong("totalPopulation");
                 populationLivingInCities = result.getLong("populationInCities");
@@ -121,7 +124,7 @@ public class Record
         recordType = App.CITY;
     }
 
-    // Population Residence Report constructor, just used for testing purposes.
+    // Residence Report constructor, just used for testing purposes.
     public Record(String name, long population, long populationLivingInCities, Double percentageLivingInCities, long populationNotLivingInCities, Double percentageNotLivingInCities)
     {
         this.name = name;
@@ -130,7 +133,7 @@ public class Record
         this.percentageLivingInCities = percentageLivingInCities;
         this.populationNotLivingInCities = populationNotLivingInCities;
         this.percentageNotLivingInCities = percentageNotLivingInCities;
-        recordType = App.POPULATION_RESIDENCE_REPORT;
+        recordType = App.RESIDENCE_REPORT;
     }
 
     // Language constructor, just used for testing purposes.
@@ -202,7 +205,7 @@ public class Record
                         this.district,
                         this.population);
                 break;
-            case App.POPULATION_RESIDENCE_REPORT:
+            case App.RESIDENCE_REPORT:
                 recordString = String.format(App.HORIZONTAL_LINE + "\n" +
                                 "Area: %s | Total population: %,d\n" +
                                 "Population living in Cities: %,d (%.2f%%)\n" +

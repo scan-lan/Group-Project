@@ -61,7 +61,7 @@ public class UserPrompt_UnitTests
         String formattedInput = userPrompt.formatInput(null); // no failure
 
         // then
-        assertNull(formattedInput);
+        assertNull(formattedInput); // no failure
     }
 
     // Test that parseQueryInputForAreaFilter returns null on receiving invalid input
@@ -81,8 +81,8 @@ public class UserPrompt_UnitTests
         assertNull(areaFilter2);
     }
 
-    // Test that a query choice of 1 results in an area filter of world for all query ids except 7, which cannot
-    // have world as a query filter
+    // Test that a query choice of 1 results in an area filter of "world" for all query ids except 7, which cannot
+    // have "world" as a query filter
     @Test
     public void parseQueryInputForAreaFilter_handlesQuerySevenCorrectly()
     {
@@ -136,6 +136,7 @@ public class UserPrompt_UnitTests
         assertEquals(0, records2.size());
     }
 
+    // Test that an invalid query ID results in executeQueryFromInput returning null
     @Test
     public void executeQueryFromInput_returnsNullWhenPassedInvalidQueryId()
     {
@@ -149,7 +150,7 @@ public class UserPrompt_UnitTests
         assertNull(records);
     }
 
-    // given
+    // Test that there are no failures when expected input is passed
     @Test
     public void executeQueryFromInput_happyPaths()
     {
@@ -161,10 +162,7 @@ public class UserPrompt_UnitTests
         // when
         for (int queryId = 1; queryId < 10; queryId ++)
         {
-            ArrayList<Record> records = userPrompt.executeQueryFromInput(queryId, areaFilter, areaName, n);
-
-            // then
-            assertNotNull(records);
+            userPrompt.executeQueryFromInput(queryId, areaFilter, areaName, n); // no failures
         }
     }
 

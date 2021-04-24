@@ -16,13 +16,17 @@ public class UserPrompt
     private static final String INITIAL_QUERY_PROMPT = App.HORIZONTAL_LINE + "\n" +
             "Enter the number corresponding to the type of query you'd like to run\n" +
             "Your options are as follows:\n\n" +
-            "1) Report on the population of countries in an area you specify\n" +
-            "2) Report on the top N most populous countries in an area you specify, where N is an integer you provide\n" +
-            "3) Report on the population of cities in an area you specify\n" +
-            "4) Report on the top N most populous cities in an area you specify where N is an integer you provide\n" +
-            "5) Report on the population of capital cities in an area you specify\n" +
-            "6) Report on the top N most populous capital cities in an area you specify, where N is an integer you provide\n" +
-            "7) Report on the residence of a population in an area you specify\n" +
+            "1) Report on all countries in an area you specify\n" +
+            "2) Report on the top N most populous countries in an area you specify, where N is an integer\n" +
+            "you provide\n" +
+            "3) Report on all cities in an area you specify\n" +
+            "4) Report on the top N most populous cities in an area you specify, where N is an integer you\n" +
+            "provide\n" +
+            "5) Report on all capital cities in an area you specify\n" +
+            "6) Report on the top N most populous capital cities in an area you specify, where N is an\n" +
+            "integer you provide\n" +
+            "7) Report on the residence status (number of people living in cities vs. number of people\n" +
+            "living outside cities) of an area you specify\n" +
             "8) Report on the population of an area you specify\n" +
             "9) Report on number of speakers per language for Chinese, English, Hindi, Spanish and Arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +
@@ -36,7 +40,7 @@ public class UserPrompt
         this.scanner = new Scanner(System.in).useDelimiter("\\n");
 
         // Set up the query table hashmap with the queries available to the user.
-        // The query id is the key and the query info object representing the query is the value.
+        // The query ID is the key and the query info object representing the query is the value.
         queryTable.put(1,
                 new QueryInfo("All countries in",
                         new String[]{"the world", "a given continent", "a given region"}));
@@ -120,6 +124,11 @@ public class UserPrompt
         System.out.println(App.HORIZONTAL_LINE + "\nUntil next time\n" + App.HORIZONTAL_LINE);
     }
 
+    /**
+     * Iterate over a list of Records and print them to the console.  If the list is null or empty,
+     * an error message is printed.
+     * @param records The result of a DAO query
+     */
     public void showRecords(ArrayList<Record> records)
     {
         if (records == null)
@@ -234,8 +243,8 @@ public class UserPrompt
 
     /**
      * This returns the area filter that will be used for the query, given the selection that the user has made.
-     * @param queryId The id of the top-level query (1-9)
-     * @param areaFilterChoice The id of the area filter that the user has chosen, which can go from 1 to 6
+     * @param queryId The ID of the top-level query (1-9)
+     * @param areaFilterChoice The ID of the area filter that the user has chosen, which can go from 1 to 6
      *                         depending on the query.
      * @return The string representing the area filter or an empty string if the user wants to quit
      */
@@ -269,13 +278,13 @@ public class UserPrompt
     }
 
     /**
-     * Runs the query corresponding to the queryId, with the areaFilter and n value that the user has given.
-     * Depending on the query, areaFilter or n may not be used.  Once the query has been run, its results
-     * are printed in the console.
+     * Runs the query corresponding to the queryId, with the areaFilter and n value that the user has specified.
+     * Depending on the queryId, areaFilter or n may not be used.
      * @param queryId An integer from 1-9 corresponding to a unique query
      * @param areaFilter The type of area you want to run the query over e.g. "world", "continent" etc.
      * @param areaName The name of the area you'd like to query e.g. for a "country" areaFilter, "France"
      * @param n The number of results returned if the query is a "Top N" query
+     * @return The ArrayList of Record objects representing the results of the query
      */
     public ArrayList<Record> executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
     {

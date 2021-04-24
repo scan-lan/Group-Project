@@ -524,10 +524,10 @@ public class DAO_IntegrationTests
         String areaName = "Japan";
 
         // when
-        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
 
         // then
-        assertEquals(areaName, populationResidenceReport.get(0).getName());
+        assertEquals(areaName, residenceReport.get(0).getName());
     }
 
     // Tests that an empty array is returned when the areaName is set incorrectly
@@ -538,10 +538,10 @@ public class DAO_IntegrationTests
         String areaName = "Invalid Area";
 
         // when
-        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(App.REGION, areaName);
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.REGION, areaName);
 
         // then
-        assertEquals(0, populationResidenceReport.size());
+        assertEquals(0, residenceReport.size());
     }
 
     // test that population residence report list is empty when areaFilter and areaName are null
@@ -553,14 +553,14 @@ public class DAO_IntegrationTests
         String areaName = null;
 
         // when
-        ArrayList<Record> populationResidenceReport1 = dao.populationLivingInAndNotInCities(areaFilter, areaName);
-        ArrayList<Record> populationResidenceReport2 = dao.populationLivingInAndNotInCities(App.REGION, areaName);
-        ArrayList<Record> populationResidenceReport3 = dao.populationLivingInAndNotInCities(areaFilter, "Europe");
+        ArrayList<Record> residenceReport1 = dao.populationLivingInAndNotInCities(areaFilter, areaName);
+        ArrayList<Record> residenceReport2 = dao.populationLivingInAndNotInCities(App.REGION, areaName);
+        ArrayList<Record> residenceReport3 = dao.populationLivingInAndNotInCities(areaFilter, "Europe");
 
         // then
-        assertEquals(0, populationResidenceReport1.size());
-        assertEquals(0, populationResidenceReport2.size());
-        assertEquals(0, populationResidenceReport3.size());
+        assertEquals(0, residenceReport1.size());
+        assertEquals(0, residenceReport2.size());
+        assertEquals(0, residenceReport3.size());
     }
 
     /**

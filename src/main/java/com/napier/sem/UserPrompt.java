@@ -110,10 +110,30 @@ public class UserPrompt
                 if (n == -1) continue; // Exit the loop if the user indicated they wanted to quit
             }
 
-            executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);
+            // Run the query that the user selects
+            ArrayList<Record> records = executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);
+
+            // Print the records to the console
+            showRecords(records);
         }
 
         System.out.println(App.HORIZONTAL_LINE + "\nUntil next time\n" + App.HORIZONTAL_LINE);
+    }
+
+    public void showRecords(ArrayList<Record> records)
+    {
+        if (records == null)
+        {
+            System.out.println("Could not run the query");
+            return;
+        }
+        else if (records.isEmpty())
+        {
+            System.out.println("Your query had no results, maybe try again with different input");
+            return;
+        }
+
+        for (Record record: records) System.out.println(record);
     }
 
     /**
@@ -209,7 +229,7 @@ public class UserPrompt
      */
     public String formatInput(String input)
     {
-        return input.trim().toLowerCase(Locale.ROOT);
+        return (input == null) ? null : input.trim().toLowerCase(Locale.ROOT);
     }
 
     /**
@@ -223,6 +243,9 @@ public class UserPrompt
     {
         // query 7 is the only query which can't be run on the world, so we increment the area filter choice by one
         if (queryId == 7) areaFilterChoice++;
+
+        // we don't want this returning a value if the queryId is incorrect, so we check this here
+        if (queryId < 1 || queryId > 8) return null;
 
         switch (areaFilterChoice)
         {
@@ -240,7 +263,6 @@ public class UserPrompt
                 return App.CITY;
             case (-1):
                 userWantsToQuit = true;
-                return "";
             default:
                 return null;
         }
@@ -255,51 +277,33 @@ public class UserPrompt
      * @param areaName The name of the area you'd like to query e.g. for a "country" areaFilter, "France"
      * @param n The number of results returned if the query is a "Top N" query
      */
-    public void executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
+    public ArrayList<Record> executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
     {
-        ArrayList<Record> records;
 
         switch (queryId)
         {
             case (1):
-                records = dao.allCountriesIn(areaFilter, areaName);
-                break;
+                return dao.allCountriesIn(areaFilter, areaName);
             case (2):
-                records = dao.topNCountriesIn(areaFilter, areaName, n);
-                break;
+                return dao.topNCountriesIn(areaFilter, areaName, n);
             case (3):
-                records = dao.allCitiesIn(areaFilter, areaName);
-                break;
+                return dao.allCitiesIn(areaFilter, areaName);
             case (4):
-                records = dao.topNCitiesIn(areaFilter, areaName, n);
-                break;
+                return dao.topNCitiesIn(areaFilter, areaName, n);
             case (5):
-                records = dao.allCapitalCitiesIn(areaFilter, areaName);
-                break;
+                return dao.allCapitalCitiesIn(areaFilter, areaName);
             case (6):
-                records = dao.topNCapitalCitiesIn(areaFilter, areaName, n);
-                break;
+                return dao.topNCapitalCitiesIn(areaFilter, areaName, n);
             case (7):
-                records = dao.populationLivingInAndNotInCities(areaFilter, areaName);
-                break;
+                return dao.populationLivingInAndNotInCities(areaFilter, areaName);
             case (8):
-                records = dao.populationOf(areaFilter, areaName);
-                break;
+                return dao.populationOf(areaFilter, areaName);
             case (9):
-                records = dao.languageReport();
-                break;
+                return dao.languageReport();
             default:
-                records = new ArrayList<>();
-                break;
+                return null;
         }
 
-        if (records.size() == 0)
-        {
-            System.out.println("Your query had no results, maybe try again with different input");
-            return;
-        }
-
-        for (Record record: records) System.out.println(record);
     }
 }
 

@@ -86,6 +86,7 @@ public class DAO
         {
             System.out.println(recordType + " query failed");
             System.out.println(e.getMessage());
+            return null;
         }
         return records;
     }

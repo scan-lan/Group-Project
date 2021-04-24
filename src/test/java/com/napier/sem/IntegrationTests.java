@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DAO_IntegrationTests
+public class IntegrationTests
 {
     static DAO dao;
     static Connection connection;

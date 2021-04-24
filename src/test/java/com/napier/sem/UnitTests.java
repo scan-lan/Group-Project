@@ -9,7 +9,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserPrompt_UnitTests
+public class UnitTests
 {
     static DAO dao;
     static UserPrompt userPrompt;

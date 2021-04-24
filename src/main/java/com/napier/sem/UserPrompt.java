@@ -16,14 +16,14 @@ public class UserPrompt
     private static final String INITIAL_QUERY_PROMPT = App.HORIZONTAL_LINE + "\n" +
             "Enter the number corresponding to the type of query you'd like to run\n" +
             "Your options are as follows:\n\n" +
-            "1) Report on the population of countries in the a given area\n" +
-            "2) Report on the top N populated countries in a given area where N is an integer provided by the user\n" +
-            "3) Report on the population of cities in a given area\n" +
-            "4) Report on the top N populated cities in a given area where N is an integer provided by the user\n" +
-            "5) Report on the population of capital cities in a given area\n" +
-            "6) Report on the top N populated capital cities in a given area where N is an integer provided by the user\n" +
-            "7) Report on the population of people, people living in cities, and people not living in cities in a given area\n" +
-            "8) Report on the population of a given area\n" +
+            "1) Report on the population of countries in an area you specify\n" +
+            "2) Report on the top N most populous countries in an area you specify, where N is an integer you provide\n" +
+            "3) Report on the population of cities in an area you specify\n" +
+            "4) Report on the top N most populous cities in an area you specify where N is an integer you provide\n" +
+            "5) Report on the population of capital cities in an area you specify\n" +
+            "6) Report on the top N most populous capital cities in an area you specify, where N is an integer provided by the user\n" +
+            "7) Report on the residence of a population in an area you specify\n" +
+            "8) Report on the population of an area you specify\n" +
             "9) Report on number of speakers per language for Chinese, English, Hindi, Spanish and Arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +
             "Enter 'q' at any time to exit";

@@ -30,9 +30,9 @@ public class DAO_IntegrationTests
     /**
      * Integration tests covering the DAO.executeStatement method
      */
-    // Tests that an empty list is returned when a nonsense query is given
+    // Tests that null is returned when a nonsense query is given
     @Test
-    void executeStatement_arrayIsEmptyWhenStatementIsInvalid()
+    void executeStatement_nullWhenStatementIsInvalid()
     {
         // given
         String statementString = "SELECT ALL FROM EVERYWHERE";
@@ -41,7 +41,7 @@ public class DAO_IntegrationTests
         ArrayList<Record> countries= dao.executeStatement(statementString, App.COUNTRY);
 
         // then
-        assertEquals(0, countries.size());
+        assertNull(countries);
     }
 
     /**

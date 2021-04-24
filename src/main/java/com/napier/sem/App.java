@@ -14,7 +14,7 @@ public class App
     static final String CAPITAL_CITY = "capital city";
     static final String CITY = "city";
     static final String LANGUAGE = "language";
-    static final String POPULATION_RESIDENCE_REPORT = "population residence report";
+    static final String RESIDENCE_REPORT = "residence report";
     static final String POPULATION = "population";
 
     static final String HORIZONTAL_LINE = "------------------------------------------------------------" +

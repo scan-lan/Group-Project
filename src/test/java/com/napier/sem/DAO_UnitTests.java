@@ -13,10 +13,7 @@ public class DAO_UnitTests
     static DAO dao;
 
     @BeforeAll
-    static void init()
-    {
-        dao = new DAO(null);
-    }
+    static void init() { dao = new DAO(null); }
 
     /**
      * Unit tests covering the DAO.getWhereCondition method
@@ -53,11 +50,8 @@ public class DAO_UnitTests
     @Test
     public void getWhereCondition_nullAreaNameReturnsNull()
     {
-        // given
-        String areaName = null;
-
         // when
-        String whereCondition = DAO.getWhereCondition(App.WORLD, areaName);
+        String whereCondition = DAO.getWhereCondition(App.WORLD, null);
 
         // then
         assertNull(whereCondition);
@@ -67,11 +61,8 @@ public class DAO_UnitTests
     @Test
     public void getWhereCondition_nullAreaFilterReturnsNull()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        String whereCondition = DAO.getWhereCondition(areaFilter, "Earth");
+        String whereCondition = DAO.getWhereCondition(null, "Earth");
 
         // then
         assertNull(whereCondition);
@@ -84,12 +75,9 @@ public class DAO_UnitTests
     @Test
     public void queryInvalid_falseWhenWhereConditionIsNull()
     {
-        // given
-        String whereCondition = null;
-
         // when
         boolean result = dao.queryInvalid("query",
-                whereCondition,
+                null,
                 App.WORLD,
                 new ArrayList<>(),
                 1);
@@ -160,12 +148,8 @@ public class DAO_UnitTests
     @Test
     public void allCountriesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, areaName);
+        ArrayList<Record> countries = dao.allCountriesIn(null, null);
 
         // then
         assertEquals(0, countries.size());
@@ -627,7 +611,7 @@ public class DAO_UnitTests
     /**
      * Unit tests covering the DAO.populationLivingInAndNotInCities method
      */
-    // test that populationResidenceReport list is empty when areaFilter and areaName are null
+    // test that residenceReport list is empty when areaFilter and areaName are null
     @Test
     public void populationLivingInAndNotInCities_bothArgumentsNullListEmpty()
     {
@@ -636,13 +620,13 @@ public class DAO_UnitTests
         String areaName = null;
 
         // when
-        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(areaFilter, areaName);
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(areaFilter, areaName);
 
         // then
-        assertEquals(0, populationResidenceReport.size());
+        assertEquals(0, residenceReport.size());
     }
 
-    // test that populationResidenceReport list is empty when areaFilter is null
+    // test that residenceReport list is empty when areaFilter is null
     @Test
     public void populationLivingInAndNotInCities_areaFilterNullListEmpty()
     {
@@ -650,13 +634,13 @@ public class DAO_UnitTests
         String areaFilter = null;
 
         // when
-        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(areaFilter, "Scotland");
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(areaFilter, "Scotland");
 
         // then
-        assertEquals(0, populationResidenceReport.size());
+        assertEquals(0, residenceReport.size());
     }
 
-    // test that populationResidenceReport list is empty when areaName is null
+    // test that residenceReport list is empty when areaName is null
     @Test
     public void populationLivingInAndNotInCities_areaNameNullListEmpty()
     {
@@ -664,10 +648,10 @@ public class DAO_UnitTests
         String areaName = null;
 
         // when
-        ArrayList<Record> populationResidenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
 
         // then
-        assertEquals(0, populationResidenceReport.size());
+        assertEquals(0, residenceReport.size());
     }
 
     // check cities list is empty if called with an invalid areaFilter

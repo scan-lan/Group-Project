@@ -68,7 +68,7 @@ public class DAO
     {
         ArrayList<Record> records = new ArrayList<>();
 
-        if (connection == null){ return records; }
+        if (connection == null) return null;
 
         try
         {
@@ -86,6 +86,7 @@ public class DAO
         {
             System.out.println(recordType + " query failed");
             System.out.println(e.getMessage());
+            return null;
         }
         return records;
     }
@@ -107,12 +108,12 @@ public class DAO
     {
         if (whereCondition == null || n < 1)
         {
-            System.out.printf("%s - invalid query condition", queryName);
+            System.out.printf("%s - invalid query condition. ", queryName);
             return true;
         }
         else if (!validAreaFilters.contains(areaFilter))
         {
-            System.out.printf("%s - bad area filter passed", queryName);
+            System.out.printf("%s - bad area filter passed. ", queryName);
             return true;
         }
         return false;
@@ -320,7 +321,7 @@ public class DAO
                 "        JOIN country ON city.countrycode = country.code\n" +
                 "    WHERE " + whereCondition + ") c";
 
-        return executeStatement(statementString, App.POPULATION_RESIDENCE_REPORT);
+        return executeStatement(statementString, App.RESIDENCE_REPORT);
     }
 
     /**

@@ -16,14 +16,18 @@ public class UserPrompt
     private static final String INITIAL_QUERY_PROMPT = App.HORIZONTAL_LINE + "\n" +
             "Enter the number corresponding to the type of query you'd like to run\n" +
             "Your options are as follows:\n\n" +
-            "1) All countries in...\n" +
-            "2) Top N countries in...\n" +
-            "3) All cities in...\n" +
-            "4) Top N cities in...\n" +
-            "5) All capital cities in...\n" +
-            "6) Top N capital cities in...\n" +
-            "7) Residence report of people living in...\n" +
-            "8) Population of...\n" +
+            "1) Report on all countries in an area you specify\n" +
+            "2) Report on the top N most populous countries in an area you specify, where N is an integer " +
+            "you provide\n" +
+            "3) Report on all cities in an area you specify\n" +
+            "4) Report on the top N most populous cities in an area you specify, where N is an integer you " +
+            "provide\n" +
+            "5) Report on all capital cities in an area you specify\n" +
+            "6) Report on the top N most populous capital cities in an area you specify, where N is an " +
+            "integer you provide\n" +
+            "7) Report on the residence status (number of people living in cities vs. number of people " +
+            "living outside\ncities) of an area you specify\n" +
+            "8) Report on the population of an area you specify\n" +
             "9) Report on number of speakers per language for Chinese, English, Hindi, Spanish and Arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +
             "Enter 'q' at any time to exit";
@@ -36,7 +40,7 @@ public class UserPrompt
         this.scanner = new Scanner(System.in).useDelimiter("\\n");
 
         // Set up the query table hashmap with the queries available to the user.
-        // The query id is the key and the query info object representing the query is the value.
+        // The query ID is the key and the query info object representing the query is the value.
         queryTable.put(1,
                 new QueryInfo("All countries in",
                         new String[]{"the world", "a given continent", "a given region"}));
@@ -110,10 +114,35 @@ public class UserPrompt
                 if (n == -1) continue; // Exit the loop if the user indicated they wanted to quit
             }
 
-            executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);
+            // Run the query that the user selects
+            ArrayList<Record> records = executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);
+
+            // Print the records to the console
+            showRecords(records);
         }
 
         System.out.println(App.HORIZONTAL_LINE + "\nUntil next time\n" + App.HORIZONTAL_LINE);
+    }
+
+    /**
+     * Iterate over a list of Records and print them to the console.  If the list is null or empty,
+     * an error message is printed.
+     * @param records The result of a DAO query
+     */
+    public void showRecords(ArrayList<Record> records)
+    {
+        if (records == null)
+        {
+            System.out.println("Could not run the query");
+            return;
+        }
+        else if (records.isEmpty())
+        {
+            System.out.println("Your query had no results, maybe try again with different input");
+            return;
+        }
+
+        for (Record record: records) System.out.println(record);
     }
 
     /**
@@ -122,7 +151,7 @@ public class UserPrompt
      * @param queryId The ID of the query being run
      * @return The string representing the area filter (world, continent, region etc.)
      */
-    private String obtainAreaFilterChoice(int queryId)
+    public String obtainAreaFilterChoice(int queryId)
     {
         if (queryId == 9) return "";
 
@@ -207,22 +236,25 @@ public class UserPrompt
      * @param input The string that will be formatted
      * @return The formatted string
      */
-    private String formatInput(String input)
+    public String formatInput(String input)
     {
-        return input.trim().toLowerCase(Locale.ROOT);
+        return (input == null) ? null : input.trim().toLowerCase(Locale.ROOT);
     }
 
     /**
      * This returns the area filter that will be used for the query, given the selection that the user has made.
-     * @param queryId The id of the top-level query (1-9)
-     * @param areaFilterChoice The id of the area filter that the user has chosen, which can go from 1 to 6
+     * @param queryId The ID of the top-level query (1-9)
+     * @param areaFilterChoice The ID of the area filter that the user has chosen, which can go from 1 to 6
      *                         depending on the query.
      * @return The string representing the area filter or an empty string if the user wants to quit
      */
-    private String parseQueryInputForAreaFilter(int queryId, int areaFilterChoice)
+    public String parseQueryInputForAreaFilter(int queryId, int areaFilterChoice)
     {
         // query 7 is the only query which can't be run on the world, so we increment the area filter choice by one
         if (queryId == 7) areaFilterChoice++;
+
+        // we don't want this returning a value if the queryId is incorrect, so we check this here
+        if (queryId < 1 || queryId > 8) return null;
 
         switch (areaFilterChoice)
         {
@@ -240,66 +272,47 @@ public class UserPrompt
                 return App.CITY;
             case (-1):
                 userWantsToQuit = true;
-                return "";
             default:
                 return null;
         }
     }
 
     /**
-     * Runs the query corresponding to the queryId, with the areaFilter and n value that the user has given.
-     * Depending on the query, areaFilter or n may not be used.  Once the query has been run, its results
-     * are printed in the console.
+     * Runs the query corresponding to the queryId, with the areaFilter and n value that the user has specified.
+     * Depending on the queryId, areaFilter or n may not be used.
      * @param queryId An integer from 1-9 corresponding to a unique query
      * @param areaFilter The type of area you want to run the query over e.g. "world", "continent" etc.
      * @param areaName The name of the area you'd like to query e.g. for a "country" areaFilter, "France"
      * @param n The number of results returned if the query is a "Top N" query
+     * @return The ArrayList of Record objects representing the results of the query
      */
-    private void executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
+    public ArrayList<Record> executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
     {
-        ArrayList<Record> records;
 
         switch (queryId)
         {
             case (1):
-                records = dao.allCountriesIn(areaFilter, areaName);
-                break;
+                return dao.allCountriesIn(areaFilter, areaName);
             case (2):
-                records = dao.topNCountriesIn(areaFilter, areaName, n);
-                break;
+                return dao.topNCountriesIn(areaFilter, areaName, n);
             case (3):
-                records = dao.allCitiesIn(areaFilter, areaName);
-                break;
+                return dao.allCitiesIn(areaFilter, areaName);
             case (4):
-                records = dao.topNCitiesIn(areaFilter, areaName, n);
-                break;
+                return dao.topNCitiesIn(areaFilter, areaName, n);
             case (5):
-                records = dao.allCapitalCitiesIn(areaFilter, areaName);
-                break;
+                return dao.allCapitalCitiesIn(areaFilter, areaName);
             case (6):
-                records = dao.topNCapitalCitiesIn(areaFilter, areaName, n);
-                break;
+                return dao.topNCapitalCitiesIn(areaFilter, areaName, n);
             case (7):
-                records = dao.populationLivingInAndNotInCities(areaFilter, areaName);
-                break;
+                return dao.populationLivingInAndNotInCities(areaFilter, areaName);
             case (8):
-                records = dao.populationOf(areaFilter, areaName);
-                break;
+                return dao.populationOf(areaFilter, areaName);
             case (9):
-                records = dao.languageReport();
-                break;
+                return dao.languageReport();
             default:
-                records = new ArrayList<>();
-                break;
+                return null;
         }
 
-        if (records.size() == 0)
-        {
-            System.out.println("Your query had no results, maybe try again with different input");
-            return;
-        }
-
-        for (Record record: records) System.out.println(record);
     }
 }
 

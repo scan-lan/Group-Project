@@ -17,16 +17,16 @@ public class UserPrompt
             "Enter the number corresponding to the type of query you'd like to run\n" +
             "Your options are as follows:\n\n" +
             "1) Report on all countries in an area you specify\n" +
-            "2) Report on the top N most populous countries in an area you specify, where N is an integer\n" +
+            "2) Report on the top N most populous countries in an area you specify, where N is an integer " +
             "you provide\n" +
             "3) Report on all cities in an area you specify\n" +
-            "4) Report on the top N most populous cities in an area you specify, where N is an integer you\n" +
+            "4) Report on the top N most populous cities in an area you specify, where N is an integer you " +
             "provide\n" +
             "5) Report on all capital cities in an area you specify\n" +
-            "6) Report on the top N most populous capital cities in an area you specify, where N is an\n" +
+            "6) Report on the top N most populous capital cities in an area you specify, where N is an " +
             "integer you provide\n" +
-            "7) Report on the residence status (number of people living in cities vs. number of people\n" +
-            "living outside cities) of an area you specify\n" +
+            "7) Report on the residence status (number of people living in cities vs. number of people " +
+            "living outside\ncities) of an area you specify\n" +
             "8) Report on the population of an area you specify\n" +
             "9) Report on number of speakers per language for Chinese, English, Hindi, Spanish and Arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +

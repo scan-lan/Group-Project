@@ -1,8 +1,10 @@
 package com.napier.sem;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,11 +16,23 @@ public class UnitTests
     static DAO dao;
     static UserPrompt userPrompt;
 
+    private void provideInput(String data)
+    {
+        ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
+    }
+
     @BeforeAll
     static void init()
     {
         dao = new DAO(null);
         userPrompt = new UserPrompt(dao);
+    }
+
+    @AfterEach
+    void restoreSystemInput()
+    {
+        System.setIn(System.in);
     }
 
     /**
@@ -1122,5 +1136,88 @@ public class UnitTests
         userPrompt.showRecords(null);
         userPrompt.showRecords(records1);
         userPrompt.showRecords(records2); // no failures
+    }
+
+    // Tests that the expected area filter is returned
+    @Test
+    void UserPrompt_obtainAreaFilterChoice_happyPath()
+    {
+        // given
+        int queryId = 1;
+        provideInput("2\n");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        String areaFilter = userPrompt.obtainAreaFilterChoice(queryId);
+
+        // then
+        assertEquals(App.CONTINENT, areaFilter);
+    }
+
+    // Test that area filter is null if the user quits during entry
+    @Test
+    void UserPrompt_obtainAreaFilterChoice_nullIfUserQuits()
+    {
+        // given
+        int queryId = 1;
+        provideInput("q\n");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        String areaFilter = userPrompt.obtainAreaFilterChoice(queryId);
+
+        // then
+        assertNull(areaFilter);
+    }
+
+    // Test that when invalid input is entered, the query loops
+    @Test
+    void UserPrompt_obtainInputWithPrompt_loopsUntilValidInput()
+    {
+        // given
+        provideInput("invalid\nstring\n100\n0\n1");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
+
+        // then
+        assertEquals(1, input);
+    }
+
+    @Test
+    void UserPrompt_obtainInputWithPrompt_returnsNegativeOneWhenQEntered()
+    {
+        // given
+        provideInput("q");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
+
+        // then
+        assertEquals(-1, input);
+    }
+
+    @Test
+    void UserPrompt_start_userCanQuitDuringAreaNameEntry()
+    {
+        // given
+        provideInput("6\n2\nq");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        userPrompt.start(); // no failure
+    }
+
+    @Test
+    void UserPrompt_start_happyPathNoFailures()
+    {
+        // given
+        provideInput("6\n2\nSouth America\n10\nq");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        userPrompt.start(); // no failure
     }
 }

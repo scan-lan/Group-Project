@@ -121,6 +121,8 @@ public class UserPrompt
             showRecords(records);
         }
 
+        scanner.close();
+
         System.out.println(App.HORIZONTAL_LINE + "\nUntil next time\n" + App.HORIZONTAL_LINE);
     }
 
@@ -184,7 +186,7 @@ public class UserPrompt
      * @param maxNum An integer representing the largest number a user should be able to enter
      * @return An integer representing the user's choice
      */
-    private int obtainInputWithPrompt(String prompt, int maxNum)
+    public int obtainInputWithPrompt(String prompt, int maxNum)
     {
         int validInput = 0;
         while (validInput == 0)

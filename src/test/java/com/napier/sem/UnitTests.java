@@ -71,11 +71,8 @@ public class UnitTests
     @Test
     void App_disconnect_nullConnection()
     {
-        //given
-        Connection connection = null;
-
-        //then
-        App.disconnect(connection);
+        // when
+        App.disconnect(null); // no failure
     }
 
     /**
@@ -216,11 +213,8 @@ public class UnitTests
     @Test
     void DAO_allCountriesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, "Scotland");
+        ArrayList<Record> countries = dao.allCountriesIn(null, "Scotland");
 
         // then
         assertEquals(0, countries.size());
@@ -230,11 +224,8 @@ public class UnitTests
     @Test
     void DAO_allCountriesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.COUNTRY, areaName);
+        ArrayList<Record> countries = dao.allCountriesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, countries.size());
@@ -270,12 +261,8 @@ public class UnitTests
     @Test
     void DAO_topNCountriesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(areaFilter, areaName, 5);
+        ArrayList<Record> countries = dao.topNCountriesIn(null, null, 5);
 
         // then
         assertEquals(0, countries.size());
@@ -285,11 +272,8 @@ public class UnitTests
     @Test
     void DAO_topNCountriesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(areaFilter, "Scotland", 10);
+        ArrayList<Record> countries = dao.topNCountriesIn(null, "Scotland", 10);
 
         // then
         assertEquals(0, countries.size());
@@ -299,11 +283,8 @@ public class UnitTests
     @Test
     void DAO_topNCountriesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, areaName, 3);
+        ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, countries.size());
@@ -355,12 +336,8 @@ public class UnitTests
     @Test
     void DAO_allCitiesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(areaFilter, areaName);
+        ArrayList<Record> cities = dao.allCitiesIn(null, null);
 
         // then
         assertEquals(0, cities.size());
@@ -370,11 +347,8 @@ public class UnitTests
     @Test
     void DAO_allCitiesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(areaFilter, "Scotland");
+        ArrayList<Record> cities = dao.allCitiesIn(null, "Scotland");
 
         // then
         assertEquals(0, cities.size());
@@ -384,11 +358,8 @@ public class UnitTests
     @Test
     void DAO_allCitiesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
+        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, cities.size());
@@ -424,12 +395,8 @@ public class UnitTests
     @Test
     void DAO_topNCitiesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(areaFilter, areaName, 5);
+        ArrayList<Record> cities = dao.topNCitiesIn(null, null, 5);
 
         // then
         assertEquals(0, cities.size());
@@ -439,11 +406,8 @@ public class UnitTests
     @Test
     void DAO_topNCitiesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(areaFilter, "Europe", 10);
+        ArrayList<Record> cities = dao.topNCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, cities.size());
@@ -453,11 +417,8 @@ public class UnitTests
     @Test
     void DAO_topNCitiesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 3);
+        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, cities.size());
@@ -506,12 +467,8 @@ public class UnitTests
     @Test
     void DAO_allCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, areaName);
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(null, null);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -521,11 +478,8 @@ public class UnitTests
     @Test
     void DAO_allCapitalCitiesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, "Scotland");
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(null, "Scotland");
 
         // then
         assertEquals(0, capitalCities.size());
@@ -535,11 +489,8 @@ public class UnitTests
     @Test
     void DAO_allCapitalCitiesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, areaName);
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -575,12 +526,8 @@ public class UnitTests
     @Test
     void topNCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, areaName, 5);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(null, null, 5);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -590,11 +537,8 @@ public class UnitTests
     @Test
     void DAO_topNCapitalCitiesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, "Europe", 10);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -604,11 +548,8 @@ public class UnitTests
     @Test
     void DAO_topNCapitalCitiesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, areaName, 3);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -657,12 +598,8 @@ public class UnitTests
     @Test
     void DAO_populationLivingInAndNotInCities_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(areaFilter, areaName);
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(null, null);
 
         // then
         assertEquals(0, residenceReport.size());
@@ -672,11 +609,8 @@ public class UnitTests
     @Test
     void DAO_populationLivingInAndNotInCities_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(areaFilter, "Scotland");
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(null, "Scotland");
 
         // then
         assertEquals(0, residenceReport.size());
@@ -686,11 +620,8 @@ public class UnitTests
     @Test
     void DAO_populationLivingInAndNotInCities_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, null);
 
         // then
         assertEquals(0, residenceReport.size());
@@ -728,12 +659,8 @@ public class UnitTests
     @Test
     void DAO_populationOf_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> population = dao.populationOf(areaFilter, areaName);
+        ArrayList<Record> population = dao.populationOf(null, null);
 
         // then
         assertEquals(0, population.size());
@@ -743,11 +670,8 @@ public class UnitTests
     @Test
     void DAO_populationOf_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> population = dao.populationOf(areaFilter, "Scotland");
+        ArrayList<Record> population = dao.populationOf(null, "Scotland");
 
         // then
         assertEquals(0, population.size());
@@ -757,11 +681,8 @@ public class UnitTests
     @Test
     void DAO_populationOf_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> population = dao.populationOf(App.COUNTRY, areaName);
+        ArrayList<Record> population = dao.populationOf(App.COUNTRY, null);
 
         // then
         assertEquals(0, population.size());
@@ -802,7 +723,6 @@ public class UnitTests
         String region = "Great Britain";
         String capital = "Edinburgh";
         long population = 6000000L;
-        String expectedRecordType = App.COUNTRY;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Country code: SCT | Name: Scotland | Continent: Europe\n" +
                 "Region: Great Britain | Population: 6,000,000 | Capital: Edinburgh";
@@ -829,7 +749,6 @@ public class UnitTests
         String region = "Great Britain";
         String continent = "Europe";
         long population = 6000000L;
-        String expectedRecordType = App.CAPITAL_CITY;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Name: Glasgow | Country: Scotland | Population: 6,000,000";
 
@@ -854,7 +773,6 @@ public class UnitTests
         String country = "Scotland";
         String district = "North Lanarkshire";
         long population = 10000L;
-        String expectedRecordType = App.CITY;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Name: Wishae |  Country: Scotland \n" +
                 "District: North Lanarkshire |  Population: 10,000";
@@ -876,12 +794,11 @@ public class UnitTests
     {
         // given
         String name = "East Kilbride";
-        Long population = 7000L;
-        Long populationLivingInCities = 6999L;
+        long population = 7000L;
+        long populationLivingInCities = 6999L;
         Double percentageLivingInCities = 99.99D;
-        Long populationNotLivingInCities = 1L;
+        long populationNotLivingInCities = 1L;
         Double percentageNotLivingInCities = 0.01D;
-        String expectedRecordType = App.RESIDENCE_REPORT;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Area: East Kilbride | Total population: 7,000\n" +
                 "Population living in Cities: 6,999 (99.99%)\n" +
@@ -903,9 +820,8 @@ public class UnitTests
     {
         // given
         String language = "Gaelic";
-        Long speakers = 3L;
+        long speakers = 3L;
         Integer percentage = 0;
-        String expectedRecordType = App.LANGUAGE;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Language: Gaelic |  Speakers: 3 | % of world's population: 0%";
 
@@ -925,7 +841,6 @@ public class UnitTests
         // given
         String name = "China";
         Long population = 999000000L;
-        String expectedRecordType = App.POPULATION;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Area: China |  Population: 999,000,000";
 

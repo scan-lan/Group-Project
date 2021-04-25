@@ -108,6 +108,7 @@ public class UserPrompt
             // checks if the query takes an n value, and asks for it from the use if it does
             if (Arrays.binarySearch(topNQueryIds, chosenQueryId) >= 0)
             {
+                // Asks the user how many records they would like to see
                 n = obtainInputWithPrompt(
                         App.HORIZONTAL_LINE + "\nEnter the number of records you'd like to see",
                         4080);

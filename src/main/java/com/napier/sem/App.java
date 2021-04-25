@@ -17,7 +17,7 @@ public class App
     static final String RESIDENCE_REPORT = "residence report";
     static final String POPULATION = "population";
 
-    // Output formatting
+    // This is used in the console output to ensure readable and consistent formatting
     static final String HORIZONTAL_LINE = "------------------------------------------------------------" +
             "------------------------------------------------------------";
     // Database driver path
@@ -109,7 +109,7 @@ public class App
                 catch (InterruptedException ie)
                 {
                     // Should maybe change this to a more meaningful error
-                    System.out.println("Thread interrupted? Should not happen.");
+                    System.out.println(ie.getMessage());
                 }
             }
         }

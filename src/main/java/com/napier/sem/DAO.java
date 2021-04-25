@@ -101,10 +101,10 @@ public class DAO
      * @return True if the query will result in an invalid SQL statement, otherwise false
      */
     public boolean queryInvalid(String queryName,
-                                 String whereCondition,
-                                 String areaFilter,
-                                 ArrayList<String> validAreaFilters,
-                                 int n)
+                                String whereCondition,
+                                String areaFilter,
+                                ArrayList<String> validAreaFilters,
+                                int n)
     {
         if (whereCondition == null || n < 1)
         {
@@ -122,7 +122,6 @@ public class DAO
     /**
      * Use cases 1.1-1.3
      * Constructs the SQL query required and returns the result of the query.
-     *
      * @return An ordered list of countries in a given area sorted by descending population
      */
     public ArrayList<Record> allCountriesIn(String areaFilter, String areaName)
@@ -151,7 +150,6 @@ public class DAO
     /**
      * Use case 2.1-2.3
      * Constructs the SQL query required and returns the result of the query.
-     *
      * @return An ordered list of countries in a given area sorted by descending population.
      * The number of results returned will be is specified by the user
      */
@@ -182,7 +180,6 @@ public class DAO
     /**
      * Use cases 3.1-3.5
      * Constructs an SQL query to fetch all cities in a given area, and executes the query.
-     *
      * @return An ordered list of cities in a given area sorted by descending population
      */
     public ArrayList<Record> allCitiesIn(String areaFilter, String areaName)
@@ -208,7 +205,6 @@ public class DAO
      * Use cases 4.1-4.5
      * Constructs an SQL query to fetch the top N populated cities in a specific area, and executes the query.
      * N is an integer provided by the user.
-     *
      * @return An ordered list of cities in a defined area sorted by descending population,
      * the number of results returned will be less than or equal to N.
      */
@@ -236,7 +232,6 @@ public class DAO
     /**
      * Use cases 5.1-5.3
      * Constructs an SQL query to fetch all capital cities in a given area, and executes the query.
-     *
      * @return An ordered list of capital cities in a given area sorted by descending population
      */
     public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
@@ -265,7 +260,6 @@ public class DAO
     /**
      * Use cases 6.1-6.3
      * Constructs an SQL query to fetch the top N populated cities in a given area, and executes the query.
-     *
      * @return An ordered list of capital cities in a given area sorted by descending population.
      * The number or results returned is equal to the integer n which is supplied by the user
      */
@@ -298,7 +292,6 @@ public class DAO
      * Use cases 7.1-7.3
      * Constructs an SQL query to fetch the population in a given area as well as the population who live
      * in cities and those who don't in that area, and executes the query.
-     *
      * @return The population of a specified area as well as the population who live in cities and those who don't in that area
      */
     public ArrayList<Record> populationLivingInAndNotInCities(String areaFilter, String areaName)
@@ -329,7 +322,6 @@ public class DAO
     /**
      * Use cases 8.1-8.6
      * Constructs an SQL query to fetch the population in a given area, and executes the query.
-     *
      * @return The population of a specified area
      */
     public ArrayList<Record> populationOf(String areaFilter, String areaName)
@@ -356,7 +348,6 @@ public class DAO
     /**
      * Use case 9.1
      * Constructs an SQL query to find the number of people who speak Chinese/English/Hindi/Spanish/Arabic
-     *
      * @return An ordered list of languages spoken in the world sorted by the number of language speakers descending
      */
     public ArrayList<Record> languageReport()

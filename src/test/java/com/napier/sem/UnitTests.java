@@ -35,7 +35,7 @@ public class UnitTests
     /**
      * Tests for the App class
      */
-    // test that the connection is null if the localhost is invalid
+    // Test that the connection is null if the localhost is invalid
     @Test
     void App_main_noFailureFromInvalidLocation()
     {
@@ -53,7 +53,7 @@ public class UnitTests
         App.connect(null, App.DATABASE_DRIVER, true); // no failure
     }
 
-    // test that the connection is null if the database driver is invalid
+    // Test that the connection is null if the database driver is invalid
     @Test
     void App_connect_noFailureFromInvalidDriver()
     {
@@ -67,7 +67,7 @@ public class UnitTests
         assertNull(connection);
     }
 
-    // test that if the connection is null there is no error
+    // Test that if the connection is null there is no error
     @Test
     void App_disconnect_nullConnection()
     {
@@ -78,7 +78,7 @@ public class UnitTests
     /**
      * Tests for the DAO class
      */
-    // test the whereCondition is null when the areaFilter is unexpected
+    // Test the whereCondition is null when the areaFilter is unexpected
     @Test
     void DAO_getWhereCondition_unknownAreaFilterReturnsNull()
     {
@@ -92,7 +92,7 @@ public class UnitTests
         assertNull(whereCondition);
     }
 
-    // test that the whereCondition contains our given area name
+    // Test that the whereCondition contains our given area name
     @Test
     void DAO_getWhereCondition_areaNameAppearsInWhereCondition()
     {
@@ -106,7 +106,7 @@ public class UnitTests
         assertTrue(whereCondition.contains(areaName));
     }
 
-    // test that the whereCondition is null when areaName is null
+    // Test that the whereCondition is null when areaName is null
     @Test
     void DAO_getWhereCondition_nullAreaNameReturnsNull()
     {

@@ -17,8 +17,10 @@ public class App
     static final String RESIDENCE_REPORT = "residence report";
     static final String POPULATION = "population";
 
+    // Output formatting
     static final String HORIZONTAL_LINE = "------------------------------------------------------------" +
             "------------------------------------------------------------";
+    // Database driver path
     static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     // Connection to MySQL database
@@ -101,11 +103,12 @@ public class App
             {
                 try
                 {
-                    // Wait a bit before next retry
+                    // Wait a bit before the next retry
                     Thread.sleep(5000);
                 }
                 catch (InterruptedException ie)
                 {
+                    // Should maybe change this to a more meaningful error
                     System.out.println("Thread interrupted? Should not happen.");
                 }
             }

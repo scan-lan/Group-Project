@@ -117,14 +117,10 @@ public class IntegrationTests
     @Test
     void DAO_allCountriesIn_nullArgumentsCauseEmptyList()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
-        // when
-        ArrayList<Record> countries1 = dao.allCountriesIn(areaFilter, areaName);
-        ArrayList<Record> countries2 = dao.allCountriesIn(App.REGION, areaName);
-        ArrayList<Record> countries3 = dao.allCountriesIn(areaFilter, "Europe");
+                // when
+        ArrayList<Record> countries1 = dao.allCountriesIn(null, null);
+        ArrayList<Record> countries2 = dao.allCountriesIn(App.REGION, null);
+        ArrayList<Record> countries3 = dao.allCountriesIn(null, "Europe");
 
         // then
         assertEquals(0, countries1.size());
@@ -206,14 +202,10 @@ public class IntegrationTests
     @Test
     void DAO_topNCountriesIn_nullArgumentsCauseEmptyList()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> countries1 = dao.topNCountriesIn(areaFilter, areaName, 10);
-        ArrayList<Record> countries2 = dao.topNCountriesIn(App.REGION, areaName, 10);
-        ArrayList<Record> countries3 = dao.topNCountriesIn(areaFilter, "Europe", 10);
+        ArrayList<Record> countries1 = dao.topNCountriesIn(null, null, 10);
+        ArrayList<Record> countries2 = dao.topNCountriesIn(App.REGION, null, 10);
+        ArrayList<Record> countries3 = dao.topNCountriesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, countries1.size());
@@ -267,14 +259,10 @@ public class IntegrationTests
     @Test
     void DAO_allCitiesIn_nullArgumentsCauseEmptyList()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities1 = dao.allCitiesIn(areaFilter, areaName);
-        ArrayList<Record> cities2 = dao.allCitiesIn(App.REGION, areaName);
-        ArrayList<Record> cities3 = dao.allCitiesIn(areaFilter, "Europe");
+        ArrayList<Record> cities1 = dao.allCitiesIn(null, null);
+        ArrayList<Record> cities2 = dao.allCitiesIn(App.REGION, null);
+        ArrayList<Record> cities3 = dao.allCitiesIn(null, "Europe");
 
         // then
         assertEquals(0, cities1.size());
@@ -356,14 +344,10 @@ public class IntegrationTests
     @Test
     void DAO_topNCitiesIn_nullArgumentsCauseEmptyList()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities1 = dao.topNCitiesIn(areaFilter, areaName, 10);
-        ArrayList<Record> cities2 = dao.topNCitiesIn(App.REGION, areaName, 10);
-        ArrayList<Record> cities3 = dao.topNCitiesIn(areaFilter, "Europe", 10);
+        ArrayList<Record> cities1 = dao.topNCitiesIn(null, null, 10);
+        ArrayList<Record> cities2 = dao.topNCitiesIn(App.REGION, null, 10);
+        ArrayList<Record> cities3 = dao.topNCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, cities1.size());
@@ -417,14 +401,10 @@ public class IntegrationTests
     @Test
     void DAO_allCapitalCitiesIn_nullArgumentsCauseEmptyList()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities1 = dao.allCapitalCitiesIn(areaFilter, areaName);
-        ArrayList<Record> capitalCities2 = dao.allCapitalCitiesIn(App.REGION, areaName);
-        ArrayList<Record> capitalCities3 = dao.allCapitalCitiesIn(areaFilter, "Europe");
+        ArrayList<Record> capitalCities1 = dao.allCapitalCitiesIn(null, null);
+        ArrayList<Record> capitalCities2 = dao.allCapitalCitiesIn(App.REGION, null);
+        ArrayList<Record> capitalCities3 = dao.allCapitalCitiesIn(null, "Europe");
 
         // then
         assertEquals(0, capitalCities1.size());
@@ -507,14 +487,10 @@ public class IntegrationTests
     @Test
     void DAO_topNCapitalCitiesIn_nullArgumentsCauseEmptyList()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities1 = dao.topNCapitalCitiesIn(areaFilter, areaName, 10);
-        ArrayList<Record> capitalCities2 = dao.topNCapitalCitiesIn(App.REGION, areaName, 10);
-        ArrayList<Record> capitalCities3 = dao.topNCapitalCitiesIn(areaFilter, "Europe", 10);
+        ArrayList<Record> capitalCities1 = dao.topNCapitalCitiesIn(null, null, 10);
+        ArrayList<Record> capitalCities2 = dao.topNCapitalCitiesIn(App.REGION, null, 10);
+        ArrayList<Record> capitalCities3 = dao.topNCapitalCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, capitalCities1.size());
@@ -554,14 +530,10 @@ public class IntegrationTests
     @Test
     void DAO_populationLivingInAndNotInCities_nullArgumentsCauseEmptyList()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> residenceReport1 = dao.populationLivingInAndNotInCities(areaFilter, areaName);
-        ArrayList<Record> residenceReport2 = dao.populationLivingInAndNotInCities(App.REGION, areaName);
-        ArrayList<Record> residenceReport3 = dao.populationLivingInAndNotInCities(areaFilter, "Europe");
+        ArrayList<Record> residenceReport1 = dao.populationLivingInAndNotInCities(null, null);
+        ArrayList<Record> residenceReport2 = dao.populationLivingInAndNotInCities(App.REGION, null);
+        ArrayList<Record> residenceReport3 = dao.populationLivingInAndNotInCities(null, "Europe");
 
         // then
         assertEquals(0, residenceReport1.size());
@@ -601,14 +573,10 @@ public class IntegrationTests
     @Test
     void DAO_populationOf_nullArgumentsCauseEmptyList()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> population1 = dao.populationOf(areaFilter, areaName);
-        ArrayList<Record> population2 = dao.populationOf(App.REGION, areaName);
-        ArrayList<Record> population3 = dao.populationOf(areaFilter, "Europe");
+        ArrayList<Record> population1 = dao.populationOf(null, null);
+        ArrayList<Record> population2 = dao.populationOf(App.REGION, null);
+        ArrayList<Record> population3 = dao.populationOf(null, "Europe");
 
         // then
         assertEquals(0, population1.size());

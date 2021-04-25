@@ -153,21 +153,10 @@ public class Record
         recordType = App.POPULATION;
     }
 
-    public String getCountryCode() { return this.countryCode; }
     public String getName() { return this.name; }
     public String getContinent() { return this.continent; }
-    public String getRegion() { return this.region; }
     public String getCountry() { return this.country; }
-    public String getDistrict() { return this.district; }
     public long getPopulation() { return this.population; }
-    public String getCapital() { return this.capital; }
-    public long getSpeakers() { return this.speakers; }
-    public Integer getPercentage() { return this.percentage; }
-    public long getPopulationLivingInCities() { return this.populationLivingInCities; }
-    public double getPercentageLivingInCities() { return this.percentageLivingInCities; }
-    public long getPopulationNotLivingInCities() { return this.populationNotLivingInCities; }
-    public double getPercentageNotLivingInCities() { return this.percentageNotLivingInCities; }
-    public String getRecordType() { return this.recordType; }
 
     /**
      * Formats the country data in a consistent, readable manner

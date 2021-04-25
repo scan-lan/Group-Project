@@ -1,9 +1,11 @@
 package com.napier.sem;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,8 +29,31 @@ public class IntegrationTests
         userPrompt = new UserPrompt(dao);
     }
 
+    private void provideInput(String data)
+    {
+        ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
+    }
+
+    @AfterEach
+    void restoreSystemInput() { System.setIn(System.in); }
+
     @AfterAll
     static void tearDown() { App.disconnect(connection); }
+
+    /**
+     * Integration tests covering the app class
+     */
+    // Test the app runs fine with a simulate series of user inputs
+    @Test
+    void App_main_happyPath()
+    {
+        // given
+        provideInput("7\n2\nOceania\nq");
+
+        // when
+        App.main(new String[]{}); // no failures
+    }
 
     /**
      * Integration tests covering the DAO class
@@ -645,6 +670,7 @@ public class IntegrationTests
     /**
      * Integration tests covering the UserPrompt class
      */
+    // Test that there are records for all queries if valid data is passed
     @Test
     void UserPrompt_executeQueryFromInput_happyPath()
     {
@@ -659,6 +685,7 @@ public class IntegrationTests
         }
     }
 
+    // Test that the query filters we
     @Test
     void UserPrompt_parseQueryInputForAreaFilter_areaFiltersWorkForLiveQueries()
     {
@@ -681,5 +708,44 @@ public class IntegrationTests
 
         // when
         userPrompt.showRecords(records); // no failure
+    }
+
+    // Simulate a user entering valid input at each stage of the user prompt loop
+    @Test
+    void UserPrompt_start_happyPath()
+    {
+        // given
+        provideInput("4\n3\nNordic Countries\n5\nq");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        userPrompt.start(); // no failure
+    }
+
+    // Test simulated user inputs where they quit at each stage of the loop don't cause failures
+    @Test
+    void UserPrompt_start_userCanQuitAtAnyStage()
+    {
+        // given
+        ArrayList<UserPrompt> userPrompts = new ArrayList<>();
+        provideInput("q\n");
+        userPrompts.add(new UserPrompt(dao));
+        provideInput("6\nq\n");
+        userPrompts.add(new UserPrompt(dao));
+        provideInput("6\n3\nq\n");
+        userPrompts.add(new UserPrompt(dao));
+        provideInput("6\n3\nCaribbean\nq");
+        userPrompts.add(new UserPrompt(dao));
+        provideInput("6\n3\nCaribbean\n10\nq");
+        userPrompts.add(new UserPrompt(dao));
+
+        // when
+        for (UserPrompt userPrompt: userPrompts)
+        {
+            userPrompt.start();
+
+            // then
+            assertTrue(userPrompt.getUserWantsToQuit());
+        }
     }
 }

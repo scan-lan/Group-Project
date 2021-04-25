@@ -11,7 +11,7 @@ public class UserPrompt
 {
     private final DAO dao;
     private final Scanner scanner;
-    boolean userWantsToQuit;
+    private boolean userWantsToQuit;
     private static final int[] topNQueryIds = new int[]{2, 4, 6};
     private static final String INITIAL_QUERY_PROMPT = App.HORIZONTAL_LINE + "\n" +
             "Enter the number corresponding to the type of query you'd like to run\n" +
@@ -32,6 +32,7 @@ public class UserPrompt
             "All results will be sorted in order of largest population to smallest\n" +
             "Enter 'q' at any time to exit";
     private final HashMap<Integer, QueryInfo> queryTable = new HashMap<>();
+    public boolean getUserWantsToQuit() { return userWantsToQuit; }
 
     public UserPrompt(DAO dao)
     {

@@ -30,10 +30,7 @@ public class UnitTests
     }
 
     @AfterEach
-    void restoreSystemInput()
-    {
-        System.setIn(System.in);
-    }
+    void restoreSystemInput() { System.setIn(System.in); }
 
     /**
      * Tests for the App class
@@ -815,13 +812,9 @@ public class UnitTests
         Record record = new Record(countryCode, name, continent, region, population, capital);
 
         // then
-        assertEquals(countryCode, record.getCountryCode());
         assertEquals(name, record.getName());
         assertEquals(continent, record.getContinent());
-        assertEquals(region, record.getRegion());
         assertEquals(population, record.getPopulation());
-        assertEquals(capital, record.getCapital());
-        assertEquals(expectedRecordType, record.getRecordType());
         assertEquals(expectedToStringOutput, record.toString());
     }
 
@@ -846,10 +839,8 @@ public class UnitTests
         // then
         assertEquals(name, capitalCity.getName());
         assertEquals(country, capitalCity.getCountry());
-        assertEquals(region, capitalCity.getRegion());
         assertEquals(continent, capitalCity.getContinent());
         assertEquals(population, capitalCity.getPopulation());
-        assertEquals(expectedRecordType, capitalCity.getRecordType());
         assertEquals(expectedToStringOutput, capitalCity.toString());
     }
 
@@ -874,9 +865,7 @@ public class UnitTests
         // then
         assertEquals(name, city.getName());
         assertEquals(country, city.getCountry());
-        assertEquals(district, city.getDistrict());
         assertEquals(population, city.getPopulation());
-        assertEquals(expectedRecordType, city.getRecordType());
         assertEquals(expectedToStringOutput, city.toString());
     }
 
@@ -904,11 +893,6 @@ public class UnitTests
         // then
         assertEquals(name, residenceReport.getName());
         assertEquals(population, residenceReport.getPopulation());
-        assertEquals(populationLivingInCities, residenceReport.getPopulationLivingInCities());
-        assertEquals(percentageLivingInCities, residenceReport.getPercentageLivingInCities());
-        assertEquals(populationNotLivingInCities, residenceReport.getPopulationNotLivingInCities());
-        assertEquals(percentageNotLivingInCities, residenceReport.getPercentageNotLivingInCities());
-        assertEquals(expectedRecordType, residenceReport.getRecordType());
         assertEquals(expectedToStringOutput, residenceReport.toString());
     }
 
@@ -930,9 +914,6 @@ public class UnitTests
 
         // then
         assertEquals(language, Language.getName());
-        assertEquals(speakers, Language.getSpeakers());
-        assertEquals(percentage, Language.getPercentage());
-        assertEquals(expectedRecordType, Language.getRecordType());
         assertEquals(expectedToStringOutput, Language.toString());
     }
 
@@ -954,7 +935,6 @@ public class UnitTests
         // then
         assertEquals(name, Population.getName());
         assertEquals(population, Population.getPopulation());
-        assertEquals(expectedRecordType, Population.getRecordType());
         assertEquals(expectedToStringOutput, Population.toString());
     }
 

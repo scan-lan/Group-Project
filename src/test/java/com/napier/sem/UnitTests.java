@@ -18,8 +18,8 @@ public class UnitTests
 
     private void provideInput(String data)
     {
-        ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
-        System.setIn(testIn);
+        ByteArrayInputStream TestIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(TestIn);
     }
 
     @BeforeAll
@@ -117,7 +117,7 @@ public class UnitTests
         assertNull(whereCondition);
     }
 
-    // test that the whereCondition is null when areaFilter is null
+    // Test that the whereCondition is null when areaFilter is null
     @Test
     void DAO_getWhereCondition_nullAreaFilterReturnsNull()
     {
@@ -128,7 +128,7 @@ public class UnitTests
         assertNull(whereCondition);
     }
 
-    // test that a null whereCondition will result in queryInvalid being true
+    // Test that a null whereCondition will result in queryInvalid being true
     @Test
     void DAO_queryInvalid_falseWhenWhereConditionIsNull()
     {
@@ -142,7 +142,7 @@ public class UnitTests
         assertTrue(result);
     }
 
-    // test that an n value of less than 1 will result in queryInvalid being true
+    // Test that an n value of less than 1 will result in queryInvalid being true
     @Test
     void DAO_queryInvalid_falseWhenNLessThanOne()
     {
@@ -159,7 +159,7 @@ public class UnitTests
         assertTrue(result);
     }
 
-    // test that an area filter not in the valid area filters will result in queryInvalid being true
+    // Test that an area filter not in the valid area filters will result in queryInvalid being true
     @Test
     void DAO_queryInvalid_falseWhenAreaFilterNotAllowed()
     {
@@ -177,7 +177,7 @@ public class UnitTests
         assertTrue(result);
     }
 
-    // test that queryInvalid is false when it is passed good values
+    // Test that queryInvalid is false when it is passed good values
     @Test
     void DAO_queryInvalid_happyPath()
     {
@@ -198,7 +198,7 @@ public class UnitTests
         assertFalse(result);
     }
 
-    // test that countries list is empty when areaFilter and areaName are null
+    // Test that countries list is empty when areaFilter and areaName are null
     @Test
     void DAO_allCountriesIn_bothArgumentsNullListEmpty()
     {
@@ -209,7 +209,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // test that countries list is empty when areaFilter is null
+    // Test that countries list is empty when areaFilter is null
     @Test
     void DAO_allCountriesIn_areaFilterNullListEmpty()
     {
@@ -220,7 +220,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // test that countries list is empty when areaName is null
+    // Test that countries list is empty when areaName is null
     @Test
     void DAO_allCountriesIn_areaNameNullListEmpty()
     {
@@ -245,7 +245,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
     void DAO_allCountriesIn_happyPath()
     {
@@ -257,7 +257,7 @@ public class UnitTests
         dao.allCountriesIn(areaFilter, areaName); // No Error
     }
 
-    // test that countries list is empty when areaFilter and areaName are null
+    // Test that countries list is empty when areaFilter and areaName are null
     @Test
     void DAO_topNCountriesIn_bothArgumentsNullListEmpty()
     {
@@ -268,7 +268,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // test that countries list is empty when areaFilter is null
+    // Test that countries list is empty when areaFilter is null
     @Test
     void DAO_topNCountriesIn_areaFilterNullListEmpty()
     {
@@ -279,7 +279,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // test that countries list is empty when areaName is null
+    // Test that countries list is empty when areaName is null
     @Test
     void DAO_topNCountriesIn_areaNameNullListEmpty()
     {
@@ -290,7 +290,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // test that n cannot be less than or equal to 0
+    // Test that n cannot be less than or equal to 0
     @Test
     void DAO_topNCountriesIn_negativeNListEmpty()
     {
@@ -317,7 +317,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
     void DAO_topNCountriesIn_happyPath()
     {
@@ -330,9 +330,9 @@ public class UnitTests
     }
 
     /**
-     * Unit tests covering the DAO.allCitiesIn method
+     * Unit Tests covering the DAO.allCitiesIn method
      */
-    // test that cities list is empty when areaFilter and areaName are null
+    // Test that cities list is empty when areaFilter and areaName are null
     @Test
     void DAO_allCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -343,7 +343,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that cities list is empty when areaFilter is null
+    // Test that cities list is empty when areaFilter is null
     @Test
     void DAO_allCitiesIn_areaFilterNullListEmpty()
     {
@@ -354,7 +354,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that cities list is empty when areaName is null
+    // Test that cities list is empty when areaName is null
     @Test
     void DAO_allCitiesIn_areaNameNullListEmpty()
     {
@@ -379,7 +379,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
     void DAO_allCitiesIn_happyPath()
     {
@@ -391,7 +391,7 @@ public class UnitTests
         dao.allCitiesIn(areaFilter, areaName); // No Error
     }
 
-    // test that cities list is empty when areaFilter and areaName are null
+    // Test that cities list is empty when areaFilter and areaName are null
     @Test
     void DAO_topNCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -402,7 +402,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that cities list is empty when areaFilter is null
+    // Test that cities list is empty when areaFilter is null
     @Test
     void DAO_topNCitiesIn_areaFilterNullListEmpty()
     {
@@ -413,7 +413,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that cities list is empty when areaName is null
+    // Test that cities list is empty when areaName is null
     @Test
     void DAO_topNCitiesIn_areaNameNullListEmpty()
     {
@@ -424,7 +424,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // test that n cannot be less than or equal to 0
+    // Test that n cannot be less than or equal to 0
     @Test
     void DAO_topNCitiesIn_negativeNListEmpty()
     {
@@ -451,7 +451,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
     void DAO_topNCitiesIn_happyPath()
     {
@@ -463,7 +463,7 @@ public class UnitTests
         dao.topNCitiesIn(areaFilter, areaName, 15); // No Error
     }
 
-    // test that capitalCities list is empty when areaFilter and areaName are null
+    // Test that capitalCities list is empty when areaFilter and areaName are null
     @Test
     void DAO_allCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -474,7 +474,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // test that capitalCities list is empty when areaFilter is null
+    // Test that capitalCities list is empty when areaFilter is null
     @Test
     void DAO_allCapitalCitiesIn_areaFilterNullListEmpty()
     {
@@ -485,7 +485,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // test that capitalCities list is empty when areaName is null
+    // Test that capitalCities list is empty when areaName is null
     @Test
     void DAO_allCapitalCitiesIn_areaNameNullListEmpty()
     {
@@ -510,7 +510,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
     void DAO_allCapitalCitiesIn_happyPath()
     {
@@ -522,7 +522,7 @@ public class UnitTests
         dao.allCapitalCitiesIn(areaFilter, areaName); // No Error
     }
 
-    // test that capitalCities list is empty when areaFilter and areaName are null
+    // Test that capitalCities list is empty when areaFilter and areaName are null
     @Test
     void topNCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
@@ -533,7 +533,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // test that capitalCities list is empty when areaFilter is null
+    // Test that capitalCities list is empty when areaFilter is null
     @Test
     void DAO_topNCapitalCitiesIn_areaFilterNullListEmpty()
     {
@@ -544,7 +544,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // test that capitalCities list is empty when areaName is null
+    // Test that capitalCities list is empty when areaName is null
     @Test
     void DAO_topNCapitalCitiesIn_areaNameNullListEmpty()
     {
@@ -555,7 +555,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // test that n cannot be less than or equal to 0
+    // Test that n cannot be less than or equal to 0
     @Test
     void DAO_topNCapitalCitiesIn_negativeNListEmpty()
     {
@@ -582,7 +582,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
     void DAO_topNCapitalCitiesIn_happyPath()
     {
@@ -594,7 +594,7 @@ public class UnitTests
         dao.topNCapitalCitiesIn(areaFilter, areaName, 15); // No Error
     }
 
-    // test that residenceReport list is empty when areaFilter and areaName are null
+    // Test that residenceReport list is empty when areaFilter and areaName are null
     @Test
     void DAO_populationLivingInAndNotInCities_bothArgumentsNullListEmpty()
     {
@@ -605,7 +605,7 @@ public class UnitTests
         assertEquals(0, residenceReport.size());
     }
 
-    // test that residenceReport list is empty when areaFilter is null
+    // Test that residenceReport list is empty when areaFilter is null
     @Test
     void DAO_populationLivingInAndNotInCities_areaFilterNullListEmpty()
     {
@@ -616,7 +616,7 @@ public class UnitTests
         assertEquals(0, residenceReport.size());
     }
 
-    // test that residenceReport list is empty when areaName is null
+    // Test that residenceReport list is empty when areaName is null
     @Test
     void DAO_populationLivingInAndNotInCities_areaNameNullListEmpty()
     {
@@ -640,7 +640,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
     void DAO_populationLivingInAndNotInCities_happyPath()
     {
@@ -653,9 +653,9 @@ public class UnitTests
     }
 
     /**
-     * Unit tests covering the DAO.populationOf method
+     * Unit Tests covering the DAO.populationOf method
      */
-    // test that population list is empty when areaFilter and areaName are null
+    // Test that population list is empty when areaFilter and areaName are null
     @Test
     void DAO_populationOf_bothArgumentsNullListEmpty()
     {
@@ -666,7 +666,7 @@ public class UnitTests
         assertEquals(0, population.size());
     }
 
-    // test that population list is empty when areaFilter is null
+    // Test that population list is empty when areaFilter is null
     @Test
     void DAO_populationOf_areaFilterNullListEmpty()
     {
@@ -677,7 +677,7 @@ public class UnitTests
         assertEquals(0, population.size());
     }
 
-    // test that population list is empty when areaName is null
+    // Test that population list is empty when areaName is null
     @Test
     void DAO_populationOf_areaNameNullListEmpty()
     {
@@ -688,7 +688,7 @@ public class UnitTests
         assertEquals(0, population.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
     void DAO_populationOf_happyPath()
     {
@@ -714,7 +714,7 @@ public class UnitTests
     // Tests that when a country object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    void Record_testGettersAndToStringForCountry()
+    void Record_TestGettersAndToStringForCountry()
     {
         // given
         String countryCode = "SCT";
@@ -741,7 +741,7 @@ public class UnitTests
     // Tests that when a capital city object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    void Record_testGettersAndToStringForCapitalCity()
+    void Record_TestGettersAndToStringForCapitalCity()
     {
         // given
         String name = "Glasgow";
@@ -766,7 +766,7 @@ public class UnitTests
     // Tests that when a city object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    void Record_testGettersAndToStringForCity()
+    void Record_TestGettersAndToStringForCity()
     {
         // given
         String name = "Wishae";
@@ -790,7 +790,7 @@ public class UnitTests
     // Tests that when a population residence report object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    void Record_testGettersAndToStringForPopulationResidenceReport()
+    void Record_TestGettersAndToStringForPopulationResidenceReport()
     {
         // given
         String name = "East Kilbride";
@@ -816,7 +816,7 @@ public class UnitTests
     // Tests that when a language object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    void Record_testGettersAndToStringForLanguage()
+    void Record_TestGettersAndToStringForLanguage()
     {
         // given
         String language = "Gaelic";
@@ -836,7 +836,7 @@ public class UnitTests
     // Tests that when a population object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    void Record_testGettersAndToStringForPopulation()
+    void Record_TestGettersAndToStringForPopulation()
     {
         // given
         String name = "China";
@@ -858,7 +858,7 @@ public class UnitTests
      */
     // Tests that when a QueryInfo object is constructed, the getters return the same fields that we passed in.
     @Test
-    void QueryInfo_testGettersForQueryInfo()
+    void QueryInfo_TestGettersForQueryInfo()
     {
         // given
         String queryDescription = "All countries in";

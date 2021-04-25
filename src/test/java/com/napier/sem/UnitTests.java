@@ -290,12 +290,12 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // Test that n cannot be less than or equal to 0
+    // Test that n cannot be less than 1
     @Test
     void DAO_topNCountriesIn_negativeNListEmpty()
     {
         // given
-        Integer n = -3;
+        int n = -3;
 
         // when
         ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, "China", n);
@@ -304,7 +304,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check countries list is empty if called with an invalid areaFilter
+    // Check countries list is empty if called with an invalid areaFilter
     @Test
     void DAO_topNCountriesIn_areaFilterWrongListEmpty() {
         // given
@@ -317,7 +317,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check Test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
     void DAO_topNCountriesIn_happyPath()
     {
@@ -365,7 +365,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check cities list is empty if called with an invalid areaFilter
+    // Check cities list is empty if called with an invalid areaFilter
     @Test
     void DAO_allCitiesIn_areaFilterWrongListEmpty()
     {
@@ -379,7 +379,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check Test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
     void DAO_allCitiesIn_happyPath()
     {
@@ -438,7 +438,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check cities list is empty if called with an invalid areaFilter
+    // Check cities list is empty if called with an invalid areaFilter
     @Test
     void DAO_topNCitiesIn_areaFilterWrongListEmpty() {
         // given
@@ -451,7 +451,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check Test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
     void DAO_topNCitiesIn_happyPath()
     {
@@ -496,7 +496,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check capital cities list is empty if called with an invalid areaFilter
+    // Check capital cities list is empty if called with an invalid areaFilter
     @Test
     void DAO_allCapitalCitiesIn_areaFilterWrongListEmpty()
     {
@@ -510,7 +510,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check Test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
     void DAO_allCapitalCitiesIn_happyPath()
     {
@@ -569,7 +569,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check capital cities list is empty if called with an invalid areaFilter
+    // Check capital cities list is empty if called with an invalid areaFilter
     @Test
     void DAO_topNCapitalCitiesIn_areaFilterWrongListEmpty() {
         // given
@@ -582,7 +582,7 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check Test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
     void DAO_topNCapitalCitiesIn_happyPath()
     {
@@ -627,9 +627,10 @@ public class UnitTests
         assertEquals(0, residenceReport.size());
     }
 
-    // check cities list is empty if called with an invalid areaFilter
+    // Check cities list is empty if called with an invalid areaFilter
     @Test
-    void DAO_populationLivingInAndNotInCities_areaFilterWrongListEmpty() {
+    void DAO_populationLivingInAndNotInCities_areaFilterWrongListEmpty()
+    {
         // given
         String areaFilter = App.WORLD;
 
@@ -640,7 +641,7 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check Test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
     void DAO_populationLivingInAndNotInCities_happyPath()
     {
@@ -688,7 +689,7 @@ public class UnitTests
         assertEquals(0, population.size());
     }
 
-    // check Test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
     void DAO_populationOf_happyPath()
     {
@@ -700,7 +701,7 @@ public class UnitTests
         dao.populationOf(areaFilter, areaName); // No Error
     }
 
-    // check no error is thrown when method is called with a null connection
+    // Check no error is thrown when method is called with a null connection
     @Test
     void DAO_languageReport_happyPath()
     {
@@ -905,6 +906,7 @@ public class UnitTests
         assertEquals(expectedOutput, output);
     }
 
+    // Test that the user can enter null input without the app crashing
     @Test
     void UserPrompt_formatInput_noFailureWhenNullEntered()
     {
@@ -1080,6 +1082,7 @@ public class UnitTests
         assertEquals(1, input);
     }
 
+    // Test that -1 is returned when the user enters q
     @Test
     void UserPrompt_obtainInputWithPrompt_returnsNegativeOneWhenQEntered()
     {
@@ -1094,22 +1097,30 @@ public class UnitTests
         assertEquals(-1, input);
     }
 
+    // Test that the user can quit when prompted for the area name
     @Test
     void UserPrompt_start_userCanQuitDuringAreaNameEntry()
     {
         // given
-        provideInput("6\n2\nq");
+        provideInput("6\n" +
+                "2\n" +
+                "q");
         UserPrompt userPrompt = new UserPrompt(dao);
 
         // when
         userPrompt.start(); // no failure
     }
 
+    // Test that valid input does not cause a failure
     @Test
     void UserPrompt_start_happyPathNoFailures()
     {
         // given
-        provideInput("6\n2\nSouth America\n10\nq");
+        provideInput("6\n" +
+                "2\n" +
+                "South America\n" +
+                "10\n" +
+                "q");
         UserPrompt userPrompt = new UserPrompt(dao);
 
         // when

@@ -7,13 +7,13 @@ With Craig Gordon as Scrum Master and Luke Scanlan as Product Owner
 Build Status
 -
 - Master Build Status
-  [![Build Status](https://travis-ci.com/Craig180885-napier/group-project.svg?branch=master)](https://travis-ci.com/Craig180885-napier/Group-Project)
+  [![Build Status](https://travis-ci.com/scan-lan/group-project.svg?branch=master)](https://travis-ci.com/Craig180885-napier/Group-Project)
 - Develop Build Status
-  [![Build Status](https://travis-ci.com/Craig180885-napier/group-project.svg?branch=develop)](https://travis-ci.com/Craig180885-napier/Group-Project)
-  [![LICENSE](https://img.shields.io/github/license/Craig180885-napier/group-project.svg)](https://github.com/Craig180885-napier/group-project/blob/master/LICENSE)
-  [![Releases](https://img.shields.io/github/release/Craig180885-napier/group-project/all.svg)](https://github.com/Craig180885-napier/group-project/releases)
+  [![Build Status](https://travis-ci.com/scan-lan/group-project.svg?branch=develop)](https://travis-ci.com/Craig180885-napier/Group-Project)
+  [![LICENSE](https://img.shields.io/github/license/scan-lan/group-project.svg)](https://github.com/Craig180885-napier/group-project/blob/master/LICENSE)
+  [![Releases](https://img.shields.io/github/release/scan-lan/group-project/all.svg)](https://github.com/Craig180885-napier/group-project/releases)
 - Code Coverage
-  [![codecov](https://codecov.io/gh/Craig180885-napier/Group-Project/branch/master/graph/badge.svg?token=XBP764GI1F)](https://codecov.io/gh/Craig180885-napier/Group-Project)
+  [![codecov](https://codecov.io/gh/scan-lan/Group-Project/branch/master/graph/badge.svg?token=XBP764GI1F)](https://codecov.io/gh/Craig180885-napier/Group-Project)
   
 ## Requirements Met
 

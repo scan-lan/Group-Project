@@ -41,9 +41,6 @@ public class IntegrationTests
     @AfterAll
     static void tearDown() { App.disconnect(connection); }
 
-    /**
-     * Integration tests covering the app class
-     */
     // Test the app runs fine with a simulate series of user inputs
     @Test
     void App_main_happyPath()
@@ -55,9 +52,6 @@ public class IntegrationTests
         App.main(new String[]{}); // then: no failures
     }
 
-    /**
-     * Integration tests covering the DAO class
-     */
     // Test that null is returned when a nonsense query is given
     @Test
     void DAO_executeStatement_nullWhenStatementIsInvalid()
@@ -634,9 +628,6 @@ public class IntegrationTests
         for (ArrayList<Record> records : recordsLists) assertEquals(0, records.size());
     }
 
-    /**
-     * Integration tests covering the UserPrompt class
-     */
     // Test that there are records for all queries if valid data is passed
     @Test
     void UserPrompt_executeQueryFromInput_happyPath()
@@ -649,21 +640,6 @@ public class IntegrationTests
 
             // then
             if (records != null) assertNotEquals(0, records.size());
-        }
-    }
-
-    // Test that the query filters we
-    @Test
-    void UserPrompt_parseQueryInputForAreaFilter_areaFiltersWorkForLiveQueries()
-    {
-        // given
-        ArrayList<String> areaFilters = new ArrayList<>();
-        for (int i = 1; i < 7; i++) areaFilters.add(userPrompt.parseQueryInputForAreaFilter(8, i));
-
-        // when
-        for (String areaFilter: areaFilters)
-        {
-            userPrompt.executeQueryFromInput(8, areaFilter, "", 10); // then: no failure
         }
     }
 

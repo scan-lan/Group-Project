@@ -1,7 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
-import java.util.NoSuchElementException;
+import java.util.ArrayList;
 
 public class App
 {
@@ -26,22 +26,22 @@ public class App
     // Connection to MySQL database
     public static Connection connection;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+        // Create new Application
+        App app = new App();
+
         // Connect to database
         if (args.length < 1)
         {
-            connection = connect("localhost:33061", DATABASE_DRIVER, false);
+            connection = connect("localhost:33061", databaseDriver, false);
         }
         else
         {
-            connection = connect(args[0], DATABASE_DRIVER, false);
+            connection = connect(args[0], databaseDriver, false);
         }
 
         // Create instance of the database access object
         DAO dao = new DAO(connection);
-
-        UserPrompt prompt = new UserPrompt(dao);
 
         if (connection != null)
         {
@@ -81,14 +81,13 @@ public class App
         int retries = 60;
         for (int i = 1; i <= retries; ++i)
         {
-            System.out.println(App.HORIZONTAL_LINE +  "\nConnecting to database...");
+            System.out.println("Connecting to database...");
             try
             {
                 if (location == null) { return null; }
 
                 // Connect to database
-                Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
+                Connection connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",
                         "example");
                 System.out.println("Successfully connected");

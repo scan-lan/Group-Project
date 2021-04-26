@@ -55,7 +55,7 @@ public class App
                 for (Record record: dao.topNCountriesIn(App.REGION, "Caribbean", 5)) System.out.println(record);
             }
         }
-        else System.out.println("Connection was null");
+        else System.out.println("No database connection found");
 
         // Disconnect from database
         disconnect(connection);
@@ -108,7 +108,6 @@ public class App
                 }
                 catch (InterruptedException ie)
                 {
-                    // Should maybe change this to a more meaningful error
                     System.out.println(ie.getMessage());
                 }
             }

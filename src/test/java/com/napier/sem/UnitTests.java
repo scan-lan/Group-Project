@@ -43,14 +43,14 @@ public class UnitTests
         String[] args = new String[]{null};
 
         // when
-        App.main(args); // no failure
+        App.main(args); // then: no failure
     }
 
     @Test
     void App_connect_noFailureFromInvalidLocation()
     {
         // when
-        App.connect(null, App.DATABASE_DRIVER, true); // no failure
+        App.connect(null, App.DATABASE_DRIVER, true); // then: no failure
     }
 
     // Test that the connection is null if the database driver is invalid
@@ -61,7 +61,7 @@ public class UnitTests
         String databaseDriver = "mysqf";
 
         // when
-        Connection connection = App.connect("localhost:33061", databaseDriver, true); // no failure
+        Connection connection = App.connect("localhost:33061", databaseDriver, true); // then: no failure
 
         // then
         assertNull(connection);
@@ -72,7 +72,7 @@ public class UnitTests
     void App_disconnect_nullConnection()
     {
         // when
-        App.disconnect(null); // no failure
+        App.disconnect(null); // then: no failure
     }
 
     /**
@@ -911,10 +911,10 @@ public class UnitTests
     void UserPrompt_formatInput_noFailureWhenNullEntered()
     {
         // when
-        String formattedInput = userPrompt.formatInput(null); // no failure
+        String formattedInput = userPrompt.formatInput(null); // then: no failure
 
         // then
-        assertNull(formattedInput); // no failure
+        assertNull(formattedInput); // then: no failure
     }
 
     // Test that parseQueryInputForAreaFilter returns null on receiving invalid input
@@ -1015,7 +1015,7 @@ public class UnitTests
         // when
         for (int queryId = 1; queryId < 10; queryId ++)
         {
-            userPrompt.executeQueryFromInput(queryId, areaFilter, areaName, n); // no failures
+            userPrompt.executeQueryFromInput(queryId, areaFilter, areaName, n); // then: no failures
         }
     }
 
@@ -1032,10 +1032,10 @@ public class UnitTests
         // when
         userPrompt.showRecords(null);
         userPrompt.showRecords(records1);
-        userPrompt.showRecords(records2); // no failures
+        userPrompt.showRecords(records2); // then: no failures
     }
 
-    // Tests that the expected area filter is returned
+    // Tests that the expected area filter is returned with simulated user input
     @Test
     void UserPrompt_obtainAreaFilterChoice_happyPath()
     {
@@ -1097,6 +1097,21 @@ public class UnitTests
         assertEquals(-1, input);
     }
 
+    // Test that the input number is returned if it's valid
+    @Test
+    void UserPrompt_obtainInputWithPrompt_returnsIntegerIfValid()
+    {
+        // given
+        provideInput("4");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
+
+        // then
+        assertEquals(4, input);
+    }
+
     // Test that the user can quit when prompted for the area name
     @Test
     void UserPrompt_start_userCanQuitDuringAreaNameEntry()
@@ -1108,7 +1123,7 @@ public class UnitTests
         UserPrompt userPrompt = new UserPrompt(dao);
 
         // when
-        userPrompt.start(); // no failure
+        userPrompt.start(); // then: no failure
     }
 
     // Test that valid input does not cause a failure
@@ -1124,6 +1139,6 @@ public class UnitTests
         UserPrompt userPrompt = new UserPrompt(dao);
 
         // when
-        userPrompt.start(); // no failure
+        userPrompt.start(); // then: no failure
     }
 }

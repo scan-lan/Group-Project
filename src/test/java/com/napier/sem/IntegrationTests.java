@@ -663,7 +663,7 @@ public class IntegrationTests
         // when
         for (String areaFilter: areaFilters)
         {
-            userPrompt.executeQueryFromInput(8, areaFilter, "", 10); // no failure
+            userPrompt.executeQueryFromInput(8, areaFilter, "", 10); // then: no failure
         }
     }
 

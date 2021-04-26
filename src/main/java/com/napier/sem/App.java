@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class App
 {
@@ -27,21 +28,21 @@ public class App
     public static Connection connection;
 
     public static void main(String[] args) {
-        // Create new Application
-        App app = new App();
 
         // Connect to database
         if (args.length < 1)
         {
-            connection = connect("localhost:33061", databaseDriver, false);
+            connection = connect("localhost:33061", DATABASE_DRIVER, false);
         }
         else
         {
-            connection = connect(args[0], databaseDriver, false);
+            connection = connect(args[0], DATABASE_DRIVER, false);
         }
 
         // Create instance of the database access object
         DAO dao = new DAO(connection);
+
+        UserPrompt prompt = new UserPrompt(dao);
 
         if (connection != null)
         {

@@ -1,8 +1,16 @@
 # Software Engineering Methods
 
-Starring: Lukas Paling and Marco De Luca
+Starring: Lukas Paling and Marco De Luca as the developers or "Script Monkeys"
 
-With Craig Gordon as Scrum Master and Luke Scanlan as Product Owner
+With Craig Gordon as the Scrum Master or "Scrum Bag" and Luke Scanlan as the lead developer or "Head Honcho"
+
+# High level overview of the application, and it's functionality
+
+The application:
+- Creates a docker container with the world database with port 3306 open for connections
+  
+- Runs SQL queries against the database that satisfy the user requirements
+
 
 Build Status
 -

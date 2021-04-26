@@ -8,8 +8,10 @@ With Craig Gordon as the Scrum Master or "Scrum Bag" and Luke Scanlan as the lea
 
 The application:
 - Creates a docker container with the world database with port 3306 open for connections
-  
+- Prompts the user ion the console to input their selected parent query and sub query details
 - Runs SQL queries against the database that satisfy the user requirements
+- Presents the output to the user 
+- Prompts the user to run another query or exit the application
 
 
 Build Status

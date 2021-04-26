@@ -1,6 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class App
@@ -26,8 +27,8 @@ public class App
     // Connection to MySQL database
     public static Connection connection;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+
         // Connect to database
         if (args.length < 1)
         {
@@ -81,14 +82,13 @@ public class App
         int retries = 60;
         for (int i = 1; i <= retries; ++i)
         {
-            System.out.println(App.HORIZONTAL_LINE +  "\nConnecting to database...");
+            System.out.println("Connecting to database...");
             try
             {
                 if (location == null) { return null; }
 
                 // Connect to database
-                Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
+                Connection connection = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                         "root",
                         "example");
                 System.out.println("Successfully connected");

@@ -32,9 +32,6 @@ public class UnitTests
     @AfterEach
     void restoreSystemInput() { System.setIn(System.in); }
 
-    /**
-     * Tests for the App class
-     */
     // Test that the connection is null if the localhost is invalid
     @Test
     void App_main_noFailureFromInvalidLocation()
@@ -46,8 +43,9 @@ public class UnitTests
         App.main(args); // then: no failure
     }
 
+    // Test that connect does not fail when the location passed is null
     @Test
-    void App_connect_noFailureFromInvalidLocation()
+    void App_connect_noFailureFromNullLocation()
     {
         // when
         App.connect(null, App.DATABASE_DRIVER, true); // then: no failure
@@ -75,9 +73,6 @@ public class UnitTests
         App.disconnect(null); // then: no failure
     }
 
-    /**
-     * Tests for the DAO class
-     */
     // Test the whereCondition is null when the areaFilter is unexpected
     @Test
     void DAO_getWhereCondition_unknownAreaFilterReturnsNull()
@@ -231,7 +226,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check countries list is empty if called with an invalid areaFilter
+    // Check countries list is empty if called with an invalid areaFilter
     @Test
     void DAO_allCountriesIn_areaFilterWrongListEmpty()
     {
@@ -245,7 +240,7 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check Test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
     void DAO_allCountriesIn_happyPath()
     {
@@ -329,9 +324,6 @@ public class UnitTests
         dao.topNCountriesIn(areaFilter, areaName, 15); // No Error
     }
 
-    /**
-     * Unit Tests covering the DAO.allCitiesIn method
-     */
     // Test that cities list is empty when areaFilter and areaName are null
     @Test
     void DAO_allCitiesIn_bothArgumentsNullListEmpty()
@@ -519,7 +511,7 @@ public class UnitTests
         String areaName = "France";
 
         // then
-        dao.allCapitalCitiesIn(areaFilter, areaName); // No Error
+1        dao.allCapitalCitiesIn(areaFilter, areaName); // No Error
     }
 
     // Test that capitalCities list is empty when areaFilter and areaName are null
@@ -653,9 +645,6 @@ public class UnitTests
         dao.populationLivingInAndNotInCities(areaFilter, areaName); // No Error
     }
 
-    /**
-     * Unit Tests covering the DAO.populationOf method
-     */
     // Test that population list is empty when areaFilter and areaName are null
     @Test
     void DAO_populationOf_bothArgumentsNullListEmpty()
@@ -709,9 +698,6 @@ public class UnitTests
         dao.languageReport(); // No Error
     }
 
-    /**
-     * Tests for the Record class
-     */
     // Tests that when a country object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
@@ -854,9 +840,6 @@ public class UnitTests
         assertEquals(expectedToStringOutput, Population.toString());
     }
 
-    /**
-     * Tests for the QueryInfo object
-     */
     // Tests that when a QueryInfo object is constructed, the getters return the same fields that we passed in.
     @Test
     void QueryInfo_TestGettersForQueryInfo()
@@ -873,9 +856,6 @@ public class UnitTests
         assertEquals(areaFilterDescriptions, queryInfo.getAreaFilterDescriptions());
     }
 
-    /**
-     * Tests for the UserPrompt class
-     */
     // Tests that obtainAreaFilterChoice outputs an empty string when 9 is entered
     @Test
     void UserPrompt_obtainAreaFilterChoice_queryIdNineResultsInEmptyString()

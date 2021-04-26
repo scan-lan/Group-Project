@@ -49,7 +49,7 @@ public class IntegrationTests
     void App_main_happyPath()
     {
         // given
-        provideInput("7\n2\nOceania\nq");
+        provideInput("7\n1\nOceania\nq");
 
         // when
         App.main(new String[]{}); // then: no failures
@@ -683,7 +683,7 @@ public class IntegrationTests
         userPrompt.start(); // then: no failure
     }
 
-    // Test simulated user inputs where they quit at each stage of the loop don't cause failures
+    // Test that the user can quit at any stage of the loop
     @Test
     void UserPrompt_start_userCanQuitAtAnyStage()
     {
@@ -691,14 +691,14 @@ public class IntegrationTests
         ArrayList<UserPrompt> userPrompts = new ArrayList<>();
         provideInput("q\n");
         userPrompts.add(new UserPrompt(dao));
-        provideInput("6\n" +
+        provideInput("9\n" +
                 "q\n");
         userPrompts.add(new UserPrompt(dao));
-        provideInput("6\n" +
-                "3\n" +
+        provideInput("1\n" +
+                "1\n" +
                 "q\n");
         userPrompts.add(new UserPrompt(dao));
-        provideInput("6\n" +
+        provideInput("8\n" +
                 "3\n" +
                 "Caribbean\n" +
                 "q");
@@ -706,16 +706,15 @@ public class IntegrationTests
         provideInput("6\n" +
                 "3\n" +
                 "Caribbean\n" +
-                "0\n" +
+                "10\n" +
                 "q");
         userPrompts.add(new UserPrompt(dao));
 
         // when
         for (UserPrompt userPrompt: userPrompts)
         {
-            userPrompt.start();
-
             // then
+            userPrompt.start(); // no failure
             assertTrue(userPrompt.getUserWantsToQuit());
         }
     }

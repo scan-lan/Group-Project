@@ -38,8 +38,6 @@ public class Record
     private final String recordType;
 
     /**
-     * Constructors
-     *
      * Takes the result of an SQL query for a country or city extracts
      * the data we need and stores it in the class properties
      * @param result The result of a query that returns country records
@@ -48,6 +46,9 @@ public class Record
     public Record(ResultSet result, String recordType) throws SQLException
     {
         this.recordType = recordType;
+
+        if (result == null) return;
+
         switch (recordType)
         {
             case App.COUNTRY:

@@ -1019,15 +1019,13 @@ public class UnitTests
         }
     }
 
-    // Test that show records throws no errors when passed null, an empty list or a list with entries
+    // Test that show records throws no errors when passed null, an empty list or a list with null entries
     @Test
     void UserPrompt_showRecords_noFailuresOnAllInputs()
     {
         // given
         ArrayList<Record> records1 = new ArrayList<>();
-        ArrayList<Record> records2 = new ArrayList<>(Arrays.asList(
-                new Record("English", 800000000, 15),
-                new Record("Chinese", 1000000000, 50)));
+        ArrayList<Record> records2 = new ArrayList<>(Arrays.asList(null, null));
 
         // when
         userPrompt.showRecords(null);

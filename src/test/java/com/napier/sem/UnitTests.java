@@ -511,7 +511,7 @@ public class UnitTests
         String areaName = "France";
 
         // then
-1        dao.allCapitalCitiesIn(areaFilter, areaName); // No Error
+        dao.allCapitalCitiesIn(areaFilter, areaName); // No Error
     }
 
     // Test that capitalCities list is empty when areaFilter and areaName are null

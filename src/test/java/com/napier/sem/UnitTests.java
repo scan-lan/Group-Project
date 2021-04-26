@@ -1,8 +1,10 @@
 package com.napier.sem;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +16,12 @@ public class UnitTests
     static DAO dao;
     static UserPrompt userPrompt;
 
+    private void provideInput(String data)
+    {
+        ByteArrayInputStream TestIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(TestIn);
+    }
+
     @BeforeAll
     static void init()
     {
@@ -21,10 +29,13 @@ public class UnitTests
         userPrompt = new UserPrompt(dao);
     }
 
+    @AfterEach
+    void restoreSystemInput() { System.setIn(System.in); }
+
     /**
      * Tests for the App class
      */
-    // test that the connection is null if the localhost is invalid
+    // Test that the connection is null if the localhost is invalid
     @Test
     void App_main_noFailureFromInvalidLocation()
     {
@@ -32,47 +43,44 @@ public class UnitTests
         String[] args = new String[]{null};
 
         // when
-        App.main(args); // no failure
+        App.main(args); // then: no failure
     }
 
     @Test
-    public void App_connect_noFailureFromInvalidLocation()
+    void App_connect_noFailureFromInvalidLocation()
     {
         // when
-        App.connect(null, App.DATABASE_DRIVER, true); // no failure
+        App.connect(null, App.DATABASE_DRIVER, true); // then: no failure
     }
 
-    // test that the connection is null if the database driver is invalid
+    // Test that the connection is null if the database driver is invalid
     @Test
-    public void App_connect_noFailureFromInvalidDriver()
+    void App_connect_noFailureFromInvalidDriver()
     {
         // given
         String databaseDriver = "mysqf";
 
         // when
-        Connection connection = App.connect("localhost:33061", databaseDriver, true); // no failure
+        Connection connection = App.connect("localhost:33061", databaseDriver, true); // then: no failure
 
         // then
         assertNull(connection);
     }
 
-    // test that if the connection is null there is no error
+    // Test that if the connection is null there is no error
     @Test
-    public void App_disconnect_nullConnection()
+    void App_disconnect_nullConnection()
     {
-        //given
-        Connection connection = null;
-
-        //then
-        App.disconnect(connection);
+        // when
+        App.disconnect(null); // then: no failure
     }
 
     /**
      * Tests for the DAO class
      */
-    // test the whereCondition is null when the areaFilter is unexpected
+    // Test the whereCondition is null when the areaFilter is unexpected
     @Test
-    public void DAO_getWhereCondition_unknownAreaFilterReturnsNull()
+    void DAO_getWhereCondition_unknownAreaFilterReturnsNull()
     {
         // given
         String areaFilter = "planet";
@@ -84,9 +92,9 @@ public class UnitTests
         assertNull(whereCondition);
     }
 
-    // test that the whereCondition contains our given area name
+    // Test that the whereCondition contains our given area name
     @Test
-    public void DAO_getWhereCondition_areaNameAppearsInWhereCondition()
+    void DAO_getWhereCondition_areaNameAppearsInWhereCondition()
     {
         // given
         String areaName = "New York";
@@ -98,9 +106,9 @@ public class UnitTests
         assertTrue(whereCondition.contains(areaName));
     }
 
-    // test that the whereCondition is null when areaName is null
+    // Test that the whereCondition is null when areaName is null
     @Test
-    public void DAO_getWhereCondition_nullAreaNameReturnsNull()
+    void DAO_getWhereCondition_nullAreaNameReturnsNull()
     {
         // when
         String whereCondition = DAO.getWhereCondition(App.WORLD, null);
@@ -109,9 +117,9 @@ public class UnitTests
         assertNull(whereCondition);
     }
 
-    // test that the whereCondition is null when areaFilter is null
+    // Test that the whereCondition is null when areaFilter is null
     @Test
-    public void DAO_getWhereCondition_nullAreaFilterReturnsNull()
+    void DAO_getWhereCondition_nullAreaFilterReturnsNull()
     {
         // when
         String whereCondition = DAO.getWhereCondition(null, "Earth");
@@ -120,9 +128,9 @@ public class UnitTests
         assertNull(whereCondition);
     }
 
-    // test that a null whereCondition will result in queryInvalid being true
+    // Test that a null whereCondition will result in queryInvalid being true
     @Test
-    public void DAO_queryInvalid_falseWhenWhereConditionIsNull()
+    void DAO_queryInvalid_falseWhenWhereConditionIsNull()
     {
         // when
         boolean result = dao.queryInvalid("query",
@@ -134,9 +142,9 @@ public class UnitTests
         assertTrue(result);
     }
 
-    // test that an n value of less than 1 will result in queryInvalid being true
+    // Test that an n value of less than 1 will result in queryInvalid being true
     @Test
-    public void DAO_queryInvalid_falseWhenNLessThanOne()
+    void DAO_queryInvalid_falseWhenNLessThanOne()
     {
         // given
         int n = 0;
@@ -151,9 +159,9 @@ public class UnitTests
         assertTrue(result);
     }
 
-    // test that an area filter not in the valid area filters will result in queryInvalid being true
+    // Test that an area filter not in the valid area filters will result in queryInvalid being true
     @Test
-    public void DAO_queryInvalid_falseWhenAreaFilterNotAllowed()
+    void DAO_queryInvalid_falseWhenAreaFilterNotAllowed()
     {
         // given
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
@@ -169,9 +177,9 @@ public class UnitTests
         assertTrue(result);
     }
 
-    // test that queryInvalid is false when it is passed good values
+    // Test that queryInvalid is false when it is passed good values
     @Test
-    public void DAO_queryInvalid_happyPath()
+    void DAO_queryInvalid_happyPath()
     {
         // given
         String queryName = "query";
@@ -190,9 +198,9 @@ public class UnitTests
         assertFalse(result);
     }
 
-    // test that countries list is empty when areaFilter and areaName are null
+    // Test that countries list is empty when areaFilter and areaName are null
     @Test
-    public void DAO_allCountriesIn_bothArgumentsNullListEmpty()
+    void DAO_allCountriesIn_bothArgumentsNullListEmpty()
     {
         // when
         ArrayList<Record> countries = dao.allCountriesIn(null, null);
@@ -201,29 +209,23 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // test that countries list is empty when areaFilter is null
+    // Test that countries list is empty when areaFilter is null
     @Test
-    public void DAO_allCountriesIn_areaFilterNullListEmpty()
+    void DAO_allCountriesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, "Scotland");
+        ArrayList<Record> countries = dao.allCountriesIn(null, "Scotland");
 
         // then
         assertEquals(0, countries.size());
     }
 
-    // test that countries list is empty when areaName is null
+    // Test that countries list is empty when areaName is null
     @Test
-    public void DAO_allCountriesIn_areaNameNullListEmpty()
+    void DAO_allCountriesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.COUNTRY, areaName);
+        ArrayList<Record> countries = dao.allCountriesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, countries.size());
@@ -231,7 +233,7 @@ public class UnitTests
 
     // check countries list is empty if called with an invalid areaFilter
     @Test
-    public void DAO_allCountriesIn_areaFilterWrongListEmpty()
+    void DAO_allCountriesIn_areaFilterWrongListEmpty()
     {
         // given
         String areaFilter = App.CITY;
@@ -243,9 +245,9 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // check Test passes with valid areaFilter and areaName
     @Test
-    public void DAO_allCountriesIn_happyPath()
+    void DAO_allCountriesIn_happyPath()
     {
         // given
         String areaFilter = App.COUNTRY;
@@ -255,55 +257,45 @@ public class UnitTests
         dao.allCountriesIn(areaFilter, areaName); // No Error
     }
 
-    // test that countries list is empty when areaFilter and areaName are null
+    // Test that countries list is empty when areaFilter and areaName are null
     @Test
-    public void DAO_topNCountriesIn_bothArgumentsNullListEmpty()
+    void DAO_topNCountriesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(areaFilter, areaName, 5);
+        ArrayList<Record> countries = dao.topNCountriesIn(null, null, 5);
 
         // then
         assertEquals(0, countries.size());
     }
 
-    // test that countries list is empty when areaFilter is null
+    // Test that countries list is empty when areaFilter is null
     @Test
-    public void DAO_topNCountriesIn_areaFilterNullListEmpty()
+    void DAO_topNCountriesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(areaFilter, "Scotland", 10);
+        ArrayList<Record> countries = dao.topNCountriesIn(null, "Scotland", 10);
 
         // then
         assertEquals(0, countries.size());
     }
 
-    // test that countries list is empty when areaName is null
+    // Test that countries list is empty when areaName is null
     @Test
-    public void DAO_topNCountriesIn_areaNameNullListEmpty()
+    void DAO_topNCountriesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, areaName, 3);
+        ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, countries.size());
     }
 
-    // test that n cannot be less than or equal to 0
+    // Test that n cannot be less than 1
     @Test
-    public void DAO_topNCountriesIn_negativeNListEmpty()
+    void DAO_topNCountriesIn_negativeNListEmpty()
     {
         // given
-        Integer n = -3;
+        int n = -3;
 
         // when
         ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, "China", n);
@@ -312,9 +304,9 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check countries list is empty if called with an invalid areaFilter
+    // Check countries list is empty if called with an invalid areaFilter
     @Test
-    public void DAO_topNCountriesIn_areaFilterWrongListEmpty() {
+    void DAO_topNCountriesIn_areaFilterWrongListEmpty() {
         // given
         String areaFilter = App.DISTRICT;
 
@@ -325,9 +317,9 @@ public class UnitTests
         assertEquals(0, countries.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
-    public void DAO_topNCountriesIn_happyPath()
+    void DAO_topNCountriesIn_happyPath()
     {
         // given
         String areaFilter = App.COUNTRY;
@@ -338,54 +330,44 @@ public class UnitTests
     }
 
     /**
-     * Unit tests covering the DAO.allCitiesIn method
+     * Unit Tests covering the DAO.allCitiesIn method
      */
-    // test that cities list is empty when areaFilter and areaName are null
+    // Test that cities list is empty when areaFilter and areaName are null
     @Test
-    public void DAO_allCitiesIn_bothArgumentsNullListEmpty()
+    void DAO_allCitiesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(areaFilter, areaName);
+        ArrayList<Record> cities = dao.allCitiesIn(null, null);
 
         // then
         assertEquals(0, cities.size());
     }
 
-    // test that cities list is empty when areaFilter is null
+    // Test that cities list is empty when areaFilter is null
     @Test
-    public void DAO_allCitiesIn_areaFilterNullListEmpty()
+    void DAO_allCitiesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(areaFilter, "Scotland");
+        ArrayList<Record> cities = dao.allCitiesIn(null, "Scotland");
 
         // then
         assertEquals(0, cities.size());
     }
 
-    // test that cities list is empty when areaName is null
+    // Test that cities list is empty when areaName is null
     @Test
-    public void DAO_allCitiesIn_areaNameNullListEmpty()
+    void DAO_allCitiesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
+        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, cities.size());
     }
 
-    // check cities list is empty if called with an invalid areaFilter
+    // Check cities list is empty if called with an invalid areaFilter
     @Test
-    public void DAO_allCitiesIn_areaFilterWrongListEmpty()
+    void DAO_allCitiesIn_areaFilterWrongListEmpty()
     {
         // given
         String areaFilter = App.CITY;
@@ -397,9 +379,9 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
-    public void DAO_allCitiesIn_happyPath()
+    void DAO_allCitiesIn_happyPath()
     {
         // given
         String areaFilter = App.COUNTRY;
@@ -409,52 +391,42 @@ public class UnitTests
         dao.allCitiesIn(areaFilter, areaName); // No Error
     }
 
-    // test that cities list is empty when areaFilter and areaName are null
+    // Test that cities list is empty when areaFilter and areaName are null
     @Test
-    public void DAO_topNCitiesIn_bothArgumentsNullListEmpty()
+    void DAO_topNCitiesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(areaFilter, areaName, 5);
+        ArrayList<Record> cities = dao.topNCitiesIn(null, null, 5);
 
         // then
         assertEquals(0, cities.size());
     }
 
-    // test that cities list is empty when areaFilter is null
+    // Test that cities list is empty when areaFilter is null
     @Test
-    public void DAO_topNCitiesIn_areaFilterNullListEmpty()
+    void DAO_topNCitiesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(areaFilter, "Europe", 10);
+        ArrayList<Record> cities = dao.topNCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, cities.size());
     }
 
-    // test that cities list is empty when areaName is null
+    // Test that cities list is empty when areaName is null
     @Test
-    public void DAO_topNCitiesIn_areaNameNullListEmpty()
+    void DAO_topNCitiesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 3);
+        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, cities.size());
     }
 
-    // test that n cannot be less than or equal to 0
+    // Test that n cannot be less than or equal to 0
     @Test
-    public void DAO_topNCitiesIn_negativeNListEmpty()
+    void DAO_topNCitiesIn_negativeNListEmpty()
     {
         // given
         Integer n = -3;
@@ -466,9 +438,9 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check cities list is empty if called with an invalid areaFilter
+    // Check cities list is empty if called with an invalid areaFilter
     @Test
-    public void DAO_topNCitiesIn_areaFilterWrongListEmpty() {
+    void DAO_topNCitiesIn_areaFilterWrongListEmpty() {
         // given
         String areaFilter = App.CITY;
 
@@ -479,9 +451,9 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
-    public void DAO_topNCitiesIn_happyPath()
+    void DAO_topNCitiesIn_happyPath()
     {
         // given
         String areaFilter = App.WORLD;
@@ -491,52 +463,42 @@ public class UnitTests
         dao.topNCitiesIn(areaFilter, areaName, 15); // No Error
     }
 
-    // test that capitalCities list is empty when areaFilter and areaName are null
+    // Test that capitalCities list is empty when areaFilter and areaName are null
     @Test
-    public void DAO_allCapitalCitiesIn_bothArgumentsNullListEmpty()
+    void DAO_allCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, areaName);
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(null, null);
 
         // then
         assertEquals(0, capitalCities.size());
     }
 
-    // test that capitalCities list is empty when areaFilter is null
+    // Test that capitalCities list is empty when areaFilter is null
     @Test
-    public void DAO_allCapitalCitiesIn_areaFilterNullListEmpty()
+    void DAO_allCapitalCitiesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, "Scotland");
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(null, "Scotland");
 
         // then
         assertEquals(0, capitalCities.size());
     }
 
-    // test that capitalCities list is empty when areaName is null
+    // Test that capitalCities list is empty when areaName is null
     @Test
-    public void DAO_allCapitalCitiesIn_areaNameNullListEmpty()
+    void DAO_allCapitalCitiesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, areaName);
+        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, capitalCities.size());
     }
 
-    // check capital cities list is empty if called with an invalid areaFilter
+    // Check capital cities list is empty if called with an invalid areaFilter
     @Test
-    public void DAO_allCapitalCitiesIn_areaFilterWrongListEmpty()
+    void DAO_allCapitalCitiesIn_areaFilterWrongListEmpty()
     {
         // given
         String areaFilter = App.DISTRICT;
@@ -548,9 +510,9 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
-    public void DAO_allCapitalCitiesIn_happyPath()
+    void DAO_allCapitalCitiesIn_happyPath()
     {
         // given
         String areaFilter = App.COUNTRY;
@@ -560,52 +522,42 @@ public class UnitTests
         dao.allCapitalCitiesIn(areaFilter, areaName); // No Error
     }
 
-    // test that capitalCities list is empty when areaFilter and areaName are null
+    // Test that capitalCities list is empty when areaFilter and areaName are null
     @Test
-    public void topNCapitalCitiesIn_bothArgumentsNullListEmpty()
+    void topNCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, areaName, 5);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(null, null, 5);
 
         // then
         assertEquals(0, capitalCities.size());
     }
 
-    // test that capitalCities list is empty when areaFilter is null
+    // Test that capitalCities list is empty when areaFilter is null
     @Test
-    public void DAO_topNCapitalCitiesIn_areaFilterNullListEmpty()
+    void DAO_topNCapitalCitiesIn_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, "Europe", 10);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, capitalCities.size());
     }
 
-    // test that capitalCities list is empty when areaName is null
+    // Test that capitalCities list is empty when areaName is null
     @Test
-    public void DAO_topNCapitalCitiesIn_areaNameNullListEmpty()
+    void DAO_topNCapitalCitiesIn_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, areaName, 3);
+        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, capitalCities.size());
     }
 
-    // test that n cannot be less than or equal to 0
+    // Test that n cannot be less than or equal to 0
     @Test
-    public void DAO_topNCapitalCitiesIn_negativeNListEmpty()
+    void DAO_topNCapitalCitiesIn_negativeNListEmpty()
     {
         // given
         Integer n = -3;
@@ -617,9 +569,9 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check capital cities list is empty if called with an invalid areaFilter
+    // Check capital cities list is empty if called with an invalid areaFilter
     @Test
-    public void DAO_topNCapitalCitiesIn_areaFilterWrongListEmpty() {
+    void DAO_topNCapitalCitiesIn_areaFilterWrongListEmpty() {
         // given
         String areaFilter = App.CITY;
 
@@ -630,9 +582,9 @@ public class UnitTests
         assertEquals(0, capitalCities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
-    public void DAO_topNCapitalCitiesIn_happyPath()
+    void DAO_topNCapitalCitiesIn_happyPath()
     {
         // given
         String areaFilter = App.REGION;
@@ -642,52 +594,43 @@ public class UnitTests
         dao.topNCapitalCitiesIn(areaFilter, areaName, 15); // No Error
     }
 
-    // test that residenceReport list is empty when areaFilter and areaName are null
+    // Test that residenceReport list is empty when areaFilter and areaName are null
     @Test
-    public void DAO_populationLivingInAndNotInCities_bothArgumentsNullListEmpty()
+    void DAO_populationLivingInAndNotInCities_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(areaFilter, areaName);
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(null, null);
 
         // then
         assertEquals(0, residenceReport.size());
     }
 
-    // test that residenceReport list is empty when areaFilter is null
+    // Test that residenceReport list is empty when areaFilter is null
     @Test
-    public void DAO_populationLivingInAndNotInCities_areaFilterNullListEmpty()
+    void DAO_populationLivingInAndNotInCities_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(areaFilter, "Scotland");
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(null, "Scotland");
 
         // then
         assertEquals(0, residenceReport.size());
     }
 
-    // test that residenceReport list is empty when areaName is null
+    // Test that residenceReport list is empty when areaName is null
     @Test
-    public void DAO_populationLivingInAndNotInCities_areaNameNullListEmpty()
+    void DAO_populationLivingInAndNotInCities_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
+        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, null);
 
         // then
         assertEquals(0, residenceReport.size());
     }
 
-    // check cities list is empty if called with an invalid areaFilter
+    // Check cities list is empty if called with an invalid areaFilter
     @Test
-    public void DAO_populationLivingInAndNotInCities_areaFilterWrongListEmpty() {
+    void DAO_populationLivingInAndNotInCities_areaFilterWrongListEmpty()
+    {
         // given
         String areaFilter = App.WORLD;
 
@@ -698,9 +641,9 @@ public class UnitTests
         assertEquals(0, cities.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
-    public void DAO_populationLivingInAndNotInCities_happyPath()
+    void DAO_populationLivingInAndNotInCities_happyPath()
     {
         // given
         String areaFilter = App.CONTINENT;
@@ -711,54 +654,44 @@ public class UnitTests
     }
 
     /**
-     * Unit tests covering the DAO.populationOf method
+     * Unit Tests covering the DAO.populationOf method
      */
-    // test that population list is empty when areaFilter and areaName are null
+    // Test that population list is empty when areaFilter and areaName are null
     @Test
-    public void DAO_populationOf_bothArgumentsNullListEmpty()
+    void DAO_populationOf_bothArgumentsNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-        String areaName = null;
-
         // when
-        ArrayList<Record> population = dao.populationOf(areaFilter, areaName);
+        ArrayList<Record> population = dao.populationOf(null, null);
 
         // then
         assertEquals(0, population.size());
     }
 
-    // test that population list is empty when areaFilter is null
+    // Test that population list is empty when areaFilter is null
     @Test
-    public void DAO_populationOf_areaFilterNullListEmpty()
+    void DAO_populationOf_areaFilterNullListEmpty()
     {
-        // given
-        String areaFilter = null;
-
         // when
-        ArrayList<Record> population = dao.populationOf(areaFilter, "Scotland");
+        ArrayList<Record> population = dao.populationOf(null, "Scotland");
 
         // then
         assertEquals(0, population.size());
     }
 
-    // test that population list is empty when areaName is null
+    // Test that population list is empty when areaName is null
     @Test
-    public void DAO_populationOf_areaNameNullListEmpty()
+    void DAO_populationOf_areaNameNullListEmpty()
     {
-        // given
-        String areaName = null;
-
         // when
-        ArrayList<Record> population = dao.populationOf(App.COUNTRY, areaName);
+        ArrayList<Record> population = dao.populationOf(App.COUNTRY, null);
 
         // then
         assertEquals(0, population.size());
     }
 
-    // check test passes with valid areaFilter and areaName
+    // Check Test passes with valid areaFilter and areaName
     @Test
-    public void DAO_populationOf_happyPath()
+    void DAO_populationOf_happyPath()
     {
         // given
         String areaFilter = App.CITY;
@@ -768,9 +701,9 @@ public class UnitTests
         dao.populationOf(areaFilter, areaName); // No Error
     }
 
-    // check no error is thrown when method is called with a null connection
+    // Check no error is thrown when method is called with a null connection
     @Test
-    public void DAO_languageReport_happyPath()
+    void DAO_languageReport_happyPath()
     {
         // then
         dao.languageReport(); // No Error
@@ -782,7 +715,7 @@ public class UnitTests
     // Tests that when a country object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForCountry()
+    void Record_TestGettersAndToStringForCountry()
     {
         // given
         String countryCode = "SCT";
@@ -791,7 +724,6 @@ public class UnitTests
         String region = "Great Britain";
         String capital = "Edinburgh";
         long population = 6000000L;
-        String expectedRecordType = App.COUNTRY;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Country code: SCT | Name: Scotland | Continent: Europe\n" +
                 "Region: Great Britain | Population: 6,000,000 | Capital: Edinburgh";
@@ -801,20 +733,16 @@ public class UnitTests
         Record record = new Record(countryCode, name, continent, region, population, capital);
 
         // then
-        assertEquals(countryCode, record.getCountryCode());
         assertEquals(name, record.getName());
         assertEquals(continent, record.getContinent());
-        assertEquals(region, record.getRegion());
         assertEquals(population, record.getPopulation());
-        assertEquals(capital, record.getCapital());
-        assertEquals(expectedRecordType, record.getRecordType());
         assertEquals(expectedToStringOutput, record.toString());
     }
 
     // Tests that when a capital city object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForCapitalCity()
+    void Record_TestGettersAndToStringForCapitalCity()
     {
         // given
         String name = "Glasgow";
@@ -822,7 +750,6 @@ public class UnitTests
         String region = "Great Britain";
         String continent = "Europe";
         long population = 6000000L;
-        String expectedRecordType = App.CAPITAL_CITY;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Name: Glasgow | Country: Scotland | Population: 6,000,000";
 
@@ -832,24 +759,21 @@ public class UnitTests
         // then
         assertEquals(name, capitalCity.getName());
         assertEquals(country, capitalCity.getCountry());
-        assertEquals(region, capitalCity.getRegion());
         assertEquals(continent, capitalCity.getContinent());
         assertEquals(population, capitalCity.getPopulation());
-        assertEquals(expectedRecordType, capitalCity.getRecordType());
         assertEquals(expectedToStringOutput, capitalCity.toString());
     }
 
     // Tests that when a city object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForCity()
+    void Record_TestGettersAndToStringForCity()
     {
         // given
         String name = "Wishae";
         String country = "Scotland";
         String district = "North Lanarkshire";
         long population = 10000L;
-        String expectedRecordType = App.CITY;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Name: Wishae |  Country: Scotland \n" +
                 "District: North Lanarkshire |  Population: 10,000";
@@ -860,25 +784,22 @@ public class UnitTests
         // then
         assertEquals(name, city.getName());
         assertEquals(country, city.getCountry());
-        assertEquals(district, city.getDistrict());
         assertEquals(population, city.getPopulation());
-        assertEquals(expectedRecordType, city.getRecordType());
         assertEquals(expectedToStringOutput, city.toString());
     }
 
     // Tests that when a population residence report object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForPopulationResidenceReport()
+    void Record_TestGettersAndToStringForPopulationResidenceReport()
     {
         // given
         String name = "East Kilbride";
-        Long population = 7000L;
-        Long populationLivingInCities = 6999L;
+        long population = 7000L;
+        long populationLivingInCities = 6999L;
         Double percentageLivingInCities = 99.99D;
-        Long populationNotLivingInCities = 1L;
+        long populationNotLivingInCities = 1L;
         Double percentageNotLivingInCities = 0.01D;
-        String expectedRecordType = App.RESIDENCE_REPORT;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Area: East Kilbride | Total population: 7,000\n" +
                 "Population living in Cities: 6,999 (99.99%)\n" +
@@ -890,24 +811,18 @@ public class UnitTests
         // then
         assertEquals(name, residenceReport.getName());
         assertEquals(population, residenceReport.getPopulation());
-        assertEquals(populationLivingInCities, residenceReport.getPopulationLivingInCities());
-        assertEquals(percentageLivingInCities, residenceReport.getPercentageLivingInCities());
-        assertEquals(populationNotLivingInCities, residenceReport.getPopulationNotLivingInCities());
-        assertEquals(percentageNotLivingInCities, residenceReport.getPercentageNotLivingInCities());
-        assertEquals(expectedRecordType, residenceReport.getRecordType());
         assertEquals(expectedToStringOutput, residenceReport.toString());
     }
 
     // Tests that when a language object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForLanguage()
+    void Record_TestGettersAndToStringForLanguage()
     {
         // given
         String language = "Gaelic";
-        Long speakers = 3L;
+        long speakers = 3L;
         Integer percentage = 0;
-        String expectedRecordType = App.LANGUAGE;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Language: Gaelic |  Speakers: 3 | % of world's population: 0%";
 
@@ -916,21 +831,17 @@ public class UnitTests
 
         // then
         assertEquals(language, Language.getName());
-        assertEquals(speakers, Language.getSpeakers());
-        assertEquals(percentage, Language.getPercentage());
-        assertEquals(expectedRecordType, Language.getRecordType());
         assertEquals(expectedToStringOutput, Language.toString());
     }
 
     // Tests that when a population object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
-    public void Record_testGettersAndToStringForPopulation()
+    void Record_TestGettersAndToStringForPopulation()
     {
         // given
         String name = "China";
         Long population = 999000000L;
-        String expectedRecordType = App.POPULATION;
         String expectedToStringOutput = App.HORIZONTAL_LINE + "\n" +
                 "Area: China |  Population: 999,000,000";
 
@@ -940,7 +851,6 @@ public class UnitTests
         // then
         assertEquals(name, Population.getName());
         assertEquals(population, Population.getPopulation());
-        assertEquals(expectedRecordType, Population.getRecordType());
         assertEquals(expectedToStringOutput, Population.toString());
     }
 
@@ -949,7 +859,7 @@ public class UnitTests
      */
     // Tests that when a QueryInfo object is constructed, the getters return the same fields that we passed in.
     @Test
-    public void QueryInfo_testGettersForQueryInfo()
+    void QueryInfo_TestGettersForQueryInfo()
     {
         // given
         String queryDescription = "All countries in";
@@ -968,7 +878,7 @@ public class UnitTests
      */
     // Tests that obtainAreaFilterChoice outputs an empty string when 9 is entered
     @Test
-    public void UserPrompt_obtainAreaFilterChoice_queryIdNineResultsInEmptyString()
+    void UserPrompt_obtainAreaFilterChoice_queryIdNineResultsInEmptyString()
     {
         // given
         int queryID = 9;
@@ -983,7 +893,7 @@ public class UnitTests
 
     // Tests that formatInput successfully removes spaces and capital letters
     @Test
-    public void UserPrompt_formatInput_removesWhiteSpaceAndCapitals()
+    void UserPrompt_formatInput_removesWhiteSpaceAndCapitals()
     {
         // given
         String input = "   AbCd \t";
@@ -996,19 +906,20 @@ public class UnitTests
         assertEquals(expectedOutput, output);
     }
 
+    // Test that the user can enter null input without the app crashing
     @Test
-    public void UserPrompt_formatInput_noFailureWhenNullEntered()
+    void UserPrompt_formatInput_noFailureWhenNullEntered()
     {
         // when
-        String formattedInput = userPrompt.formatInput(null); // no failure
+        String formattedInput = userPrompt.formatInput(null); // then: no failure
 
         // then
-        assertNull(formattedInput); // no failure
+        assertNull(formattedInput); // then: no failure
     }
 
     // Test that parseQueryInputForAreaFilter returns null on receiving invalid input
     @Test
-    public void UserPrompt_parseQueryInputForAreaFilter_invalidParametersReturnNull()
+    void UserPrompt_parseQueryInputForAreaFilter_invalidParametersReturnNull()
     {
         // given
         int areaChoice = -1;
@@ -1026,7 +937,7 @@ public class UnitTests
     // Test that a query choice of 1 results in an area filter of "world" for all query ids except 7, which cannot
     // have "world" as a query filter
     @Test
-    public void UserPrompt_parseQueryInputForAreaFilter_handlesQuerySevenCorrectly()
+    void UserPrompt_parseQueryInputForAreaFilter_handlesQuerySevenCorrectly()
     {
         // given
         int areaFilterChoice = 1;
@@ -1044,7 +955,7 @@ public class UnitTests
 
     // Tests that parseQueryInputForAreaFilter returns the expected output
     @Test
-    public void UserPrompt_parseQueryInputForAreaFilter_happyPaths()
+    void UserPrompt_parseQueryInputForAreaFilter_happyPaths()
     {
         // given
         int queryId = 8;
@@ -1063,7 +974,7 @@ public class UnitTests
 
     // Tests that executeQueryFromInput outputs an empty list when passed bad parameters
     @Test
-    public void UserPrompt_executeQueryFromInput_invalidEntryResultsInEmptyList()
+    void UserPrompt_executeQueryFromInput_invalidEntryResultsInEmptyList()
     {
         // given
         String areaFilter = "planet";
@@ -1080,7 +991,7 @@ public class UnitTests
 
     // Test that an invalid query ID results in executeQueryFromInput returning null
     @Test
-    public void UserPrompt_executeQueryFromInput_returnsNullWhenPassedInvalidQueryId()
+    void UserPrompt_executeQueryFromInput_returnsNullWhenPassedInvalidQueryId()
     {
         // given
         int queryId = -10;
@@ -1094,7 +1005,7 @@ public class UnitTests
 
     // Test that there are no failures when expected input is passed
     @Test
-    public void UserPrompt_executeQueryFromInput_happyPaths()
+    void UserPrompt_executeQueryFromInput_happyPaths()
     {
         // given
         String areaFilter = App.CONTINENT;
@@ -1104,23 +1015,128 @@ public class UnitTests
         // when
         for (int queryId = 1; queryId < 10; queryId ++)
         {
-            userPrompt.executeQueryFromInput(queryId, areaFilter, areaName, n); // no failures
+            userPrompt.executeQueryFromInput(queryId, areaFilter, areaName, n); // then: no failures
         }
     }
 
-    // Test that show records throws no errors when passed null, an empty list or a list with entries
+    // Test that show records throws no errors when passed null, an empty list or a list with null entries
     @Test
-    public void UserPrompt_showRecords_noFailuresOnAllInputs()
+    void UserPrompt_showRecords_noFailuresOnAllInputs()
     {
         // given
         ArrayList<Record> records1 = new ArrayList<>();
-        ArrayList<Record> records2 = new ArrayList<>(Arrays.asList(
-                new Record("English", 800000000, 15),
-                new Record("Chinese", 1000000000, 50)));
+        ArrayList<Record> records2 = new ArrayList<>(Arrays.asList(null, null));
 
         // when
         userPrompt.showRecords(null);
         userPrompt.showRecords(records1);
-        userPrompt.showRecords(records2); // no failures
+        userPrompt.showRecords(records2); // then: no failures
+    }
+
+    // Tests that the expected area filter is returned with simulated user input
+    @Test
+    void UserPrompt_obtainAreaFilterChoice_happyPath()
+    {
+        // given
+        int queryId = 1;
+        provideInput("2\n");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        String areaFilter = userPrompt.obtainAreaFilterChoice(queryId);
+
+        // then
+        assertEquals(App.CONTINENT, areaFilter);
+    }
+
+    // Test that area filter is null if the user quits during entry
+    @Test
+    void UserPrompt_obtainAreaFilterChoice_nullIfUserQuits()
+    {
+        // given
+        int queryId = 1;
+        provideInput("q\n");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        String areaFilter = userPrompt.obtainAreaFilterChoice(queryId);
+
+        // then
+        assertNull(areaFilter);
+    }
+
+    // Test that when invalid input is entered, the query loops
+    @Test
+    void UserPrompt_obtainInputWithPrompt_loopsUntilValidInput()
+    {
+        // given
+        provideInput("invalid\nstring\n100\n0\n1");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
+
+        // then
+        assertEquals(1, input);
+    }
+
+    // Test that -1 is returned when the user enters q
+    @Test
+    void UserPrompt_obtainInputWithPrompt_returnsNegativeOneWhenQEntered()
+    {
+        // given
+        provideInput("q");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
+
+        // then
+        assertEquals(-1, input);
+    }
+
+    // Test that the input number is returned if it's valid
+    @Test
+    void UserPrompt_obtainInputWithPrompt_returnsIntegerIfValid()
+    {
+        // given
+        provideInput("4");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
+
+        // then
+        assertEquals(4, input);
+    }
+
+    // Test that the user can quit when prompted for the area name
+    @Test
+    void UserPrompt_start_userCanQuitDuringAreaNameEntry()
+    {
+        // given
+        provideInput("6\n" +
+                "2\n" +
+                "q");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        userPrompt.start(); // then: no failure
+    }
+
+    // Test that valid input does not cause a failure
+    @Test
+    void UserPrompt_start_happyPathNoFailures()
+    {
+        // given
+        provideInput("6\n" +
+                "2\n" +
+                "South America\n" +
+                "10\n" +
+                "q");
+        UserPrompt userPrompt = new UserPrompt(dao);
+
+        // when
+        userPrompt.start(); // then: no failure
     }
 }

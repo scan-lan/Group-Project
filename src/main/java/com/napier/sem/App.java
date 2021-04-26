@@ -17,8 +17,10 @@ public class App
     static final String RESIDENCE_REPORT = "residence report";
     static final String POPULATION = "population";
 
+    // This is used in the console output to ensure readable and consistent formatting
     static final String HORIZONTAL_LINE = "------------------------------------------------------------" +
             "------------------------------------------------------------";
+    // Database driver path
     static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     // Connection to MySQL database
@@ -53,7 +55,7 @@ public class App
                 for (Record record: dao.topNCountriesIn(App.REGION, "Caribbean", 5)) System.out.println(record);
             }
         }
-        else System.out.println("Connection was null");
+        else System.out.println("No database connection found");
 
         // Disconnect from database
         disconnect(connection);
@@ -101,12 +103,12 @@ public class App
             {
                 try
                 {
-                    // Wait a bit before next retry
+                    // Wait a bit before the next retry
                     Thread.sleep(5000);
                 }
                 catch (InterruptedException ie)
                 {
-                    System.out.println("Thread interrupted? Should not happen.");
+                    System.out.println(ie.getMessage());
                 }
             }
         }

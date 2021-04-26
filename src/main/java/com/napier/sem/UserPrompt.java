@@ -11,7 +11,7 @@ public class UserPrompt
 {
     private final DAO dao;
     private final Scanner scanner;
-    boolean userWantsToQuit;
+    private boolean userWantsToQuit;
     private static final int[] topNQueryIds = new int[]{2, 4, 6};
     private static final String INITIAL_QUERY_PROMPT = App.HORIZONTAL_LINE + "\n" +
             "Enter the number corresponding to the type of query you'd like to run\n" +
@@ -32,6 +32,7 @@ public class UserPrompt
             "All results will be sorted in order of largest population to smallest\n" +
             "Enter 'q' at any time to exit";
     private final HashMap<Integer, QueryInfo> queryTable = new HashMap<>();
+    public boolean getUserWantsToQuit() { return userWantsToQuit; }
 
     public UserPrompt(DAO dao)
     {
@@ -107,6 +108,7 @@ public class UserPrompt
             // checks if the query takes an n value, and asks for it from the use if it does
             if (Arrays.binarySearch(topNQueryIds, chosenQueryId) >= 0)
             {
+                // Asks the user how many records they would like to see
                 n = obtainInputWithPrompt(
                         App.HORIZONTAL_LINE + "\nEnter the number of records you'd like to see",
                         4080);
@@ -120,6 +122,8 @@ public class UserPrompt
             // Print the records to the console
             showRecords(records);
         }
+
+        scanner.close();
 
         System.out.println(App.HORIZONTAL_LINE + "\nUntil next time\n" + App.HORIZONTAL_LINE);
     }
@@ -184,7 +188,7 @@ public class UserPrompt
      * @param maxNum An integer representing the largest number a user should be able to enter
      * @return An integer representing the user's choice
      */
-    private int obtainInputWithPrompt(String prompt, int maxNum)
+    public int obtainInputWithPrompt(String prompt, int maxNum)
     {
         int validInput = 0;
         while (validInput == 0)

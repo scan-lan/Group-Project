@@ -3,6 +3,10 @@ package com.napier.sem;
 import java.sql.*;
 import java.util.NoSuchElementException;
 
+/**
+ * The app class connects to the world database and presents a command line interface which allows
+ * a user to send it queries.  The results are then printed to the command line.
+ */
 public class App
 {
     // Constants
@@ -26,6 +30,10 @@ public class App
     // Connection to MySQL database
     public static Connection connection;
 
+    /**
+     * Connects to the database and presents the command line interface to the user.
+     * @param args The first argument will be used as the database location for the app to try and connect to.
+     */
     public static void main(String[] args) {
 
         // Connect to database
@@ -63,7 +71,10 @@ public class App
 
     /**
      * Connect to the MySQL world database.
-     * @return a database connection object
+     * @param location The string representing the location of the database.
+     * @param databaseDriver The class name of the database driver to be used.
+     * @param isTest Boolean used for skipping sleep during tests.
+     * @return A database connection object
      */
     public static Connection connect(String location, String databaseDriver, boolean isTest)
     {
@@ -116,6 +127,7 @@ public class App
 
     /**
      * Disconnect from the MySQL database.
+     * @param connection The connection this method will close.
      */
     public static void disconnect(Connection connection)
     {

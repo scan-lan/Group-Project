@@ -64,7 +64,8 @@ public class IntegrationTests
         List<Record> countries= dao.executeStatement(statementString, App.COUNTRY);
 
         // then
-        assertNull(countries, "Test that null is returned when a nonsense query is given");
+        assertNull(countries,
+                "Test that null is returned when a nonsense query is given");
     }
 
     // Test that all countries in query are in the given area
@@ -97,7 +98,8 @@ public class IntegrationTests
         List<Record> countries = dao.allCountriesIn(App.REGION, areaName);
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, countries.size(),
+                "Test that an empty array is returned when the areaName is set incorrectly");
     }
 
     // Test that the results are listed in descending order.
@@ -110,7 +112,8 @@ public class IntegrationTests
         // then
         for (int i = 0; i < (countries.size()-1); i++)
         {
-            assertTrue(countries.get(i).getPopulation() >= countries.get(i+1).getPopulation());
+            assertTrue(countries.get(i).getPopulation() >= countries.get(i+1).getPopulation(),
+                    "Test that the results are listed in descending order.");
         }
     }
 
@@ -140,7 +143,8 @@ public class IntegrationTests
         List<Record> countries = dao.topNCountriesIn(App.WORLD, "", n);
 
         // then
-        assertTrue(countries.size() <= n);
+        assertTrue(countries.size() <= n,
+                "Test that the number of results is less than or equal to integer n");
     }
 
     // Test that an empty array is returned when integer n is set to 0
@@ -154,7 +158,8 @@ public class IntegrationTests
         List<Record> countries = dao.topNCountriesIn(App.WORLD, "", n);
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, countries.size(),
+                "Test that an empty array is returned when integer n is set to 0");
     }
 
     // Test that an empty array is returned when the areaName is set incorrectly
@@ -168,7 +173,8 @@ public class IntegrationTests
         List<Record> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, countries.size(),
+                "Test that an empty array is returned when the areaName is set incorrectly");
     }
 
     // Test all countries are in the given area that was passed
@@ -182,7 +188,8 @@ public class IntegrationTests
         List<Record> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
 
         // then
-        for (Record country : countries) assertEquals("Europe", country.getContinent());
+        for (Record country : countries) assertEquals("Europe", country.getContinent(),
+                "Test all countries are in the given area that was passed");
     }
 
     // Test that the results are listed in descending order.
@@ -195,7 +202,8 @@ public class IntegrationTests
         // then
         for (int i = 0; i < (countries.size()-1); i++)
         {
-            assertTrue(countries.get(i).getPopulation() >= countries.get(i+1).getPopulation());
+            assertTrue(countries.get(i).getPopulation() >= countries.get(i+1).getPopulation(),
+                    "Test that the results are listed in descending order.");
         }
     }
 
@@ -225,7 +233,8 @@ public class IntegrationTests
         List<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
 
         // then
-        for (Record city: cities) assertEquals(areaName, city.getCountry());
+        for (Record city: cities) assertEquals(areaName, city.getCountry(),
+                "Test that all cities in query are in the given area");
     }
 
     // Test that an empty array is returned when the areaName is set incorrectly
@@ -239,7 +248,8 @@ public class IntegrationTests
         List<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
 
         // then
-        assertEquals(0, cities.size());
+        assertEquals(0, cities.size(),
+                "Test that an empty array is returned when the areaName is set incorrectly");
     }
 
     // Test that the results are listed in descending order.
@@ -252,7 +262,8 @@ public class IntegrationTests
         // then
         for (int i = 0; i < (cities.size()-1); i++)
         {
-            assertTrue(cities.get(i).getPopulation() >= cities.get(i+1).getPopulation());
+            assertTrue(cities.get(i).getPopulation() >= cities.get(i+1).getPopulation(),
+                    "Test that the results are listed in descending order.");
         }
     }
 
@@ -282,7 +293,8 @@ public class IntegrationTests
         List<Record> cities = dao.topNCitiesIn(App.CONTINENT, "europe", n);
 
         // then
-        assertTrue(cities.size() <= n);
+        assertTrue(cities.size() <= n,
+                "Test that the number of results is less than or equal to integer n");
     }
 
     // Test that an empty array is returned when integer n is set to 0
@@ -296,7 +308,8 @@ public class IntegrationTests
         List<Record> cities = dao.topNCitiesIn(App.WORLD, "", n);
 
         // then
-        assertEquals(0, cities.size());
+        assertEquals(0, cities.size(),
+                "Test that an empty array is returned when integer n is set to 0");
     }
 
     // Test that an empty array is returned when the areaName is set incorrectly
@@ -310,7 +323,8 @@ public class IntegrationTests
         List<Record> cities = dao.topNCitiesIn(App.REGION, areaName, 10);
 
         // then
-        assertEquals(0, cities.size());
+        assertEquals(0, cities.size(),
+                "Test that an empty array is returned when the areaName is set incorrectly");
     }
 
     // Test all cities are in the given area that was passed
@@ -324,7 +338,8 @@ public class IntegrationTests
         List<Record> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 10);
 
         // then
-        for (Record city : cities) assertEquals("United Kingdom", city.getCountry());
+        for (Record city : cities) assertEquals("United Kingdom", city.getCountry(),
+                "Test all cities are in the given area that was passed");
     }
 
     // Test that the results are listed in descending order.
@@ -337,7 +352,8 @@ public class IntegrationTests
         // then
         for (int i = 0; i < (cities.size()-1); i++)
         {
-            assertTrue(cities.get(i).getPopulation() >= cities.get(i+1).getPopulation());
+            assertTrue(cities.get(i).getPopulation() >= cities.get(i+1).getPopulation(),
+                    "Test that the results are listed in descending order.");
         }
     }
 
@@ -367,7 +383,8 @@ public class IntegrationTests
         List<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
 
         // then
-        for (Record capitalCity : capitalCities) assertEquals(areaName, capitalCity.getContinent());
+        for (Record capitalCity : capitalCities) assertEquals(areaName, capitalCity.getContinent(),
+                "Test that all capital cities in query are in the given area");
     }
 
     // Test that an empty array is returned when the areaName is set incorrectly
@@ -381,7 +398,8 @@ public class IntegrationTests
         List<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
 
         // then
-        assertEquals(0, capitalCities.size());
+        assertEquals(0, capitalCities.size(),
+                "Test that an empty array is returned when the areaName is set incorrectly");
     }
 
     // Test that the results are listed in descending order.
@@ -394,7 +412,8 @@ public class IntegrationTests
         // then
         for (int i = 0; i < (capitalCities.size()-1); i++)
         {
-            assertTrue(capitalCities.get(i).getPopulation() >= capitalCities.get(i+1).getPopulation());
+            assertTrue(capitalCities.get(i).getPopulation() >= capitalCities.get(i+1).getPopulation(),
+                    "Test that the results are listed in descending order.");
         }
     }
 
@@ -424,7 +443,8 @@ public class IntegrationTests
         List<Record> capitalCities = dao.topNCapitalCitiesIn(App.DISTRICT, "Scotland", n);
 
         // then
-        assertTrue(capitalCities.size() <= n);
+        assertTrue(capitalCities.size() <= n,
+                "Test that the number of results is less than or equal to integer n");
     }
 
     // Test that an empty array is returned when integer n is set to 0
@@ -438,7 +458,8 @@ public class IntegrationTests
         List<Record> capitalCities = dao.topNCapitalCitiesIn(App.WORLD, "", n);
 
         // then
-        assertEquals(0, capitalCities.size());
+        assertEquals(0, capitalCities.size(),
+        "Test that an empty array is returned when integer n is set to 0");
     }
 
     // Test that an empty array is returned when the areaName is set incorrectly
@@ -452,7 +473,8 @@ public class IntegrationTests
         List<Record> capitalCities = dao.topNCapitalCitiesIn(App.REGION, areaName, 10);
 
         // then
-        assertEquals(0, capitalCities.size());
+        assertEquals(0, capitalCities.size(),
+                "Test that an empty array is returned when the areaName is set incorrectly");
     }
 
     // Test all capital cities are in the given area that was passed
@@ -466,7 +488,8 @@ public class IntegrationTests
         List<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, areaName, 10);
 
         // then
-        for (Record capitalCity : capitalCities) assertEquals("United Kingdom", capitalCity.getCountry());
+        for (Record capitalCity : capitalCities) assertEquals("United Kingdom", capitalCity.getCountry(),
+                "Test all capital cities are in the given area that was passed");
     }
 
     // Test that the results are listed in descending order.
@@ -479,7 +502,8 @@ public class IntegrationTests
         // then
         for (int i = 0; i < (capitalCities.size()-1); i++)
         {
-            assertTrue(capitalCities.get(i).getPopulation() >= capitalCities.get(i+1).getPopulation());
+            assertTrue(capitalCities.get(i).getPopulation() >= capitalCities.get(i+1).getPopulation(),
+                    "Test that the results are listed in descending order.");
         }
     }
 
@@ -509,7 +533,8 @@ public class IntegrationTests
         List<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
 
         // then
-        assertEquals(areaName, residenceReport.get(0).getName());
+        assertEquals(areaName, residenceReport.get(0).getName(),
+                "Test that area in query is the same as the area output");
     }
 
     // Test that an empty array is returned when the areaName is set incorrectly
@@ -523,7 +548,8 @@ public class IntegrationTests
         List<Record> residenceReport = dao.populationLivingInAndNotInCities(App.REGION, areaName);
 
         // then
-        assertEquals(0, residenceReport.size());
+        assertEquals(0, residenceReport.size(),
+                "Test that an empty array is returned when the areaName is set incorrectly");
     }
 
     // Test that population residence report list is empty when areaFilter and areaName are null
@@ -552,7 +578,8 @@ public class IntegrationTests
         List<Record> population = dao.populationOf(App.CITY, areaName);
 
         // then
-        assertEquals(areaName, population.get(0).getName());
+        assertEquals(areaName, population.get(0).getName(),
+                "Test that area in query is the same as the area output");
     }
 
     // Test that an empty array is returned when the areaName is set incorrectly
@@ -566,7 +593,8 @@ public class IntegrationTests
         List<Record> population = dao.populationOf(App.REGION, areaName);
 
         // then
-        assertEquals(0, population.size());
+        assertEquals(0, population.size(),
+                "Test that an empty array is returned when the areaName is set incorrectly");
     }
 
     // Test that population list is empty when areaFilter and areaName are null
@@ -595,7 +623,8 @@ public class IntegrationTests
         List<Record> languages = dao.languageReport();
 
         // then
-        assertEquals(expectedLength, languages.size());
+        assertEquals(expectedLength, languages.size(),
+                "Test that 5 items are returned in the list");
     }
 
     // Test that the 5 expected languages are returned
@@ -610,7 +639,8 @@ public class IntegrationTests
         List<Record> languages = dao.languageReport();
 
         // then
-        for (Record language : languages) assertTrue(expectedLanguages.contains(language.getName()));
+        for (Record language : languages) assertTrue(expectedLanguages.contains(language.getName()),
+                "Test that the 5 expected languages are returned");
     }
 
     // Test all queries that take area filters return empty lists when an invalid filter is passed
@@ -632,7 +662,8 @@ public class IntegrationTests
         recordsLists.add(dao.populationOf(areaFilter, "Earth"));
 
         // then
-        for (List<Record> records : recordsLists) assertEquals(0, records.size());
+        for (List<Record> records : recordsLists) assertEquals(0, records.size(),
+                "Test all queries that take area filters return empty lists when an invalid filter is passed");
     }
 
     // Test that there are records for all queries if valid data is passed
@@ -646,7 +677,8 @@ public class IntegrationTests
                     App.CONTINENT, "South America", 10);
 
             // then
-            if (records != null) assertNotEquals(0, records.size());
+            if (records != null) assertNotEquals(0, records.size(),
+                    "Test that there are records for all queries if valid data is passed");
         }
     }
 
@@ -698,7 +730,8 @@ public class IntegrationTests
         {
             // then
             userPrompt.start(); // no failure
-            assertTrue(userPrompt.getUserWantsToQuit());
+            assertTrue(userPrompt.getUserWantsToQuit(),
+                    "Test that the user can quit at any stage of the loop");
         }
     }
 }

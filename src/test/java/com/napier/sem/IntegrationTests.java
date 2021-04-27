@@ -127,9 +127,12 @@ public class IntegrationTests
         List<Record> countries3 = dao.allCountriesIn(null, "Europe");
 
         // then
-        assertEquals(0, countries1.size());
-        assertEquals(0, countries2.size());
-        assertEquals(0, countries3.size());
+        assertEquals(0, countries1.size(),
+                "Test that countries list is empty when areaFilter and areaName are null");
+        assertEquals(0, countries2.size(),
+                "Test that countries list is empty when areaFilter and areaName are null");
+        assertEquals(0, countries3.size(),
+                "Test that countries list is empty when areaFilter and areaName are null");
     }
 
     // Test that the number of results is less than or equal to integer n
@@ -217,9 +220,12 @@ public class IntegrationTests
         List<Record> countries3 = dao.topNCountriesIn(null, "Europe", 10);
 
         // then
-        assertEquals(0, countries1.size());
-        assertEquals(0, countries2.size());
-        assertEquals(0, countries3.size());
+        assertEquals(0, countries1.size(),
+                "Test that countries list is empty when areaFilter and areaName are null");
+        assertEquals(0, countries2.size(),
+                "Test that countries list is empty when areaFilter and areaName are null");
+        assertEquals(0, countries3.size(),
+                "Test that countries list is empty when areaFilter and areaName are null");
     }
 
     // Test that all cities in query are in the given area
@@ -277,9 +283,12 @@ public class IntegrationTests
         List<Record> cities3 = dao.allCitiesIn(null, "Europe");
 
         // then
-        assertEquals(0, cities1.size());
-        assertEquals(0, cities2.size());
-        assertEquals(0, cities3.size());
+        assertEquals(0, cities1.size(),
+                "Test that cities list is empty when areaFilter and areaName are null");
+        assertEquals(0, cities2.size(),
+                "Test that cities list is empty when areaFilter and areaName are null");
+        assertEquals(0, cities3.size(),
+                "Test that cities list is empty when areaFilter and areaName are null");
     }
 
     // Test that the number of results is less than or equal to integer n
@@ -367,9 +376,12 @@ public class IntegrationTests
         List<Record> cities3 = dao.topNCitiesIn(null, "Europe", 10);
 
         // then
-        assertEquals(0, cities1.size());
-        assertEquals(0, cities2.size());
-        assertEquals(0, cities3.size());
+        assertEquals(0, cities1.size(),
+                "Test that cities list is empty when areaFilter and areaName are null");
+        assertEquals(0, cities2.size(),
+                "Test that cities list is empty when areaFilter and areaName are null");
+        assertEquals(0, cities3.size(),
+                "Test that cities list is empty when areaFilter and areaName are null");
     }
 
     // Test that all capital cities in query are in the given area
@@ -427,9 +439,12 @@ public class IntegrationTests
         List<Record> capitalCities3 = dao.allCapitalCitiesIn(null, "Europe");
 
         // then
-        assertEquals(0, capitalCities1.size());
-        assertEquals(0, capitalCities2.size());
-        assertEquals(0, capitalCities3.size());
+        assertEquals(0, capitalCities1.size(),
+                "Test that capital cities list is empty when areaFilter and areaName are null");
+        assertEquals(0, capitalCities2.size(),
+                "Test that capital cities list is empty when areaFilter and areaName are null");
+        assertEquals(0, capitalCities3.size(),
+                "Test that capital cities list is empty when areaFilter and areaName are null");
     }
 
     // Test that the number of results is less than or equal to integer n
@@ -517,9 +532,12 @@ public class IntegrationTests
         List<Record> capitalCities3 = dao.topNCapitalCitiesIn(null, "Europe", 10);
 
         // then
-        assertEquals(0, capitalCities1.size());
-        assertEquals(0, capitalCities2.size());
-        assertEquals(0, capitalCities3.size());
+        assertEquals(0, capitalCities1.size(),
+                "Test that capital cities list is empty when areaFilter and areaName are null");
+        assertEquals(0, capitalCities2.size(),
+                "Test that capital cities list is empty when areaFilter and areaName are null");
+        assertEquals(0, capitalCities3.size(),
+                "Test that capital cities list is empty when areaFilter and areaName are null");
     }
 
     // Test that area in query is the same as the area output
@@ -562,9 +580,12 @@ public class IntegrationTests
         List<Record> residenceReport3 = dao.populationLivingInAndNotInCities(null, "Europe");
 
         // then
-        assertEquals(0, residenceReport1.size());
-        assertEquals(0, residenceReport2.size());
-        assertEquals(0, residenceReport3.size());
+        assertEquals(0, residenceReport1.size(),
+                "Test that population residence report list is empty when areaFilter and areaName are null");
+        assertEquals(0, residenceReport2.size(),
+                "Test that population residence report list is empty when areaFilter and areaName are null");
+        assertEquals(0, residenceReport3.size(),
+                "Test that population residence report list is empty when areaFilter and areaName are null");
     }
 
     // Test that area in query is the same as the area output
@@ -607,9 +628,12 @@ public class IntegrationTests
         List<Record> population3 = dao.populationOf(null, "Europe");
 
         // then
-        assertEquals(0, population1.size());
-        assertEquals(0, population2.size());
-        assertEquals(0, population3.size());
+        assertEquals(0, population1.size(),
+                "Test that population list is empty when areaFilter and areaName are null");
+        assertEquals(0, population2.size(),
+                "Test that population list is empty when areaFilter and areaName are null");
+        assertEquals(0, population3.size(),
+                "Test that population list is empty when areaFilter and areaName are null");
     }
 
     // Test that 5 items are returned in the list

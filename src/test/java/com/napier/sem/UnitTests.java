@@ -741,7 +741,7 @@ public class UnitTests
         dao.languageReport(); // No Error
     }
 
-    // Tests that when a country object is constructed, the getters and toString
+    // Test that when a country object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
     void Record_TestGettersAndToStringForCountry()
@@ -762,13 +762,21 @@ public class UnitTests
         Record record = new Record(countryCode, name, continent, region, population, capital);
 
         // then
-        assertEquals(name, record.getName());
-        assertEquals(continent, record.getContinent());
-        assertEquals(population, record.getPopulation());
-        assertEquals(expectedToStringOutput, record.toString());
+        assertEquals(name, record.getName(),
+                "Test that when a country object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(continent, record.getContinent(),
+                "Test that when a country object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(population, record.getPopulation(),
+                "Test that when a country object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(expectedToStringOutput, record.toString(),
+                "Test that when a country object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
     }
 
-    // Tests that when a capital city object is constructed, the getters and toString
+    // Test that when a capital city object is constructed, the getters and toString
     // return the same fields that we passed in.
     @Test
     void Record_TestGettersAndToStringForCapitalCity()
@@ -786,11 +794,21 @@ public class UnitTests
         Record capitalCity = new Record(name, country, region, continent, population);
 
         // then
-        assertEquals(name, capitalCity.getName());
-        assertEquals(country, capitalCity.getCountry());
-        assertEquals(continent, capitalCity.getContinent());
-        assertEquals(population, capitalCity.getPopulation());
-        assertEquals(expectedToStringOutput, capitalCity.toString());
+        assertEquals(name, capitalCity.getName(),
+                "Test that when a capital city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(country, capitalCity.getCountry(),
+                "Test that when a capital city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(continent, capitalCity.getContinent(),
+                "Test that when a capital city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(population, capitalCity.getPopulation(),
+                "Test that when a capital city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(expectedToStringOutput, capitalCity.toString(),
+                "Test that when a capital city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
     }
 
     // Tests that when a city object is constructed, the getters and toString
@@ -811,10 +829,18 @@ public class UnitTests
         Record city = new Record(name, country, district, population);
 
         // then
-        assertEquals(name, city.getName());
-        assertEquals(country, city.getCountry());
-        assertEquals(population, city.getPopulation());
-        assertEquals(expectedToStringOutput, city.toString());
+        assertEquals(name, city.getName(),
+                "Tests that when a city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(country, city.getCountry(),
+                "Tests that when a city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(population, city.getPopulation(),
+                "Tests that when a city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(expectedToStringOutput, city.toString(),
+                "Tests that when a city object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
     }
 
     // Tests that when a population residence report object is constructed, the getters and toString
@@ -838,9 +864,15 @@ public class UnitTests
         Record residenceReport = new Record(name, population, populationLivingInCities, percentageLivingInCities, populationNotLivingInCities, percentageNotLivingInCities);
 
         // then
-        assertEquals(name, residenceReport.getName());
-        assertEquals(population, residenceReport.getPopulation());
-        assertEquals(expectedToStringOutput, residenceReport.toString());
+        assertEquals(name, residenceReport.getName(),
+                "Tests that when a population residence report object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(population, residenceReport.getPopulation(),
+                "Tests that when a population residence report object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(expectedToStringOutput, residenceReport.toString(),
+                "Tests that when a population residence report object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
     }
 
     // Tests that when a language object is constructed, the getters and toString
@@ -859,8 +891,12 @@ public class UnitTests
         Record Language = new Record(language, speakers, percentage);
 
         // then
-        assertEquals(language, Language.getName());
-        assertEquals(expectedToStringOutput, Language.toString());
+        assertEquals(language, Language.getName(),
+                "Tests that when a language object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(expectedToStringOutput, Language.toString(),
+                "Tests that when a language object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
     }
 
     // Tests that when a population object is constructed, the getters and toString
@@ -878,9 +914,15 @@ public class UnitTests
         Record Population = new Record(name, population);
 
         // then
-        assertEquals(name, Population.getName());
-        assertEquals(population, Population.getPopulation());
-        assertEquals(expectedToStringOutput, Population.toString());
+        assertEquals(name, Population.getName(),
+                "Tests that when a population object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(population, Population.getPopulation(),
+                "Tests that when a population object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
+        assertEquals(expectedToStringOutput, Population.toString(),
+                "Tests that when a population object is constructed, the getters and toString " +
+                        "return the same fields that we passed in.");
     }
 
     // Tests that when a QueryInfo object is constructed, the getters return the same fields that we passed in.
@@ -895,7 +937,8 @@ public class UnitTests
         QueryInfo queryInfo = new QueryInfo(queryDescription, areaFilterDescriptions);
 
         // then
-        assertEquals(queryDescription, queryInfo.getQueryDescription());
+        assertEquals(queryDescription, queryInfo.getQueryDescription(),
+                "Tests that when a QueryInfo object is constructed, the getters return the same fields that we passed in.");
         assertArrayEquals(areaFilterDescriptions,
                 queryInfo.getAreaFilterDescriptions(),
                 "Tests that when a QueryInfo object is constructed, the getters return the same fields that we passed in.");
@@ -1020,8 +1063,10 @@ public class UnitTests
         List<Record> records2 = userPrompt.executeQueryFromInput(2, App.REGION, "Caribbean", n);
 
         // then
-        assertEquals(0, records1.size());
-        assertEquals(0, records2.size());
+        assertEquals(0, records1.size(),
+                "Tests that executeQueryFromInput outputs an empty list when passed bad parameters");
+        assertEquals(0, records2.size(),
+                "Tests that executeQueryFromInput outputs an empty list when passed bad parameters");
     }
 
     // Test that an invalid query ID results in executeQueryFromInput returning null

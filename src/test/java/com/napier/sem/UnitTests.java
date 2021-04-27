@@ -996,16 +996,18 @@ public class UnitTests
         // given
         int areaChoice = -1;
         int queryId = -1;
+        List<String> areaFilters = new ArrayList<>();
 
         // when
-        String areaFilter1 = userPrompt.parseQueryInputForAreaFilter(1, areaChoice);
-        String areaFilter2 = userPrompt.parseQueryInputForAreaFilter(queryId, 1);
+        areaFilters.add(userPrompt.parseQueryInputForAreaFilter(1, areaChoice));
+        areaFilters.add(userPrompt.parseQueryInputForAreaFilter(queryId, 1));
 
         // then
-        assertNull(areaFilter1,
-                "Test that parseQueryInputForAreaFilter returns null on receiving invalid input");
-        assertNull(areaFilter2,
-                "Test that parseQueryInputForAreaFilter returns null on receiving invalid input");
+        for (String areaFilter: areaFilters)
+        {
+            assertNull(areaFilter,
+                    "Test that parseQueryInputForAreaFilter returns null on receiving invalid input");
+        }
     }
 
     // Test that a query choice of 1 results in an area filter of "world" for all query ids except 7, which cannot
@@ -1058,16 +1060,18 @@ public class UnitTests
         // given
         String areaFilter = "planet";
         int n = -2;
+        List<List<Record>> recordsLists = new ArrayList<>();
 
         // when
-        List<Record> records1 = userPrompt.executeQueryFromInput(1, areaFilter, "Earth", 5);
-        List<Record> records2 = userPrompt.executeQueryFromInput(2, App.REGION, "Caribbean", n);
+        recordsLists.add(userPrompt.executeQueryFromInput(1, areaFilter, "Earth", 5));
+        recordsLists.add(userPrompt.executeQueryFromInput(2, App.REGION, "Caribbean", n));
 
         // then
-        assertEquals(0, records1.size(),
-                "Tests that executeQueryFromInput outputs an empty list when passed bad parameters");
-        assertEquals(0, records2.size(),
-                "Tests that executeQueryFromInput outputs an empty list when passed bad parameters");
+        for (List<Record> records: recordsLists)
+        {
+            assertEquals(0, records.size(),
+                    "Tests that executeQueryFromInput outputs an empty list when passed bad parameters");
+        }
     }
 
     // Test that an invalid query ID results in executeQueryFromInput returning null

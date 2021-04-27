@@ -121,18 +121,20 @@ public class IntegrationTests
     @Test
     void DAO_allCountriesIn_nullArgumentsCauseEmptyList()
     {
+        // given
+        List<List<Record>> countriesLists = new ArrayList<>();
+
         // when
-        List<Record> countries1 = dao.allCountriesIn(null, null);
-        List<Record> countries2 = dao.allCountriesIn(App.REGION, null);
-        List<Record> countries3 = dao.allCountriesIn(null, "Europe");
+        countriesLists.add(dao.allCountriesIn(null, null));
+        countriesLists.add(dao.allCountriesIn(App.REGION, null));
+        countriesLists.add(dao.allCountriesIn(null, "Europe"));
 
         // then
-        assertEquals(0, countries1.size(),
-                "Test that countries list is empty when areaFilter and areaName are null");
-        assertEquals(0, countries2.size(),
-                "Test that countries list is empty when areaFilter and areaName are null");
-        assertEquals(0, countries3.size(),
-                "Test that countries list is empty when areaFilter and areaName are null");
+        for (List<Record> countries : countriesLists)
+        {
+            assertEquals(0, countries.size(),
+                    "Test that countries list is empty when areaFilter and areaName are null");
+        }
     }
 
     // Test that the number of results is less than or equal to integer n
@@ -214,18 +216,20 @@ public class IntegrationTests
     @Test
     void DAO_topNCountriesIn_nullArgumentsCauseEmptyList()
     {
+        // given
+        List<List<Record>> countriesLists = new ArrayList<>();
+
         // when
-        List<Record> countries1 = dao.topNCountriesIn(null, null, 10);
-        List<Record> countries2 = dao.topNCountriesIn(App.REGION, null, 10);
-        List<Record> countries3 = dao.topNCountriesIn(null, "Europe", 10);
+        countriesLists.add(dao.topNCountriesIn(null, null, 10));
+        countriesLists.add(dao.topNCountriesIn(App.REGION, null, 10));
+        countriesLists.add(dao.topNCountriesIn(null, "Europe", 10));
 
         // then
-        assertEquals(0, countries1.size(),
+        for (List<Record> countries: countriesLists)
+        {
+        assertEquals(0, countries.size(),
                 "Test that countries list is empty when areaFilter and areaName are null");
-        assertEquals(0, countries2.size(),
-                "Test that countries list is empty when areaFilter and areaName are null");
-        assertEquals(0, countries3.size(),
-                "Test that countries list is empty when areaFilter and areaName are null");
+        }
     }
 
     // Test that all cities in query are in the given area
@@ -277,18 +281,20 @@ public class IntegrationTests
     @Test
     void DAO_allCitiesIn_nullArgumentsCauseEmptyList()
     {
+        // given
+        List<List<Record>> citiesLists = new ArrayList<>();
+
         // when
-        List<Record> cities1 = dao.allCitiesIn(null, null);
-        List<Record> cities2 = dao.allCitiesIn(App.REGION, null);
-        List<Record> cities3 = dao.allCitiesIn(null, "Europe");
+        citiesLists.add(dao.allCitiesIn(null, null));
+        citiesLists.add(dao.allCitiesIn(App.REGION, null));
+        citiesLists.add(dao.allCitiesIn(null, "Europe"));
 
         // then
-        assertEquals(0, cities1.size(),
-                "Test that cities list is empty when areaFilter and areaName are null");
-        assertEquals(0, cities2.size(),
-                "Test that cities list is empty when areaFilter and areaName are null");
-        assertEquals(0, cities3.size(),
-                "Test that cities list is empty when areaFilter and areaName are null");
+        for (List<Record> cities: citiesLists)
+        {
+            assertEquals(0, cities.size(),
+                    "Test that cities list is empty when areaFilter and areaName are null");
+        }
     }
 
     // Test that the number of results is less than or equal to integer n
@@ -370,18 +376,20 @@ public class IntegrationTests
     @Test
     void DAO_topNCitiesIn_nullArgumentsCauseEmptyList()
     {
+        // given
+        List<List<Record>> citiesList = new ArrayList<>();
+
         // when
-        List<Record> cities1 = dao.topNCitiesIn(null, null, 10);
-        List<Record> cities2 = dao.topNCitiesIn(App.REGION, null, 10);
-        List<Record> cities3 = dao.topNCitiesIn(null, "Europe", 10);
+        citiesList.add(dao.topNCitiesIn(null, null, 10));
+        citiesList.add(dao.topNCitiesIn(App.REGION, null, 10));
+        citiesList.add(dao.topNCitiesIn(null, "Europe", 10));
 
         // then
-        assertEquals(0, cities1.size(),
-                "Test that cities list is empty when areaFilter and areaName are null");
-        assertEquals(0, cities2.size(),
-                "Test that cities list is empty when areaFilter and areaName are null");
-        assertEquals(0, cities3.size(),
-                "Test that cities list is empty when areaFilter and areaName are null");
+        for (List<Record> cities: citiesList)
+        {
+            assertEquals(0, cities.size(),
+                    "Test that cities list is empty when areaFilter and areaName are null");
+        }
     }
 
     // Test that all capital cities in query are in the given area
@@ -433,18 +441,20 @@ public class IntegrationTests
     @Test
     void DAO_allCapitalCitiesIn_nullArgumentsCauseEmptyList()
     {
+        // given
+        List<List<Record>> capitalCitiesLists = new ArrayList<>();
+
         // when
-        List<Record> capitalCities1 = dao.allCapitalCitiesIn(null, null);
-        List<Record> capitalCities2 = dao.allCapitalCitiesIn(App.REGION, null);
-        List<Record> capitalCities3 = dao.allCapitalCitiesIn(null, "Europe");
+        capitalCitiesLists.add(dao.allCapitalCitiesIn(null, null));
+        capitalCitiesLists.add(dao.allCapitalCitiesIn(App.REGION, null));
+        capitalCitiesLists.add(dao.allCapitalCitiesIn(null, "Europe"));
 
         // then
-        assertEquals(0, capitalCities1.size(),
-                "Test that capital cities list is empty when areaFilter and areaName are null");
-        assertEquals(0, capitalCities2.size(),
-                "Test that capital cities list is empty when areaFilter and areaName are null");
-        assertEquals(0, capitalCities3.size(),
-                "Test that capital cities list is empty when areaFilter and areaName are null");
+        for (List<Record> capitalCities: capitalCitiesLists)
+        {
+            assertEquals(0, capitalCities.size(),
+                    "Test that capital cities list is empty when areaFilter and areaName are null");
+        }
     }
 
     // Test that the number of results is less than or equal to integer n
@@ -526,18 +536,20 @@ public class IntegrationTests
     @Test
     void DAO_topNCapitalCitiesIn_nullArgumentsCauseEmptyList()
     {
+        // given
+        List<List<Record>> capitalCitiesLists = new ArrayList<>();
+
         // when
-        List<Record> capitalCities1 = dao.topNCapitalCitiesIn(null, null, 10);
-        List<Record> capitalCities2 = dao.topNCapitalCitiesIn(App.REGION, null, 10);
-        List<Record> capitalCities3 = dao.topNCapitalCitiesIn(null, "Europe", 10);
+        capitalCitiesLists.add(dao.topNCapitalCitiesIn(null, null, 10));
+        capitalCitiesLists.add(dao.topNCapitalCitiesIn(App.REGION, null, 10));
+        capitalCitiesLists.add(dao.topNCapitalCitiesIn(null, "Europe", 10));
 
         // then
-        assertEquals(0, capitalCities1.size(),
-                "Test that capital cities list is empty when areaFilter and areaName are null");
-        assertEquals(0, capitalCities2.size(),
-                "Test that capital cities list is empty when areaFilter and areaName are null");
-        assertEquals(0, capitalCities3.size(),
-                "Test that capital cities list is empty when areaFilter and areaName are null");
+        for (List<Record> capitalCities: capitalCitiesLists)
+        {
+            assertEquals(0, capitalCities.size(),
+                    "Test that capital cities list is empty when areaFilter and areaName are null");
+        }
     }
 
     // Test that area in query is the same as the area output
@@ -574,18 +586,20 @@ public class IntegrationTests
     @Test
     void DAO_populationLivingInAndNotInCities_nullArgumentsCauseEmptyList()
     {
+        // given
+        List<List<Record>> residenceReports = new ArrayList<>();
+
         // when
-        List<Record> residenceReport1 = dao.populationLivingInAndNotInCities(null, null);
-        List<Record> residenceReport2 = dao.populationLivingInAndNotInCities(App.REGION, null);
-        List<Record> residenceReport3 = dao.populationLivingInAndNotInCities(null, "Europe");
+        residenceReports.add(dao.populationLivingInAndNotInCities(null, null));
+        residenceReports.add(dao.populationLivingInAndNotInCities(App.REGION, null));
+        residenceReports.add(dao.populationLivingInAndNotInCities(null, "Europe"));
 
         // then
-        assertEquals(0, residenceReport1.size(),
-                "Test that population residence report list is empty when areaFilter and areaName are null");
-        assertEquals(0, residenceReport2.size(),
-                "Test that population residence report list is empty when areaFilter and areaName are null");
-        assertEquals(0, residenceReport3.size(),
-                "Test that population residence report list is empty when areaFilter and areaName are null");
+        for (List<Record> residenceReport: residenceReports)
+        {
+            assertEquals(0, residenceReport.size(),
+                    "Test that population residence report list is empty when areaFilter and areaName are null");
+        }
     }
 
     // Test that area in query is the same as the area output
@@ -622,18 +636,20 @@ public class IntegrationTests
     @Test
     void DAO_populationOf_nullArgumentsCauseEmptyList()
     {
+        // given
+        List<List<Record>> populations = new ArrayList<>();
+
         // when
-        List<Record> population1 = dao.populationOf(null, null);
-        List<Record> population2 = dao.populationOf(App.REGION, null);
-        List<Record> population3 = dao.populationOf(null, "Europe");
+        populations.add(dao.populationOf(null, null));
+        populations.add(dao.populationOf(App.REGION, null));
+        populations.add(dao.populationOf(null, "Europe"));
 
         // then
-        assertEquals(0, population1.size(),
-                "Test that population list is empty when areaFilter and areaName are null");
-        assertEquals(0, population2.size(),
-                "Test that population list is empty when areaFilter and areaName are null");
-        assertEquals(0, population3.size(),
-                "Test that population list is empty when areaFilter and areaName are null");
+        for (List<Record> population: populations)
+        {
+            assertEquals(0, population.size(),
+                    "Test that population list is empty when areaFilter and areaName are null");
+        }
     }
 
     // Test that 5 items are returned in the list

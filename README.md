@@ -9,7 +9,7 @@ Starring: Lukas Paling and Marco De Luca as the developers or "Script Monkeys"
 
 With Craig Gordon as the Scrum Master or "Scrumbag" and Luke Scanlan as the lead developer or "Head Honcho"
 
-## Overview of the application, and its functionality
+## Overview
 The application:
 - Creates a docker container with the world database open for connections
 - Prompts the user in the console to select a report type

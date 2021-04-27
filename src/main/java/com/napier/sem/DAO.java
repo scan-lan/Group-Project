@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -64,7 +65,7 @@ public class DAO
      * @param recordType The type of record that the query will return (country, city, capital city etc.).
      * @return An ArrayList of country objects
      */
-    public ArrayList<Record> executeStatement(String statementString, String recordType)
+    public List<Record> executeStatement(String statementString, String recordType)
     {
         ArrayList<Record> records = new ArrayList<>();
 
@@ -103,7 +104,7 @@ public class DAO
     public boolean queryInvalid(String queryName,
                                 String whereCondition,
                                 String areaFilter,
-                                ArrayList<String> validAreaFilters,
+                                List<String> validAreaFilters,
                                 int n)
     {
         if (whereCondition == null || n < 1)
@@ -126,7 +127,7 @@ public class DAO
      * @param areaName The name of the area you want to get countries from.
      * @return An ordered list of countries sorted by descending population
      */
-    public ArrayList<Record> allCountriesIn(String areaFilter, String areaName)
+    public List<Record> allCountriesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
@@ -157,7 +158,7 @@ public class DAO
      * @param n The maximum number of results shown.
      * @return An ordered list of countries sorted by descending population.
      */
-    public ArrayList<Record> topNCountriesIn(String areaFilter, String areaName, Integer n)
+    public List<Record> topNCountriesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
@@ -188,7 +189,7 @@ public class DAO
      * @param areaName The name of the area you want to get cities from.
      * @return An ordered list of cities sorted by descending population
      */
-    public ArrayList<Record> allCitiesIn(String areaFilter, String areaName)
+    public List<Record> allCitiesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION,
@@ -215,7 +216,7 @@ public class DAO
      * @param n The maximum number of results shown.
      * @return An ordered list of cities sorted by descending population.
      */
-    public ArrayList<Record> topNCitiesIn(String areaFilter, String areaName, Integer n)
+    public List<Record> topNCitiesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION,
@@ -243,7 +244,7 @@ public class DAO
      * @param areaName The name of the area you want to get capital cities from.
      * @return An ordered list of capital cities sorted by descending population
      */
-    public ArrayList<Record> allCapitalCitiesIn(String areaFilter, String areaName)
+    public List<Record> allCapitalCitiesIn(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
@@ -274,7 +275,7 @@ public class DAO
      * @param n The maximum number of results shown.
      * @return An ordered list of capital cities in a specific area sorted by descending population.
      */
-    public ArrayList<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n)
+    public List<Record> topNCapitalCitiesIn(String areaFilter, String areaName, Integer n)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION));
@@ -307,7 +308,7 @@ public class DAO
      * @param areaName The name of the area you want to get the residence report from.
      * @return The report as the only item in an array.
      */
-    public ArrayList<Record> populationLivingInAndNotInCities(String areaFilter, String areaName)
+    public List<Record> populationLivingInAndNotInCities(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.CONTINENT, App.REGION, App.COUNTRY));
@@ -339,7 +340,7 @@ public class DAO
      * @param areaName The name of the area of which you want to get the population.
      * @return The population of the specified area.
      */
-    public ArrayList<Record> populationOf(String areaFilter, String areaName)
+    public List<Record> populationOf(String areaFilter, String areaName)
     {
         String whereCondition = getWhereCondition(areaFilter, areaName);
         ArrayList<String> validAreaFilters = new ArrayList<>(Arrays.asList(App.WORLD, App.CONTINENT, App.REGION,
@@ -354,7 +355,7 @@ public class DAO
                 " AS name,\n" +
                 "SUM(" + whereCondition.split("\\.")[0] + ".population) AS population\n" +
                 "FROM country\n" +
-                ((whereCondition.split("\\.")[0].equals("city")) ? "JOIN city ON countryCode = code\n" : "") +
+                (("city".equals(whereCondition.split("\\.")[0])) ? "JOIN city ON countryCode = code\n" : "") +
                 "WHERE " + whereCondition;
 
         return executeStatement(statementString, App.POPULATION);
@@ -365,7 +366,7 @@ public class DAO
      * Constructs an SQL query to find the number of people who speak Chinese, English, Hindi, Spanish or Arabic.
      * @return An ordered list of languages spoken in the world sorted by the number of speakers.
      */
-    public ArrayList<Record> languageReport()
+    public List<Record> languageReport()
     {
         // Define the SQL query as a string
         String statementString = "WITH x AS (SELECT SUM(population) AS world_population FROM country)\n" +

@@ -89,6 +89,7 @@ public class Record
                 name = result.getString("name");
                 population = result.getLong("population");
                 break;
+            default:
         }
     }
 
@@ -163,6 +164,7 @@ public class Record
      * Formats the country data in a consistent, readable manner
      * @return A string representing a country record
      */
+    @Override
     public String toString()
     {
         String recordString = "Record.toString failed";
@@ -219,6 +221,9 @@ public class Record
                                 "Area: %s |  Population: %,d",
                         this.name,
                         this.population);
+                break;
+            default:
+                return null;
         }
         return recordString;
     }

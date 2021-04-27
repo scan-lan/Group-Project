@@ -63,7 +63,7 @@ public class UnitTests
         Connection connection = App.connect("localhost:33061", databaseDriver, true); // then: no failure
 
         // then
-        assertNull(connection);
+        assertNull(connection, "Test that the connection is null if the database driver is invalid");
     }
 
     // Test that if the connection is null there is no error
@@ -85,7 +85,7 @@ public class UnitTests
         String whereCondition = DAO.getWhereCondition(areaFilter, "Earth");
 
         // then
-        assertNull(whereCondition);
+        assertNull(whereCondition, "Test the whereCondition is null when the areaFilter is unexpected");
     }
 
     // Test that the whereCondition contains our given area name
@@ -110,7 +110,7 @@ public class UnitTests
         String whereCondition = DAO.getWhereCondition(App.WORLD, null);
 
         // then
-        assertNull(whereCondition);
+        assertNull(whereCondition, "Test that the whereCondition is null when areaName is null");
     }
 
     // Test that the whereCondition is null when areaFilter is null
@@ -121,7 +121,7 @@ public class UnitTests
         String whereCondition = DAO.getWhereCondition(null, "Earth");
 
         // then
-        assertNull(whereCondition);
+        assertNull(whereCondition, "Test that the whereCondition is null when areaFilter is null");
     }
 
     // Test that a null whereCondition will result in queryInvalid being true
@@ -135,7 +135,7 @@ public class UnitTests
                 new ArrayList<>(),
                 1);
 
-        assertTrue(result);
+        assertTrue(result, "Test that a null whereCondition will result in queryInvalid being true");
     }
 
     // Test that an n value of less than 1 will result in queryInvalid being true
@@ -152,7 +152,7 @@ public class UnitTests
                 new ArrayList<>(),
                 n);
 
-        assertTrue(result);
+        assertTrue(result,"Test that an n value of less than 1 will result in queryInvalid being true");
     }
 
     // Test that an area filter not in the valid area filters will result in queryInvalid being true
@@ -170,7 +170,7 @@ public class UnitTests
                 validAreaFilters,
                 1);
 
-        assertTrue(result);
+        assertTrue(result, "Test that an area filter not in the valid area filters will result in queryInvalid being true");
     }
 
     // Test that queryInvalid is false when it is passed good values
@@ -191,7 +191,7 @@ public class UnitTests
                 validAreaFilters,
                 n);
 
-        assertFalse(result);
+        assertFalse(result, "Test that queryInvalid is false when it is passed good values");
     }
 
     // Test that countries list is empty when areaFilter and areaName are null
@@ -202,7 +202,7 @@ public class UnitTests
         List<Record> countries = dao.allCountriesIn(null, null);
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, countries.size(), "Test that countries list is empty when areaFilter and areaName are null");
     }
 
     // Test that countries list is empty when areaFilter is null
@@ -213,7 +213,7 @@ public class UnitTests
         List<Record> countries = dao.allCountriesIn(null, "Scotland");
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, countries.size(), "Test that countries list is empty when areaFilter is null");
     }
 
     // Test that countries list is empty when areaName is null
@@ -224,7 +224,7 @@ public class UnitTests
         List<Record> countries = dao.allCountriesIn(App.COUNTRY, null);
 
         // then
-        assertEquals(0, countries.size());
+        assertEquals(0, countries.size(), "Test that countries list is empty when areaName is null");
     }
 
     // Check countries list is empty if called with an invalid areaFilter
@@ -1053,7 +1053,11 @@ public class UnitTests
     void UserPrompt_obtainInputWithPrompt_loopsUntilValidInput()
     {
         // given
-        provideInput("invalid\nstring\n100\n0\n1");
+        provideInput("invalid\n" +
+                "string\n" +
+                "100\n" +
+                "0\n" +
+                "1");
         UserPrompt userPrompt = new UserPrompt(dao);
 
         // when

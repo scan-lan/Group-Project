@@ -101,7 +101,8 @@ public class UnitTests
         String whereCondition = DAO.getWhereCondition(App.DISTRICT, areaName);
 
         // then
-        assertTrue(whereCondition.contains(areaName));
+        assertTrue(whereCondition.contains(areaName),
+                "Test that the whereCondition contains our given area name");
     }
 
     // Test that the whereCondition is null when areaName is null

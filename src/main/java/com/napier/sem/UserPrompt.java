@@ -31,7 +31,7 @@ public class UserPrompt
             "9) Report on number of speakers per language for Chinese, English, Hindi, Spanish and Arabic\n\n" +
             "All results will be sorted in order of largest population to smallest\n" +
             "Enter 'q' at any time to exit";
-    private final HashMap<Integer, QueryInfo> queryTable = new HashMap<>();
+    private final Map<Integer, QueryInfo> queryTable = new HashMap<>();
     public boolean getUserWantsToQuit() { return userWantsToQuit; }
 
     public UserPrompt(DAO dao)
@@ -97,7 +97,7 @@ public class UserPrompt
 
                 areaNameInput = formatInput(scanner.next());
                 // exit the loop if the user enters "q" indicating they want to quit
-                if (areaNameInput.equals("q"))
+                if ("q".equals(areaNameInput))
                 {
                     userWantsToQuit = true;
                     continue;
@@ -117,7 +117,7 @@ public class UserPrompt
             }
 
             // Run the query that the user selects
-            ArrayList<Record> records = executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);
+            List<Record> records = executeQueryFromInput(chosenQueryId, chosenAreaFilter, areaNameInput, n);
 
             // Print the records to the console
             showRecords(records);
@@ -133,7 +133,7 @@ public class UserPrompt
      * an error message is printed.
      * @param records The result of a DAO query
      */
-    public void showRecords(ArrayList<Record> records)
+    public void showRecords(List<Record> records)
     {
         if (records == null)
         {
@@ -222,7 +222,7 @@ public class UserPrompt
         }
         catch (InputMismatchException e)
         {
-            if (formatInput(scanner.next()).equals("q"))
+            if ("q".equals(formatInput(scanner.next())))
             {
                 userWantsToQuit = true;
                 return -1;
@@ -290,7 +290,7 @@ public class UserPrompt
      * @param n The number of results returned if the query is a "Top N" query
      * @return The ArrayList of Record objects representing the results of the query
      */
-    public ArrayList<Record> executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
+    public List<Record> executeQueryFromInput(int queryId, String areaFilter, String areaName, int n)
     {
 
         switch (queryId)
@@ -335,5 +335,5 @@ class QueryInfo
     }
 
     public String getQueryDescription() { return queryDescription; }
-    public String[] getAreaFilterDescriptions() { return areaFilterDescriptions; }
+    public String[] getAreaFilterDescriptions() { return areaFilterDescriptions.clone(); }
 }

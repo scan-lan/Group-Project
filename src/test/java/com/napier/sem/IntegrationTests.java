@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,11 +61,12 @@ public class IntegrationTests
         String statementString = "SELECT ALL FROM EVERYWHERE";
 
         // when
-        ArrayList<Record> countries= dao.executeStatement(statementString, App.COUNTRY);
+        List<Record> countries= dao.executeStatement(statementString, App.COUNTRY);
 
         // then
-        assertNull(countries);
+        assertNull(countries, "Test that null is returned when a nonsense query is given");
     }
+
     // Test that all countries in query are in the given area
     @Test
     void DAO_allCountriesIn_allAreasMatchFilter()
@@ -73,10 +75,15 @@ public class IntegrationTests
         String areaName = "Africa";
 
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, areaName);
+        List<Record> countries = dao.allCountriesIn(App.CONTINENT, areaName);
 
         // then
-        for (Record country : countries) assertEquals(areaName, country.getContinent());
+        for (Record country : countries)
+        {
+            assertEquals(areaName,
+                    country.getContinent(),
+                    "Test that all countries in query are in the given area");
+        }
     }
 
     // Test that an empty array is returned when the areaName is set incorrectly
@@ -87,7 +94,7 @@ public class IntegrationTests
         String areaName = "SmurfCity USA";
 
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.REGION, areaName);
+        List<Record> countries = dao.allCountriesIn(App.REGION, areaName);
 
         // then
         assertEquals(0, countries.size());
@@ -98,7 +105,7 @@ public class IntegrationTests
     void DAO_allCountriesIn_countriesPopulationIsInDescendingOrder()
     {
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.CONTINENT, "Asia");
+        List<Record> countries = dao.allCountriesIn(App.CONTINENT, "Asia");
 
         // then
         for (int i = 0; i < (countries.size()-1); i++)
@@ -112,9 +119,9 @@ public class IntegrationTests
     void DAO_allCountriesIn_nullArgumentsCauseEmptyList()
     {
         // when
-        ArrayList<Record> countries1 = dao.allCountriesIn(null, null);
-        ArrayList<Record> countries2 = dao.allCountriesIn(App.REGION, null);
-        ArrayList<Record> countries3 = dao.allCountriesIn(null, "Europe");
+        List<Record> countries1 = dao.allCountriesIn(null, null);
+        List<Record> countries2 = dao.allCountriesIn(App.REGION, null);
+        List<Record> countries3 = dao.allCountriesIn(null, "Europe");
 
         // then
         assertEquals(0, countries1.size());
@@ -130,7 +137,7 @@ public class IntegrationTests
         int n = 17;
 
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.WORLD, "", n);
+        List<Record> countries = dao.topNCountriesIn(App.WORLD, "", n);
 
         // then
         assertTrue(countries.size() <= n);
@@ -144,7 +151,7 @@ public class IntegrationTests
         int n = 0;
 
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.WORLD, "", n);
+        List<Record> countries = dao.topNCountriesIn(App.WORLD, "", n);
 
         // then
         assertEquals(0, countries.size());
@@ -158,7 +165,7 @@ public class IntegrationTests
         String areaName = "Scotland";
 
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
+        List<Record> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
 
         // then
         assertEquals(0, countries.size());
@@ -172,7 +179,7 @@ public class IntegrationTests
         String areaName = "Europe";
 
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
+        List<Record> countries = dao.topNCountriesIn(App.CONTINENT, areaName, 10);
 
         // then
         for (Record country : countries) assertEquals("Europe", country.getContinent());
@@ -183,7 +190,7 @@ public class IntegrationTests
     void DAO_topNCountriesIn_countriesPopulationIsInDescendingOrder()
     {
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.CONTINENT, "Europe", 5);
+        List<Record> countries = dao.topNCountriesIn(App.CONTINENT, "Europe", 5);
 
         // then
         for (int i = 0; i < (countries.size()-1); i++)
@@ -197,9 +204,9 @@ public class IntegrationTests
     void DAO_topNCountriesIn_nullArgumentsCauseEmptyList()
     {
         // when
-        ArrayList<Record> countries1 = dao.topNCountriesIn(null, null, 10);
-        ArrayList<Record> countries2 = dao.topNCountriesIn(App.REGION, null, 10);
-        ArrayList<Record> countries3 = dao.topNCountriesIn(null, "Europe", 10);
+        List<Record> countries1 = dao.topNCountriesIn(null, null, 10);
+        List<Record> countries2 = dao.topNCountriesIn(App.REGION, null, 10);
+        List<Record> countries3 = dao.topNCountriesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, countries1.size());
@@ -215,7 +222,7 @@ public class IntegrationTests
         String areaName = "Japan";
 
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
+        List<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
 
         // then
         for (Record city: cities) assertEquals(areaName, city.getCountry());
@@ -229,7 +236,7 @@ public class IntegrationTests
         String areaName = "Invalid Area";
 
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
+        List<Record> cities = dao.allCitiesIn(App.COUNTRY, areaName);
 
         // then
         assertEquals(0, cities.size());
@@ -240,7 +247,7 @@ public class IntegrationTests
     void DAO_allCitiesIn_allCitiesPopulationIsInDescendingOrder()
     {
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, "United Kingdom");
+        List<Record> cities = dao.allCitiesIn(App.COUNTRY, "United Kingdom");
 
         // then
         for (int i = 0; i < (cities.size()-1); i++)
@@ -254,9 +261,9 @@ public class IntegrationTests
     void DAO_allCitiesIn_nullArgumentsCauseEmptyList()
     {
         // when
-        ArrayList<Record> cities1 = dao.allCitiesIn(null, null);
-        ArrayList<Record> cities2 = dao.allCitiesIn(App.REGION, null);
-        ArrayList<Record> cities3 = dao.allCitiesIn(null, "Europe");
+        List<Record> cities1 = dao.allCitiesIn(null, null);
+        List<Record> cities2 = dao.allCitiesIn(App.REGION, null);
+        List<Record> cities3 = dao.allCitiesIn(null, "Europe");
 
         // then
         assertEquals(0, cities1.size());
@@ -272,7 +279,7 @@ public class IntegrationTests
         int n = 5;
 
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.CONTINENT, "europe", n);
+        List<Record> cities = dao.topNCitiesIn(App.CONTINENT, "europe", n);
 
         // then
         assertTrue(cities.size() <= n);
@@ -286,7 +293,7 @@ public class IntegrationTests
         int n = 0;
 
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.WORLD, "", n);
+        List<Record> cities = dao.topNCitiesIn(App.WORLD, "", n);
 
         // then
         assertEquals(0, cities.size());
@@ -300,7 +307,7 @@ public class IntegrationTests
         String areaName = "SmurfCity USA";
 
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.REGION, areaName, 10);
+        List<Record> cities = dao.topNCitiesIn(App.REGION, areaName, 10);
 
         // then
         assertEquals(0, cities.size());
@@ -314,7 +321,7 @@ public class IntegrationTests
         String areaName = "United Kingdom";
 
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 10);
+        List<Record> cities = dao.topNCitiesIn(App.COUNTRY, areaName, 10);
 
         // then
         for (Record city : cities) assertEquals("United Kingdom", city.getCountry());
@@ -325,7 +332,7 @@ public class IntegrationTests
     void DAO_topNCitiesIn_topNCitiesPopulationIsInDescendingOrder()
     {
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.CONTINENT, "Europe", 5);
+        List<Record> cities = dao.topNCitiesIn(App.CONTINENT, "Europe", 5);
 
         // then
         for (int i = 0; i < (cities.size()-1); i++)
@@ -339,9 +346,9 @@ public class IntegrationTests
     void DAO_topNCitiesIn_nullArgumentsCauseEmptyList()
     {
         // when
-        ArrayList<Record> cities1 = dao.topNCitiesIn(null, null, 10);
-        ArrayList<Record> cities2 = dao.topNCitiesIn(App.REGION, null, 10);
-        ArrayList<Record> cities3 = dao.topNCitiesIn(null, "Europe", 10);
+        List<Record> cities1 = dao.topNCitiesIn(null, null, 10);
+        List<Record> cities2 = dao.topNCitiesIn(App.REGION, null, 10);
+        List<Record> cities3 = dao.topNCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, cities1.size());
@@ -357,7 +364,7 @@ public class IntegrationTests
         String areaName = "Asia";
 
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
+        List<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
 
         // then
         for (Record capitalCity : capitalCities) assertEquals(areaName, capitalCity.getContinent());
@@ -371,7 +378,7 @@ public class IntegrationTests
         String areaName = "East Fife";
 
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
+        List<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, areaName);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -382,7 +389,7 @@ public class IntegrationTests
     void DAO_allCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, "Asia");
+        List<Record> capitalCities = dao.allCapitalCitiesIn(App.CONTINENT, "Asia");
 
         // then
         for (int i = 0; i < (capitalCities.size()-1); i++)
@@ -396,9 +403,9 @@ public class IntegrationTests
     void DAO_allCapitalCitiesIn_nullArgumentsCauseEmptyList()
     {
         // when
-        ArrayList<Record> capitalCities1 = dao.allCapitalCitiesIn(null, null);
-        ArrayList<Record> capitalCities2 = dao.allCapitalCitiesIn(App.REGION, null);
-        ArrayList<Record> capitalCities3 = dao.allCapitalCitiesIn(null, "Europe");
+        List<Record> capitalCities1 = dao.allCapitalCitiesIn(null, null);
+        List<Record> capitalCities2 = dao.allCapitalCitiesIn(App.REGION, null);
+        List<Record> capitalCities3 = dao.allCapitalCitiesIn(null, "Europe");
 
         // then
         assertEquals(0, capitalCities1.size());
@@ -414,7 +421,7 @@ public class IntegrationTests
         int n = 5;
 
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.DISTRICT, "Scotland", n);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(App.DISTRICT, "Scotland", n);
 
         // then
         assertTrue(capitalCities.size() <= n);
@@ -428,7 +435,7 @@ public class IntegrationTests
         int n = 0;
 
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.WORLD, "", n);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(App.WORLD, "", n);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -442,7 +449,7 @@ public class IntegrationTests
         String areaName = "SmurfCity USA";
 
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.REGION, areaName, 10);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(App.REGION, areaName, 10);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -456,7 +463,7 @@ public class IntegrationTests
         String areaName = "United Kingdom";
 
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, areaName, 10);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, areaName, 10);
 
         // then
         for (Record capitalCity : capitalCities) assertEquals("United Kingdom", capitalCity.getCountry());
@@ -467,7 +474,7 @@ public class IntegrationTests
     void DAO_topNCapitalCitiesIn_capitalCitiesPopulationIsInDescendingOrder()
     {
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", 5);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(App.CONTINENT, "Asia", 5);
 
         // then
         for (int i = 0; i < (capitalCities.size()-1); i++)
@@ -481,9 +488,9 @@ public class IntegrationTests
     void DAO_topNCapitalCitiesIn_nullArgumentsCauseEmptyList()
     {
         // when
-        ArrayList<Record> capitalCities1 = dao.topNCapitalCitiesIn(null, null, 10);
-        ArrayList<Record> capitalCities2 = dao.topNCapitalCitiesIn(App.REGION, null, 10);
-        ArrayList<Record> capitalCities3 = dao.topNCapitalCitiesIn(null, "Europe", 10);
+        List<Record> capitalCities1 = dao.topNCapitalCitiesIn(null, null, 10);
+        List<Record> capitalCities2 = dao.topNCapitalCitiesIn(App.REGION, null, 10);
+        List<Record> capitalCities3 = dao.topNCapitalCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, capitalCities1.size());
@@ -499,7 +506,7 @@ public class IntegrationTests
         String areaName = "Japan";
 
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
+        List<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, areaName);
 
         // then
         assertEquals(areaName, residenceReport.get(0).getName());
@@ -513,7 +520,7 @@ public class IntegrationTests
         String areaName = "Invalid Area";
 
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.REGION, areaName);
+        List<Record> residenceReport = dao.populationLivingInAndNotInCities(App.REGION, areaName);
 
         // then
         assertEquals(0, residenceReport.size());
@@ -524,9 +531,9 @@ public class IntegrationTests
     void DAO_populationLivingInAndNotInCities_nullArgumentsCauseEmptyList()
     {
         // when
-        ArrayList<Record> residenceReport1 = dao.populationLivingInAndNotInCities(null, null);
-        ArrayList<Record> residenceReport2 = dao.populationLivingInAndNotInCities(App.REGION, null);
-        ArrayList<Record> residenceReport3 = dao.populationLivingInAndNotInCities(null, "Europe");
+        List<Record> residenceReport1 = dao.populationLivingInAndNotInCities(null, null);
+        List<Record> residenceReport2 = dao.populationLivingInAndNotInCities(App.REGION, null);
+        List<Record> residenceReport3 = dao.populationLivingInAndNotInCities(null, "Europe");
 
         // then
         assertEquals(0, residenceReport1.size());
@@ -542,7 +549,7 @@ public class IntegrationTests
         String areaName = "Glasgow";
 
         // when
-        ArrayList<Record> population = dao.populationOf(App.CITY, areaName);
+        List<Record> population = dao.populationOf(App.CITY, areaName);
 
         // then
         assertEquals(areaName, population.get(0).getName());
@@ -556,7 +563,7 @@ public class IntegrationTests
         String areaName = "Invalid Area";
 
         // when
-        ArrayList<Record> population = dao.populationOf(App.REGION, areaName);
+        List<Record> population = dao.populationOf(App.REGION, areaName);
 
         // then
         assertEquals(0, population.size());
@@ -567,9 +574,9 @@ public class IntegrationTests
     void DAO_populationOf_nullArgumentsCauseEmptyList()
     {
         // when
-        ArrayList<Record> population1 = dao.populationOf(null, null);
-        ArrayList<Record> population2 = dao.populationOf(App.REGION, null);
-        ArrayList<Record> population3 = dao.populationOf(null, "Europe");
+        List<Record> population1 = dao.populationOf(null, null);
+        List<Record> population2 = dao.populationOf(App.REGION, null);
+        List<Record> population3 = dao.populationOf(null, "Europe");
 
         // then
         assertEquals(0, population1.size());
@@ -585,7 +592,7 @@ public class IntegrationTests
         Integer expectedLength = 5;
 
         // when
-        ArrayList<Record> languages = dao.languageReport();
+        List<Record> languages = dao.languageReport();
 
         // then
         assertEquals(expectedLength, languages.size());
@@ -600,7 +607,7 @@ public class IntegrationTests
                 Arrays.asList("Chinese", "English", "Hindi", "Arabic", "Spanish"));
 
         // when
-        ArrayList<Record> languages = dao.languageReport();
+        List<Record> languages = dao.languageReport();
 
         // then
         for (Record language : languages) assertTrue(expectedLanguages.contains(language.getName()));
@@ -612,7 +619,7 @@ public class IntegrationTests
     {
         // given
         String areaFilter = "planet";
-        ArrayList<ArrayList<Record>> recordsLists = new ArrayList<>();
+        ArrayList<List<Record>> recordsLists = new ArrayList<>();
 
         // when
         recordsLists.add(dao.allCountriesIn(areaFilter, "Earth"));
@@ -625,7 +632,7 @@ public class IntegrationTests
         recordsLists.add(dao.populationOf(areaFilter, "Earth"));
 
         // then
-        for (ArrayList<Record> records : recordsLists) assertEquals(0, records.size());
+        for (List<Record> records : recordsLists) assertEquals(0, records.size());
     }
 
     // Test that there are records for all queries if valid data is passed
@@ -635,7 +642,7 @@ public class IntegrationTests
         // when
         for (int queryId = 0; queryId < 10; queryId++)
         {
-            ArrayList<Record> records = userPrompt.executeQueryFromInput(queryId,
+            List<Record> records = userPrompt.executeQueryFromInput(queryId,
                     App.CONTINENT, "South America", 10);
 
             // then

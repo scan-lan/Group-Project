@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -198,7 +199,7 @@ public class UnitTests
     void DAO_allCountriesIn_bothArgumentsNullListEmpty()
     {
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(null, null);
+        List<Record> countries = dao.allCountriesIn(null, null);
 
         // then
         assertEquals(0, countries.size());
@@ -209,7 +210,7 @@ public class UnitTests
     void DAO_allCountriesIn_areaFilterNullListEmpty()
     {
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(null, "Scotland");
+        List<Record> countries = dao.allCountriesIn(null, "Scotland");
 
         // then
         assertEquals(0, countries.size());
@@ -220,7 +221,7 @@ public class UnitTests
     void DAO_allCountriesIn_areaNameNullListEmpty()
     {
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(App.COUNTRY, null);
+        List<Record> countries = dao.allCountriesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, countries.size());
@@ -234,7 +235,7 @@ public class UnitTests
         String areaFilter = App.CITY;
 
         // when
-        ArrayList<Record> countries = dao.allCountriesIn(areaFilter, "Glasgow");
+        List<Record> countries = dao.allCountriesIn(areaFilter, "Glasgow");
 
         // then
         assertEquals(0, countries.size());
@@ -257,7 +258,7 @@ public class UnitTests
     void DAO_topNCountriesIn_bothArgumentsNullListEmpty()
     {
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(null, null, 5);
+        List<Record> countries = dao.topNCountriesIn(null, null, 5);
 
         // then
         assertEquals(0, countries.size());
@@ -268,7 +269,7 @@ public class UnitTests
     void DAO_topNCountriesIn_areaFilterNullListEmpty()
     {
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(null, "Scotland", 10);
+        List<Record> countries = dao.topNCountriesIn(null, "Scotland", 10);
 
         // then
         assertEquals(0, countries.size());
@@ -279,7 +280,7 @@ public class UnitTests
     void DAO_topNCountriesIn_areaNameNullListEmpty()
     {
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, null, 3);
+        List<Record> countries = dao.topNCountriesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, countries.size());
@@ -293,7 +294,7 @@ public class UnitTests
         int n = -3;
 
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(App.COUNTRY, "China", n);
+        List<Record> countries = dao.topNCountriesIn(App.COUNTRY, "China", n);
 
         // then
         assertEquals(0, countries.size());
@@ -306,7 +307,7 @@ public class UnitTests
         String areaFilter = App.DISTRICT;
 
         // when
-        ArrayList<Record> countries = dao.topNCountriesIn(areaFilter, "Scotland", 15);
+        List<Record> countries = dao.topNCountriesIn(areaFilter, "Scotland", 15);
 
         // then
         assertEquals(0, countries.size());
@@ -329,7 +330,7 @@ public class UnitTests
     void DAO_allCitiesIn_bothArgumentsNullListEmpty()
     {
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(null, null);
+        List<Record> cities = dao.allCitiesIn(null, null);
 
         // then
         assertEquals(0, cities.size());
@@ -340,7 +341,7 @@ public class UnitTests
     void DAO_allCitiesIn_areaFilterNullListEmpty()
     {
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(null, "Scotland");
+        List<Record> cities = dao.allCitiesIn(null, "Scotland");
 
         // then
         assertEquals(0, cities.size());
@@ -351,7 +352,7 @@ public class UnitTests
     void DAO_allCitiesIn_areaNameNullListEmpty()
     {
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(App.COUNTRY, null);
+        List<Record> cities = dao.allCitiesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, cities.size());
@@ -365,7 +366,7 @@ public class UnitTests
         String areaFilter = App.CITY;
 
         // when
-        ArrayList<Record> cities = dao.allCitiesIn(areaFilter, "Glasgow");
+        List<Record> cities = dao.allCitiesIn(areaFilter, "Glasgow");
 
         // then
         assertEquals(0, cities.size());
@@ -388,7 +389,7 @@ public class UnitTests
     void DAO_topNCitiesIn_bothArgumentsNullListEmpty()
     {
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(null, null, 5);
+        List<Record> cities = dao.topNCitiesIn(null, null, 5);
 
         // then
         assertEquals(0, cities.size());
@@ -399,7 +400,7 @@ public class UnitTests
     void DAO_topNCitiesIn_areaFilterNullListEmpty()
     {
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(null, "Europe", 10);
+        List<Record> cities = dao.topNCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, cities.size());
@@ -410,7 +411,7 @@ public class UnitTests
     void DAO_topNCitiesIn_areaNameNullListEmpty()
     {
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, null, 3);
+        List<Record> cities = dao.topNCitiesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, cities.size());
@@ -424,7 +425,7 @@ public class UnitTests
         Integer n = -3;
 
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(App.COUNTRY, "China", n);
+        List<Record> cities = dao.topNCitiesIn(App.COUNTRY, "China", n);
 
         // then
         assertEquals(0, cities.size());
@@ -437,7 +438,7 @@ public class UnitTests
         String areaFilter = App.CITY;
 
         // when
-        ArrayList<Record> cities = dao.topNCitiesIn(areaFilter, "Houston", 15);
+        List<Record> cities = dao.topNCitiesIn(areaFilter, "Houston", 15);
 
         // then
         assertEquals(0, cities.size());
@@ -460,7 +461,7 @@ public class UnitTests
     void DAO_allCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(null, null);
+        List<Record> capitalCities = dao.allCapitalCitiesIn(null, null);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -471,7 +472,7 @@ public class UnitTests
     void DAO_allCapitalCitiesIn_areaFilterNullListEmpty()
     {
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(null, "Scotland");
+        List<Record> capitalCities = dao.allCapitalCitiesIn(null, "Scotland");
 
         // then
         assertEquals(0, capitalCities.size());
@@ -482,7 +483,7 @@ public class UnitTests
     void DAO_allCapitalCitiesIn_areaNameNullListEmpty()
     {
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, null);
+        List<Record> capitalCities = dao.allCapitalCitiesIn(App.COUNTRY, null);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -496,7 +497,7 @@ public class UnitTests
         String areaFilter = App.DISTRICT;
 
         // when
-        ArrayList<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, "Glasgow");
+        List<Record> capitalCities = dao.allCapitalCitiesIn(areaFilter, "Glasgow");
 
         // then
         assertEquals(0, capitalCities.size());
@@ -519,7 +520,7 @@ public class UnitTests
     void topNCapitalCitiesIn_bothArgumentsNullListEmpty()
     {
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(null, null, 5);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(null, null, 5);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -530,7 +531,7 @@ public class UnitTests
     void DAO_topNCapitalCitiesIn_areaFilterNullListEmpty()
     {
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(null, "Europe", 10);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(null, "Europe", 10);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -541,7 +542,7 @@ public class UnitTests
     void DAO_topNCapitalCitiesIn_areaNameNullListEmpty()
     {
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, null, 3);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, null, 3);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -555,7 +556,7 @@ public class UnitTests
         Integer n = -3;
 
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, "China", n);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(App.COUNTRY, "China", n);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -568,7 +569,7 @@ public class UnitTests
         String areaFilter = App.CITY;
 
         // when
-        ArrayList<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, "Canberra", 15);
+        List<Record> capitalCities = dao.topNCapitalCitiesIn(areaFilter, "Canberra", 15);
 
         // then
         assertEquals(0, capitalCities.size());
@@ -591,7 +592,7 @@ public class UnitTests
     void DAO_populationLivingInAndNotInCities_bothArgumentsNullListEmpty()
     {
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(null, null);
+        List<Record> residenceReport = dao.populationLivingInAndNotInCities(null, null);
 
         // then
         assertEquals(0, residenceReport.size());
@@ -602,7 +603,7 @@ public class UnitTests
     void DAO_populationLivingInAndNotInCities_areaFilterNullListEmpty()
     {
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(null, "Scotland");
+        List<Record> residenceReport = dao.populationLivingInAndNotInCities(null, "Scotland");
 
         // then
         assertEquals(0, residenceReport.size());
@@ -613,7 +614,7 @@ public class UnitTests
     void DAO_populationLivingInAndNotInCities_areaNameNullListEmpty()
     {
         // when
-        ArrayList<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, null);
+        List<Record> residenceReport = dao.populationLivingInAndNotInCities(App.COUNTRY, null);
 
         // then
         assertEquals(0, residenceReport.size());
@@ -627,7 +628,7 @@ public class UnitTests
         String areaFilter = App.WORLD;
 
         // when
-        ArrayList<Record> cities = dao.populationLivingInAndNotInCities(areaFilter, "");
+        List<Record> cities = dao.populationLivingInAndNotInCities(areaFilter, "");
 
         // then
         assertEquals(0, cities.size());
@@ -650,7 +651,7 @@ public class UnitTests
     void DAO_populationOf_bothArgumentsNullListEmpty()
     {
         // when
-        ArrayList<Record> population = dao.populationOf(null, null);
+        List<Record> population = dao.populationOf(null, null);
 
         // then
         assertEquals(0, population.size());
@@ -661,7 +662,7 @@ public class UnitTests
     void DAO_populationOf_areaFilterNullListEmpty()
     {
         // when
-        ArrayList<Record> population = dao.populationOf(null, "Scotland");
+        List<Record> population = dao.populationOf(null, "Scotland");
 
         // then
         assertEquals(0, population.size());
@@ -672,7 +673,7 @@ public class UnitTests
     void DAO_populationOf_areaNameNullListEmpty()
     {
         // when
-        ArrayList<Record> population = dao.populationOf(App.COUNTRY, null);
+        List<Record> population = dao.populationOf(App.COUNTRY, null);
 
         // then
         assertEquals(0, population.size());
@@ -853,7 +854,9 @@ public class UnitTests
 
         // then
         assertEquals(queryDescription, queryInfo.getQueryDescription());
-        assertEquals(areaFilterDescriptions, queryInfo.getAreaFilterDescriptions());
+        assertArrayEquals(areaFilterDescriptions,
+                queryInfo.getAreaFilterDescriptions(),
+                "Tests that when a QueryInfo object is constructed, the getters return the same fields that we passed in.");
     }
 
     // Tests that obtainAreaFilterChoice outputs an empty string when 9 is entered
@@ -961,8 +964,8 @@ public class UnitTests
         int n = -2;
 
         // when
-        ArrayList<Record> records1 = userPrompt.executeQueryFromInput(1, areaFilter, "Earth", 5);
-        ArrayList<Record> records2 = userPrompt.executeQueryFromInput(2, App.REGION, "Caribbean", n);
+        List<Record> records1 = userPrompt.executeQueryFromInput(1, areaFilter, "Earth", 5);
+        List<Record> records2 = userPrompt.executeQueryFromInput(2, App.REGION, "Caribbean", n);
 
         // then
         assertEquals(0, records1.size());
@@ -977,7 +980,7 @@ public class UnitTests
         int queryId = -10;
 
         // when
-        ArrayList<Record> records = userPrompt.executeQueryFromInput(queryId, App.CONTINENT, "Europe", 10);
+        List<Record> records = userPrompt.executeQueryFromInput(queryId, App.CONTINENT, "Europe", 10);
 
         // then
         assertNull(records);
@@ -1004,8 +1007,8 @@ public class UnitTests
     void UserPrompt_showRecords_noFailuresOnAllInputs()
     {
         // given
-        ArrayList<Record> records1 = new ArrayList<>();
-        ArrayList<Record> records2 = new ArrayList<>(Arrays.asList(null, null));
+        List<Record> records1 = new ArrayList<>();
+        List<Record> records2 = new ArrayList<>(Arrays.asList(null, null));
 
         // when
         userPrompt.showRecords(null);
@@ -1057,7 +1060,7 @@ public class UnitTests
         int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
 
         // then
-        assertEquals(1, input);
+        assertEquals(1, input, "Test that when invalid input is entered, the query loops");
     }
 
     // Test that -1 is returned when the user enters q
@@ -1072,7 +1075,7 @@ public class UnitTests
         int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
 
         // then
-        assertEquals(-1, input);
+        assertEquals(-1, input, "Test that -1 is returned when the user enters q");
     }
 
     // Test that the input number is returned if it's valid
@@ -1087,7 +1090,7 @@ public class UnitTests
         int input = userPrompt.obtainInputWithPrompt("Test, enter 1-10", 10);
 
         // then
-        assertEquals(4, input);
+        assertEquals(4, input, "Test that the input number is returned if it's valid");
     }
 
     // Test that the user can quit when prompted for the area name

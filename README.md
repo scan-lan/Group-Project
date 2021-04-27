@@ -31,35 +31,35 @@ Build Status
 
 | ID  |                                                  Name                                                  |  Met  |                   Screenshot                           |
 |----:|:-------------------------------------------------------------------------------------------------------|------:|-------------------------------------------------------:|
-| 1.1 |  All the countries in the world organised by largest population to smallest.                           |  Yes  |![Use Case 1 World](Screenshots/UseCase1.1.jpg)         |
-| 1.2 |  All the countries in a continent organised by largest population to smallest.                         |  Yes  |![Use Case 1 Continent](Screenshots/UseCase1.2.jpg)     |
-| 1.3 |  All the countries in a region organised by largest population to smallest.                            |  Yes  |![Use Case 1 Region](Screenshots/UseCase1.3.jpg)        |
-| 2.1 |  The top N populated countries in the world where N is provided by the user.                           |  Yes  |![Use Case 2 World](Screenshots/UseCase2.1.jpg)         |
-| 2.2 |  The top N populated countries in a continent where N is provided by the user.                         |  Yes  |![Use Case 2 Continent](Screenshots/UseCase2.2.jpg)     |
-| 2.3 |  The top N populated countries in a region where N is provided by the user.                            |  Yes  |![Use Case 2 Region](Screenshots/UseCase2.3.jpg)        |
-| 3.1 |  All the cities in the world organised by largest population to smallest.                              |  Yes  |![Use Case 3 World](Screenshots/UseCase3.1.jpg)         |
-| 3.2 |  All the cities in a continent organised by largest population to smallest.                            |  Yes  |![Use Case 3 Continent](Screenshots/UseCase3.2.jpg)     |
-| 3.3 |  All the cities in a region organised by largest population to smallest.                               |  Yes  |![Use Case 3 Region](Screenshots/UseCase3.3.jpg)        |
-| 3.4 |  All the cities in a country organised by largest population to smallest.                              |  Yes  |![Use Case 3 Country](Screenshots/UseCase3.4.jpg)       |
-| 3.5 |  All the cities in a district organised by largest population to smallest.                             |  Yes  |![Use Case 3 District](Screenshots/UseCase3.5.jpg)      |
-| 4.1 |  The top N populated cities in the world where N is provided by the user.                              |  Yes  |![Use Case 4 World](Screenshots/UseCase4.1.jpg)         |
-| 4.2 |  The top N populated cities in a continent where N is provided by the user.                            |  Yes  |![Use Case 4 Continent](Screenshots/UseCase4.2.jpg)     |
-| 4.3 |  The top N populated cities in a region where N is provided by the user.                               |  Yes  |![Use Case 4 Region](Screenshots/UseCase4.3.jpg)        |
-| 4.4 |  The top N populated cities in a country where N is provided by the user.                              |  Yes  |![Use Case 4 Country](Screenshots/UseCase4.4.jpg)       |
-| 4.5 |  The top N populated cities in a district where N is provided by the user.                             |  Yes  |![Use Case 4 District](Screenshots/UseCase4.5.jpg)      |
-| 5.1 |  All the capital cities in the world organised by largest population to smallest.                      |  Yes  |![Use Case 5 World](Screenshots/UseCase5.1.jpg)         |
-| 5.2 |  All the capital cities in a continent organised by largest population to smallest.                    |  Yes  |![Use Case 5 Continent](Screenshots/UseCase5.2.jpg)     |
-| 5.3 |  All the capital cities in the region organised by largest population to smallest.                     |  Yes  |![Use Case 5 Region](Screenshots/UseCase5.3.jpg)        |
-| 6.1 |  The top N populated capital cities in the world where N is provided by the user.                      |  Yes  |![Use Case 6 World](Screenshots/UseCase6.1.jpg)         |
-| 6.2 |  The top N populated capital cities in a continent where N is provided by the user.                    |  Yes  |![Use Case 6 Continent](Screenshots/UseCase6.2.jpg)     |
-| 6.3 |  The top N populated capital cities in a region where N is provided by the user.                       |  Yes  |![Use Case 6 Region](Screenshots/UseCase6.3.jpg)        |
-| 7.1 |  The population of people, people living in cities, and people not living in cities in each continent. |  Yes  |![Use Case 7 Each Continent](Screenshots/UseCase7.1.jpg)|
-| 7.2 |  The population of people, people living in cities, and people not living in cities in each region.    |  Yes  |![Use Case 7 Each Region](Screenshots/UseCase7.2.jpg)   |
-| 7.3 |  The population of people, people living in cities, and people not living in cities in each country.   |  Yes  |![Use Case 7 Each Country](Screenshots/UseCase7.3.jpg)  |
-| 8.1 |  The population of the world.                                                                          |  Yes  |![Use Case 8 World](Screenshots/UseCase8.1.jpg)         |
-| 8.2 |  The population of the world.                                                                          |  Yes  |![Use Case 8 Continent](Screenshots/UseCase8.2.jpg)     |
-| 8.3 |  The population of the world.                                                                          |  Yes  |![Use Case 8 Region](Screenshots/UseCase8.3.jpg)        |
-| 8.4 |  The population of the world.                                                                          |  Yes  |![Use Case 8 Country](Screenshots/UseCase8.4.jpg)       |
-| 8.5 |  The population of the world.                                                                          |  Yes  |![Use Case 8 District](Screenshots/UseCase8.5.jpg)      |
-| 8.6 |  The population of the world.                                                                          |  Yes  |![Use Case 8 City](Screenshots/UseCase8.6.jpg)          |
-| 9.1 |  The number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population:     |  Yes  |![Use Case 9 Languages](Screenshots/UseCase9.1.jpg) |
+| 1.1 |  All the countries in the world organised by largest population to smallest.                           |  Yes  |![Use Case 1 World](screenshots/useCase1.1.png)         |
+| 1.2 |  All the countries in a continent organised by largest population to smallest.                         |  Yes  |![Use Case 1 Continent](screenshots/useCase1.2.png)     |
+| 1.3 |  All the countries in a region organised by largest population to smallest.                            |  Yes  |![Use Case 1 Region](screenshots/useCase1.3.png)        |
+| 2.1 |  The top N most populous countries in the world where N is provided by the user.                       |  Yes  |![Use Case 2 World](screenshots/useCase2.1.png)         |
+| 2.2 |  The top N most populous countries in a continent where N is provided by the user.                     |  Yes  |![Use Case 2 Continent](screenshots/useCase2.2.png)     |
+| 2.3 |  The top N most populous countries in a region where N is provided by the user.                        |  Yes  |![Use Case 2 Region](screenshots/useCase2.3.png)        |
+| 3.1 |  All the cities in the world organised by largest population to smallest.                              |  Yes  |![Use Case 3 World](screenshots/useCase3.1.png)         |
+| 3.2 |  All the cities in a continent organised by largest population to smallest.                            |  Yes  |![Use Case 3 Continent](screenshots/useCase3.2.png)     |
+| 3.3 |  All the cities in a region organised by largest population to smallest.                               |  Yes  |![Use Case 3 Region](screenshots/useCase3.3.png)        |
+| 3.4 |  All the cities in a country organised by largest population to smallest.                              |  Yes  |![Use Case 3 Country](screenshots/useCase3.4.png)       |
+| 3.5 |  All the cities in a district organised by largest population to smallest.                             |  Yes  |![Use Case 3 District](screenshots/useCase3.5.png)      |
+| 4.1 |  The top N most populous cities in the world where N is provided by the user.                          |  Yes  |![Use Case 4 World](screenshots/useCase4.1.png)         |
+| 4.2 |  The top N most populous cities in a continent where N is provided by the user.                        |  Yes  |![Use Case 4 Continent](screenshots/useCase4.2.png)     |
+| 4.3 |  The top N most populous cities in a region where N is provided by the user.                           |  Yes  |![Use Case 4 Region](screenshots/useCase4.3.png)        |
+| 4.4 |  The top N most populous cities in a country where N is provided by the user.                          |  Yes  |![Use Case 4 Country](screenshots/useCase4.4.png)       |
+| 4.5 |  The top N most populous cities in a district where N is provided by the user.                         |  Yes  |![Use Case 4 District](screenshots/useCase4.5.png)      |
+| 5.1 |  All the capital cities in the world organised by largest population to smallest.                      |  Yes  |![Use Case 5 World](screenshots/useCase5.1.png)         |
+| 5.2 |  All the capital cities in a continent organised by largest population to smallest.                    |  Yes  |![Use Case 5 Continent](screenshots/useCase5.2.png)     |
+| 5.3 |  All the capital cities in the region organised by largest population to smallest.                     |  Yes  |![Use Case 5 Region](screenshots/useCase5.3.png)        |
+| 6.1 |  The top N most populous capital cities in the world where N is provided by the user.                  |  Yes  |![Use Case 6 World](screenshots/useCase6.1.png)         |
+| 6.2 |  The top N most populous capital cities in a continent where N is provided by the user.                |  Yes  |![Use Case 6 Continent](screenshots/useCase6.2.png)     |
+| 6.3 |  The top N most populous capital cities in a region where N is provided by the user.                   |  Yes  |![Use Case 6 Region](screenshots/useCase6.3.png)        |
+| 7.1 |  The population of people, people living in cities, and people not living in cities in a continent.    |  Yes  |![Use Case 7 Each Continent](screenshots/useCase7.1.png)|
+| 7.2 |  The population of people, people living in cities, and people not living in cities in a region.       |  Yes  |![Use Case 7 Each Region](screenshots/useCase7.2.png)   |
+| 7.3 |  The population of people, people living in cities, and people not living in cities in a country.      |  Yes  |![Use Case 7 Each Country](screenshots/useCase7.3.png)  |
+| 8.1 |  The population of the world                                                                           |  Yes  |![Use Case 8 World](screenshots/useCase8.1.png)         |
+| 8.2 |  The population of a specified continent                                                               |  Yes  |![Use Case 8 Continent](screenshots/useCase8.2.png)     |
+| 8.3 |  The population of a specified region                                                                  |  Yes  |![Use Case 8 Region](screenshots/useCase8.3.png)        |
+| 8.4 |  The population of a specified country                                                                 |  Yes  |![Use Case 8 Country](screenshots/useCase8.4.png)       |
+| 8.5 |  The population of a specified district                                                                |  Yes  |![Use Case 8 District](screenshots/useCase8.5.png)      |
+| 8.6 |  The population of a specified city                                                                    |  Yes  |![Use Case 8 City](screenshots/useCase8.6.png)          |
+| 9.1 |  The number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population:                                           |  Yes  |![Use Case 9 Languages](screenshots/useCase9.1.png) |

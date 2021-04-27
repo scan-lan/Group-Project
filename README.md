@@ -1,30 +1,23 @@
-# Software Engineering Methods
+# SEM Group Project
+[![Build Status](https://img.shields.io/travis/com/scan-lan/Group-Project/master?label=master%20build)](https://travis-ci.com/scan-lan/Group-Project)
+[![Build Status](https://img.shields.io/travis/com/scan-lan/Group-Project/develop?label=develop%20build)](https://travis-ci.com/scan-lan/Group-Project)
+[![codecov](https://codecov.io/gh/scan-lan/Group-Project/branch/master/graph/badge.svg?token=XBP764GI1F)](https://codecov.io/gh/scan-lan/Group-Project)
+[![Releases](https://img.shields.io/github/release/scan-lan/group-project/all.svg)](https://github.com/scan-lan/group-project/releases)
+[![LICENSE](https://img.shields.io/github/license/scan-lan/group-project.svg)](https://github.com/scan-lan/group-project/blob/master/LICENSE)
 
 Starring: Lukas Paling and Marco De Luca as the developers or "Script Monkeys"
 
 With Craig Gordon as the Scrum Master or "Scrumbag" and Luke Scanlan as the lead developer or "Head Honcho"
 
-# High level overview of the application, and it's functionality
-
+## Overview of the application, and its functionality
 The application:
-- Creates a docker container with the world database with port 3306 open for connections
-- Prompts the user in the console to input their selected parent query and sub query details
-- Runs SQL queries against the database that satisfy the user requirements
-- Presents the output to the user 
-- It then loops back to allowing the user to select a query and lets them exit at any point
+- Creates a docker container with the world database open for connections
+- Prompts the user in the console to select a report type
+- Runs SQL queries against the database that generate the user's requested report
+- Presents the output to the user
+- Allows the user to exit at any point in the process
+- Loops back to allow the user to select another query
 
-
-Build Status
--
-- Master Build Status
-  [![Build Status](https://travis-ci.com/scan-lan/group-project.svg?branch=master)](https://travis-ci.com/Craig180885-napier/Group-Project)
-- Develop Build Status
-  [![Build Status](https://travis-ci.com/scan-lan/group-project.svg?branch=develop)](https://travis-ci.com/Craig180885-napier/Group-Project)
-  [![LICENSE](https://img.shields.io/github/license/scan-lan/group-project.svg)](https://github.com/Craig180885-napier/group-project/blob/master/LICENSE)
-  [![Releases](https://img.shields.io/github/release/scan-lan/group-project/all.svg)](https://github.com/Craig180885-napier/group-project/releases)
-- Code Coverage
-  [![codecov](https://codecov.io/gh/scan-lan/Group-Project/branch/master/graph/badge.svg?token=XBP764GI1F)](https://codecov.io/gh/Craig180885-napier/Group-Project)
-  
 ## Requirements Met
 
 32 requirements of 32 requirements have been implemented, which is 100%

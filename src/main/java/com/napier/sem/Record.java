@@ -89,6 +89,7 @@ public class Record
                 name = result.getString("name");
                 population = result.getLong("population");
                 break;
+            default:
         }
     }
 
@@ -220,6 +221,9 @@ public class Record
                                 "Area: %s |  Population: %,d",
                         this.name,
                         this.population);
+                break;
+            default:
+                return null;
         }
         return recordString;
     }

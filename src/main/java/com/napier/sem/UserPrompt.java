@@ -254,13 +254,14 @@ public class UserPrompt
      */
     public String parseQueryInputForAreaFilter(int queryId, int areaFilterChoice)
     {
+        int areaFilterId = areaFilterChoice;
         // query 7 is the only query which can't be run on the world, so we increment the area filter choice by one
-        if (queryId == 7) areaFilterChoice++;
+        if (queryId == 7 && areaFilterChoice != -1) areaFilterId++;
 
         // we don't want this returning a value if the queryId is incorrect, so we check this here
         if (queryId < 1 || queryId > 8) return null;
 
-        switch (areaFilterChoice)
+        switch (areaFilterId)
         {
             case (1):
                 return App.WORLD;
@@ -331,7 +332,7 @@ class QueryInfo
     public QueryInfo(String queryDescription, String[] areaFilterDescriptions)
     {
         this.queryDescription = queryDescription;
-        this.areaFilterDescriptions = areaFilterDescriptions;
+        this.areaFilterDescriptions = areaFilterDescriptions.clone();
     }
 
     public String getQueryDescription() { return queryDescription; }
